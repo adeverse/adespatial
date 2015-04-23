@@ -32,7 +32,11 @@ msr <- function(x, listwORorthobasis, nrepet = 99, method = c("pair", "triplet",
     for(nr in 1:nrepet){
         ## singleton
         if(method == "singleton"){
-          a <- apply(r, 1, genbysingleton)
+          
+          if(NROW(r) == 1)
+              a <- sapply(r, genbysingleton)
+          else
+              a <- t(apply(r, 2, genbysingleton)) 
           xnew <- mem$vectors%*%a
         }
 
