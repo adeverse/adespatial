@@ -1,5 +1,20 @@
+#####################################
+##              Load DLL           ##
+#####################################
+useDynLib(adespatial)
+
+#####################################
+##       Imports / Exports         ##
+#####################################
 export("msr")
 export("scores.listw", "mem", "orthobasis.listw")
+export("WRperiodogram")
+
 importFrom("spdep", "listw2mat")
 importFrom("ade4", "bicenter.wt")
+
+#####################################
+##            S3 methods           ##
+#####################################
+S3method("plot","WRperio")
 
