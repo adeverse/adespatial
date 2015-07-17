@@ -1,3 +1,49 @@
+#' Function to compute Moran's Eigenvector Maps (MEM) of a listw object
+#' 
+#' These functions compute MEM (i.e., eigenvectors of a doubly centered spatial
+#' weighting matrix). Corresponding eigenvalues are linearly related to Moran's
+#' index of spatial autocorrelation.
+#' 
+#' Testing the nullity of eigenvalues is based on E(i)/E(1) where E(i) is i-th 
+#' eigenvalue and E(1) is the maximum absolute value of eigenvalues
+#' 
+#' @aliases scores.listw mem orthobasis.listw
+#' @param listw An object of the class \code{listw} created by functions of the 
+#'   \code{spdep} package
+#' @param wt A vector of weights. It is used to orthogonalize the eigenvectors. 
+#'   It could be useful if MEM are used in weighted regression or canonical 
+#'   correspondence analysis
+#' @param MEM.autocor A string indicating if all MEMs must be returned or only 
+#'   those corresponding to non-null, positive or negative autocorrelation
+#' @return An object of class \code{orthobasisSp} , subclass \code{orthobasis}
+#' @author Stéphane Dray \email{stephane.dray@@univ-lyon1.fr}
+#' @seealso \code{\link[spdep]{nb2listw}} \code{\link[ade4]{orthobasis}}
+#' @references Dray, S., Legendre, P., and Peres-Neto, P. R. (2006). Spatial 
+#'   modeling: a comprehensive framework for principal coordinate analysis of 
+#'   neighbor matrices (PCNM).\emph{Ecological Modelling} \bold{196}, 483--493.
+#'   
+#'   Griffith D. A. (1996) Spatial autocorrelation and eigenfunctions of the 
+#'   geographic weights matrix accompanying geo-referenced data. \emph{Canadian 
+#'   Geographer} \bold{40}, 351--367.
+#' @keywords spatial
+#' @examples
+#' 
+#' if(require("ade4", quietly = TRUE) & require("spdep", quietly = TRUE)){
+#' data(oribatid)
+#' nbtri <- tri2nb(as.matrix(oribatid$xy))
+#' sc.tri <- scores.listw(nb2listw(nbtri, style = "B"))
+#' summary(sc.tri)
+#' }
+#' if(require("adegraphics", quietly = TRUE)){
+#' s.value(oribatid$xy,sc.tri[,1:9])
+#' plot(sc.tri[,1:6], oribatid$xy, pSp.cex = 3)
+#' }
+#' 
+#' @export scores.listw orthobasis.listw mem
+#' @importFrom ade4 bicenter.wt
+#' @importFrom spdep listw2mat
+#' @rdname mem
+
 scores.listw <- function (listw,  wt = rep(1, length(listw$neighbours)), MEM.autocor = c("non-null", "all", "positive", 
     "negative")) 
 {
@@ -60,4 +106,14 @@ scores.listw <- function (listw,  wt = rep(1, length(listw$neighbours)), MEM.aut
     return(a0)
 }
 
-mem <- orthobasis.listw <- scores.listw
+#' @rdname mem
+mem <- function (listw,  wt = rep(1, length(listw$neighbours)), 
+                 MEM.autocor = c("non-null", "all", "positive", "negative")) {
+    scores.listw(listw = listw, wt = wt, MEM.autocor = MEM.autocor)
+}
+
+#' @rdname mem
+orthobasis.listw <- function (listw,  wt = rep(1, length(listw$neighbours)), 
+                                     MEM.autocor = c("non-null", "all", "positive", "negative")) {
+    scores.listw(listw = listw, wt = wt, MEM.autocor = MEM.autocor)
+}
