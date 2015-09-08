@@ -8,6 +8,10 @@ env:
  global:
    - CRAN: http://cran.rstudio.com
 
+r_github_packages:
+- sdray/ade4
+- sdray/adegraphics
+
 notifications:
   email:
     on_success: change
