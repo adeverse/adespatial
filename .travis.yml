@@ -5,12 +5,8 @@ warnings_are_errors: true
 sudo: required
 
 r_github_packages:
-- sdray/ade4
-- sdray/adegraphics
-
-env:
- global:
-   - CRAN: http://cran.rstudio.com
+   - sdray/ade4
+   - sdray/adegraphics
 
 notifications:
   email:
