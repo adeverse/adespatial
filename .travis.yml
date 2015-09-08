@@ -4,13 +4,13 @@ language: r
 warnings_are_errors: true
 sudo: required
 
-env:
- global:
-   - CRAN: http://cran.rstudio.com
-
 r_github_packages:
 - sdray/ade4
 - sdray/adegraphics
+
+env:
+ global:
+   - CRAN: http://cran.rstudio.com
 
 notifications:
   email:
