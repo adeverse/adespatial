@@ -4,7 +4,9 @@
 # adespatial
 Multivariate Multiscale Spatial Analysis
 
+This package contains some new functions and many others that were included in development packages hosted in the sedaR project on [R-Forge](https://r-forge.r-project.org/R/?group_id=195).
 
+For instance, `adespatial` includes the `forward.sel` function (formerly in `packfor`).
 
 Installing *adespatial*
 -------------
