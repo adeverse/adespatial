@@ -60,9 +60,11 @@ res <- Cperiodogram(test.vec, nperm=2000, graph=FALSE)
 Pierre Legendre \email{pierre.legendre@umontreal.ca}
 }
 \references{
-Legendre, L., M. Fréchette & P. Legendre. 1981. The contingency periodogram: a method of
-identifying rhythms in series on nonmetric ecological data. Journal of Ecology 69: 965-979.
+Legendre, L., M. Fréchette & P. Legendre. 1981. The contingency
+periodogram: a method of identifying rhythms in series on nonmetric ecological
+data. Journal of Ecology 69: 965-979.
 
-Legendre, P. and Legendre, L. 2012. Numerical Ecology. 3rd English ed. Elsevier, Amsterdam
+Legendre, P. and Legendre, L. 2012. Numerical Ecology. 3rd English ed.
+Elsevier, Amsterdam
 }
 

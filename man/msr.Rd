@@ -13,8 +13,8 @@ original variables. If \code{NCOL(x) > 1}, then the joint randomization
 procedure that preserves the correlations among variables is used.}
 
 \item{listwORorthobasis}{an object of the class \code{listw} (spatial
-weights) created by the functions of the \pkg{spdep} package or an object of
-class \code{orthobasis}}
+weights) created by the functions of the \pkg{spdep} package or an object
+of class \code{orthobasis}}
 
 \item{nrepet}{an \code{integer} indicating the number of replicates}
 
@@ -32,7 +32,7 @@ replicate. If \code{FALSE}n a \code{list} is returned.}
 }
 \value{
 Either a matrix (if \code{simplify} is \code{TRUE}) or a list with
-randomized replicates.
+  randomized replicates.
 }
 \description{
 This function allows to generate spatially-constrained random variables
@@ -40,21 +40,21 @@ preserving the global autocorrelation (Moran's I) and the spatial structures
 at multiple scales. Multiscale property is defined by the power spectrum
 (i.e. decomposition of the variance of the original variables) on a basis of
 orthonormal eigenvectors (Moran's Eigenvector Maps, MEM). The function
-provides methods for univariate randomization, joint randomization of a
-group of variables while keeping within-group correlations fixed and
-univariate randomization with a fixed correlation between original data and
-randomized replicates.
+provides methods for univariate randomization, joint randomization of a group
+of variables while keeping within-group correlations fixed and univariate
+randomization with a fixed correlation between original data and randomized
+replicates.
 }
 \details{
-Three procedures are implemented in the function. The "pair" procedure is
-the more general as it can be applied in the three cases (univariate,
-univariate with fixed correlation and multivariate). This procedure
-preserves the power spectrum by pair of MEMs but not strictly the global
-autocorrelation level (Moran's I). The "singleton" procedure can be used for
-univariate and multivariate cases. It preserves strictly the global level of
-autocorrelation and the power spectrum. The "triplet" procedure can only be
-applied in the univariate case. It preserves the power spectrum by triplet
-of MEMs and strictly the global autocorrelation level.
+Three procedures are implemented in the function. The "pair" procedure is the
+more general as it can be applied in the three cases (univariate, univariate
+with fixed correlation and multivariate). This procedure preserves the power
+spectrum by pair of MEMs but not strictly the global autocorrelation level
+(Moran's I). The "singleton" procedure can be used for univariate and
+multivariate cases. It preserves strictly the global level of autocorrelation
+and the power spectrum. The "triplet" procedure can only be applied in the
+univariate case. It preserves the power spectrum by triplet of MEMs and
+strictly the global autocorrelation level.
 }
 \examples{
 library(spdep)
@@ -98,12 +98,12 @@ apply(x1.6[[1]], 2, function(x) moran.mc(x, listw = lw1, nsim = 2)$statistic)
 }
 \author{
 Stephane Dray \email{stephane.dray@univ-lyon1.fr} and Helene H
-Wagner \email{helene.wagner@utoronto.ca}
+  Wagner \email{helene.wagner@utoronto.ca}
 }
 \references{
 Wagner, H.H. and Dray S. (2015) Generating spatially-constrained
-null models for irregularly spaced data using Moran spectral randomization
-methods
+  null models for irregularly spaced data using Moran spectral randomization
+  methods
 }
 \seealso{
 \code{\link{scores.listw}}, \code{\link[spdep]{nb2listw}}

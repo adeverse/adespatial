@@ -168,7 +168,8 @@ plot(ld.res.perio, prog=3) # Graph with progressive correction
 acf(ldeaths)   # acf() results, for comparison
 }
 \author{
-Pierre Legendre \email{pierre.legendre@umontreal.ca} and Guillaume Guenard
+Pierre Legendre \email{pierre.legendre@umontreal.ca} and Guillaume
+  Guenard
 }
 \references{
 Enright, J. T. 1965. The search for rhythmicity in biological time-series.

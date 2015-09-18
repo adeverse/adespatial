@@ -70,8 +70,8 @@ Pierre Legendre \email{pierre.legendre@umontreal.ca} and Guillaume
 }
 \references{
 Bimultivariate redundancy: a comprehensive measure of
-interbattery relationship. \emph{Multivariate Behavioral Research}, \bold{6},
-313--324.\cr
+  interbattery relationship. \emph{Multivariate Behavioral Research},
+  \bold{6}, 313--324.\cr
 }
 \keyword{multivariate}
 
