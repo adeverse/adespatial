@@ -8,9 +8,9 @@
 #' space or through time. The vector may contain missing observations, 
 #' represented by NA, in reasonable amount, e.g. up to a few percent of the 
 #' total number of observations. The periodogram statistic used in this function
-#' is the standard deviation of the means of the columns of the Buys-Ballot
-#' table (Enright, 1965). The method is also described in Legendre & Legendre
-#' (2012, Section 12.4.1). Missing values (NA) are handled by skipping the NA
+#' is the standard deviation of the means of the columns of the Buys-Ballot 
+#' table (Enright, 1965). The method is also described in Legendre & Legendre 
+#' (2012, Section 12.4.1). Missing values (NA) are handled by skipping the NA 
 #' values when computing the column means of the Buys-Ballot table.
 #' 
 #' The data must be stationary before computation of the periodogram. 
@@ -26,8 +26,8 @@
 #' situations where observations could not be made at some points along the 
 #' space or time series because that was impossible. For example, in a spatial 
 #' data series along a river, if points fall on emerging rocks or on islands, no
-#' observation of phytoplankton could have been made at those points. For the
-#' permutation test, values at these positions (NA or 0) should not be permuted
+#' observation of phytoplankton could have been made at those points. For the 
+#' permutation test, values at these positions (NA or 0) should not be permuted 
 #' with values at points where observations were possible.
 #' 
 #' The graph produced by the \code{plot} function shows the periodogram 
@@ -85,7 +85,8 @@
 #'   When the p-values cannot be computed because of a very high proportion of 
 #'   missing values in the data, values of 99 are posted in the last three 
 #'   columns of the output table.
-#' @author Pierre Legendre \email{pierre.legendre@@umontreal.ca} and Guillaume Guenard 
+#' @author Pierre Legendre \email{pierre.legendre@@umontreal.ca} and Guillaume
+#'   Guenard
 #' @references
 #' 
 #' Enright, J. T. 1965. The search for rhythmicity in biological time-series. 
@@ -161,6 +162,7 @@
 #' acf(ldeaths)   # acf() results, for comparison
 #' 
 #' @useDynLib adespatial
+#' @importFrom graphics lines points
 #' @export WRperiodogram
 WRperiodogram <- function(x, T1 = 2, T2, nperm = 499, nopermute, mult = c("sidak", "bonferroni"), print.time = FALSE) 
 {

@@ -1,9 +1,9 @@
 #' Parametric forward selection of explanatory variables in regression and RDA
 #' 
-#' If Y is univariate, this function implements FS in regression. If Y is
-#' multivariate, this function implements FS using the F-test described by
-#' Miller and Farr (1971). This test requires that (i) the Y variables be
-#' standardized, and (ii) the error in the response variables be normally
+#' If Y is univariate, this function implements FS in regression. If Y is 
+#' multivariate, this function implements FS using the F-test described by 
+#' Miller and Farr (1971). This test requires that (i) the Y variables be 
+#' standardized, and (ii) the error in the response variables be normally 
 #' distributed (to be verified by the user).
 #' 
 #' The forward selection will stop when either K, R2tresh, adjR2tresh, alpha and
@@ -11,25 +11,25 @@
 #' 
 #' @aliases forward.sel.par
 #'   
-#' @param Y Response data matrix with n rows and m columns containing
+#' @param Y Response data matrix with n rows and m columns containing 
 #'   quantitative variables
-#' @param X Explanatory data matrix with n rows and p columns containing
+#' @param X Explanatory data matrix with n rows and p columns containing 
 #'   quantitative variables
 #' @param K Maximum number of variables to be selected. The default is one minus
 #'   the number of rows
-#' @param R2thresh Stop the forward selection procedure if the R-square of the
+#' @param R2thresh Stop the forward selection procedure if the R-square of the 
 #'   model exceeds the stated value. This parameter can vary from 0.001 to 1
-#' @param adjR2thresh Stop the forward selection procedure if the adjusted
+#' @param adjR2thresh Stop the forward selection procedure if the adjusted 
 #'   R-square of the model exceeds the stated value. This parameter can take any
 #'   value (positive or negative) smaller than 1
 #' @param R2more Stop the forward selection procedure if the difference in model
-#'   R-square with the previous step is lower than R2more. The default setting
+#'   R-square with the previous step is lower than R2more. The default setting 
 #'   is 0.001
-#' @param alpha Significance level. Stop the forward selection procedure if the
+#' @param alpha Significance level. Stop the forward selection procedure if the 
 #'   p-value of a variable is higher than alpha. The default is 0.05
 #' @param Yscale Standardize the variables in table Y to variance 1. The default
-#'   setting is FALSE. The setting is automatically changed to TRUE if Y
-#'   contains more than one variable. This is a validity condition for the
+#'   setting is FALSE. The setting is automatically changed to TRUE if Y 
+#'   contains more than one variable. This is a validity condition for the 
 #'   parametric test of significance (Miller and Farr 1971)
 #' @param verbose If 'TRUE' more diagnostics are printed. The default setting is
 #'   TRUE
@@ -39,12 +39,12 @@
 #'   variables selected } \item{ AdjR2Cum }{ The cumulative adjusted R2 of the 
 #'   variables selected } \item{ F }{ The F statistic } \item{ pval }{ The 
 #'   P-value statistic }
-#' @author Pierre Legendre \email{pierre.legendre@@umontreal.ca} and Guillaume
+#' @author Pierre Legendre \email{pierre.legendre@@umontreal.ca} and Guillaume 
 #'   Blanchet
-#' @references Bimultivariate redundancy: a comprehensive measure of
-#' interbattery relationship. \emph{Multivariate Behavioral Research}, \bold{6},
-#' 313--324.\cr
-#' 
+#' @references Bimultivariate redundancy: a comprehensive measure of 
+#'   interbattery relationship. \emph{Multivariate Behavioral Research},
+#'   \bold{6}, 313--324.\cr
+#'   
 #' @keywords multivariate
 #' @examples
 #' 
@@ -52,7 +52,8 @@
 #' y <- matrix(rnorm(50),10,5)
 #'     
 #' forward.sel.par(y,x, alpha = 0.5)
-#'   
+#'  
+#' @importFrom stats pf
 #' @export forward.sel.par
 
 forward.sel.par <- function(Y, X, alpha = 0.05, K = nrow(X)-1, R2thresh = 0.99, R2more = 0.001, adjR2thresh = 0.99, Yscale = FALSE, verbose=TRUE)

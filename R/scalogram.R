@@ -55,6 +55,7 @@
 #'@importFrom ade4 as.krandtest scalewt
 #'@importFrom adegraphics sortparamADEgS
 #'@importFrom graphics plot
+#'@importFrom utils modifyList
 #'@export scalogram
 scalogram <- function(x, orthobasisSp, nblocks = ncol(orthobasisSp), nrepet = 999, p.adjust.method = "none"){
     wt <- attr(orthobasisSp, "weights")

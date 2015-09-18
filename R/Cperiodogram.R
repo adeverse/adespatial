@@ -26,20 +26,21 @@
 #'  
 #'@author Pierre Legendre \email{pierre.legendre@@umontreal.ca}
 #'  
-#'@return A table with the statistics for the selected periods: \itemize{ \item
+#'@return A table with the statistics for the selected periods: \itemize{ \item 
 #'  Wilks’ chi-square statistic (Wilks.chisq) \item information in common (B), 
-#'  \item degrees of freedom (df), \item p-value (prob) } Confidence interval
+#'  \item degrees of freedom (df), \item p-value (prob) } Confidence interval 
 #'  limits: \itemize{ \item critical value of B without correction (B.crit), 
-#'  \item critical value of B with Bonferroni correction based on the number of
-#'  periods studied in the periodogram (B.crit.Bonf), \item critical value of B
+#'  \item critical value of B with Bonferroni correction based on the number of 
+#'  periods studied in the periodogram (B.crit.Bonf), \item critical value of B 
 #'  with progressive Bonferroni correction (B.prog.Bonf). }
 #'  
-#'  @references
-#'  Legendre, L., M. Fréchette & P. Legendre. 1981. The contingency periodogram: a method of
-#' identifying rhythms in series on nonmetric ecological data. Journal of Ecology 69: 965-979.
+#'@references Legendre, L., M. Fréchette & P. Legendre. 1981. The contingency
+#'periodogram: a method of identifying rhythms in series on nonmetric ecological
+#'data. Journal of Ecology 69: 965-979.
 #'
-#' Legendre, P. and Legendre, L. 2012. Numerical Ecology. 3rd English ed. Elsevier, Amsterdam
-#' 
+#'Legendre, P. and Legendre, L. 2012. Numerical Ecology. 3rd English ed.
+#'Elsevier, Amsterdam
+#'
 #' @examples
 #' # Data from the numerical example of Subsection 12.4.2 of Legendre and Legendre (2012).
 #' test.vec <- c(1,1,2,3,3,2,1,2,3,2,1,1,2,3,3,1)
@@ -48,7 +49,9 @@
 #' # Periodogram with permutation tests
 #' res <- Cperiodogram(test.vec, nperm=2000, graph=FALSE)
 #' 
-#' @export
+#'@importFrom graphics lines
+#'@importFrom stats chisq.test qchisq
+#'@export
 Cperiodogram <- function(x, T1 = 2, T2 = NULL, nperm = NULL, alpha = 0.05, graph = TRUE)
 # Contingency periodogram (Legendre et al. 1981).
 #
