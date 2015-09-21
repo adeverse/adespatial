@@ -14,7 +14,7 @@
 #'@param x a numeric vector (for \code{scalogram}) or an object of class 
 #'  \code{scalogram} (for \code{plot.scalogram})
 #'@param orthobasisSp an object of class \code{orthobasisSp}
-#'@param nblocks an integer indicating the number of blocks
+#'@param nblocks an integer indicating the number of blocks in the smoothed scalogram
 #'@param nrepet an integer indicating the number of permutations used in the 
 #'  randomization procedure
 #'@param p.adjust.method a string indicating a method for multiple adjustment, 

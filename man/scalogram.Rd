@@ -16,7 +16,7 @@ scalogram(x, orthobasisSp, nblocks = ncol(orthobasisSp), nrepet = 999,
 
 \item{orthobasisSp}{an object of class \code{orthobasisSp}}
 
-\item{nblocks}{an integer indicating the number of blocks}
+\item{nblocks}{an integer indicating the number of blocks in the smoothed scalogram}
 
 \item{nrepet}{an integer indicating the number of permutations used in the
 randomization procedure}
