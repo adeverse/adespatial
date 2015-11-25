@@ -47,7 +47,7 @@ summary(sc.tri)
 }
 if(require("adegraphics", quietly = TRUE)){
 s.value(oribatid$xy,sc.tri[,1:9])
-plot(sc.tri[,1:6], oribatid$xy, pSp.cex = 3)
+plot(sc.tri[,1:6], oribatid$xy, pSp.cex = 5, pSp.alpha = 0.5, pbackground.col = 'lightblue')
 }
 }
 \author{
