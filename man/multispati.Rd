@@ -17,12 +17,11 @@ multispati(dudi, listw, scannf = TRUE, nfposi = 2, nfnega = 0)
   storeData = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{dudi}{an object of class \code{dudi} for the duality diagram analysis}
+\item{dudi}{an object of class \code{dudi} obtained by the simple analysis of a data table}
 
-\item{listw}{an object of class \code{listw} for the spatial dependence of
-data observations}
+\item{listw}{an object of class \code{listw} created for example by \code{\link[spdep]{nb2listw}}}
 
-\item{scannf}{a logical value indicating whether the eigenvalues bar plot
+\item{scannf}{a logical value indicating whether the eigenvalues barplot
 should be displayed}
 
 \item{nfposi}{an integer indicating the number of axes with positive autocorrelation}
@@ -86,8 +85,7 @@ product of spatial autocorrelation and inertia of row scores :
 t(v)t(Q)t(X)DLXQv}
 }
 \examples{
-\dontrun{
-if (requireNamespace("maptools", quiet = TRUE) & requireNamespace(spdep, quiet = TRUE)) {
+if (require(spdep, quiet = TRUE) & require(ade4, quiet = TRUE)) {
     data(mafragh)
     maf.xy <- mafragh$xy
     maf.flo <- mafragh$flo
@@ -106,9 +104,9 @@ if (requireNamespace("maptools", quiet = TRUE) & requireNamespace(spdep, quiet =
       # use multispati summary
       sum.obj <- summary(obj)
       # compute Imin and Imax
-      L <- listw2mat(eval(as.list(obj$call)$listw))
-      Imin <- min(eigen(0.5*(L+t(L)))$values)
-      Imax <- max(eigen(0.5*(L+t(L)))$values)
+      Ibounds <- moran.bounds(eval(as.list(obj$call)$listw))
+      Imin <- Ibounds[1]
+      Imax <- Ibounds[2]
       I0 <- -1/(nrow(obj$li)-1)
       # create labels
       labels <- lapply(1:length(obj$eig),function(i) bquote(lambda[.(i)]))
@@ -185,7 +183,6 @@ if (requireNamespace("maptools", quiet = TRUE) & requireNamespace(spdep, quiet =
     plot(maf.pca.ms)
 }
 }
-}
 \author{
 Stéphane Dray \email{stephane.dray@univ-lyon1.fr} with contributions by
 Daniel Chessel, Sebastien Ollier and Thibaut Jombart
@@ -215,7 +212,7 @@ explicit multivariate method to disentangle global and local patterns of
 genetic variability. Submitted to \emph{Genetics}.
 }
 \seealso{
-\code{\link{dudi}},\code{\link[spdep]{mat2listw}}
+\code{\link[ade4]{dudi}},\code{\link[spdep]{mat2listw}}
 }
 \keyword{multivariate}
 \keyword{spatial}

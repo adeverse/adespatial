@@ -41,9 +41,7 @@ permuting the rows of X.
 These tests were originally part of the adegenet package for R.
 }
 \examples{
-\dontrun{
 # wait for a generic dataset
-}
 }
 \author{
 Thibaut Jombart \email{t.jombart@imperial.ac.uk}

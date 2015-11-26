@@ -32,9 +32,9 @@
 #' @keywords multivariate spatial
 #' @examples
 #' 
-#' \dontrun{
+#' 
 #' # wait for a generic dataset
-#' }
+#' 
 #' 
 #' @importFrom ade4 as.randtest
 #' @export global.rtest local.rtest

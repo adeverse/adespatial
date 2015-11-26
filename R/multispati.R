@@ -20,10 +20,9 @@
 #' t(v)t(Q)t(X)DLXQv}
 #' 
 #' @aliases multispati plot.multispati summary.multispati print.multispati
-#' @param dudi an object of class \code{dudi} for the duality diagram analysis
-#' @param listw an object of class \code{listw} for the spatial dependence of
-#' data observations
-#' @param scannf a logical value indicating whether the eigenvalues bar plot
+#' @param dudi an object of class \code{dudi} obtained by the simple analysis of a data table
+#' @param listw an object of class \code{listw} created for example by \code{\link[spdep]{nb2listw}}
+#' @param scannf a logical value indicating whether the eigenvalues barplot
 #' should be displayed
 #' @param nfposi an integer indicating the number of axes with positive autocorrelation
 #' @param nfnega an integer indicating the number of axes with negative autocorrelation
@@ -58,7 +57,7 @@
 #' @author Stéphane Dray \email{stephane.dray@@univ-lyon1.fr} with contributions by 
 #' Daniel Chessel, Sebastien Ollier and Thibaut Jombart
 #' 
-#' @seealso \code{\link{dudi}},\code{\link[spdep]{mat2listw}}
+#' @seealso \code{\link[ade4]{dudi}},\code{\link[spdep]{mat2listw}}
 #' @references Dray, S., Said, S. and Debias, F. (2008) Spatial ordination of
 #' vegetation data using a generalization of Wartenberg's multivariate spatial
 #' correlation. \emph{Journal of vegetation science}, \bold{19}, 45--56.
@@ -84,8 +83,8 @@
 #' @keywords multivariate spatial
 #' @examples
 #' 
-#' \dontrun{
-#' if (requireNamespace("maptools", quiet = TRUE) & requireNamespace(spdep, quiet = TRUE)) {
+#' 
+#' if (require(spdep, quiet = TRUE) & require(ade4, quiet = TRUE)) {
 #'     data(mafragh)
 #'     maf.xy <- mafragh$xy
 #'     maf.flo <- mafragh$flo
@@ -104,9 +103,9 @@
 #'       # use multispati summary
 #'       sum.obj <- summary(obj)
 #'       # compute Imin and Imax
-#'       L <- listw2mat(eval(as.list(obj$call)$listw))
-#'       Imin <- min(eigen(0.5*(L+t(L)))$values)
-#'       Imax <- max(eigen(0.5*(L+t(L)))$values)
+#'       Ibounds <- moran.bounds(eval(as.list(obj$call)$listw))
+#'       Imin <- Ibounds[1]
+#'       Imax <- Ibounds[2]
 #'       I0 <- -1/(nrow(obj$li)-1)
 #'       # create labels
 #'       labels <- lapply(1:length(obj$eig),function(i) bquote(lambda[.(i)]))
@@ -182,10 +181,10 @@
 #'     maf.pca.ms <- multispati(maf.pca, maf.listw, scannf=FALSE)
 #'     plot(maf.pca.ms)
 #' }
-#' }
+#' 
 #' 
 #' @importFrom spdep lag.listw
-#' @importFrom adegraphics sortparamADEgS s.match s.arrow plotEig layout2position
+#' @importFrom adegraphics sortparamADEgS s.match s.arrow plotEig layout2position s.corcircle
 #' @export
 
 "multispati" <- function(dudi, listw, scannf = TRUE, nfposi = 2, nfnega = 0) {

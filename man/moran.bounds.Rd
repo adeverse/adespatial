@@ -36,10 +36,12 @@ if(require("ade4", quietly = TRUE)){
 }
 \author{
 Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
-\code{\link{mem}} \code{\link[spdep]{nb2listw}}
 }
 \references{
 de Jong, P., Sprenger, C., & van Veen, F. (1984). On extreme values of Moran’s I and Geary's C. Geographical Analysis, 16(1), 17–24.
+}
+\seealso{
+\code{\link{mem}} \code{\link[spdep]{nb2listw}}
 }
 \keyword{spatial}
 
