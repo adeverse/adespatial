@@ -65,14 +65,19 @@ scalogram <- function(x, orthobasisSp, nblocks = ncol(orthobasisSp), nrepet = 99
     fac <- cut(1:ncol(orthobasisSp), nblocks)
     i.start <- tapply(1:ncol(orthobasisSp), fac, min)
     i.stop <- tapply(1:ncol(orthobasisSp), fac, max)
-    levels(fac) <- paste("[", i.start, "-", i.stop, "]", sep="")
+    if(nblocks < ncol(orthobasisSp)){
+        levels(fac) <- paste("[", i.start, "-", i.stop, "]", sep="")
+    } else {
+        levels(fac) <- 1:ncol(orthobasisSp)
+    }
+    
     R2.smooth <- tapply(R2, fac, sum)
     sim <- matrix(0, nrepet, nblocks)
     for(i in 1:nrepet){
         R2.sim <- as.vector((t(scalewt(sample(x), wt))%*%diag(wt)%*%as.matrix(orthobasisSp))^2)
         sim[i, ] <- tapply(R2.sim, fac, sum)
     }
-    res <- as.krandtest(sim, R2.smooth, names = levels(fac))
+    res <- as.krandtest(sim, R2.smooth, names = levels(fac), call = match.call())
     class(res) <- c("scalogram", class(res))
     return(res)
 }
@@ -93,7 +98,7 @@ plot.scalogram <- function(x, pos = -1, plot = TRUE, ...){
     sortparameters <- modifyList(params, sortparameters, keep.null = TRUE)
     
     ## prepare and create plots
-    g1 <- do.call("s1d.barchart", c(list(score = substitute(x$obs), labels = substitute(ifelse(sc1$adj.pvalue < 0.05, "*", "")), plot = FALSE, pos = pos - 2), sortparameters$obs))
+    g1 <- do.call("s1d.barchart", c(list(score = substitute(x$obs), labels = substitute(ifelse(x$adj.pvalue < 0.05, "*", "")), plot = FALSE, pos = pos - 2), sortparameters$obs))
     g2 <- do.call("s1d.curve", c(list(score = substitute(apply(x$sim, 2, quantile, 0.95)), plot = FALSE, pos = pos - 2), sortparameters$sim))
     
     ## create the final ADEgS
