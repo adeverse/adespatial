@@ -55,13 +55,29 @@
 #'@importFrom ade4 as.krandtest scalewt
 #'@importFrom adegraphics sortparamADEgS
 #'@importFrom graphics plot
+#'@importFrom stats weighted.mean
 #'@importFrom utils modifyList
 #'@export scalogram
 scalogram <- function(x, orthobasisSp, nblocks = ncol(orthobasisSp), nrepet = 999, p.adjust.method = "none"){
     wt <- attr(orthobasisSp, "weights")
     if(ncol(orthobasisSp) < ncol(orthobasisSp) - 1)
         warning(paste("The orthobasis contains only", ncol(orthobasisSp), "vectors. The decomposition of variance is thus incomplete."))
-    R2 <- (t(scalewt(x, wt))%*%diag(wt)%*%as.matrix(orthobasisSp))^2   
+    if(is.numeric(x)){
+        R2 <- (t(scalewt(x, wt))%*%diag(wt)%*%as.matrix(orthobasisSp))^2  
+    } else if(inherits(x, "dudi")){
+        if(!isTRUE(all.equal(wt, x$lw)))
+           stop("Rows weights are not equal")
+        wm <- apply(x$tab, 2, weighted.mean, w = x$lw)
+        if(!isTRUE(all.equal(wm, rep(0, ncol(x$tab)), check.attributes = FALSE)))
+            warning("Variables in 'x' are not centred. Results may be uninterpretable")
+        R2 <- (t(x$tab)%*%diag(wt)%*%as.matrix(orthobasisSp))^2
+        wc <- x$cw / sum(x$cw)
+        R2 <- apply(R2, 2, weighted.mean, w = wc)
+
+    } else {
+        stop("Invalid 'x' argument")
+    }
+    
     fac <- cut(1:ncol(orthobasisSp), nblocks)
     i.start <- tapply(1:ncol(orthobasisSp), fac, min)
     i.stop <- tapply(1:ncol(orthobasisSp), fac, max)
@@ -74,8 +90,14 @@ scalogram <- function(x, orthobasisSp, nblocks = ncol(orthobasisSp), nrepet = 99
     R2.smooth <- tapply(R2, fac, sum)
     sim <- matrix(0, nrepet, nblocks)
     for(i in 1:nrepet){
-        R2.sim <- as.vector((t(scalewt(sample(x), wt))%*%diag(wt)%*%as.matrix(orthobasisSp))^2)
-        sim[i, ] <- tapply(R2.sim, fac, sum)
+        if(is.numeric(x)){
+            R2.sim <- as.vector((t(scalewt(sample(x), wt))%*%diag(wt)%*%as.matrix(orthobasisSp))^2)
+            sim[i, ] <- tapply(R2.sim, fac, sum)
+        } else {
+            R2.sim <- (t(x$tab)%*%diag(wt)%*%as.matrix(orthobasisSp)[sample(nrow(x$tab)),])^2
+            R2.sim <- apply(R2.sim, 2, weighted.mean, w = wc)
+            sim[i, ] <- tapply(R2.sim, fac, sum)
+        }
     }
     res <- as.krandtest(sim, R2.smooth, names = levels(fac), call = match.call())
     class(res) <- c("scalogram", class(res))
