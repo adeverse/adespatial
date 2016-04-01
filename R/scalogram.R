@@ -11,7 +11,8 @@
 #'
 #'@author Stéphane Dray \email{stephane.dray@@univ-lyon1.fr}
 #'@aliases scalogram plot.scalogram
-#'@param x a numeric vector (for \code{scalogram}) or an object of class 
+#'@param x a numeric vector for univariate data or an object of class \code{dudi} for 
+#' multivariate data (for \code{scalogram}) or an object of class 
 #'  \code{scalogram} (for \code{plot.scalogram})
 #'@param orthobasisSp an object of class \code{orthobasisSp}
 #'@param nblocks an integer indicating the number of blocks in the smoothed scalogram
