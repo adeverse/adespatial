@@ -71,9 +71,22 @@ scalogram <- function(x, orthobasisSp, nblocks = ncol(orthobasisSp), nrepet = 99
         wm <- apply(x$tab, 2, weighted.mean, w = x$lw)
         if(!isTRUE(all.equal(wm, rep(0, ncol(x$tab)), check.attributes = FALSE)))
             warning("Variables in 'x' are not centred. Results may be uninterpretable")
-        R2 <- (t(x$tab)%*%diag(wt)%*%as.matrix(orthobasisSp))^2
-        wc <- x$cw / sum(x$cw)
-        R2 <- apply(R2, 2, weighted.mean, w = wc)
+        
+        fR2 <- function(i, ortho, dudi){
+            R2 <- as.matrix(ortho[,i])%*%t(as.matrix(ortho[,i]))%*%diag(dudi$lw)%*%as.matrix(dudi$tab)
+            R2 <- R2 * sqrt(dudi$lw)
+            R2 <- sweep(R2, 2, sqrt(dudi$cw), "*")
+            R2 <- sum(R2 * R2)
+            return(R2)
+        }
+        
+        R2 <- sapply(1:ncol(orthobasisSp), fR2, dudi = x, ortho = orthobasisSp)
+        
+        Iner <- x$tab * sqrt(wt)
+        Iner <- sweep(Iner, 2, sqrt(x$cw), "*")
+        Iner <- sum(Iner * Iner)
+        
+        R2 <- R2 / Iner
 
     } else {
         stop("Invalid 'x' argument")
@@ -95,8 +108,19 @@ scalogram <- function(x, orthobasisSp, nblocks = ncol(orthobasisSp), nrepet = 99
             R2.sim <- as.vector((t(scalewt(sample(x), wt))%*%diag(wt)%*%as.matrix(orthobasisSp))^2)
             sim[i, ] <- tapply(R2.sim, fac, sum)
         } else {
-            R2.sim <- (t(x$tab)%*%diag(wt)%*%as.matrix(orthobasisSp)[sample(nrow(x$tab)),])^2
-            R2.sim <- apply(R2.sim, 2, weighted.mean, w = wc)
+            if(length(unique(wt)) == 1){
+                ## uniform weights
+                R2.sim <- sapply(1:ncol(orthobasisSp), fR2, dudi = x, ortho = orthobasisSp[sample(nrow(x$tab)),])
+            } else {
+                ## permute orthobasis and recompute to preserves orthogonality
+                idx <- sample(nrow(x$tab))
+                appel <- as.list(attr(orthobasisSp, "call"))
+                appel$wt <- wt[order(idx)]
+                newortho <- eval.parent(as.call(appel))[idx,]
+                R2.sim <- sapply(1:ncol(orthobasisSp), fR2, dudi = x, ortho = newortho)
+            }
+            
+            R2.sim <- R2.sim / Iner
             sim[i, ] <- tapply(R2.sim, fac, sum)
         }
     }
@@ -121,7 +145,7 @@ plot.scalogram <- function(x, pos = -1, plot = TRUE, ...){
     sortparameters <- modifyList(params, sortparameters, keep.null = TRUE)
     
     ## prepare and create plots
-    g1 <- do.call("s1d.barchart", c(list(score = substitute(x$obs), labels = substitute(ifelse(x$adj.pvalue < 0.05, "*", "")), plot = FALSE, pos = pos - 2), sortparameters$obs))
+    g1 <- do.call("s1d.barchart", c(list(score = substitute(x$obs), labels = substitute(ifelse(x$adj.pvalue < 0.05, "*", " ")), plot = FALSE, pos = pos - 2), sortparameters$obs))
     g2 <- do.call("s1d.curve", c(list(score = substitute(apply(x$sim, 2, quantile, 0.95)), plot = FALSE, pos = pos - 2), sortparameters$sim))
     
     ## create the final ADEgS
