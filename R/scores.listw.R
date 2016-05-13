@@ -60,6 +60,9 @@ scores.listw <- function (listw,  wt = rep(1, length(listw$neighbours)), MEM.aut
         w <- (w + t(w))/2
     }
     w <- bicenter.wt(w, row.wt = wt, col.wt = wt)
+    wtsqrt <- sqrt(wt)
+    w <- w * wtsqrt
+    w <- t(t(w) * wtsqrt)
     res <- eigen(w, symmetric = TRUE)
     eq0 <- which(apply(as.matrix(res$values/max(abs(res$values))), 
         1, function(x) identical(all.equal(x, 0), TRUE)))
@@ -73,7 +76,7 @@ scores.listw <- function (listw,  wt = rep(1, length(listw$neighbours)), MEM.aut
             res$vectors <- res$vectors[, -eq0]
             
         } else if (length(eq0) > 1) {
-            w <- cbind(rep(1, n), res$vectors[, eq0])
+            w <- cbind(wt, res$vectors[, eq0])
             w <- qr.Q(qr(w))
             res$values[eq0] <- 0
             res$vectors[, eq0] <- w[, -ncol(w)]
@@ -94,7 +97,7 @@ scores.listw <- function (listw,  wt = rep(1, length(listw$neighbours)), MEM.aut
         res$vectors <- res$vectors[, neg]
     }
 
-    a0 <- as.data.frame(res$vectors) / sqrt(wt)
+    a0 <- as.data.frame(res$vectors) / wtsqrt
     z <- res$values
     row.names(a0) <- attr(listw,"region.id")
     names(a0) <- paste("MEM", 1:ncol(a0), sep = "")
@@ -109,11 +112,15 @@ scores.listw <- function (listw,  wt = rep(1, length(listw$neighbours)), MEM.aut
 #' @rdname mem
 mem <- function (listw,  wt = rep(1, length(listw$neighbours)), 
                  MEM.autocor = c("non-null", "all", "positive", "negative")) {
-    scores.listw(listw = listw, wt = wt, MEM.autocor = MEM.autocor)
+    res <- scores.listw(listw = listw, wt = wt, MEM.autocor = MEM.autocor)
+    attr(res,"call") <- match.call()
+    return(res)
 }
 
 #' @rdname mem
 orthobasis.listw <- function (listw,  wt = rep(1, length(listw$neighbours)), 
                                      MEM.autocor = c("non-null", "all", "positive", "negative")) {
-    scores.listw(listw = listw, wt = wt, MEM.autocor = MEM.autocor)
+    res <- scores.listw(listw = listw, wt = wt, MEM.autocor = MEM.autocor)
+    attr(res,"call") <- match.call()
+    return(res)
 }
