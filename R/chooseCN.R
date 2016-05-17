@@ -70,7 +70,10 @@
 #' @export chooseCN
 #' @importFrom ade4 mstree neig2nb
 #' @importFrom spdep tri2nb gabrielneigh graph2nb relativeneigh dnearneigh knearneigh knn2nb nb2listw mat2listw listw2mat lag.listw card
-#'
+#' @importFrom stats dist
+#' @importFrom utils edit
+#' @importFrom grDevices xyTable
+
 chooseCN <- function(xy,ask=TRUE, type=NULL, result.type="nb", d1=NULL, d2=NULL, k=NULL,
                      a=NULL, dmin=NULL, plot.nb=TRUE, edit.nb=FALSE){
     
@@ -266,7 +269,7 @@ chooseCN <- function(xy,ask=TRUE, type=NULL, result.type="nb", d1=NULL, d2=NULL,
     }
     ### end large while
     
-    if(edit.nb) {cn <- edit(cn,xy)}
+    if(edit.nb) {cn <- edit.nb(cn,xy)}
     
     if(result.type == "listw") {
         if(type!=7) {

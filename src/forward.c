@@ -9,7 +9,7 @@
 #include <R.h>
 #include <R_ext/Utils.h>
 #include <R_ext/Lapack.h>
-
+#include "forward.h"
 
 /* ============================= */
 /*            Declaration        */
@@ -24,17 +24,6 @@ double calcR2adj (double R2, int n, int nvar);
 void tabstandar (double **tab);
 double testFreducedmodel(double **predX, double **projectX, double **projectXZ, double **tabres, double **tabXZ, double Fobs, int q, int n, int p, int nperm);
 void dinvG(double **X, double **X_inv);
-
-/* =========== fonctions adesub ============= */
-void taballoc (double ***tab, int l1, int c1);
-void vecintalloc (int **vec, int n);
-void prodmatABC (double **a, double **b, double **c);
-void freeintvec (int *vec);
-void freetab (double **tab);
-void aleapermutmat (double **a);
-void prodmatAtAB (double **a, double **b);
-void prodmatAAtB (double **a, double **b);
-double alea (void);
 
 
 /* ============================= */

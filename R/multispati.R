@@ -185,6 +185,8 @@
 #' 
 #' @importFrom spdep lag.listw
 #' @importFrom adegraphics sortparamADEgS s.match s.arrow plotEig layout2position s.corcircle
+#' @importFrom graphics barplot
+#' @importFrom methods new
 #' @export
 
 "multispati" <- function(dudi, listw, scannf = TRUE, nfposi = 2, nfnega = 0) {
