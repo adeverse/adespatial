@@ -11,8 +11,9 @@ scalogram(x, orthobasisSp, nblocks = ncol(orthobasisSp), nrepet = 999,
 \method{plot}{scalogram}(x, pos = -1, plot = TRUE, ...)
 }
 \arguments{
-\item{x}{a numeric vector (for \code{scalogram}) or an object of class
-\code{scalogram} (for \code{plot.scalogram})}
+\item{x}{a numeric vector for univariate data or an object of class \code{dudi} for
+multivariate data (for \code{scalogram}) or an object of class
+ \code{scalogram} (for \code{plot.scalogram})}
 
 \item{orthobasisSp}{an object of class \code{orthobasisSp}}
 
