@@ -93,7 +93,7 @@
 #' col = c("white", "brown"), main = "Doubs fish abundance diff. LCBD")
 #' }
 #'
-#'
+#' @importFrom stats as.dist
 #' @export LCBD.comp
 #'
 
