@@ -104,7 +104,8 @@
 #' # Is the fish beta diversity dominated by replacement or richness/abundance difference?
 #' }
 #'
-#'@export beta.div.comp
+#' @importFrom stats as.dist
+#' @export beta.div.comp
 
 beta.div.comp <-
     function(mat,
