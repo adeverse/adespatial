@@ -1,7 +1,7 @@
 Package: adespatial
 Title: Multivariate Multiscale Spatial Analysis
 Version: 0.0-1
-Date: 2015-11-12
+Date: 2016-05-24
 Author: Stéphane Dray, Guillaume Blanchet, Guillaume Guenard, Thibaut Jombart, Pierre Legendre, Helene H Wagner
 Description: Tools for the multiscale spatial analysis of multivariate data. Several methods are based on the use of a spatial weighting matrix and its eigenvector decomposition (Moran's Eigenvectors Maps, MEM).
 Maintainer: Stéphane Dray <stephane.dray@univ-lyon1.fr>
