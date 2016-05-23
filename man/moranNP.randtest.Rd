@@ -44,7 +44,6 @@ data(mafragh)
 tests <- moranNP.randtest(mafragh$mil[,1], nb2listw(mafragh$nb),
  alter = "two-sided", p.adjust.method = "holm")
 tests
-plot(tests)
 moran.randtest(mafragh$mil[,1], nb2listw(mafragh$nb))$obs
 sum(tests$obs)
 }
