@@ -2,15 +2,11 @@
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include "forward.h"
 
 void prodatBc(double *veca, double **matB,double *vecc); 
 void testglobal(double *eigenvec, double *eigenval, int *nlig, int *ncol, double *xR, int *nsim, double *sim);
 void vecalloc (double **vec, int n);
-
-
-
-
 void freevec (double *vec);
 void aleapermutvec (double *a);
 
