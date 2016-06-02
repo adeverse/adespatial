@@ -283,6 +283,7 @@ chooseCN <- function(xy,ask=TRUE, type=NULL, result.type="nb", d1=NULL, d2=NULL,
     res <- cn
     
     attr(res,"xy") <- xy
+    attr(res,"call") <- match.call()
     
     return(res)
     
