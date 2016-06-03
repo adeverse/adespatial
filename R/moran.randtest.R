@@ -33,6 +33,10 @@
 #' @export
 
 moran.randtest <- function(x, listw, nrepet = 999, ... ){
+    if(missing(listw) & inherits(x, "orthobasisSp"))
+        if(!is.null(attr(x, "listw")))
+            listw <- attr(x, "listw")
+        
     x <- as.matrix(x)
     if(!is.numeric(x))
         stop("x should contain only numeric values")
