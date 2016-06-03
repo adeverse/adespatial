@@ -1,7 +1,7 @@
 #' Function to compute Moran's Eigenvector Maps (MEM) of a listw object
 #' 
-#' These functions compute MEM (i.e., eigenvectors of a doubly centered spatial
-#' weighting matrix). Corresponding eigenvalues are linearly related to Moran's
+#' These functions compute MEM (i.e., eigenvectors of a doubly centered spatial 
+#' weighting matrix). Corresponding eigenvalues are linearly related to Moran's 
 #' index of spatial autocorrelation.
 #' 
 #' Testing the nullity of eigenvalues is based on E(i)/E(1) where E(i) is i-th 
@@ -15,7 +15,13 @@
 #'   correspondence analysis
 #' @param MEM.autocor A string indicating if all MEMs must be returned or only 
 #'   those corresponding to non-null, positive or negative autocorrelation
-#' @return An object of class \code{orthobasisSp} , subclass \code{orthobasis}
+#' @param store.listw A logical indicating if the spatial weighting matrix 
+#'   should be stored in the attribute \code{listw} of the returned object
+#' @return An object of class \code{orthobasisSp} , subclass \code{orthobasis}. 
+#'   The MEMs are stored as a \code{data.frame}. It contains several attributes 
+#'   (see \code{?attributes}) including: \itemize{\item \code{values}: The
+#'   associated eigenvalues. \item \code{listw}: The associated spatial
+#'   weighting matrix (if \code{store.listw = TRUE}). }
 #' @author Stéphane Dray \email{stephane.dray@@univ-lyon1.fr}
 #' @seealso \code{\link[spdep]{nb2listw}} \code{\link[ade4]{orthobasis}}
 #' @references Dray, S., Legendre, P., and Peres-Neto, P. R. (2006). Spatial 
@@ -45,12 +51,12 @@
 #' @rdname mem
 
 scores.listw <- function (listw,  wt = rep(1, length(listw$neighbours)), MEM.autocor = c("non-null", "all", "positive", 
-    "negative")) 
+                                                                                         "negative"), store.listw = FALSE) 
 {
     if (!inherits(listw, "listw")) 
         stop("not a listw object")
     MEM.autocor <- match.arg(MEM.autocor)
-
+    
     wt <- wt / sum(wt)
     w <- listw2mat(listw)
     sumW <- sum(w)
@@ -65,11 +71,11 @@ scores.listw <- function (listw,  wt = rep(1, length(listw$neighbours)), MEM.aut
     w <- t(t(w) * wtsqrt)
     res <- eigen(w, symmetric = TRUE)
     eq0 <- which(apply(as.matrix(res$values/max(abs(res$values))), 
-        1, function(x) identical(all.equal(x, 0), TRUE)))
+                       1, function(x) identical(all.equal(x, 0), TRUE)))
     if (length(eq0) == 0) {
         stop(" Illegal matrix: no null eigenvalue")
     }
-   
+    
     if(MEM.autocor == "all"){
         if (length(eq0) == 1) {
             res$values <- res$values[-eq0]
@@ -96,31 +102,33 @@ scores.listw <- function (listw,  wt = rep(1, length(listw$neighbours)), MEM.aut
         res$values <- res$values[neg]
         res$vectors <- res$vectors[, neg]
     }
-
+    
     a0 <- as.data.frame(res$vectors) / wtsqrt
     z <- res$values
     row.names(a0) <- attr(listw,"region.id")
     names(a0) <- paste("MEM", 1:ncol(a0), sep = "")
     attr(a0,"values") <- z
     attr(a0,"weights") <- wt
+    if(store.listw)
+        attr(a0,"listw") <- listw
     attr(a0,"call") <- match.call()
     attr(a0,"class") <- c("orthobasisSp", "orthobasis","data.frame")
- 
+    
     return(a0)
 }
 
 #' @rdname mem
 mem <- function (listw,  wt = rep(1, length(listw$neighbours)), 
-                 MEM.autocor = c("non-null", "all", "positive", "negative")) {
-    res <- scores.listw(listw = listw, wt = wt, MEM.autocor = MEM.autocor)
+                 MEM.autocor = c("non-null", "all", "positive", "negative"), store.listw = FALSE) {
+    res <- scores.listw(listw = listw, wt = wt, MEM.autocor = MEM.autocor, store.listw = store.listw)
     attr(res,"call") <- match.call()
     return(res)
 }
 
 #' @rdname mem
 orthobasis.listw <- function (listw,  wt = rep(1, length(listw$neighbours)), 
-                                     MEM.autocor = c("non-null", "all", "positive", "negative")) {
-    res <- scores.listw(listw = listw, wt = wt, MEM.autocor = MEM.autocor)
+                              MEM.autocor = c("non-null", "all", "positive", "negative"), store.listw = FALSE) {
+    res <- scores.listw(listw = listw, wt = wt, MEM.autocor = MEM.autocor, store.listw = store.listw)
     attr(res,"call") <- match.call()
     return(res)
 }

@@ -7,13 +7,16 @@
 \title{Function to compute Moran's Eigenvector Maps (MEM) of a listw object}
 \usage{
 scores.listw(listw, wt = rep(1, length(listw$neighbours)),
-  MEM.autocor = c("non-null", "all", "positive", "negative"))
+  MEM.autocor = c("non-null", "all", "positive", "negative"),
+  store.listw = FALSE)
 
 mem(listw, wt = rep(1, length(listw$neighbours)),
-  MEM.autocor = c("non-null", "all", "positive", "negative"))
+  MEM.autocor = c("non-null", "all", "positive", "negative"),
+  store.listw = FALSE)
 
 orthobasis.listw(listw, wt = rep(1, length(listw$neighbours)),
-  MEM.autocor = c("non-null", "all", "positive", "negative"))
+  MEM.autocor = c("non-null", "all", "positive", "negative"),
+  store.listw = FALSE)
 }
 \arguments{
 \item{listw}{An object of the class \code{listw} created by functions of the
@@ -25,9 +28,16 @@ correspondence analysis}
 
 \item{MEM.autocor}{A string indicating if all MEMs must be returned or only
 those corresponding to non-null, positive or negative autocorrelation}
+
+\item{store.listw}{A logical indicating if the spatial weighting matrix
+should be stored in the attribute \code{listw} of the returned object}
 }
 \value{
-An object of class \code{orthobasisSp} , subclass \code{orthobasis}
+An object of class \code{orthobasisSp} , subclass \code{orthobasis}.
+  The MEMs are stored as a \code{data.frame}. It contains several attributes
+  (see \code{?attributes}) including: \itemize{\item \code{values}: The
+  associated eigenvalues. \item \code{listw}: The associated spatial
+  weighting matrix (if \code{store.listw = TRUE}). }
 }
 \description{
 These functions compute MEM (i.e., eigenvectors of a doubly centered spatial
