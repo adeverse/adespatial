@@ -5,10 +5,10 @@
 \title{Compute the maximum distance of the minimum spanning tree based on a distance
 matrix}
 \usage{
-give.thresh(distxy)
+give.thresh(matdist)
 }
 \arguments{
-\item{distxy}{A distance matrix (class \code{dist})}
+\item{matdist}{A distance matrix (class \code{dist} or \code{matrix})}
 }
 \value{
 The maximum distance of the minimum spanning tree
