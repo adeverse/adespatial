@@ -77,6 +77,7 @@
 #' # thresh=1.012 is the value used in Borcard and Legendre (2002)
 #' mite.dbmem1 <- dbmem(mite.xy, thresh=1.012)
 #' mite.dbmem1
+#' as.matrix(mite.dbmem1)
 #' 
 #' # Plot the associated spatial weighting matrix
 #' s.label(mite.xy, nb = attr(mite.dbmem1, "listw"))
