@@ -44,16 +44,18 @@ dbMEM eigenfunctions were called PCNM in early papers (Borcard and
  computation: to construct PCNMs, the distance matrix subjected to PCoA
  contained zeros on the diagonal. In dbMEM, the matrix contains 4*thresh
  values on the diagonal. The result is that the dbMEM eigenvalues are smaller
- than the MEM eigenvalues by a constant (equal to ((4*thresh)^2)/2) and the
- dbMEM eigenvalues are proportional to Moran's I coefficient of spatial
- correlation (Dray et al. 2006; Legendre and Legendre 2012). The dbMEM
- eigenvectors only differ from the PCNM eigenvectors by a multiplicative
- constant; this has no impact on the use of MEMs as explanatory variables in
- linear models.
+ than the PCNM eigenvalues by a constant (equal to (n.sites *
+ (4*thresh)^2)/2). The dbMEM eigenvalues are proportional to Moran's I
+ coefficient of spatial correlation (Dray et al. 2006; Legendre and Legendre
+ 2012). The dbMEM eigenvectors only differ from the PCNM eigenvectors by a
+ multiplicative constant; this has no impact on the use of MEMs as
+ explanatory variables in linear models. In this implementation, dbMEM
+ eigenvectors have a norm equal to 1 (using the uniform weigts 1/n.sites).
+
 
  If a truncation value is not provided, the largest distance in a minimum
  spanning tree linking all sites on the map is computed (returned by the
- function \code{give.thresh}. That value is used as the truncation threshold
+ function \code{give.thresh}). That value is used as the truncation threshold
  value (thresh).
 }
 \examples{
@@ -68,17 +70,36 @@ mite.xy <- oribatid$xy    # Geographic coordinates of the 70 cores
 mite.dbmem1 <- dbmem(mite.xy, thresh=1.012)
 mite.dbmem1
 
-# Plot associated spatial weighting matrix
+# Plot the associated spatial weighting matrix
 s.label(mite.xy, nb = attr(mite.dbmem1, "listw"))
 
 # Plot maps of the first 3 dbMEM eigenfunctions
 s.value(mite.xy, mite.dbmem1[,1:3])
 
-# compute and test associated Moran's I values
+# Compute and test associated Moran's I values
 # Eigenvalues are proportional to Moran's I
 
 test <- moran.randtest(mite.dbmem1, nrepet = 99)
-plot(test$obs, attr(mite.dbmem1, "values"), xlab = "Morans'I", ylab = "Eigenvalues")
+plot(test$obs, attr(mite.dbmem1, "values"), xlab = "Moran's I", ylab = "Eigenvalues")
+
+# Decreasing values of Moran's I for the successive MEM.
+# The red line is the expected value of Moran's I under H0.
+
+plot(test$obs, xlab="MEM rank", ylab="Moran's I")
+abline(h=-1/(nrow(mite.xy) - 1), col="red")
+
+# Compute only the dbmem with positive eigenvalues (and positive Moran's I)
+mite.dbmem2 <- dbmem(mite.xy, thresh=1.012, MEM.autocor="positive")
+# or:  mite.dbmem2 <- dbmem(dist(mite.xy), thresh=1.012, MEM.autocor="positive")
+mite.dbmem2
+
+# Examine the eigenvalues
+attributes(mite.dbmem2)$values
+# or:  attr(mite.dbmem2, "values")
+
+# Examine (any portion of) the dbmem spatial eigenvectors
+tmp <- as.matrix(mite.dbmem2)
+tmp[1:10,1:6]
 }
 }
 \author{
