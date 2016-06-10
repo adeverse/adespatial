@@ -4,8 +4,8 @@
 \alias{dbmem}
 \title{dbMEM spatial eigenfunctions}
 \usage{
-dbmem(xyORdist, thresh = NULL, MEM.autocor = c("non-null", "all",
-  "positive", "negative"), store.listw = TRUE, silent = TRUE)
+dbmem(xyORdist, thresh = NULL, MEM.autocor = c("positive", "non-null",
+  "all", "negative"), store.listw = TRUE, silent = TRUE)
 }
 \arguments{
 \item{xyORdist}{Either a matrix of spatial coordinates or a distance matrix
@@ -17,7 +17,8 @@ spanning tree will be used as the threshold (as returned by the function
 \code{give.thresh}).}
 
 \item{MEM.autocor}{A string indicating if all MEMs must be returned or only
-those corresponding to non-null, positive or negative autocorrelation}
+those corresponding to non-null, positive or negative autocorrelation.
+Default: \code{MEM.autocor="positive"}.}
 
 \item{store.listw}{A logical indicating if the spatial weighting matrix should
 be stored in the attribute \code{listw} of the returned object}
@@ -67,9 +68,8 @@ mite.xy <- oribatid$xy    # Geographic coordinates of the 70 cores
 
 
 # thresh=1.012 is the value used in Borcard and Legendre (2002)
-mite.dbmem1 <- dbmem(mite.xy, thresh=1.012)
+mite.dbmem1 <- dbmem(mite.xy, thresh=1.012, MEM.autocor = "non-null", silent = FALSE)
 mite.dbmem1
-as.matrix(mite.dbmem1)
 
 # Plot the associated spatial weighting matrix
 s.label(mite.xy, nb = attr(mite.dbmem1, "listw"))
@@ -90,8 +90,8 @@ plot(test$obs, xlab="MEM rank", ylab="Moran's I")
 abline(h=-1/(nrow(mite.xy) - 1), col="red")
 
 # Compute only the dbmem with positive eigenvalues (and positive Moran's I)
-mite.dbmem2 <- dbmem(mite.xy, thresh=1.012, MEM.autocor="positive")
-# or:  mite.dbmem2 <- dbmem(dist(mite.xy), thresh=1.012, MEM.autocor="positive")
+mite.dbmem2 <- dbmem(mite.xy, thresh=1.012)
+# or:  mite.dbmem2 <- dbmem(dist(mite.xy), thresh=1.012)
 mite.dbmem2
 
 # Examine the eigenvalues

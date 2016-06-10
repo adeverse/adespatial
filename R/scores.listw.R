@@ -73,7 +73,7 @@ scores.listw <- function (listw,  wt = rep(1, length(listw$neighbours)), MEM.aut
     eq0 <- which(apply(as.matrix(res$values/max(abs(res$values))), 
                        1, function(x) identical(all.equal(x, 0), TRUE)))
     if (length(eq0) == 0) {
-        stop(" Illegal matrix: no null eigenvalue")
+        stop("Illegal matrix: no null eigenvalue")
     }
     
     if(MEM.autocor == "all"){
@@ -93,12 +93,11 @@ scores.listw <- function (listw,  wt = rep(1, length(listw$neighbours)), MEM.aut
         res$values <- res$values[-eq0]
         res$vectors <- res$vectors[, -eq0]
     } else if (MEM.autocor == "positive") {
-        posi <- which(res$values > -sumW/((n - 1) * n))
+        posi <- 1:(min(eq0)-1)
         res$values <- res$values[posi]
         res$vectors <- res$vectors[, posi]
     } else if (MEM.autocor == "negative") {
-        neg <- sort(which(res$values < -sumW/((n - 1) * n)), 
-                    decreasing = TRUE)
+        neg <- (max(eq0) + 1):ncol(res$vectors)
         res$values <- res$values[neg]
         res$vectors <- res$vectors[, neg]
     }
