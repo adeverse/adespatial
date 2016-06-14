@@ -24,7 +24,7 @@ Default: \code{MEM.autocor="positive"}.}
 be stored in the attribute \code{listw} of the returned object}
 
 \item{silent}{A logical indicating if some information should be printed
- during computation}
+ during computation: truncation level and time to compute the dbmem}
 }
 \value{
 An object of class \code{orthobasisSp} , subclass \code{orthobasis}.
@@ -66,10 +66,14 @@ data(oribatid)
 mite <- oribatid$fau      # 70 peat cores, 35 species
 mite.xy <- oribatid$xy    # Geographic coordinates of the 70 cores
 
-
+# Example 1: Compute the MEMs corresponding to all non-null eigenvalues
 # thresh=1.012 is the value used in Borcard and Legendre (2002)
 mite.dbmem1 <- dbmem(mite.xy, thresh=1.012, MEM.autocor = "non-null", silent = FALSE)
 mite.dbmem1
+
+# Print the (n-1) non-null eigenvalues
+attributes(mite.dbmem1)$values
+# or:  attr(mite.dbmem1, "values")
 
 # Plot the associated spatial weighting matrix
 s.label(mite.xy, nb = attr(mite.dbmem1, "listw"))
@@ -89,9 +93,9 @@ plot(test$obs, attr(mite.dbmem1, "values"), xlab = "Moran's I", ylab = "Eigenval
 plot(test$obs, xlab="MEM rank", ylab="Moran's I")
 abline(h=-1/(nrow(mite.xy) - 1), col="red")
 
-# Compute only the dbmem with positive eigenvalues (and positive Moran's I)
+# Example 2: Compute only the MEMs with positive eigenvalues (and positive Moran's I)
 mite.dbmem2 <- dbmem(mite.xy, thresh=1.012)
-# or:  mite.dbmem2 <- dbmem(dist(mite.xy), thresh=1.012)
+# or:  mite.dbmem2 <- dbmem(dist(mite.xy), thresh=1.012, silent=FALSE)
 mite.dbmem2
 
 # Examine the eigenvalues
