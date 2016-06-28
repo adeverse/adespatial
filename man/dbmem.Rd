@@ -53,11 +53,22 @@ dbMEM eigenfunctions were called PCNM in early papers (Borcard and
  explanatory variables in linear models. In this implementation, dbMEM
  eigenvectors have a norm equal to 1 (using the uniform weigts 1/n.sites).
 
-
  If a truncation value is not provided, the largest distance in a minimum
  spanning tree linking all sites on the map is computed (returned by the
  function \code{give.thresh}). That value is used as the truncation threshold
  value (thresh).
+
+ A square regular grid produces multiple eigenvalues (i.e. eigenvalues that
+ are equal) and multiple eigenvalues have an infinity of eigenvector
+ solutions. Hence, different eigenvectors may be produced by this function on
+ computers with different operating systems or implementations of R. In
+ addition, the eigenvectors found by the dbmem function from the site
+ coordinates may differ from the eigenvectors computed from the geographic
+ distance matrix among the sites. Nonetheless, the different complete sets of
+ eigenvectors will have the exact same explanatory power (R-square) for a
+ given response vector or matrix, despite the fact that they are not fully
+ correlated on a one-to-one basis. This is, however, not the case for subsets
+ of eigenvectors selected using stepwise procedures.
 }
 \examples{
 if(require("ade4", quietly = TRUE) & require("adegraphics", quietly = TRUE)){

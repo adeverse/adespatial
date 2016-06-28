@@ -1,72 +1,82 @@
 #'dbMEM spatial eigenfunctions
 #'
-#'Compute distance-based Moran's eigenvector maps (dbMEM, also called dbMEM
-#'spatial eigenfunctions) from a geographic distance matrix, in view of spatial
+#'Compute distance-based Moran's eigenvector maps (dbMEM, also called dbMEM 
+#'spatial eigenfunctions) from a geographic distance matrix, in view of spatial 
 #'eigenfunction analysis.
 #'
-#'@param xyORdist Either a matrix of spatial coordinates or a distance matrix
+#'@param xyORdist Either a matrix of spatial coordinates or a distance matrix 
 #'  (class \code{dist}).
-#'@param thresh A threshold value for truncation of the geographic distance
+#'@param thresh A threshold value for truncation of the geographic distance 
 #'  matrix. If \code{thresh=NULL}, the length of the longest edge of the minimum
-#'  spanning tree will be used as the threshold (as returned by the function
+#'  spanning tree will be used as the threshold (as returned by the function 
 #'  \code{give.thresh}).
-#'@param MEM.autocor A string indicating if all MEMs must be returned or only
-#'  those corresponding to non-null, positive or negative autocorrelation.
+#'@param MEM.autocor A string indicating if all MEMs must be returned or only 
+#'  those corresponding to non-null, positive or negative autocorrelation. 
 #'  Default: \code{MEM.autocor="positive"}.
 #'@param store.listw A logical indicating if the spatial weighting matrix should
 #'  be stored in the attribute \code{listw} of the returned object
-#'@param silent A logical indicating if some information should be printed
+#'@param silent A logical indicating if some information should be printed 
 #'  during computation: truncation level and time to compute the dbmem
-#'
-#'@return An object of class \code{orthobasisSp} , subclass \code{orthobasis}.
-#'  The dbMEM eigenfunctions (principal coordinates of the truncated distance
-#'  matrix) are stored as a \code{data.frame}. It contains several attributes
-#'  (see \code{?attributes}) including: \itemize{\item \code{values}: The dbMEM
+#'  
+#'@return An object of class \code{orthobasisSp} , subclass \code{orthobasis}. 
+#'  The dbMEM eigenfunctions (principal coordinates of the truncated distance 
+#'  matrix) are stored as a \code{data.frame}. It contains several attributes 
+#'  (see \code{?attributes}) including: \itemize{\item \code{values}: The dbMEM 
 #'  eigenvalues. \item \code{listw}: The associated spatial weighting matrix (if
 #'  \code{store.listw = TRUE}). }
-#'
-#'@details dbMEM eigenfunctions were called PCNM in early papers (Borcard and
-#'  Legendre 2002, Borcard et al. 2004). There is a small difference in the
-#'  computation: to construct PCNMs, the distance matrix subjected to PCoA
-#'  contained zeros on the diagonal. In dbMEM, the matrix contains 4*thresh
+#'  
+#'@details dbMEM eigenfunctions were called PCNM in early papers (Borcard and 
+#'  Legendre 2002, Borcard et al. 2004). There is a small difference in the 
+#'  computation: to construct PCNMs, the distance matrix subjected to PCoA 
+#'  contained zeros on the diagonal. In dbMEM, the matrix contains 4*thresh 
 #'  values on the diagonal. The result is that the dbMEM eigenvalues are smaller
-#'  than the PCNM eigenvalues by a constant (equal to (n.sites *
-#'  (4*thresh)^2)/2). The dbMEM eigenvalues are proportional to Moran's I
-#'  coefficient of spatial correlation (Dray et al. 2006; Legendre and Legendre
-#'  2012). The dbMEM eigenvectors only differ from the PCNM eigenvectors by a
-#'  multiplicative constant; this has no impact on the use of MEMs as
-#'  explanatory variables in linear models. In this implementation, dbMEM
+#'  than the PCNM eigenvalues by a constant (equal to (n.sites * 
+#'  (4*thresh)^2)/2). The dbMEM eigenvalues are proportional to Moran's I 
+#'  coefficient of spatial correlation (Dray et al. 2006; Legendre and Legendre 
+#'  2012). The dbMEM eigenvectors only differ from the PCNM eigenvectors by a 
+#'  multiplicative constant; this has no impact on the use of MEMs as 
+#'  explanatory variables in linear models. In this implementation, dbMEM 
 #'  eigenvectors have a norm equal to 1 (using the uniform weigts 1/n.sites).
-#'
-#'
-#'  If a truncation value is not provided, the largest distance in a minimum
-#'  spanning tree linking all sites on the map is computed (returned by the
+#'  
+#'  If a truncation value is not provided, the largest distance in a minimum 
+#'  spanning tree linking all sites on the map is computed (returned by the 
 #'  function \code{give.thresh}). That value is used as the truncation threshold
 #'  value (thresh).
-#'
-#'
-#'@author  Stéphane Dray \email{stephane.dray@@univ-lyon1.fr}, Pierre Legendre,
+#'  
+#'  A square regular grid produces multiple eigenvalues (i.e. eigenvalues that
+#'  are equal) and multiple eigenvalues have an infinity of eigenvector
+#'  solutions. Hence, different eigenvectors may be produced by this function on
+#'  computers with different operating systems or implementations of R. In
+#'  addition, the eigenvectors found by the dbmem function from the site
+#'  coordinates may differ from the eigenvectors computed from the geographic
+#'  distance matrix among the sites. Nonetheless, the different complete sets of
+#'  eigenvectors will have the exact same explanatory power (R-square) for a
+#'  given response vector or matrix, despite the fact that they are not fully
+#'  correlated on a one-to-one basis. This is, however, not the case for subsets
+#'  of eigenvectors selected using stepwise procedures.
+#'  
+#'@author  Stéphane Dray \email{stephane.dray@@univ-lyon1.fr}, Pierre Legendre, 
 #'  Daniel Borcard and F. Guillaume Blanchet
-#'
+#'  
 #'@references
 #'
-#'Borcard, D. and P. Legendre. 2002. All-scale spatial analysis of ecological
-#'data by means of principal coordinates of neighbour matrices. Ecological
+#'Borcard, D. and P. Legendre. 2002. All-scale spatial analysis of ecological 
+#'data by means of principal coordinates of neighbour matrices. Ecological 
 #'Modelling 153: 51-68.
 #'
-#'Borcard, D., P. Legendre, C. Avois-Jacquet and H. Tuomisto. 2004. Dissecting
-#'the spatial structure of ecological data at multiple scales. Ecology 85:
+#'Borcard, D., P. Legendre, C. Avois-Jacquet and H. Tuomisto. 2004. Dissecting 
+#'the spatial structure of ecological data at multiple scales. Ecology 85: 
 #'1826-1832.
 #'
-#'Dray, S., P. Legendre and P. R. Peres-Neto. 2006. Spatial modelling: a
-#'comprehensive framework for principal coordinate analysis of neighbour
+#'Dray, S., P. Legendre and P. R. Peres-Neto. 2006. Spatial modelling: a 
+#'comprehensive framework for principal coordinate analysis of neighbour 
 #'matrices (PCNM). Ecological Modelling 196: 483-493.
 #'
-#'Legendre, P. and L. Legendre. 2012. Numerical ecology, 3rd English edition.
+#'Legendre, P. and L. Legendre. 2012. Numerical ecology, 3rd English edition. 
 #'Elsevier Science BV, Amsterdam.
 #'
 #'@seealso \code{\link{give.thresh}}, \code{\link{mem}}
-#'
+#'  
 #' @examples
 #' if(require("ade4", quietly = TRUE) & require("adegraphics", quietly = TRUE)){
 #'
@@ -119,8 +129,8 @@
 #'@importFrom stats dist
 #'@importFrom spdep dnearneigh nbdists nb2listw
 #'@export dbmem
-#'
-#'
+#'  
+#'  
 
 'dbmem' <-
     function(xyORdist,
@@ -184,6 +194,11 @@
             res <-
                 scores.listw(lw, MEM.autocor = MEM.autocor, store.listw = store.listw)
         })
+        
+        eig <- attr(res, "values")
+        if(eig[1]-eig[2]< 1.0e-10) {
+            cat("Information: Square regular grid; multiple eigenvalues\n")
+        }
         
         a[3] <- sprintf("%2f", a[3])
         if (!silent)
