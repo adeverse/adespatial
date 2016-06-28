@@ -77,7 +77,7 @@
         adjR2 <- rep(0,ncol(X))
         Fvalue <- rep(0,ncol(X))
         res <- list()
-        res <- .C("forwardsel",as.double(t(X)),as.double(t(Y)),as.integer(nrow(X)),as.integer(ncol(X)),as.integer(ncol(Y)),pval=as.double(pval), ord=as.integer(ordre),Fval=as.double(Fvalue),as.integer(nperm),R2=as.double(R2),adjR2=as.double(adjR2),as.integer(K),as.double(R2thresh),as.double(adjR2thresh),as.double(R2more),as.integer(nbcovar),as.double(alpha),PACKAGE="adespatial")[c("ord","Fval","pval","R2","adjR2")]
+        res <- .C("forwardsel", as.double(t(X)), as.double(t(Y)), as.integer(nrow(X)),as.integer(ncol(X)),as.integer(ncol(Y)),pval=as.double(pval), ord=as.integer(ordre),Fval=as.double(Fvalue),as.integer(nperm),R2=as.double(R2),adjR2=as.double(adjR2),as.integer(K),as.double(R2thresh),as.double(adjR2thresh),as.double(R2more),as.integer(nbcovar),as.double(alpha),PACKAGE="adespatial")[c("ord","Fval","pval","R2","adjR2")]
         lambdA <- c(res$R2[1],diff(res$R2))
         resmat <- data.frame(res$ord,lambdA,res$R2,res$adjR2,res$Fval,res$pval)
         if(sum(res$ord>0)==0) stop("No variables selected. Please change your parameters.")
