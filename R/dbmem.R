@@ -196,10 +196,11 @@
         })
         
         eig <- attr(res, "values")
-        if(eig[1]-eig[2]< 1.0e-10) {
-            cat("Information: Square regular grid; multiple eigenvalues\n")
+        if(length(eig)>1) {      
+            if(eig[1]-eig[2]< 1.0e-10) {
+                cat("Information: Square regular grid; multiple eigenvalues\n")
+            }
         }
-        
         a[3] <- sprintf("%2f", a[3])
         if (!silent)
             cat("Time to compute dbMEMs =", a[3], " sec", '\n')
