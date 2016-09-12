@@ -5,9 +5,9 @@
 # adespatial
 Multivariate Multiscale Spatial Analysis
 
-This package is under development and not yet on CRAN. It contains some new functions and many others that were included in development packages hosted in the sedaR project on [R-Forge](https://r-forge.r-project.org/R/?group_id=195).
+This package contains some new functions and many others that were included in development packages hosted in the sedaR project on [R-Forge](https://r-forge.r-project.org/R/?group_id=195).
 
-For instance, `adespatial` includes the `forward.sel` function (formerly in `packfor`).
+For instance, `adespatial` includes the `forward.sel` function (formerly in `packfor`) and all functions of `spacemakeR`.
 
 Installing *adespatial*
 -------------
@@ -24,9 +24,13 @@ Then:
 
 ```r
 library(devtools)
-install_github("sdray/ade4")
-install_github("sdray/adegraphics")
 install_github("sdray/adespatial")
+```
+
+The stable version can be installed from CRAN using:
+
+```r
+install.packages("adespatial")
 ```
 
 Once installed, the package can be loaded using:
