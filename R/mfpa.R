@@ -245,7 +245,8 @@
 #'
 #' plot(res.noise)
 #'
-#'@importFrom stats optim
+#'@importFrom stats optim pnorm pt var
+#'@importFrom utils tail
 #'@export mfpa
 #'  
 
