@@ -149,7 +149,7 @@
 #' data(mite)
 #' res = beta.div(mite, "hellinger", nperm=999)
 #' 
-#' # Plot a map of the LCDB indices
+#' # Plot a map of the LCDB indices using the Cartesian coordinates
 #' data(mite.xy)
 #' s.value(mite.xy, res$LCBD, symbol = "circle", col = c("white", "brown"), main="Map of mite LCBD")
 #' 
@@ -256,7 +256,7 @@ beta.div <-
                 )
         }
         ###
-        BD.group2 <- function(Y, method, sqrt.D, n)
+        BD.group2 <- function(Y, method, sqrt.D, n, samp)
         {
             if (method == "divergence") {
                 D = D11(Y)
@@ -446,14 +446,14 @@ beta.div <-
                     )
                 }
                 #
-                res <- BD.group2(Y, method, sqrt.D, n)
+                res <- res <- BD.group2(Y, method = method, sqrt.D = sqrt.D, n = n, samp = samp)
                 #
                 # Permutation test for LCBD indices, distances group 2
                 if (nperm > 0) {
                     nGE.L = rep(1, n)
                     for (iperm in 1:nperm) {
                         Y.perm = apply(Y, 2, sample)
-                        res.p <- BD.group2(Y.perm, method, sqrt.D, n)
+                        res.p <- BD.group2(Y.perm, method = method, sqrt.D = sqrt.D, n = n,samp = samp)
                         ge <- which(res.p$LCBD + epsilon >= res$LCBD)
                         nGE.L[ge] <- nGE.L[ge] + 1
                     }
