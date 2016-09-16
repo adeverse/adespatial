@@ -7,51 +7,56 @@
 LCBD.comp(D, sqrt.D = TRUE, save.D = FALSE)
 }
 \arguments{
-\item{D}{A dissimilarity or beta diversity component matrix (class
+\item{D}{A dissimilarity or beta diversity component matrix (class 
 \code{dist} or \code{matrix}.}
 
-\item{sqrt.D}{Take the square root of the dissimilarities in matrix D before
+\item{sqrt.D}{Take the square root of the dissimilarities in matrix D before 
 computing the LCBD indices.}
 
-\item{save.D}{If \code{save.D} is \code{TRUE}, the dissimilarity matrix will
+\item{save.D}{If \code{save.D} is \code{TRUE}, the dissimilarity matrix will 
 appear in the output list.}
 }
 \value{
-A list containing the following results:
-\itemize{ \item \code{SStotal_BDtotal}: Total sum of squares and total beta diversity [= Var(Y)] of
-  the data matrix. \item \code{LCBD}: Vector of Local contributions to beta diversity
-  (LCBD) for the sites. \item \code{D}: The input dissimilarity matrix, class \code{dist}; only
-  if \code{save.D=TRUE}}.
+A list containing the following results: \itemize{ \item 
+  \code{SStotal_BDtotal}: Total sum of squares and total beta diversity [= 
+  Var(Y)] of the data matrix. \item \code{LCBD}: Vector of Local 
+  contributions to beta diversity (LCBD) for the sites. \item \code{D}: The 
+  input dissimilarity matrix, class \code{dist}; only if \code{save.D=TRUE}}.
 }
 \description{
-Compute LCBD indices (Legendre & De Cáceres 2013) from a symmetric
-dissimilarity matrix (D) or from a beta component matrix (Repl, RichDiff or
+Compute LCBD indices (Legendre & De Cáceres 2013) from a symmetric 
+dissimilarity matrix (D) or from a beta component matrix (Repl, RichDiff or 
 AbDiff, or Nes) (Legendre 2014).
 }
 \details{
 Use \code{sqrt.D = TRUE} when computing LCBD indices for most of the
-  replacement and richness/abundance difference indices computed by function
-  \code{beta.div.comp}, as well as for the corresponding D matrices. See
-  Table S1.4 in Appendix S1 of Legendre (2014) to identify the matrices that
+  replacement and richness/abundance difference indices computed by function 
+  \code{beta.div.comp}, as well as for the corresponding D matrices. See 
+  Table S1.4 in Appendix S1 of Legendre (2014) to identify the matrices that 
   are Euclidean without taking the square root of the individual values. Only
-  the RichDiffS (for presence-absence data) and AbDiff%diff indices (for
-  abundance data) of the Sørensen group in the Podani family have that
-  property. In all other cases, use \code{sqrt.D = TRUE}. When computing LCBD
-  from a D matrix, use \code{sqrt = TRUE} if the D matrix is not Euclidean.
-  The Euclidean property can be checked with function \code{is.euclid} of
-  \code{ade4}. BDtotal statistics are comparable among data sets having the
-  same or different numbers of sampling units (n), provided that the sampling
-  units are of the same size or represent the same sampling effort and that
-  BDtotal is computed with the same D index. Function \code{LCBD.comp}
-  produces the same (SStotal, BDtotal, LCBD) results as function
-  \code{beta.div}. Note, however, that the latter produces other interesting
-  results (p.LCBD, SCBD). Function \code{LCBD.comp} should then only be used
-  to compute LCBD indices from dissimilarity matrices that cannot be computed
-  by function \code{beta.div}, e.g. genetic D matrices, or from replacement
-  and richness difference matrices produced by function \code{beta.div.comp}.
-  Significance of the LCBD indices cannot be tested when their calculation
-  starts from a D matrix because the testing procedure involves permutation
-  of the columns of raw data.
+  the RichDiffS (for presence-absence data) and AbDiff%diff indices (for 
+  abundance data) of the Sørensen group in the Podani family have that 
+  property. In all other cases, use \code{sqrt.D = TRUE}.
+  
+  When computing LCBD from a D matrix, use \code{sqrt = TRUE} if the D matrix
+  is not Euclidean. The Euclidean property can be checked with function 
+  \code{is.euclid} of \code{ade4}.
+  
+  BDtotal statistics are comparable among data sets having the same or 
+  different numbers of sampling units (n), provided that the sampling units 
+  are of the same size or represent the same sampling effort and that BDtotal
+  is computed with the same D index.
+  
+  Function \code{LCBD.comp} produces the same (SStotal, BDtotal, LCBD)
+  results as function \code{beta.div}. Note, however, that the latter
+  produces other interesting results (p.LCBD, SCBD). Function
+  \code{LCBD.comp} should then only be used to compute LCBD indices from
+  dissimilarity matrices that cannot be computed by function \code{beta.div},
+  e.g. genetic D matrices, or from replacement and richness difference
+  matrices produced by function \code{beta.div.comp}. Significance of the
+  LCBD indices cannot be tested when their calculation starts from a D matrix
+  because the testing procedure involves permutation of the columns of raw
+  data.
 }
 \examples{
 
@@ -99,12 +104,12 @@ col = c("white", "brown"), main = "Doubs fish abundance diff. LCBD")
 Pierre Legendre \email{pierre.legendre@umontreal.ca}
 }
 \references{
-Legendre, P. 2014. Interpreting the replacement and richness
-  difference components of beta diversity. Global Ecology and Biogeography
+Legendre, P. 2014. Interpreting the replacement and richness 
+  difference components of beta diversity. Global Ecology and Biogeography 
   23: 1324-1334.
-
-  Legendre, P. & M. De Cáceres. 2013. Beta diversity as the variance of
-  community data: dissimilarity coefficients and partitioning. Ecology
+  
+  Legendre, P. & M. De Cáceres. 2013. Beta diversity as the variance of 
+  community data: dissimilarity coefficients and partitioning. Ecology 
   Letters 16: 951-963.
 }
 \keyword{spatial}

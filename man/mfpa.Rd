@@ -14,8 +14,8 @@ mfpa(y, MaxNFreq = 2, MinFreq = 3, MaxFreq = NA, ntrend = 0,
 \method{print}{mfpa}(x, ...)
 }
 \arguments{
-\item{y}{Vector of \emph{n} observations (vector of integer or real numbers, or 
-one-column matrix).}
+\item{y}{Vector of \emph{n} observations (vector of integer or real numbers,
+or one-column matrix).}
 
 \item{MaxNFreq}{Maximum number of frequencies to be estimated in the stepwise 
 procedure (e.g. 2).}
@@ -45,36 +45,31 @@ residuals. Use 0 to bypass this analysis.}
 \value{
 A list containing the following elements:
  
- \itemize{ 
- \item \code{frequencies}: Vector of estimated frequencies of the model periodic components
- and associated R-squared. The frequencies are numbers of cycles in the whole
- (temporal or spatial) series under study. 
- \item \code{coefficients}: Data frame containing
- OLS slope estimates, starting with the intercept, then the orthogonal 
- polynomials modelling trend in increasing order, followed by the cosine and 
- sine coefficients (alternating) in the order of the estimated frequencies. 
- Columns: (1) \code{coefficient}: the OLS intercept or slope estimates; (2) 
- \code{prob}: the associated probabilities. 
- \item \code{predicted}: A vector (length \emph{n}) of 
- predicted response values (fitted values), including the trend if any. The 
- data and predicted values can be plotted together using function \code{plot.mfpa}; 
- type plot(name.of.output.object). The data values are represented by red 
- circles and the fitted values by a black line. 
- \item \code{auto_coeff}: If nlags > 0: data
- frame containing the following columns. (1) \code{lag}: lags at which 
- autocorrelation analysis of the OLS residuals is performed; (2) 
- \code{auto_r}: vector of sample autocorrelation coefficients calculated from
- OLS residuals for each lag; (3) \code{prob}: vector of probabilities 
- associated with the tests of significance of the sample autocorrelation 
- coefficients. 
- \item \code{y}: the original data series (one-column matrix). 
- \item \code{X}: the matrix of explanatory variables; it contains a column of 
- “1” to estimate the intercept, a column for each of the trend components (if
- any), and two columns for each frequency component, each frequency being 
- represented by a cosine and a sine. 
- \item \code{r.squared.global}: The global R-squared of
- the model and the adjusted R-squared.
- }
+ \itemize{ \item \code{frequencies}: Vector of estimated frequencies of the
+ model periodic components and associated R-squared. The frequencies are
+ numbers of cycles in the whole (temporal or spatial) series under study. 
+ \item \code{coefficients}: Data frame containing OLS slope estimates,
+ starting with the intercept, then the orthogonal polynomials modelling trend
+ in increasing order, followed by the cosine and sine coefficients
+ (alternating) in the order of the estimated frequencies. Columns: (1)
+ \code{coefficient}: the OLS intercept or slope estimates; (2) \code{prob}:
+ the associated probabilities. \item \code{predicted}: A vector (length
+ \emph{n}) of predicted response values (fitted values), including the trend
+ if any. The data and predicted values can be plotted together using function
+ \code{plot.mfpa}; type plot(name.of.output.object). The data values are
+ represented by red circles and the fitted values by a black line. \item
+ \code{auto_coeff}: If nlags > 0: data frame containing the following
+ columns. (1) \code{lag}: lags at which autocorrelation analysis of the OLS
+ residuals is performed; (2) \code{auto_r}: vector of sample autocorrelation
+ coefficients calculated from OLS residuals for each lag; (3) \code{prob}:
+ vector of probabilities associated with the tests of significance of the
+ sample autocorrelation coefficients. \item \code{y}: the original data
+ series (one-column matrix). \item \code{X}: the matrix of explanatory
+ variables; it contains a column of “1” to estimate the intercept, a column
+ for each of the trend components (if any), and two columns for each
+ frequency component, each frequency being represented by a cosine and a
+ sine. \item \code{r.squared.global}: The global R-squared of the model and
+ the adjusted R-squared. }
 }
 \description{
 This function performs multi-frequential periodogram analysis for univariate 
@@ -91,8 +86,9 @@ least squares (OLS), with autocorrelation analysis of OLS residuals up to a
 certain lag. Orthogonal polynomials are used to model broad-scale trends, 
 whereas cosines and sines model the periodic structures at intermediate 
 scales. See Dutilleul (2011, section 6.5) and Legendre & Legendre (2012, 
-section 12.4.4) for details. OLS regression could be replaced by an \emph{estimated 
-generalized least squares} (EGLS) procedure, as described in Dutilleul (2011). 
+section 12.4.4) for details. OLS regression could be replaced by an
+\emph{estimated generalized least squares} (EGLS) procedure, as described in
+Dutilleul (2011).
 
 In spectral analysis in general and in mfpa in particular, the cosines and 
 sines are considered jointly in the search for the dominant frequency 
@@ -102,74 +98,71 @@ significant, this is sufficient indication that a significant frequency
 component has been found. But see the first paragraph of the ‘Recommendations 
 to users’ below.
 
-The periodic phenomenon corresponding to each identified 
-frequency is modelled by a cosine and a sine. The first pair (‘cos 1’, ‘sin 
-1’) corresponds to the first frequency, the second pair to the second 
-frequency, and so on. An intercept is also computed, as well as a polynomial 
-broad-scale trend if argument ntrend > 0. The coefficients shown for each 
-periodic component (‘cos’ and ‘sin’) are the OLS regression coefficients. The 
-tests of significance producing the p-values (called ‘prob’ in the output 
-file) are 2-tailed parametric t-tests, as in standard OLS regression.
+The periodic phenomenon corresponding to each identified frequency is modelled
+by a cosine and a sine. The first pair (‘cos 1’, ‘sin 1’) corresponds to the
+first frequency, the second pair to the second frequency, and so on. An
+intercept is also computed, as well as a polynomial broad-scale trend if
+argument ntrend > 0. The coefficients shown for each periodic component (‘cos’
+and ‘sin’) are the OLS regression coefficients. The tests of significance
+producing the p-values (called ‘prob’ in the output file) are 2-tailed
+parametric t-tests, as in standard OLS regression.
 
-A global
-R-square statistic for the periodogram is computed as the variance of the 
-fitted values divided by the variance of the data series. An R-squared 
+A global R-square statistic for the periodogram is computed as the variance of
+the fitted values divided by the variance of the data series. An R-squared 
 corresponding to each frequency is also returned.
 
-In the Dutilleul 
-periodogram, the time unit is the length of the data series (in time units: 
-seconds, hours, days, etc.). Hence, the \emph{frequency} identified by a Dutilleul 
-periodogram is the number of cycles of the periodic signal (how many full or 
-partial cycles) along the time series. That number is an integer when the 
-series contains an integer number of cycles; it may also be a real number when
-the number of cycles is fractional. The periodogram can identify several 
-periodic phenomena with different frequencies. The estimated frequencies could
-be divided by an appropriate constant to produce numbers of cycles per second 
-or day, or per meter or km, depending on the study.
+In the Dutilleul periodogram, the time unit is the length of the data series
+(in time units: seconds, hours, days, etc.). Hence, the \emph{frequency}
+identified by a Dutilleul periodogram is the number of cycles of the periodic
+signal (how many full or partial cycles) along the time series. That number is
+an integer when the series contains an integer number of cycles; it may also
+be a real number when the number of cycles is fractional. The periodogram can
+identify several periodic phenomena with different frequencies. The estimated
+frequencies could be divided by an appropriate constant to produce numbers of
+cycles per second or day, or per meter or km, depending on the study.
 
-To find the \emph{period} (number
-of days, hours, etc.) of the process generating a periodic signal in the data,
-divide the length of the series (in days, hours, etc.) by the frequency 
-identified by Dutilleul’s periodogram. Recommendations to users The mfpa code 
-estimates the periodic frequencies to be included in the model through a 
-combination of a stepwise procedure and non-linear optimisation. Following 
-that, the contributions of the ‘cos’ and ‘sin’ components of all frequencies 
-in the model are estimated by multiple linear regression in the presence of 
-the intercept and trends (if any). Because the mfpa method estimates 
-fractional frequencies, the cos-sin combinations are not orthogonal among the 
-identified frequencies, and unnecessary frequencies may be selected as 
-‘significant’. 
+To find the \emph{period} (number of days, hours, etc.) of the process
+generating a periodic signal in the data, divide the length of the series (in
+days, hours, etc.) by the frequency identified by Dutilleul’s periodogram.
+Recommendations to users The mfpa code estimates the periodic frequencies to
+be included in the model through a combination of a stepwise procedure and
+non-linear optimisation. Following that, the contributions of the ‘cos’ and
+‘sin’ components of all frequencies in the model are estimated by multiple
+linear regression in the presence of the intercept and trends (if any).
+Because the mfpa method estimates fractional frequencies, the cos-sin
+combinations are not orthogonal among the identified frequencies, and
+unnecessary frequencies may be selected as ‘significant’.
 
-1. It is important that users of this periodogram have 
-hypotheses in mind about the frequencies of the processes that may be 
-operating on the system under study and the number of periodic components they
-are expecting to find. If one asks for more components than the number of 
-periodic phenomena at work on the system, the ‘real’ frequency usually has a 
-strong or fairly strong R-squared and it is followed by other components with 
-very small R-squared. Selection of frequencies of interest should thus be 
-based more upon examination of the R-squares of the components rather than on 
-the p-values. For short series in particular, the adjusted R-squared is an 
-unbiased estimate of the variance of the data explained by the model. Even 
-series of random numbers can produce ‘significant’ frequencies for periodic 
-components; the associated (adjusted) R-squares will, however, be very small. 
+1. It is important that users of this periodogram have hypotheses in mind
+about the frequencies of the processes that may be operating on the system
+under study and the number of periodic components they are expecting to find.
+If one asks for more components than the number of periodic phenomena at work
+on the system, the ‘real’ frequency usually has a strong or fairly strong
+R-squared and it is followed by other components with very small R-squared.
+Selection of frequencies of interest should thus be based more upon
+examination of the R-squares of the components rather than on the p-values.
+For short series in particular, the adjusted R-squared is an unbiased estimate
+of the variance of the data explained by the model. Even series of random
+numbers can produce ‘significant’ frequencies for periodic components; the
+associated (adjusted) R-squares will, however, be very small.
 
 2. Function mfpa cannot detect frequencies < 1 (smaller than one cycle in the 
-series) or larger than (\emph{n}–1) where \emph{n} is the number of observations in the 
-series, the latter case corresponding to periods smaller than the interval 
-between successive observations. When a periodic component with such a period 
-is present in the data, Dutilleul’s periodogram can detect harmonics of that 
-frequency. Recommendation: when a frequency is detected that does not seem to 
-correspond to a hypothesized process, one could check, using simulated data, 
-if it could be produced by a process operating at a temporal scale (period) 
-smaller than the interval between successive observations.  An example is 
-shown in Example 2. 
+series) or larger than (\emph{n}–1) where \emph{n} is the number of
+observations in the series, the latter case corresponding to periods smaller
+than the interval between successive observations. When a periodic component
+with such a period is present in the data, Dutilleul’s periodogram can detect
+harmonics of that frequency. Recommendation: when a frequency is detected that
+does not seem to correspond to a hypothesized process, one could check, using
+simulated data, if it could be produced by a process operating at a temporal
+scale (period) smaller than the interval between successive observations.  An
+example is shown in Example 2.
 
-3. When analysing a time series with unknown periodic 
-structure, it is recommended to try first with more than one frequency, say 2 
-or 3, and also with a trend. Eliminate the non-significant components, step by
-step, in successive runs, starting with the trend(s), then eliminate the 
-weakly significant periodic components, until there are only highly 
-significant components left in the model.
+3. When analysing a time series with unknown periodic structure, it is
+recommended to try first with more than one frequency, say 2 or 3, and also
+with a trend. Eliminate the non-significant components, step by step, in
+successive runs, starting with the trend(s), then eliminate the weakly
+significant periodic components, until there are only highly significant
+components left in the model.
 }
 \examples{
 
@@ -253,19 +246,28 @@ Guillaume Larocque <glaroc@gmail.com> and Pierre Legendre.
 Dutilleul, P. 1990. Apport en analyse spectrale d’un périodogramme modifié et 
 modélisation des séries chronologiques avec répétitions en vue de leur 
 comparaison en fréquence. Doctoral Dissertation, Université Catholique de 
-Louvain, Louvain-la-Neuve, Belgium. Dutilleul, P. 1998. Incorporating scale in
-ecological experiments: data analysis. Pp. 387-425 in: D. L. Peterson & V. T. 
-Parker [eds.] Ecological scale – Theory and applications. Columbia University 
-Press, New York. Dutilleul, P. 2001. Multi-frequential periodogram analysis 
-and the detection of periodic components in time series. Commun. Stat. - 
-Theory Methods 30, 1063–1098. Dutilleul, P. R. L. 2011. Spatio-temporal 
-heterogeneity — Concepts and analyses. Cambridge University Press, Cambridge. 
+Louvain, Louvain-la-Neuve, Belgium.
+
+Dutilleul, P. 1998. Incorporating scale in ecological experiments: data
+analysis. Pp. 387-425 in: D. L. Peterson & V. T. Parker [eds.] Ecological
+scale – Theory and applications. Columbia University Press, New York.
+
+Dutilleul, P. 2001. Multi-frequential periodogram analysis and the detection
+of periodic components in time series. Commun. Stat. - Theory Methods 30,
+1063–1098.
+
+Dutilleul, P. R. L. 2011. Spatio-temporal heterogeneity — Concepts and
+analyses. Cambridge University Press, Cambridge.
+
 Dutilleul, P. and C. Till. 1992. Evidence of periodicities related to climate 
 and planetary behaviors in ring-width chronologies of Atlas cedar (Cedrus 
-atlantica) in Morocco. Can. J. For. Res. 22: 1469-1482. Legendre, P. and P. 
-Dutilleul. 1992. Introduction to the analysis of periodic phenomena. 11-25 in:
-M. A. Ali [ed.] Rhythms in fishes. NATO ASI Series, Vol. A-236. Plenum, New 
-York. Legendre, P. and L. Legendre. 2012. Numerical Ecology. 3rd English 
-edition. Elsevier, Amsterdam.
+atlantica) in Morocco. Can. J. For. Res. 22: 1469-1482.
+
+Legendre, P. and P. Dutilleul. 1992. Introduction to the analysis of periodic
+phenomena. 11-25 in: M. A. Ali [ed.] Rhythms in fishes. NATO ASI Series, Vol.
+A-236. Plenum, New York.
+
+Legendre, P. and L. Legendre. 2012. Numerical Ecology. 3rd English edition.
+Elsevier, Amsterdam.
 }
 

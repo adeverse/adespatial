@@ -6,7 +6,7 @@
 #' 
 #' @param matdist A distance matrix (class \code{dist} or \code{matrix})
 #'   
-#' @return The maximum distance of the minimum spanning tree
+#' @return The maximum distance in the minimum spanning tree.
 #' @author Stéphane Dray \email{stephane.dray@@univ-lyon1.fr}
 #' @export give.thresh
 #' @importFrom ade4 mstree neig2mat

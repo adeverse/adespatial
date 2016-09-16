@@ -2,31 +2,33 @@
 % Please edit documentation in R/ortho.AIC.R
 \name{ortho.AIC}
 \alias{ortho.AIC}
-\title{Function to compute AIC in the case of orthogonal explanatory variables}
+\title{Compute AIC for models with orthonormal explanatory variables}
 \usage{
 ortho.AIC(Y, X, ord.var = FALSE)
 }
 \arguments{
-\item{Y}{A matrix with response variables (univariate or multivariate
+\item{Y}{A matrix with response variables (univariate or multivariate 
 response)}
 
 \item{X}{A set of orthonormal and centered vectors}
 
-\item{ord.var}{A logical value indicating if the order of variables and
+\item{ord.var}{A logical value indicating if the order of variables and 
 cumulative R2 must be returned}
 }
 \value{
-A vector with corrected AIC if \code{ord.var=FALSE}. A list if \code{ord.var=TRUE}
-  with: \item{AICc }{Values of corrected AIC.} \item{AICc0 }{Values of
-  corrected AIC for the null model (only intercept).} \item{ord }{Order of
-  variables to be enter in the model} \item{R2 }{Cumulative R2}
+A vector with corrected AIC if \code{ord.var=FALSE}. A list if
+  \code{ord.var=TRUE} with: \item{AICc }{Values of corrected AIC.}
+  \item{AICc0 }{Values of corrected AIC for the null model (only intercept).}
+  \item{ord }{Order of variables to be enter in the model} \item{R2
+  }{Cumulative R2}
 }
 \description{
-This function compute corrected AIC for models with orthonormal and centered
-explanatory variables. Variables are sorted by their contribution to R2.
+This function compute corrected AIC for models with orthonormal and centered 
+explanatory variables such as MEM spatial eigenfunctions. Variables are
+sorted by their contribution to R2. .
 }
 \details{
-It ensures that a model with k variables is the best one that can be
+It ensures that a model with k variables is the best one that can be 
 obtained. By default, response variables are centered (model with intercept).
 }
 \examples{
@@ -54,8 +56,8 @@ res$AICc0-2*(1*(1+1))/(nrow(x)-1-1) # the same
 Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
 }
 \references{
-Godinez-Dominguez E. and Freire J. (2003) Information-theoretic
-  approach for selection of spatial and temporal models of community
+Godinez-Dominguez E. and Freire J. (2003) Information-theoretic 
+  approach for selection of spatial and temporal models of community 
   organization. Marine Ecology - Progress Series. 253, 17--24
 }
 \keyword{models}

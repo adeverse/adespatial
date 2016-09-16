@@ -41,9 +41,9 @@
 #'   P-value statistic }
 #' @author Pierre Legendre \email{pierre.legendre@@umontreal.ca} and Guillaume 
 #'   Blanchet
-#' @references Bimultivariate redundancy: a comprehensive measure of 
-#'   interbattery relationship. \emph{Multivariate Behavioral Research},
-#'   \bold{6}, 313--324.\cr
+#' @references Miller, J. K. & S. D. Farr. 1971. Bimultivariate redundancy: a
+#'   comprehensive measure of interbattery relationship. \emph{Multivariate
+#'   Behavioral Research}, \bold{6}, 313--324.\cr
 #'   
 #' @keywords multivariate
 #' @examples

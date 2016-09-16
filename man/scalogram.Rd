@@ -41,7 +41,7 @@ The function \code{scalogram} returns an object of class
  \code{adegraphics} package
 }
 \description{
-The function decompose the variance of a variable \code{x} on a basis of 
+The function decomposes the variance of a variable \code{x} on a basis of 
 orthogonal vectors. The significance of the associated R-squared values is 
 tested by a randomization procedure. A smoothed scalogram is obtained by 
 summing the R-squared values into \code{nblocks}.

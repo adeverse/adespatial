@@ -17,19 +17,21 @@ set of first letters. Default: \code{method="hellinger"}.}
 
 \item{sqrt.D}{If \code{sqrt.D=TRUE}, the dissimilarities in matrix D are 
 square-rooted before computation of SStotal, BDtotal and LCBD. This 
-transformation may be useful for methods \code{"manhattan", 
-"modmeanchardiff", "whittaker", "divergence", "canberra", "\%difference", 
-“ruzicka”, "wishart"} since square-root transformation of the 
-dissimilarities makes these D matrices Euclidean. \itemize{\item Note 1 – 
-Euclideanarity is useful for ordination by principal coordinate analysis; 
-lack of this property does not adversely affect SStotal, BDtotal and LCBD. 
-\item Note 2 – The logical value given to parameter \code{sqrt.D} has no 
-incidence on calculations through methods \code{"euclidean", "profiles", 
-"hellinger", "chord", "chisquare", "none"} since no D matrix is computed in
-those cases. \item Note 3 – For methods \code{"jaccard", "sorensen", 
-"ochiai"}, the dissimilarity matrix is computed by function 
-\code{dist.binary} of package \code{ade4}. That function produces the 
-dissimilarity matrix in the form sqrt(D), which is Euclidean.}}
+transformation may be useful for methods \code{"manhattan"}, \code{ 
+"modmeanchardiff"}, \code{"whittaker"}, \code{"divergence"},
+\code{"canberra"}, \code{"\%difference"}, \code{ "ruzicka"},
+\code{"wishart"} since square-root transformation of the dissimilarities
+makes these D matrices Euclidean. \itemize{\item Note 1 – Euclideanarity is
+useful for ordination by principal coordinate analysis; lack of this
+property does not adversely affect SStotal, BDtotal and LCBD. \item Note 2
+– The logical value given to parameter \code{sqrt.D} has no incidence on
+calculations through methods \code{"euclidean"}, \code{"profiles"}, 
+\code{"hellinger"}, \code{"chord"}, \code{"chisquare"}, \code{"none"} since
+no D matrix is computed in those cases. \item Note 3 – For methods
+\code{"jaccard"}, \code{"sorensen"}, \code{"ochiai"}, the dissimilarity
+matrix is computed by function \code{dist.binary} of package \code{ade4}.
+That function produces the dissimilarity matrix in the form sqrt(D), which
+is Euclidean.}}
 
 \item{samp}{If \code{samp=TRUE}, the abundance-based distances (ab.jaccard, 
 ab.sorensen, ab.ochiai, ab.simpson) are computed for sample data. If 
@@ -56,18 +58,18 @@ A list containing the following results: \itemize{ \item
   \code{p.LCBD}: P-values associated with the LCBD indices. \item 
   \code{method}: Method selected. \item \code{note}: Notes indicate whether 
   the selected coefficient is Euclidean or not. \item \code{D}: The distance 
-  matrix if \code{save.D=TRUE}. } When all sites contain a different set of
-  species with no species in common, the maximum value that BDtotal can take
+  matrix if \code{save.D=TRUE}. } When all sites contain a different set of 
+  species with no species in common, the maximum value that BDtotal can take 
   depends on the method used in the calculation. \itemize{ \item With methods
-  \code{"hellinger", "chord", "profiles"}, which have maximum values of
+  \code{"hellinger", "chord", "profiles"}, which have maximum values of 
   sqrt(2), BDtotal produces an index in the range [0, 1] with a maximum value
   of 1. \item For dissimilarity indices with maximum values of 1, BDtotal has
-  a maximum value of 0.5. \item Dissimilarity indices that do not have
-  maximum values of 1 or sqrt(2) produce BDtotal values that do not have an
+  a maximum value of 0.5. \item Dissimilarity indices that do not have 
+  maximum values of 1 or sqrt(2) produce BDtotal values that do not have an 
   upper bound; hence they cannot be compared across taxonomic groups or among
-  study sites. This group includes the chi-square distance.} See Legendre &
+  study sites. This group includes the chi-square distance.} See Legendre & 
   De Caceres (2013, p. 957–958), Table 2 and section Maximum value of BD. \cr
-  For two sites only, the LCBD results are not interesting. With all
+  For two sites only, the LCBD results are not interesting. With all 
   coefficients, the two LCBD indices are equal to 0.5. The two associated 
   p-values are 1 because LCBD is 0.5 for all columnwise permutations of the 
   data. \cr The calculation is aborted when Y only contains two identical 
@@ -86,31 +88,34 @@ Calculations may be carried out in two ways, depending on the
   selected method. \itemize{ \item For untransformed or transformed raw data,
   the total sum of squares (SStotal) is first computed, then the total beta 
   diversity (BDtotal), which is SStotal divided by (n – 1), is calculated. 
-  This algorithm is used for methods \code{"euclidean", "profiles", 
-  "hellinger", "chord", "chisquare", "none"}. No transformation of the data 
-  is computed when the method is \code{"euclidean"} or \code{"none"} (no 
-  transformation). For methods \code{"profiles", "hellinger", "chord", 
-  "chisquare"}, the algorithm begins with computation of the same-name 
-  transformation of the community data (Legendre and Gallagher 2001; Legendre
-  and Legendre 2012, Section 7.7); SStotal and BDtotal are then computed for 
-  the transformed data. \item Calculations of BDtotal can also be conducted 
-  from a dissimilarity matrix. SStotal is computed by summing the squared 
+  This algorithm is used for methods \code{"euclidean"}, \code{"profiles"}, 
+  \code{"hellinger"}, \code{"chord"}, \code{"chisquare"}, \code{"none"}. No
+  transformation of the data is computed when the method is
+  \code{"euclidean"} or \code{"none"} (no transformation). For methods
+  \code{"profiles"}, \code{"hellinger"}, \code{"chord"}, \code{"chisquare"},
+  the algorithm begins with computation of the same-name transformation of
+  the community data (Legendre and Gallagher 2001; Legendre and Legendre
+  2012, Section 7.7); SStotal and BDtotal are then computed for the
+  transformed data. \item Calculations of BDtotal can also be conducted from
+  a dissimilarity matrix. SStotal is computed by summing the squared 
   dissimilarities in the lower triangular dissimilarity matrix and dividing 
   by n; then, total beta diversity (BDtotal) is computed as above. Whith 
   option \code{sqrt.D = TRUE}, the computation of SStotal is equivalent to 
   summing the distances instead of the squared distances. Choices are: 
-  \code{method = "manhattan", "modmeanchardiff", "whittaker", "divergence", 
-  "canberra", "\%difference", “ruzicka”, "wishart", "kulczynski", 
-  "ab.jaccard", "ab.sorensen", "ab.ochiai", "ab.simpson", “jaccard”, 
-  “sorensen”, “ochiai”}. Equations for these dissimilarities are presented in
-  Table 1 of Legendre and De Cáceres (2013). The Ružička index is described 
-  in Legendre (2014); this coefficient is suitable for beta diversity 
-  studies. See Chao et al. (2006) for details about the abundance-based (ab) 
-  coefficients.} Community composition data could be log-transformed prior to
-  analysis. This transformation makes the distributions more symmetrical. 
-  Only the Euclidean distance option should be used with log-transformed 
-  data. It is meaningless to subject log-transformed data to the 
-  \code{"profiles", "hellinger", "chord", "chisquare"} transformations 
+  \code{method = "manhattan"}, \code{"modmeanchardiff"}, \code{"whittaker"},
+  \code{"divergence"}, \code{"canberra"}, \code{"\%difference"},
+  \code{"ruzicka"}, \code{"wishart"}, \code{"kulczynski"}, 
+  \code{"ab.jaccard"}, \code{"ab.sorensen"}, \code{"ab.ochiai"},
+  \code{"ab.simpson"}, \code{"jaccard"}, \code{"sorensen"}, \code{"ochiai"}.
+  Equations for these dissimilarities are presented in Table 1 of Legendre
+  and De Cáceres (2013). The Ružička index is described in Legendre (2014);
+  this coefficient is suitable for beta diversity studies. See Chao et al.
+  (2006) for details about the abundance-based (ab) coefficients.} Community
+  composition data could be log-transformed prior to analysis. This
+  transformation makes the distributions more symmetrical. Only the Euclidean
+  distance option should be used with log-transformed data. It is meaningless
+  to subject log-transformed data to the \code{"profiles"},
+  \code{"hellinger"}, \code{"chord"}, \code{"chisquare"} transformations 
   available in this function. One can use either the log(y+1 transformation 
   (\code{log1p} function of \code{base}), or Anderson et al. (2006) special 
   log transformation available in \code{vegan}: \code{decostand(mat, "log", 

@@ -1,8 +1,8 @@
 #'Decompose D in replacement and richness difference components
 #'
 #'Podani-family and Baselga-family decompositions of the Jaccard and Sørensen 
-#'dissimilarity coefficients and their quantitative forms (Ruzicka and 
-#'%difference) into replacement and richness difference components, for species 
+#'dissimilarity coefficients and their quantitative forms (Ruzicka and \%difference) 
+#'into replacement and richness difference components, for species 
 #'presence-absence or abundance data, as described in Legendre (2014).
 #'
 #'@param mat Community composition data (\code{data.frame} or \code{matrix}.
@@ -20,7 +20,7 @@
 #'  used in presence-absence calculations.
 #'  
 #'@details For species presence-absence data, the distance coefficients are 
-#'  Jaccard=(b+c)/(a+b+c) and Sørensen=(b+c)/(2*a+b+c) with the usual {a,b,c} 
+#'  Jaccard = (b+c)/(a+b+c) and Sørensen = (b+c)/(2*a+b+c) with the usual {a,b,c} 
 #'  notation. For species abundance data, the distance coefficients are the 
 #'  Ruzicka index = (B+C)/(A+B+C) and Odum’s percentage difference = 
 #'  (B+C)/(2A+B+C) (incorrectly called Bray-Curtis in some packages), where 

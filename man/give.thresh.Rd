@@ -11,7 +11,7 @@ give.thresh(matdist)
 \item{matdist}{A distance matrix (class \code{dist} or \code{matrix})}
 }
 \value{
-The maximum distance of the minimum spanning tree
+The maximum distance in the minimum spanning tree.
 }
 \description{
 It is used to select a truncation value for the dbMEM approach. It

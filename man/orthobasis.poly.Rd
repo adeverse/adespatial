@@ -19,7 +19,7 @@ functions}
 an object of class \code{orthobasisSp} , subclass \code{orthobasis}
 }
 \description{
-These functions compute polynomials of geographical coordinates. Polynomials 
+This function computes orthgonal polynomials of geographical coordinates. Polynomials 
 functions are orthogonal and centred for the weights defined in \code{wt} 
 (i.e., orthogonal to \code{wt}). It is the classical approach to perform 
 trend surface analysis.

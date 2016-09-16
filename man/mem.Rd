@@ -68,7 +68,7 @@ Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
 \references{
 Dray, S., Legendre, P., and Peres-Neto, P. R. (2006). Spatial 
   modeling: a comprehensive framework for principal coordinate analysis of 
-  neighbor matrices (PCNM).\emph{Ecological Modelling} \bold{196}, 483--493.
+  neighbor matrices (PCNM). \emph{Ecological Modelling} \bold{196}, 483--493.
   
   Griffith D. A. (1996) Spatial autocorrelation and eigenfunctions of the 
   geographic weights matrix accompanying geo-referenced data. \emph{Canadian 

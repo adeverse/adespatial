@@ -10,10 +10,10 @@ global.rtest(X, listw, k = 1, nperm = 499)
 \arguments{
 \item{X}{a data matrix, with variables in columns}
 
-\item{listw}{a list of weights of class \code{listw}. Can be obtained easily
+\item{listw}{a list of weights of class \code{listw}. Can be obtained easily 
 using the function \code{chooseCN}.}
 
-\item{k}{integer: the number of highest \eqn{R^2}{R^2} summed to form the
+\item{k}{integer: the number of highest \eqn{R^2}{R^2} summed to form the 
 test statistics}
 
 \item{nperm}{integer: the number of randomisations to be performed.}
@@ -22,20 +22,19 @@ test statistics}
 An object of class \code{randtest}.
 }
 \description{
-These two Monte Carlo tests are used to assess the existence of 'global' and
-'local' spatial structures, corresponding respectively to positive and
+These two Monte Carlo tests are used to assess the existence of 'global' and 
+'local' spatial structures, corresponding respectively to positive and 
 negative Moran's I .\cr
 }
 \details{
-They rely on the decomposition of a data matrix X into global and local
-components using multiple regression on Moran's Eigenvector Maps (MEMs).
-They require a data matrix (X) and a list of weights derived from a
-connection network. X is regressed onto global MEMs (U+) in the global test
-and on local ones (U-) in the local test. One mean \eqn{R^2}{R^2} is
-obtained for each MEM, the k highest being summed to form the test
-statistic.
+They rely on the decomposition of a data matrix X into global and local 
+components using multiple regression on Moran's Eigenvector Maps (MEMs). They
+require a data matrix (X) and a list of weights derived from a connection
+network. X is regressed onto global MEMs (U+) in the global test and on local
+ones (U-) in the local test. One mean \eqn{R^2}{R^2} is obtained for each
+MEM, the k highest being summed to form the test statistic.
 
-The reference distribution of these statistics are obtained by randomly
+The reference distribution of these statistics are obtained by randomly 
 permuting the rows of X.
 
 These tests were originally part of the adegenet package for R.
@@ -51,9 +50,10 @@ These tests were originally part of the adegenet package for R.
 Thibaut Jombart \email{t.jombart@imperial.ac.uk}
 }
 \references{
-Jombart, T., Devillard, S., Dufour, A.-B. and Pontier, D.
-Revealing cryptic spatial patterns in genetic variability by a new
-multivariate method. \emph{Heredity} doi: 10.1038/hdy.2008.34.
+Jombart, T., Devillard, S., Dufour, A.-B. and Pontier, D. 2008. 
+  Revealing cryptic spatial patterns in genetic variability by a new 
+  multivariate method. \emph{Heredity}, 101, 92--103. doi:
+  10.1038/hdy.2008.34.
 }
 \keyword{multivariate}
 \keyword{spatial}

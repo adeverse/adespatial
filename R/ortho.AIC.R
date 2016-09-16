@@ -1,24 +1,26 @@
-#' Function to compute AIC in the case of orthogonal explanatory variables
+#' Compute AIC for models with orthonormal explanatory variables
 #' 
-#' This function compute corrected AIC for models with orthonormal and centered
-#' explanatory variables. Variables are sorted by their contribution to R2.
+#' This function compute corrected AIC for models with orthonormal and centered 
+#' explanatory variables such as MEM spatial eigenfunctions. Variables are
+#' sorted by their contribution to R2. .
 #' 
-#' It ensures that a model with k variables is the best one that can be
+#' It ensures that a model with k variables is the best one that can be 
 #' obtained. By default, response variables are centered (model with intercept).
 #' 
 #' 
-#' @param Y A matrix with response variables (univariate or multivariate
+#' @param Y A matrix with response variables (univariate or multivariate 
 #'   response)
 #' @param X A set of orthonormal and centered vectors
-#' @param ord.var A logical value indicating if the order of variables and
+#' @param ord.var A logical value indicating if the order of variables and 
 #'   cumulative R2 must be returned
-#' @return A vector with corrected AIC if \code{ord.var=FALSE}. A list if \code{ord.var=TRUE}
-#'   with: \item{AICc }{Values of corrected AIC.} \item{AICc0 }{Values of
-#'   corrected AIC for the null model (only intercept).} \item{ord }{Order of
-#'   variables to be enter in the model} \item{R2 }{Cumulative R2}
+#' @return A vector with corrected AIC if \code{ord.var=FALSE}. A list if
+#'   \code{ord.var=TRUE} with: \item{AICc }{Values of corrected AIC.}
+#'   \item{AICc0 }{Values of corrected AIC for the null model (only intercept).}
+#'   \item{ord }{Order of variables to be enter in the model} \item{R2
+#'   }{Cumulative R2}
 #' @author Stéphane Dray \email{stephane.dray@@univ-lyon1.fr}
-#' @references Godinez-Dominguez E. and Freire J. (2003) Information-theoretic
-#'   approach for selection of spatial and temporal models of community
+#' @references Godinez-Dominguez E. and Freire J. (2003) Information-theoretic 
+#'   approach for selection of spatial and temporal models of community 
 #'   organization. Marine Ecology - Progress Series. 253, 17--24
 #' @keywords models
 #' @examples

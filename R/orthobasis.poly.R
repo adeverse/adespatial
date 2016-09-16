@@ -1,6 +1,6 @@
 #' Function to compute polynomial of geographical coordinates
 #' 
-#' These functions compute polynomials of geographical coordinates. Polynomials 
+#' This function computes orthgonal polynomials of geographical coordinates. Polynomials 
 #' functions are orthogonal and centred for the weights defined in \code{wt} 
 #' (i.e., orthogonal to \code{wt}). It is the classical approach to perform 
 #' trend surface analysis.
