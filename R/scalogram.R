@@ -139,7 +139,7 @@ plot.scalogram <- function(x, pos = -1, plot = TRUE, ...){
     
     ## parameters management
     params <- list()
-    params$obs <- list(p1d.horizontal = FALSE, plabels.cex = 2, paxes.draw = TRUE, ylab = expression(R^2), scales = list(x = list(labels = x$names)))
+    params$obs <- list(p1d.horizontal = FALSE, plabels.cex = 2, paxes.draw = TRUE, ylab = expression(R^2), scales = list(x = list(labels = x$names)), ylim = c(0,1))
     params$sim <- list(p1d.horizontal = FALSE)
     names(params) <- graphsnames
     sortparameters <- modifyList(params, sortparameters, keep.null = TRUE)
