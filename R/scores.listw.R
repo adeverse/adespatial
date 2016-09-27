@@ -1,4 +1,5 @@
-#' Function to compute Moran's Eigenvector Maps (MEM) of a listw object
+#' Function to compute and manage Moran's Eigenvector Maps (MEM) of a listw
+#' object
 #' 
 #' These functions compute MEM (i.e., eigenvectors of a doubly centered spatial 
 #' weighting matrix). Corresponding eigenvalues are linearly related to Moran's 
@@ -7,7 +8,7 @@
 #' Testing the nullity of eigenvalues is based on E(i)/E(1) where E(i) is i-th 
 #' eigenvalue and E(1) is the maximum absolute value of eigenvalues
 #' 
-#' @aliases scores.listw mem orthobasis.listw
+#' @aliases scores.listw mem orthobasis.listw [.orthobasisSp
 #' @param listw An object of the class \code{listw} created by functions of the 
 #'   \code{spdep} package
 #' @param wt A vector of weights. It is used to orthogonalize the eigenvectors. 
@@ -17,10 +18,13 @@
 #'   those corresponding to non-null, positive or negative autocorrelation
 #' @param store.listw A logical indicating if the spatial weighting matrix 
 #'   should be stored in the attribute \code{listw} of the returned object
+#' @param x An object of class \code{orthobasisSp}.
+#' @param i,j Elements to extract (integer or empty): index of rows (i) and
+#'   columns (j).
 #' @return An object of class \code{orthobasisSp} , subclass \code{orthobasis}. 
 #'   The MEMs are stored as a \code{data.frame}. It contains several attributes 
-#'   (see \code{?attributes}) including: \itemize{\item \code{values}: The
-#'   associated eigenvalues. \item \code{listw}: The associated spatial
+#'   (see \code{?attributes}) including: \itemize{\item \code{values}: The 
+#'   associated eigenvalues. \item \code{listw}: The associated spatial 
 #'   weighting matrix (if \code{store.listw = TRUE}). }
 #' @author Stéphane Dray \email{stephane.dray@@univ-lyon1.fr}
 #' @seealso \code{\link[spdep]{nb2listw}} \code{\link[ade4]{orthobasis}}
@@ -129,5 +133,29 @@ orthobasis.listw <- function (listw,  wt = rep(1, length(listw$neighbours)),
                               MEM.autocor = c("non-null", "all", "positive", "negative"), store.listw = FALSE) {
     res <- scores.listw(listw = listw, wt = wt, MEM.autocor = MEM.autocor, store.listw = store.listw)
     attr(res,"call") <- match.call()
+    return(res)
+}
+
+#' @rdname mem
+#' @export
+"[.orthobasisSp" <- function (x, i, j) {
+    
+    ## i: index of rows
+    ## j: index of columns
+    res <- as.data.frame(x)
+    if(!missing(i)){
+        res <- res[i, , drop = FALSE]
+        attr(res,"values") <- attr(x,"values")
+        attr(res,"weights") <- attr(x,"weights")[i]
+    }
+    if(!missing(j)){
+        res <- res[, j, drop = FALSE]
+        attr(res,"values") <- attr(x,"values")[j]
+        attr(res,"weights") <- attr(x,"weights")
+    }
+    attr(res,"call") <- match.call()
+    attr(res,"class") <- attr(x,"class") 
+    if(ncol(res) == 1)
+        res <- as.vector(as.matrix(res))
     return(res)
 }
