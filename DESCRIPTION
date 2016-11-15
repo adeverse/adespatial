@@ -17,6 +17,7 @@ Imports:
     methods,
     grDevices,
     graphics,
+    MASS,
     stats,
     utils,
     vegan,
