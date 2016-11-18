@@ -20,8 +20,8 @@ Imports:
     MASS,
     stats,
     utils,
-    vegan,
     shiny
+Suggests: vegan
 License: GPL (>= 2)
 Encoding: UTF-8
 NeedsCompilation: yes
