@@ -116,6 +116,7 @@
 #' quicksti(trich.log[111:154,], S=22, Ti=2, nperm=999)
 #' 
 #' @importFrom MASS ginv
+#' @importFrom stats model.matrix
 #' @aliases stimodels quicksti
 #' @export stimodels quicksti
 #' @rdname stimodels  

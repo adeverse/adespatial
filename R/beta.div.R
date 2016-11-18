@@ -179,6 +179,7 @@
 #' g2+g1
 #' }
 #'
+#' @importFrom stats p.adjust
 #' @export beta.div
 #'
 
