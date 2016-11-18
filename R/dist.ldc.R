@@ -112,7 +112,7 @@
 #'   matrices resulting from these three coefficients are outputted in the form
 #'   sqrt(1-S), as in function \code{dist.binary} of ade4, because that form is
 #'   Euclidean and will thus produce no negative eigenvalues in principal
-#'   coordinate analysis. The Hellinger, chord, chi-square and species profile
+#'   coordinate analysis. \cr The Hellinger, chord, chi-square and species profile
 #'   dissimilarities are computed using the two-step procedure developed by
 #'   Legendre & Gallagher (2001). The data are first transformed using either
 #'   the row marginals, or the row and column marginals in the case of the
@@ -133,7 +133,10 @@
 #'   easier to compute a PCA of log-transformed abundance data instead of a
 #'   PCoA; the resulting ordination with scaling 1 will be meaningful. Messages
 #'   are printed to the R console indicating the Euclidean status of the
-#'   computed dissimilarity matrices.
+#'   computed dissimilarity matrices. Note that for the chi-square distance, 
+#'   the columns that sum to zero are eliminated before calculation of the distances,
+#'    thus preventing divisions by zero in the calculation of the chi-square 
+#'    transformation.
 #'   
 #' @return A dissimilarity matrix, with class \code{dist}.
 #'   
