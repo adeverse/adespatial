@@ -85,7 +85,8 @@
                         scores.listw(nb2listw(
                             nb,
                             style = "B",
-                            glist = lapply(nbdist, f)
+                            glist = lapply(nbdist, f), 
+                            zero.policy = TRUE
                         ),
                             MEM.autocor = MEM.autocor)
                 }
@@ -126,6 +127,6 @@
         cat ("\nBest spatial model:\n")
         print(res3[thebest,])
         
-        return(list(all = res3, best = c(res[[thebest]], res2[[thebest]])))
+        return(list(all = res3, best = list(MEM = res[[thebest]], AIC = res2[[thebest]])))
         
     }
