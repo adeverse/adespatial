@@ -104,11 +104,11 @@
 #' 
 #' 
 #' # Run space-time interaction test using model "5"
-#' stimodels(trich.log, S=22, Ti=10, nperm=999, model="5")
+#' stimodels(trich.log, S=22, Ti=10, nperm=99, model="5")
 #' 
 #' # Run space-time analysis with tests for main effects after testing 
 #' # interaction (which is significant)
-#' quicksti(trich.log, S=22, Ti=10, nperm=999)
+#' quicksti(trich.log, S=22, Ti=10, nperm=99)
 #' 
 #' # Run space-time analysis for time blocks number 6 and 7. 
 #' # Interaction is then not significant and tests of main effects are done 
