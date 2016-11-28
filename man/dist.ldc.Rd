@@ -41,7 +41,7 @@ A dissimilarity matrix, with class \code{dist}.
 \description{
 Compute dissimilarity indices for ecological data matrices. The dissimilarity
 indices computed by this function are those described in Legendre & De 
-Cáceres (2013). In the name of the function, 'dlc' stands for the author's 
+Cáceres (2013). In the name of the function, 'ldc' stands for the author's 
 names. Twelve of these 21 indices are not readily available in other R 
 package functions; four of them can, however, be computed in two computation 
 steps in \code{vegan}.
@@ -113,7 +113,7 @@ The dissimilarities computed by this function are the following.
   dissimilarities have a maximum value of either 1 or sqrt(2). Three
   dissimilarities (Euclidean, Manhattan, Modified mean character difference)
   do not have an upper bound and are thus inappropriate for beta diversity
-  studies. The chi-square distance has an upper bound of sqrt(2*(sum(Y))). 
+  studies. The chi-square distance has an upper bound of sqrt(2*(sum(Y))).\cr 
   The Euclidean, Hellinger, chord, chi-square and species profiles
   dissimilarities have the property of being Euclidean, meaning that they
   never produce negative eigenvalues in principal coordinate analysis. The
@@ -137,7 +137,7 @@ The dissimilarities computed by this function are the following.
   transforms the abundance data to binary form, and using one of the
   quantitative indices of the present function. Table 1 of Legendre & De
   Cáceres (2013) shows the incidence-based (presence-absence-based) indices
-  computed by the various indices using binary data. The Euclidean distance
+  computed by the various indices using binary data. \cr The Euclidean distance
   computed on untransformed presence-absence or abundance data produces
   non-informative and incorrect ordinations, as shown in Legendre & Legendre
   (2012, p. 300) and in Legendre & De Cáceres (2013). However, the Euclidean
