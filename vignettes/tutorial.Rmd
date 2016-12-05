@@ -1,0 +1,461 @@
+---
+title: "adespatial: Moran's Eigenvector Maps and related methods for the spatial multiscale analysis of ecological communities"
+author: "Stéphane Dray"
+date: "`r Sys.Date()`"
+output: 
+  html_vignette:
+    number_sections: yes
+    toc: yes
+bibliography: adespatial.bib
+
+vignette: |
+  %\VignetteIndexEntry{adespatial: Moran's Eigenvector Maps and related methods in R for the spatial multiscale analysis of ecological communities}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The package `adespatial` contains functions for the multiscale analysis of spatial multivariate data. It implements some new functions and reimplements existing functions that were available in packages of the sedaR project hosted on R-Forge (`spacemakeR`, `packfor`, `AEM`, etc.). It can be seen as a bridge between packages dealing with mutltivariate data (e.g., `ade4`, @Dray2007) and packages that deals with spatial data (`spdep`). In `adespatial`, the spatial information is considered as a spatial weighting matrix, object of class `listw` provided by the `spdep` package ([Figure 1](#diagram)). It allows to build Moran's Eigenvector Maps (MEM, @Dray2006) that are orthogonal vectors maximizing the spatial autocorrelation (measured by Moran's index of autocorrelation). These spatial predictors can be used in multivariate statistical methods to provide spatially-explicit multiscale tools [@Dray2012]. This document provides a description of the main functionalities of the package. 
+
+<br>
+<div style="text-align:center">
+<a name="diagram"></a>
+<img src="adespatial.png" style="width:700px"/>
+<span style="color:blue">Figure 1: Schematic representation of the functioning of the `adespatial` package. Classes are represented in pink frames and functions in blue frames. Classes and functions provided by `adespatial` are in bold. </span>
+</div>
+<br>
+
+To run the different analysis described, several packages are required and are loaded:
+
+```{r}
+library(adespatial)
+library(ade4)
+library(adegraphics)
+library(spdep)
+library(maptools)
+```
+
+# Spatial Neighborhood
+
+Spatial neighborhoods are managed in `spdep` as objects of class `nb`. It corresponds to the notion of connectivity matrices discussed in @Dray2006 and can be represented by an unweighted graph. Various functions are devoted to create `nb` objects from geographic coordinates of sites. We present different alternatives according to the design of the sampling scheme.
+
+## Surface data
+
+The function `poly2nb` allows to define neighborhood when the sampling sites are polygons and not points (two regions are neighbors if they share a common boundary).
+
+```{r, echo = -1}
+par(mar = c(0, 0, 3, 0))
+columbus <- readShapePoly(system.file("etc/shapes/columbus.shp", package="spdep")[1])
+xx <- poly2nb(columbus)
+plot(columbus, border = "grey")
+plot(xx, coordinates(columbus), add = TRUE, pch = 20, col = "red")
+title(main="Neighborhood for polygons")
+```
+
+## Regular grids
+
+If the sampling scheme is based on grid of 10 rows and 8 columns, spatial coordinates can be easily generated:
+
+```{r, echo = -1}
+par(mar = rep(0,4))
+xygrid <- expand.grid(x = 1:10, y = 1:8)
+plot(xygrid, pch = 20, asp = 1)
+``` 
+
+For a regular grid, spatial neighborhood can be created with the function `cell2nb`. Two types of neighborhood can be defined. The `queen` specification considered horizontal, vertical and diagonal edges:
+
+```{r, echo = -1}
+par(mar = c(0, 0, 3, 0))
+
+nb1 <- cell2nb(10, 8, type = "queen")
+
+plot(nb1, xygrid, col = "red", pch = 20)
+title(main = "Queen neighborhood")
+
+nb1
+``` 
+
+The `rook` specification considered only horizontal and vertical edges:  
+
+```{r, echo = -1}
+par(mar = c(0, 0, 3, 0))
+nb2 <- cell2nb(10, 8, type = "rook")
+
+plot(nb2, xygrid, col = "red", pch = 20)
+title(main = "Rook neighborhood")
+
+nb2
+```
+
+## Transects
+
+The easiest way to deal with transects is to consider them as grids with only one row:
+
+```{r, echo = -1}
+par(mar = c(0, 0, 3, 0))
+xytransect <- expand.grid(1:20, 1)
+nb3 <- cell2nb(20, 1)
+
+plot(nb3, xytransect, col = "red", pch = 20)
+title(main = "Transect of 20 sites")
+
+summary(nb3)
+```
+
+All sites have two neighbors except the first and the last one.
+
+## Irregular samplings
+
+There are many ways to define neighborhood in the case of irregular samplings. We consider a random sampling with 10 sites:
+
+```{r, echo = -1}
+par(mar = c(0, 0, 3, 0))
+set.seed(3)
+xyir <- matrix(runif(20), 10, 2)
+plot(xyir, pch = 20, main = "Irregular sampling with 10 sites")
+```
+
+The most intuitive way is to consider that sites are neighbors (or not) according to the distances between them. This definition is provided by the `dnearneigh` function:
+
+```{r, fig.width = 5, echo = -1}
+par(mar = c(0, 0, 3, 0), mfrow = c(2, 2))
+nbnear1 <- dnearneigh(xyir, 0, 0.2)
+nbnear2 <- dnearneigh(xyir, 0, 0.3)
+nbnear3 <- dnearneigh(xyir, 0, 0.5)
+nbnear4 <- dnearneigh(xyir, 0, 1.5)
+
+plot(nbnear1, xyir, col = "red", pch = 20)
+title(main = "neighbors if 0<d<0.2")
+plot(nbnear2, xyir, col = "red", pch = 20)
+title(main = "neighbors if 0<d<0.3")
+plot(nbnear3, xyir, col = "red", pch = 20)
+title(main = "neighbors if 0<d<0.5")
+plot(nbnear4, xyir, col = "red", pch = 20)
+title(main = "neighbors if 0<d<1.5")
+```
+
+Using a distance-based criteria could lead to unbalanced graphs. For instance, if the maximum distance is too low, some points have no neighbors:
+```{r}
+nbnear1
+```
+
+On the other hand, if the maximum distance is to high, all sites could connected to the 9 others:
+```{r}
+nbnear4
+```
+
+
+It is also possible to possible to define neighborhood by a criteria based on nearest neighbors. However, this option can lead to non-symmetric neighborhood: if site A is the nearest neighbor of site B, it does not mean that site B is the nearest neighbor of site A.
+
+The function `knearneigh` creates an object of class `knn`. It can be transformed into a `nb` object with the function `knn2nb`. This function has an argument `sym` which can be set to `TRUE` to force the output neighborhood to symmetry.
+
+```{r, fig.width = 5, echo = -1}
+par(mar = c(0, 0, 3, 0), mfrow = c(1, 2))
+knn1 <- knearneigh(xyir, k = 1)
+nbknn1 <- knn2nb(knn1, sym = TRUE)
+knn2 <- knearneigh(xyir, k = 2)
+nbknn2 <- knn2nb(knn2, sym = TRUE)
+
+plot(nbknn1, xyir, col = "red", pch = 20)
+title(main = "Nearest neighbors (k=1)")
+plot(nbknn2, xyir, col = "red", pch = 20)
+title(main="Nearest neighbors (k=2)")
+``` 
+    
+This definition of neighborhood can lead to unconnected subgraphs. The function `n.comp.nb` finds the number of disjoint connected subgraphs:
+
+```{r}
+n.comp.nb(nbknn1)
+n.comp.nb(nbknn2)
+```
+
+More elaborate procedures are available to define neighborhood. For instance, Delaunay triangulation is obtained with the function `tri2nb`. It requires the package `deldir`. Other graph-based procedures are also available:
+
+```{r, fig.width = 5, echo = -1}
+par(mar = c(0, 0, 3, 0), mfrow = c(2, 2))
+nbtri <- tri2nb(xyir)
+nbgab <- graph2nb(gabrielneigh(xyir), sym = TRUE)
+nbrel <- graph2nb(relativeneigh(xyir), sym = TRUE)
+nbsoi <- graph2nb(soi.graph(nbtri, xyir), sym = TRUE)
+
+plot(nbtri, xyir, col = "red", pch = 20)
+title(main="Delaunay triangulation")
+plot(nbgab, xyir, col = "red", pch = 20)
+title(main = "Gabriel Graph")
+plot(nbrel, xyir, col = "red", pch = 20)
+title(main = "Relative Neighbor Graph")
+plot(nbsoi, xyir, col = "red", pch = 20)
+title(main = "Sphere of Influence Graph")
+```
+
+The function `chooseCN` provides a simple way to build spatial neighborhoods. It is a wrap up to many of the `spdep` functions presented above. The function `createlistw` discussed in section XX is an interactive graphical interface that allows to generate R code to build neighborhood objects.  
+
+## Manipulation of `nb` objects
+
+A `nb` object is a list of neighbors. The neighbors of the first site are in the first element of the list:
+
+```{r}
+nbgab[[1]]
+```
+
+Various tools are provided by `spdep` to deal with these objects. For instance, it is possible to identify differences between two neighborhoods:
+
+```{r}
+diffnb(nbsoi,nbrel)
+```
+
+Usually, it can be useful to remove some connections due to edge effects. In this case, the function `edit.nb` provides an interactive tool to add or delete connections.
+
+The function `include.self` allows to include a site itself in its own list of neighbors:
+
+```{r}
+str(nbsoi)
+str(include.self(nbsoi))
+```
+
+The `spdep` package provides many other tools to manipulate `nb` objects:
+
+```
+intersect.nb(nb.obj1, nb.obj2)
+union.nb(nb.obj1, nb.obj2)
+setdiff.nb(nb.obj1, nb.obj2)
+complement.nb(nb.obj)
+
+droplinks(nb, drop, sym = TRUE)
+
+nblag(neighbours, maxlag)
+```
+
+# Spatial weighting matrices
+
+Spatial weighting matrices are computed by a transformation of the spatial neighborhood objects. In R, they are not stored as matrices but as objects of the class `listw`. This format is more efficient than a matrix representation to manage large data sets. An object of class `listw` can be easily created from an object of class `nb` with the function `nb2listw`.
+
+Different objects `listw` can be obtained from a `nb` object. The argument `style` allows to define a transformation of the matrix such as standardization by row sum, by total sum or binary coding, etc. General spatial weights can be introduced by the argument `glist`. This allows to introduce, for instance, a weighting relative to the distances between the points. For this task, the function `nbdists` is very useful as it computes Euclidean distance between neighbor sites defined by an `nb` object.
+
+To obtain a simple row-standardization, the function is simply called by:
+
+```{r}
+nb2listw(nbgab)
+```
+
+
+More sophisticated forms of spatial weighting matrices can be defined. For instance, it is possible to weight edges between neighbors as functions of geographic distances. In a fist step, distances between neighbors are obtained by the function \texttt{nbdists}:
+
+```{r}
+distgab <- nbdists(nbgab, xyir)
+str(distgab)
+```
+
+Then, spatial weights are defined as a function of distance (e.g. $1-d_{ij}/max(d_{ij})$):
+
+```{r}
+fdist <- lapply(distgab, function(x) 1-x/max(dist(xyir)))
+```
+
+And the spatial weighting matrix is then created:
+
+```{r}
+listwgab <- nb2listw(nbgab, glist = fdist, style = "B")
+listwgab
+names(listwgab)
+listwgab$neighbours[[1]]
+listwgab$weights[[1]]
+```
+
+The matrix representation of a `listw` object can also be obtained:
+
+```{r}
+print(listw2mat(listwgab),digits=3)
+```
+
+To facilitate the building of spatial neighborhoods (`nb` object) and associated spatial weighting matrices (`listw` object), the package `adespatial` provides an interactive graphical interface. The interface is launched by the call `createlistw()` assuming that spatial coordinates are still stored in an object of the R session ([Figure 2](#createlistw)).
+
+<br>
+<div style="text-align:center">
+<a name="createlistw"></a>
+<img src="createlistw.png" style="width:700px"/>
+<span style="color:blue">Figure 2: The interactive interface provided by the function `createlistw`. </span>
+</div>
+<br>
+
+# Spatial predictors
+
+The package `adespatial` provide different tools to build spatial predictors that can be incorporated in multivariate analysis. They are orthogonal vectors stored in a object of class `orthobasisSp`. Orthogonal polynomials of geographic coordinates can be computed by the function `orthobasis.poly` whereas traditional principal coordinates of neighbour matrices (PCNM, @Borcard2002) are obtained by the function `dbmem`. The more flexible Moran's eigenvectors maps (MEMs) of a spatial weighting matrix are computed by the functions `scores.listw` or `mem` of the `adespatial` package. These two functions are exactly identical and return an object of class `orthobasisSp`. 
+
+```{r}
+mem.gab <- mem(listwgab)
+mem.gab
+```
+
+This object contains MEMs, stored as a `data.frame` and other attributes:
+```{r}
+str(mem.gab)
+```
+
+The eigenvalues associated to MEMs are stored in the attribute called `values`:
+```{r, echo = -1}
+par(mar = c(0, 2, 3, 0))
+    barplot(attr(mem.gab, "values"), 
+        main = "Eigenvalues of the spatial weighting matrix", cex.main = 0.7)
+```
+
+A `plot` method is provided to represent MEMs. By default, eigenvectors are represented as a table (sites as rows, MEMs as columns):
+
+```{r}
+plot(mem.gab)
+```
+
+The previous representation is not really informative and MEMs can be represented in the geographical space as maps if the argument `SpORcoords` is documented:
+```{r, fig.width = 5, fig.height = 5}
+plot(mem.gab, SpORcoords = xyir, nb = nbgab)
+```
+
+Moran's I can be computed and tested for each eigenvector with the `moran.randtest` function:
+
+```{r}
+moranI <- moran.randtest(mem.gab, listwgab, 99)
+moranI
+```
+By default, the function `moran.randtest` tests against the alternative hypothesis of positive autocorrelation (`alter = "greater"`) but this can be modified by setting the argument `alter` to `"less"` or `"two-sided"`. The function is not only devoted to MEMs and can be used to compute spatial autocorrelations for all kind of variables. 
+
+As demonstrated in @Dray2006, eigenvalues and Moran's I are equal (post-multiply by a constant):
+
+```{r}
+attr(mem.gab, "values") / moranI$obs
+```
+
+Then, it is possible to map only positive significant eigenvectors (i.e., MEMs with significant positive spatial autocorrelation):
+
+```{r, fig.width = 5, fig.height = 5/3}
+signi <- which(moranI$p < 0.05)
+signi
+plot(mem.gab[,signi], SpORcoords = xyir, nb = nbgab)
+```
+
+
+# Data-driven selection of a spatial weighting matrix
+
+The choice of a spatial weighting matrix is an important step and @Dray2006 proposed a data-driven procedure of selection based on AICc. The function `ortho.AIC` orders variables and returns AICc for all models of one, two, ..., $p$  variables.
+We illustrate its use with the oribatid data-set which is available in the `ade4` package. Data are Hellinger-transformed and then the linear trend is removed:
+
+```{r}
+data(oribatid)
+fau <- sqrt(oribatid$fau / outer(apply(oribatid$fau, 1, sum),
+    rep(1, ncol(oribatid$fau)), "*"))
+faudt <- resid(lm(as.matrix(fau) ~ as.matrix(oribatid$xy)))
+```
+
+For instance, we consider the binary spatial weighting matrix based on the Delaunay triangulation.
+```{r}
+nbtri <- tri2nb(as.matrix(oribatid$xy))
+sc.tri <- scores.listw(nb2listw(nbtri, style = "B"))
+AIC.tri <- ortho.AIC(faudt, sc.tri)
+head(AIC.tri)
+```
+
+The minimum value and the rank of the corresponding are obtained easily:
+```{r}
+min(AIC.tri, na.rm = TRUE)
+which.min(AIC.tri)
+```
+
+Note that the order of the variables can also be obtained from the function `ortho.AIC` by setting the `ord.var` argument to `TRUE`. In this case, the returned object is a list of two vectors:
+
+```{r}
+AIC.tri <- ortho.AIC(faudt, sc.tri, ord.var = TRUE)
+head(AIC.tri$AICc)
+head(AIC.tri$ord)
+```
+The user-friendly function `test.W` simplifies the procedure of selection of a spatial weighting matrix. It takes at least two arguments: a response matrix and an object of the class `nb`.
+
+If only two arguments are considered, the function prints the results for the best model. All the results are stored in the element `best` of the list. It contains eigenvectors and eigenvalues of the spatial weighting matrix considered and the results of the AIC-based procedure.
+
+```{r}
+tri.res <- test.W(faudt,nbtri)
+names(tri.res)
+names(tri.res$best)
+```
+
+The function can also be used to estimate the best values of parameters if we consider a function of the distance.
+This can be illustrated with the function $f_2=1-(x^\alpha)/dmax^\alpha$ with the connectivity defined by Delaunay triangulation. We considered the sequence of integers between 2 and 10 for $\alpha$.
+
+```{r}
+f2 <- function(x, dmax, y) {
+    1 - (x ^ y) / (dmax) ^ y
+}
+
+maxi <- max(unlist(nbdists(nbtri, as.matrix(oribatid$xy))))
+tri.f2 <- test.W(faudt, nbtri, f = f2, y = 2:10, dmax = maxi, 
+    xy = as.matrix(oribatid$xy))
+```
+
+In this case, the element `best` contains the results for the best values of the parameter $\alpha$.
+
+```{r}
+names(tri.f2$best)
+```
+
+Lastly, the function `test.W` can be used to evaluate different definitions of neighborhood. We illustrate this possibility by the definition of a sequence of neighborhood by distance criteria.
+Firstly, we choose the range of values to be tested with an empirical multivariate variogram using the function `variogmultiv`.
+
+The function has been applied to oribatid mites data:
+
+```{r, fig.height = 5, fig.width = 5}
+mvspec <- variogmultiv(faudt, oribatid$xy, nclass = 20)
+plot(mvspec$d, mvspec$var, type = 'b', pch = 20, xlab = "Distance", ylab = "C(distance)")
+```
+
+We will construct ten neighborhood matrices with a distance criterion varying along the sequence of 10 evenly distributed values between 1.012 and 4 m:
+
+```{r}
+dxy <- seq(give.thresh(dist(oribatid$xy)), 4, length = 10)
+nbdnnlist <- lapply(dxy, dnearneigh, x = as.matrix(oribatid$xy), d1 = 0)
+```
+
+Then, the function `test.W` can be applied to this list of neighborhood matrices:
+
+```{r}
+dnn.bin <- lapply(nbdnnlist, test.W, Y = faudt)
+```
+
+The object `dnn.bin` is a list with the results of `test.W` for each neighborhood matrix:
+
+```{r}
+length(dnn.bin)
+```
+For each neighborhood matrix, we can find the lowest \textit{AICc}:
+
+```{r}
+minAIC <- sapply(dnn.bin, function(x) min(x$best$AIC$AICc, na.rm = TRUE))
+```
+And select the best spatial weighting matrix corresponding to a distance of `r round(dxy[which.min(minAIC)],3)` m:
+
+```{r}
+which.min(minAIC)
+dxy[which.min(minAIC)]
+```
+
+A similar approach can be used with a spatial weighting function:
+
+```{r}
+f2 <- function(x,dmax,y) {1-(x^y)/(dmax)^y}
+```
+
+It is a little bit more complicate if some parameters (here dmax) vary with the neighborhood matrix:
+
+```{r}
+dnn.f2 <- lapply(nbdnnlist, function(x) 
+    test.W(x, Y = faudt, f = f2, y = 2:10, 
+        dmax = max(unlist(nbdists(x, as.matrix(oribatid$xy)))), xy = as.matrix(oribatid$xy)))
+minAIC <- sapply(dnn.f2, function(x) min(x$best$AIC$AICc, na.rm = TRUE))
+min(minAIC)
+which.min(minAIC)
+dnn.f2[[which.min(minAIC)]]$all
+```
+
+Lastly, Eigenvectors of the best spatial weighting matrix can be mapped. They are represented by the order given by the selection procedure. The third MEM explains the largest part of the oribatid community, then it is the second and the eighth:
+
+```{r, fig.width = 5, fig.height = 5/3}
+plot(dnn.f2[[7]]$best$MEM[, dnn.f2[[7]]$best$AIC$ord[1:3]], oribatid$xy)
+```
+
+# References
