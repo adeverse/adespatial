@@ -91,9 +91,9 @@ if (require(spdep, quiet = TRUE) & require(ade4, quiet = TRUE)) {
     data(mafragh)
     maf.xy <- mafragh$xy
     maf.flo <- mafragh$flo
-    maf.listw <- nb2listw(neig2nb(mafragh$neig))
+    maf.listw <- nb2listw(mafragh$nb)
     if(adegraphicsLoaded()) {
-      g1 <- s.label(maf.xy, nb = neig2nb(mafragh$neig), plab.cex = 0.75)
+      g1 <- s.label(maf.xy, nb = mafragh$nb, plab.cex = 0.75)
     } else {
       s.label(maf.xy, neig = mafragh$neig, clab = 0.75)
     }
@@ -179,7 +179,7 @@ if (require(spdep, quiet = TRUE) & require(ade4, quiet = TRUE)) {
       par(mfrow = c(1, 1))
     }
 
-    maf.pca <- dudi.pca(mafragh$mil, scannf = FALSE)
+    maf.pca <- dudi.pca(mafragh$env, scannf = FALSE)
     multispati.randtest(maf.pca, maf.listw)
     maf.pca.ms <- multispati(maf.pca, maf.listw, scannf=FALSE)
     plot(maf.pca.ms)

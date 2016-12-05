@@ -31,10 +31,10 @@
 #' @examples
 #' if(require("ade4", quietly = TRUE)  & require("spdep", quiet = TRUE)){
 #' data(mafragh)
-#' tests <- moranNP.randtest(mafragh$mil[,1], nb2listw(mafragh$nb),
+#' tests <- moranNP.randtest(mafragh$env[,1], nb2listw(mafragh$nb),
 #'  alter = "two-sided", p.adjust.method = "holm")
 #' tests
-#' moran.randtest(mafragh$mil[,1], nb2listw(mafragh$nb))$obs
+#' moran.randtest(mafragh$env[,1], nb2listw(mafragh$nb))$obs
 #' sum(tests$obs)
 #' }
 #' 

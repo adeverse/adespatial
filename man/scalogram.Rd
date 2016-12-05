@@ -57,7 +57,7 @@ data(mafragh)
 me <- mem(nb2listw(mafragh$nb))
 
 if(require("adegraphics", quietly = TRUE)){
-sc1 <- scalogram(mafragh$mil$Conduc, me, nblocks = 10)
+sc1 <- scalogram(mafragh$env$Conduc, me, nblocks = 10)
 plot(sc1) 
 }
 }

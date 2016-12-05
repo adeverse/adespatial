@@ -29,7 +29,7 @@ and its ouputs are objects of class \code{randtest} (one variable) or \code{kran
 
 if(require("ade4", quietly = TRUE)  & require("spdep", quiet = TRUE)){
 data(mafragh)
-tests <- moran.randtest(mafragh$mil, nb2listw(mafragh$nb))
+tests <- moran.randtest(mafragh$env, nb2listw(mafragh$nb))
 tests
 plot(tests)
 
