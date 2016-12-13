@@ -1,5 +1,7 @@
 [![Travis-CI Build Status](https://travis-ci.org/sdray/adespatial.svg?branch=master)](https://travis-ci.org/sdray/adespatial)
 [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/fh9p9cxd80961036/branch/master?svg=true)](https://ci.appveyor.com/project/sdray/adespatial/branch/master)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/adespatial)](http://cran.r-project.org/package=adespatial)
+[![CRAN Downloads](https://cranlogs.r-pkg.org/badges/adespatial)](https://cran.r-project.org/package=adespatial)
 
 
 # adespatial
