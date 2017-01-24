@@ -2,13 +2,16 @@
 % Please edit documentation in R/msr.R
 \name{msr}
 \alias{msr}
+\alias{msr.default}
 \title{Moran spectral randomization}
 \usage{
-msr(x, listwORorthobasis, nrepet = 99, method = c("pair", "triplet",
-  "singleton"), cor.fixed, nmax = 100, simplify = TRUE)
+msr(x, ...)
+
+\method{msr}{default}(x, listwORorthobasis, nrepet = 99, method = c("pair",
+  "triplet", "singleton"), cor.fixed, nmax = 100, simplify = TRUE, ...)
 }
 \arguments{
-\item{x}{a \code{vector}, a \code{matrix} or a \code{data.frame} with the 
+\item{x}{For \code{msr.default}, a \code{vector}, a \code{matrix} or a \code{data.frame} with the 
 original variables. If \code{NCOL(x) > 1}, then the joint randomization 
 procedure that preserves the correlations among variables is used.}
 
@@ -29,6 +32,8 @@ original variable and its randomized replicates}
 \item{simplify}{A logical value. If \code{TRUE}, the outputs for univariate 
 procedures are returned in a matrix where each column corresponds to a 
 replicate. If \code{FALSE}n a \code{list} is returned.}
+
+\item{\dots}{further arguments passed to or from other methods}
 }
 \value{
 Either a matrix (if \code{simplify} is \code{TRUE}) or a list with 

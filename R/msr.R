@@ -20,7 +20,7 @@
 #' univariate case. It preserves the power spectrum by triplet of MEMs and 
 #' strictly the global autocorrelation level.
 #' 
-#' @param x a \code{vector}, a \code{matrix} or a \code{data.frame} with the 
+#' @param x For \code{msr.default}, a \code{vector}, a \code{matrix} or a \code{data.frame} with the 
 #'   original variables. If \code{NCOL(x) > 1}, then the joint randomization 
 #'   procedure that preserves the correlations among variables is used.
 #' @param listwORorthobasis an object of the class \code{listw} (spatial 
@@ -35,6 +35,7 @@
 #' @param simplify A logical value. If \code{TRUE}, the outputs for univariate 
 #'   procedures are returned in a matrix where each column corresponds to a 
 #'   replicate. If \code{FALSE}n a \code{list} is returned.
+#' @param \dots further arguments passed to or from other methods
 #' @return Either a matrix (if \code{simplify} is \code{TRUE}) or a list with 
 #'   randomized replicates.
 #' @author Stephane Dray \email{stephane.dray@@univ-lyon1.fr} and Helene H 
@@ -87,8 +88,15 @@
 #' apply(x1.6[[1]], 2, function(x) moran.mc(x, listw = lw1, nsim = 2)$statistic)
 #' 
 #' @importFrom stats cor sd runif
-#' @export msr
-msr <- function(x, listwORorthobasis, nrepet = 99, method = c("pair", "triplet", "singleton"), cor.fixed, nmax = 100, simplify = TRUE){
+#' @rdname msr
+#' @export
+msr <- function(x, ...){
+    UseMethod("msr")
+}
+
+#' @rdname msr
+#' @export
+msr.default <- function(x, listwORorthobasis, nrepet = 99, method = c("pair", "triplet", "singleton"), cor.fixed, nmax = 100, simplify = TRUE, ...){
 
     if (inherits(listwORorthobasis, "listw")){
         tmp <- scores.listw(listwORorthobasis, MEM.autocor = "all")
