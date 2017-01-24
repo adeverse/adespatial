@@ -7,6 +7,7 @@
 #include <Rdefines.h>
 #include <float.h>
 #include <math.h>
+#include <R_ext/Applic.h> /* for dgemm */
 
 #define FOR_RAND 1/RAND_MAX
 
@@ -308,9 +309,9 @@ SEXP sampleC (SEXP x)
 	   for (k=0 ; k<I; k++) {
 	         Rxperm[j*I+k] = rz[k];
 	         rz[k] = 0.0;
-	   }
-	  PutRNGstate();     	
+	   }     	
 	}
+	PutRNGstate(); 
 
 UNPROTECT(4);
 return(xperm);
@@ -1066,35 +1067,38 @@ return Rval;
 }
 
 ///// produit matriciel pour le centrage de Gower ========
-SEXP produit(SEXP x, SEXP y) {
-R_len_t Iy, Ix, Jx, Jy, i, j, k;
-double somme = 0.0;
-SEXP result, Rdim1, Rdim2;
+SEXP produit(SEXP X, SEXP Y) {
 
-x = PROTECT(coerceVector(x, REALSXP)); 
-Rdim1 = PROTECT(getAttrib(x, R_DimSymbol)); 
-Ix = INTEGER(Rdim1)[0];
-Jx = INTEGER(Rdim1)[1];
+SEXP Rdim1,Rdim2,res;
+X = PROTECT(coerceVector(X, REALSXP)); 
+Y = PROTECT(coerceVector(Y, REALSXP));
 
-y = PROTECT(coerceVector(y, REALSXP)); 
-Rdim2 = PROTECT(getAttrib(y, R_DimSymbol)); 
-Iy = INTEGER(Rdim2)[0];
-Jy = INTEGER(Rdim2)[1];
+Rdim1 = PROTECT(getAttrib(X, R_DimSymbol)); 
+Rdim2 = PROTECT(getAttrib(Y, R_DimSymbol)); 
 
-PROTECT(result = allocMatrix(REALSXP, Ix, Jy));
-memset(REAL(result),0.0,Ix*Jy*sizeof(double)); 
+double *xptr; 
+xptr = REAL(X);
+double *yptr; 
+yptr = REAL(Y);
 
-for (i=0;i<Ix;i++) 
-{
-  for(j=0;j<Jy;j++)
-  {
-    for (k=-0;k<Jx;k++)  somme += REAL(x)[k*Ix+i]* REAL(y)[j*Iy+k];
-    REAL(result)[j*Ix+i] = somme;
-    somme = 0.0; 
-  }
-}
+int *dimX; 
+dimX = INTEGER(Rdim1); 
+
+int *dimY; 
+dimY = INTEGER(Rdim2);
+ 
+PROTECT(res = allocMatrix(REALSXP, dimX[0], dimY[1]));
+
+double *resptr; 
+resptr = REAL(res);
+char *transa = "N", *transb = "N";
+double one = 1.0, zero = 0.0;
+
+F77_CALL(dgemm)(transa, transb, &dimX[0], &dimY[1], &dimX[1], &one, xptr, &dimX[0], yptr, &dimY[0], &zero, resptr, &dimX[0]); 
+//F77_CALL(dgemm)(transa, transb, &nrx, &ncy, &ncx, &one,x, &nrx, y, &nry, &zero, z, &nrx);
+
 UNPROTECT(5);
-return(result);
+return(res); 
 }
 
 ///// centrage de Gower ========

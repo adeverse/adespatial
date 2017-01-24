@@ -180,21 +180,28 @@
 		if(model=="3a"|| model=="6a" || model=="7"|| model=="4"|| model=="5") {
 			if(is.null(COD.S)) {	# Generate spatial dbMEMs if not given by user
 				if(print.res) cat(" Computing dbMEMs to code for space\n")
-				dbMEM.S.tmp <- dbmem(sitesX, MEM.autocor="positive")
-				SS <- as.matrix(dbMEM.S.tmp)
-				dbMEM.S.thresh <- give.thresh(dist(sitesX))
-				if(print.res) cat(" Truncation level for space dbMEMs =", dbMEM.S.thresh, "\n")
-				dbMEM.S <- SS
-				for(j in 2:tt) dbMEM.S <- rbind(dbMEM.S,SS)
-				if(nS==-1) nS <- ncol(SS)
-				else {
-				   if(nS > ncol(SS)) {
-				      cat("\n Number of requested spatial variables nS =", nS, "larger than available\n")
-				      cat(" The", ncol(SS), "available spatial dbMEM will be used\n\n")
-				      nS <- ncol(SS)
+			    if(s==2) {
+			        dbMEM.S <- as.matrix(rep(c(-1,1),tt))
+			        cat("\n There are only two space points. In this case, conputation of dbMEMs")
+			        cat("\n is useless. They are replaced by a vector of Helmert contrasts\n\n")
+			    } 
+			    else {
+			        dbMEM.S.tmp <- dbmem(sitesX, MEM.autocor="positive")
+				    SS <- as.matrix(dbMEM.S.tmp)
+				    dbMEM.S.thresh <- give.thresh(dist(sitesX))
+				    if(print.res) cat(" Truncation level for space dbMEMs =", dbMEM.S.thresh, "\n")
+				    dbMEM.S <- SS
+				    for(j in 2:tt) dbMEM.S <- rbind(dbMEM.S,SS)
+				    if(nS==-1) nS <- ncol(SS)
+				    else {
+				        if(nS > ncol(SS)) {
+				          cat("\n Number of requested spatial variables nS =", nS, "larger than available\n")
+				          cat(" The", ncol(SS), "available spatial dbMEM will be used\n\n")
+				          nS <- ncol(SS)
 				      }
 				    else dbMEM.S <- dbMEM.S[,1:nS]
-				      }
+				    }
+			    }
 			} else {
 				dbMEM.S <- apply(as.matrix(COD.S),2,scale,center=TRUE,scale=TRUE)
 				nS <- dim(dbMEM.S)[2]
@@ -206,6 +213,11 @@
 		# Generate dbMEM variables for time (if necessary)
 		if(model=="3b" || model=="6b"|| model=="7"||model=="4" || model=="5") {
 			if(is.null(COD.T)) {      # Generate temporal dbMEM variables if not given by user
+			    if(tt==2) {  
+			        dbMEM.T=as.matrix(c(rep(-1, s), rep(1,s)))  #DB
+			        cat("\n There are only two time points. In this case, conputation of dbMEMs")
+			        cat("\n is useless. They are replaced by a vector of Helmert contrasts\n\n")
+			    } else {
 				if(print.res) cat(" Computing dbMEMs to code for time\n")
 				dbMEM.T.tmp <- dbmem(timesX, MEM.autocor="positive")
 				TT <- as.matrix(dbMEM.T.tmp)
@@ -237,7 +249,7 @@
 				    else dbMEM.T <- dbMEM.T[,1:nT]
 				      }
 				else  nT <- ncol(TT)
-
+    }
 
 
 			} else {
@@ -248,12 +260,17 @@
 			}
 		}
 
-#		if(s*tt-s-tt-nT*nS-1<=0 && model!="2" && model!="6a" && model!="6b") stop("Not enough degrees of freedom for testing interaction", call.=FALSE)
-
 		if(print.res) {
 			if(model!="2" && model!="3b" && model!="6b") { 
-			cat(" Number of space coding functions =", nS,'\n\n')}            		
+			    if(s==2)   #DB To avoid number = -1
+			        cat("Number of space coding functions = 1 \n")
+			    else
+		        	cat(" Number of space coding functions =", nS,'\n\n')
+			}
 			if(model!="2" && model!="3a" && model!="6a") {
+			    if(s==2)  #DB To avoid number = -1
+			        cat("Number of space coding functions = 1 \n")
+			    else
             		cat(" Number of time coding functions =", nT, "\n\n")}            		
 		}
 				
@@ -291,7 +308,7 @@
 			}		
 		} else if(model=="3a") {
 			XSTI <- dbMEM.S*HM.T[,1]
-			if(tt>1) for(j in 2:(tt-1)) XSTI <- cbind(XSTI,dbMEM.S*HM.T[,j])
+			if(tt>2) for(j in 2:(tt-1)) XSTI <- cbind(XSTI,dbMEM.S*HM.T[,j])
 			XS <- dbMEM.S
 			XT <- HM.T
 			if(print.res) {
@@ -299,7 +316,8 @@
 			}	
 		} else if(model=="3b") {
 			XSTI <- dbMEM.T*HM.S[,1]
-			for(j in 2:(s-1)) XSTI <- cbind(XSTI,dbMEM.T*HM.S[,j])
+			if(dim(HM.S)[2]>1)
+			    for(j in 2:(s-1)) XSTI <- cbind(XSTI,dbMEM.T*HM.S[,j])
 			XS <- HM.S
 			XT <- dbMEM.T
 			if(print.res) {
@@ -376,7 +394,7 @@
 		cat("      Time for this computation =",aa[3]," sec",'\n')
 		cat("=======================================================\n\n")
 	}
-            class(res) <- "sti"
+    class(res) <- "sti"
 	invisible(res)
 }
 
@@ -386,8 +404,6 @@
 #' @rdname stimodels  
 'quicksti' <- function(Y, S, Ti, nperm=999, alpha = 0.05, COD.S=NULL, COD.T=NULL,print.res=TRUE)
 {
-#	require(MASS)
-#	require(adespatial)
 	if(!is.logical(print.res)) {
 		stop("Wrong operator; 'print.res' should be either 'FALSE' or 'TRUE'.", call.=FALSE)
 	}
@@ -443,6 +459,13 @@
 		# Generates spatial dbMEMs if not given by user
 		if(is.null(COD.S)) {			
 			if(print.res) cat(" Computing dbMEMs to code for space\n")
+		    if(s==2) {  
+		        dbMEM.S <- as.matrix(rep(c(-1,1),tt))
+		        nS <- dim(dbMEM.S)[2]
+		        cat("\n There are only two space points. In this case, conputation of dbMEMs")
+		        cat("\n is useless. They are replaced by a vector of helmert contrasts\n\n")
+		    }  
+		    else {
 			dbMEM.S.tmp <- dbmem(sitesX, MEM.autocor="positive")
 			SS <- as.matrix(dbMEM.S.tmp)
 			   nS <- ncol(SS)
@@ -450,6 +473,7 @@
 			if(print.res) cat(" Truncation level for space dbMEMs =", dbMEM.S.thresh, "\n")
 			dbMEM.S <- SS
 			for(j in 2:tt) dbMEM.S = rbind(dbMEM.S,SS)
+		    }
 		} else {
 			dbMEM.S <- apply(as.matrix(COD.S),2,scale,center=TRUE,scale=TRUE)
 			nS <- dim(dbMEM.S)[2]
@@ -461,7 +485,12 @@
 		if(is.null(COD.T)) {
 			nT <- trunc(tt/2)
 			if(print.res) cat(" Computing dbMEMs to code for time\n")
-			dbMEM.T.tmp <- dbmem(timesX, MEM.autocor="positive")
+			if(tt==2) {  
+			    dbMEM.T <- as.matrix(c(rep(-1, s), rep(1,s)))  
+			    cat("\n There are only two time points. In this case, conputation of dbMEMs")
+			    cat("\n is useless. They are replaced by a vector of helmert contrasts\n\n")
+			} else { 
+			    dbMEM.T.tmp <- dbmem(timesX, MEM.autocor="positive")
 			TT <- as.matrix(dbMEM.T.tmp)
 			   nT <- ncol(TT)
 			dbMEM.T.thresh <- give.thresh(dist(timesX))
@@ -473,6 +502,7 @@
 				T.temp <- TT[j,]
 				for(i in 2:s) T.temp <- rbind(T.temp,TT[j,])
 				dbMEM.T <- as.matrix(rbind(dbMEM.T,T.temp))
+			}
 			}
 		} else {
 			dbMEM.T <- apply(as.matrix(COD.T),2,scale,center=TRUE,scale=TRUE)
@@ -582,211 +612,142 @@
 
 
 'manovRDa' <- function(Y, s, tt, S.mat=NULL, T.mat=NULL, STI.mat=NULL, Sfixed=TRUE, Tfixed=TRUE, S.test=TRUE, T.test=TRUE, STI.test=TRUE, model = "5", nperm=999)
-#
-# ARGUMENTS:
-#
-# Y     		site-by-species data table (assumes row blocks corresponding to times, i.e. within each block 
-#				all sites occur)
-# s     		number of spatial points
-# tt     		number of time campaigns
-# S.mat 		a matrix of spatial variables.
-# T.mat 		a matrix of temporal variables.
-# STI.mat 		a matrix of interaction variables.
-# Sfixed		logical: is Factor space fixed, or not (if FALSE, it is considered a random factor)
-# Tfixed		logical: is Factor time fixed, or not (if FALSE, it is considered a random factor)
-#
-# S.test		logical: should space be tested (TRUE) or not (FALSE)?
-# T.test		logical: should time be tested (TRUE) or not (FALSE)?
-# STI.test		logical:  should interaction be tested (TRUE) or not (FALSE)?
-#
-# model 		space-time model (used to identify nested models "6a" and "6b")
-#
-# nperm 		number of permutations to be done
-#
-#===============================================================================
-#
+
 {
-# require(MASS)
+    
+    n <- nrow(Y)
+    p <- ncol(Y)
+    a <- ncol(S.mat)
+    b <- ncol(T.mat)
+    
+    if(!is.null(STI.mat)) {cc <- ncol(STI.mat)}
+    else {cc = 0}
+    
+    A <- S.mat
+    B <- T.mat
+    if(!is.null(STI.mat)) AxB <- STI.mat
+    
+    # Compute projector of A and Yfit.A
+    invA <- ginv(t(A) %*% A)
+    projA <- A %*% invA %*% t(A)
+    Yfit.A <- projA %*% Y
+    
+    # Compute projector of B and Yfit.B
+    invB <- ginv(t(B) %*% B)
+    projB <- B %*% invB %*% t(B)
+    Yfit.B <- projB %*% Y
+    
+    # Compute projector of AxB and Yfit.AxB
+    if(!is.null(STI.mat)) {
+        invAxB <- ginv(t(AxB) %*% AxB)
+        projAxB <- AxB %*% invAxB %*% t(AxB)
+        Yfit.AxB <- projAxB %*% Y
+    } else {
+        projAxB=NULL  
+    }
+    
+    # Create a "compound matrix" to obtain R-square and adjusted R-square
+    if(!is.null(STI.mat)) {
+        ABAxB <- cbind(A,B,AxB)
+    } else {
+        ABAxB <- cbind(A,B)
+    }
+    
+    # Compute projector of ABAxB and Yfit.ABAxB
+    invABAxB <- ginv(t(ABAxB) %*% ABAxB)
+    projABAxB <- ABAxB %*% invABAxB %*% t(ABAxB)
+    Yfit.ABAxB <- projABAxB %*% Y
 
-n <- nrow(Y)
-p <- ncol(Y)
-a <- ncol(S.mat)
-b <- ncol(T.mat)
-
-if(!is.null(STI.mat)) {cc <- ncol(STI.mat)}
-else {cc = 0}
-
-A <- S.mat
-B <- T.mat
-if(!is.null(STI.mat)) AxB <- STI.mat
-
-# Compute projector of A and Yfit.A
-invA <- ginv(t(A) %*% A)
-projA <- A %*% invA %*% t(A)
-Yfit.A <- projA %*% Y
-
-# Compute projector of B and Yfit.B
-invB <- ginv(t(B) %*% B)
-projB <- B %*% invB %*% t(B)
-Yfit.B <- projB %*% Y
-
-# Compute projector of AxB and Yfit.AxB
-if(!is.null(STI.mat)) {
-	invAxB <- ginv(t(AxB) %*% AxB)
-	projAxB <- AxB %*% invAxB %*% t(AxB)
-	Yfit.AxB <- projAxB %*% Y
+    # Compute Sums of squares (SS) and Mean squares (MS)
+    SS.Y <- sum(Y*Y)
+    SS.Yfit.ABAxB <- sum(Yfit.ABAxB*Yfit.ABAxB)
+    SS.Yfit.A <- sum(Yfit.A*Yfit.A)
+    SS.Yfit.B <- sum(Yfit.B*Yfit.B)
+    if(!is.null(STI.mat)) SS.Yfit.AxB <- sum(Yfit.AxB*Yfit.AxB)
+    MS.A <- SS.Yfit.A/a
+    MS.B <- SS.Yfit.B/b
+    if(!is.null(STI.mat)) MS.AxB <- SS.Yfit.AxB/cc
+    MS.Res <- (SS.Y-SS.Yfit.ABAxB)/(n-(a+b+cc)-1)
+    
+    
+    if(STI.test==TRUE) { # Test interaction (unrestricted permutations)
+        nPGE.AxB = 1
+        Fref.AxB <- MS.AxB/MS.Res
+        
+        nPGE.AxB=.Call("sti_loop",nperm,Y,s,tt,a,b,cc,SS.Y,Fref.AxB,projAxB,projABAxB)  ### NM
+        P.AxB <- nPGE.AxB/(nperm+1)
+        
+        R2 <- SS.Yfit.AxB/SS.Y
+        R2a <- 1-((n-1)/(n-dim(STI.mat)[2]-1))*(1-R2)
+        
+        testSTI <- list(MS.num=MS.AxB, MS.den=MS.Res, R2=R2, R2.adj=R2a, F=Fref.AxB, Prob=P.AxB)
+    } else {
+        testSTI <- NULL
+    }
+    
+    
+    if(S.test==TRUE) { # Test factor A (space) using restricted permutations within time blocks
+        
+        #########################
+        nPGE.A=1
+        if(Tfixed==FALSE && !is.null(STI.mat)) { # Time random factor in crossed design with interaction
+            Fref.A <- MS.A/MS.AxB
+            MS.den <- MS.AxB
+            T_fixed <- 1
+        } else if(Tfixed==FALSE && model=="6b") { # Time random factor in nested design
+            Fref.A <- MS.A/MS.B
+            MS.den <- MS.B
+            T_fixed <- 2
+        } else {
+            Fref.A <- MS.A/MS.Res
+            MS.den <-  MS.Res
+            T_fixed <- 3
+        }
+        
+        nPGE.A=.Call("s_loop",nperm,Y,s,tt,a,b,cc,SS.Y,Fref.A,projA,projB,projAxB,projABAxB,T_fixed)  ### NM
+        
+        P.A <- nPGE.A/(nperm+1)
+        
+        R2 <- SS.Yfit.A/SS.Y
+        R2a <- 1-((n-1)/(n-a-1))*(1-R2)
+        
+        testS <- list(MS.num=MS.A, MS.den=MS.den, R2=R2, R2.adj=R2a, F=Fref.A, Prob=P.A)
+    } else {
+        testS <- NULL
+    }
+    
+    if(T.test==TRUE) { # Test factor B (time) using restricted permutations within time blocks
+        nPGE.B = 1
+        if(Sfixed==FALSE && !is.null(STI.mat)) { # Space random factor in crossed design with interaction
+            Fref.B <- MS.B/MS.AxB
+            MS.den <- MS.AxB
+            T_fixed=1   
+        } else if(Sfixed==FALSE && model=="6a") { # Space random factor in nested design
+            Fref.B <- MS.B/MS.A
+            MS.den <- MS.A
+            T_fixed=2    
+        } else {
+            Fref.B <- MS.B/MS.Res
+            MS.den <- MS.Res
+            T_fixed=3     
+        }
+        
+        
+        nPGE.B <- .Call("t_loop",nperm,Y,s,tt,a,b,cc,SS.Y,Fref.B,projA,projB,projAxB,projABAxB,T_fixed)  # NM
+        
+        P.B <- nPGE.B/(nperm+1)
+        
+        R2 <- SS.Yfit.B/SS.Y
+        R2a <- 1-((n-1)/(n-b-1))*(1-R2)
+        
+        testT <- list(MS.num=MS.B, MS.den=MS.den, R2=R2, R2.adj=R2a, F=Fref.B, Prob=P.B)
+    } else {
+        testT <- NULL
+    }
+    
+    return(list(testSTI = testSTI, testS = testS, testT=testT))
 }
 
-# Create a "compound matrix" to obtain R-square and adjusted R-square
-if(!is.null(STI.mat)) {
-	ABAxB <- cbind(A,B,AxB)
-} else {
-	ABAxB <- cbind(A,B)
-}
-
-# Compute projector of ABAxB and Yfit.ABAxB
-invABAxB <- ginv(t(ABAxB) %*% ABAxB)
-projABAxB <- ABAxB %*% invABAxB %*% t(ABAxB)
-Yfit.ABAxB <- projABAxB %*% Y
-
-# Compute Sums of squares (SS) and Mean squares (MS)
-SS.Y <- sum(Y*Y)
-SS.Yfit.ABAxB <- sum(Yfit.ABAxB*Yfit.ABAxB)
-SS.Yfit.A <- sum(Yfit.A*Yfit.A)
-SS.Yfit.B <- sum(Yfit.B*Yfit.B)
-if(!is.null(STI.mat)) SS.Yfit.AxB <- sum(Yfit.AxB*Yfit.AxB)
-MS.A <- SS.Yfit.A/a
-MS.B <- SS.Yfit.B/b
-if(!is.null(STI.mat)) MS.AxB <- SS.Yfit.AxB/cc
-MS.Res <- (SS.Y-SS.Yfit.ABAxB)/(n-(a+b+cc)-1)
-
-
-if(STI.test==TRUE) { # Test interaction (unrestricted permutations)
-	nPGE.AxB = 1
-	Fref.AxB <- MS.AxB/MS.Res
-	vec <- c(1:n)
-	for(i in 1:nperm) {
-		YPerm <- Y[restrictedPerm(nobs.block=s, nblock=tt, n, restPerm=0, vec),]
-		YhatPerm.AxB <- projAxB %*% YPerm
-		SS.YhatPerm.AxB <- sum(YhatPerm.AxB*YhatPerm.AxB)
-		MS.Perm.AxB <- SS.YhatPerm.AxB/cc
-	
-		YhatPerm.ABAxB <- projABAxB %*% YPerm
-		SS.YhatPerm.ABAxB <- sum(YhatPerm.ABAxB*YhatPerm.ABAxB)
-
-		MS.Perm.Res <- (SS.Y-SS.YhatPerm.ABAxB)/(n-(a+b+cc)-1)
-
-		Fper.AxB <- MS.Perm.AxB/MS.Perm.Res
-	 	if(Fper.AxB >= Fref.AxB) nPGE.AxB <- nPGE.AxB+1
-	}
-	P.AxB <- nPGE.AxB/(nperm+1)
-
-	R2 <- SS.Yfit.AxB/SS.Y
-	R2a <- 1-((n-1)/(n-dim(STI.mat)[2]-1))*(1-R2)
-	
-	testSTI <- list(MS.num=MS.AxB, MS.den=MS.Res, R2=R2, R2.adj=R2a, F=Fref.AxB, Prob=P.AxB)
-} else {
-	testSTI <- NULL
-}
-
-
-if(S.test==TRUE) { # Test factor A (space) using restricted permutations within time blocks
-	nPGE.A=1
-	if(Tfixed==FALSE && !is.null(STI.mat)) { # Time random factor in crossed design with interaction
-		Fref.A <- MS.A/MS.AxB
-		MS.den = MS.AxB
-	} else if(Tfixed==FALSE && model=="6b") { # Time random factor in nested design
-		Fref.A <- MS.A/MS.B
-		MS.den <- MS.B
-	} else {
-		Fref.A=MS.A/MS.Res
-		MS.den = MS.Res
-	}
-	vec <- c(1:n)
-	for(i in 1:nperm) {
-		YPerm <- Y[restrictedPerm(nobs.block=s,nblock=tt, n,restPerm=1, vec),]
-		YhatPerm.A <- projA %*% YPerm
-		SS.YhatPerm.A <- sum(YhatPerm.A*YhatPerm.A)
-		MS.Perm.A <- SS.YhatPerm.A/a
-
-		if(Tfixed==FALSE && !is.null(STI.mat)) { # Time random factor in crossed design with interaction
-			YhatPerm.AxB <- projAxB %*% YPerm
-			SS.YhatPerm.AxB <- sum(YhatPerm.AxB*YhatPerm.AxB)
-			MS.Perm.AxB <- SS.YhatPerm.AxB/cc
-			Fper.A <- MS.Perm.A/MS.Perm.AxB
-		} else if(Tfixed==FALSE && model=="6b") { # Time random factor in nested design
-			YhatPerm.B <- projB %*% YPerm
-			SS.YhatPerm.B <- sum(YhatPerm.B*YhatPerm.B)
-			MS.Perm.B <- SS.YhatPerm.B/b
-			Fper.A <- MS.Perm.A/MS.Perm.B
-		} else {
-			YhatPerm.ABAxB <- projABAxB %*% YPerm
-			SS.YhatPerm.ABAxB <- sum(YhatPerm.ABAxB*YhatPerm.ABAxB)
-			MS.Perm.Res <- (SS.Y-SS.YhatPerm.ABAxB)/(n-(a+b+cc)-1)
-			Fper.A <- MS.Perm.A/MS.Perm.Res
-		}
-		if(Fper.A >= Fref.A) nPGE.A <- nPGE.A+1
-	}
-	P.A <- nPGE.A/(nperm+1)
-
-	R2 <- SS.Yfit.A/SS.Y
-	R2a <- 1-((n-1)/(n-a-1))*(1-R2)
-		
-	testS <- list(MS.num=MS.A, MS.den=MS.den, R2=R2, R2.adj=R2a, F=Fref.A, Prob=P.A)
-} else {
-	testS <- NULL
-}
-
-if(T.test==TRUE) { # Test factor B (time) using restricted permutations within time blocks
-	nPGE.B = 1
-	if(Sfixed==FALSE && !is.null(STI.mat)) { # Space random factor in crossed design with interaction
-		Fref.B <- MS.B/MS.AxB
-		MS.den <- MS.AxB
-	} else if(Sfixed==FALSE && model=="6a") { # Space random factor in nested design
-		Fref.B <- MS.B/MS.A
-		MS.den <- MS.A
-	} else {
-		Fref.B <- MS.B/MS.Res
-		MS.den <- MS.Res
-	}
-
-	vec <- c(1:n)
-	for(i in 1:nperm) {
-		YPerm <- Y[restrictedPerm(nobs.block=s,nblock=tt, n,restPerm=2,vec),]
-		YhatPerm.B <- projB %*% YPerm
-		SS.YhatPerm.B <- sum(YhatPerm.B*YhatPerm.B)
-		MS.Perm.B <- SS.YhatPerm.B/b
-
-		if(Sfixed==FALSE && !is.null(STI.mat)) { # Space random factor in crossed design with interaction
-			YhatPerm.AxB <- projAxB %*% YPerm
-			SS.YhatPerm.AxB <- sum(YhatPerm.AxB*YhatPerm.AxB)
-			MS.Perm.AxB <- SS.YhatPerm.AxB/cc
-			Fper.B <- MS.Perm.B/MS.Perm.AxB
-		} else if(Sfixed==FALSE && model=="6a") { # Space random factor in nested design
-			YhatPerm.A <- projA %*% YPerm
-			SS.YhatPerm.A <- sum(YhatPerm.A*YhatPerm.A)
-			MS.Perm.A <- SS.YhatPerm.A/a
-			Fper.B <- MS.Perm.B/MS.Perm.A
-		} else {
-			YhatPerm.ABAxB <- projABAxB %*% YPerm
-			SS.YhatPerm.ABAxB <- sum(YhatPerm.ABAxB*YhatPerm.ABAxB)
-			MS.Perm.Res <- (SS.Y-SS.YhatPerm.ABAxB)/(n-(a+b+cc)-1)
-			Fper.B <- MS.Perm.B/MS.Perm.Res
-		}	
-		if(Fper.B >= Fref.B) nPGE.B <- nPGE.B+1
-	}
-	P.B <- nPGE.B/(nperm+1)
-
-	R2 <- SS.Yfit.B/SS.Y
-	R2a <- 1-((n-1)/(n-b-1))*(1-R2)
-	
-	testT <- list(MS.num=MS.B, MS.den=MS.den, R2=R2, R2.adj=R2a, F=Fref.B, Prob=P.B)
-} else {
-	testT <- NULL
-}
-
-return(list(testSTI = testSTI, testS = testS, testT=testT))
-}
 
 'restrictedPerm' <- function(nobs.block, nblock, n, restPerm, vec)
 #
