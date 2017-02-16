@@ -124,7 +124,7 @@ scalogram <- function(x, orthobasisSp, nblocks = ncol(orthobasisSp), nrepet = 99
             sim[i, ] <- tapply(R2.sim, fac, sum)
         }
     }
-    res <- as.krandtest(sim, R2.smooth, names = levels(fac), call = match.call())
+    res <- as.krandtest(sim, R2.smooth, names = levels(fac), call = match.call(), output = "full")
     class(res) <- c("scalogram", class(res))
     return(res)
 }
