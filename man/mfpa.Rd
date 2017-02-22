@@ -9,9 +9,9 @@
 mfpa(y, MaxNFreq = 2, MinFreq = 3, MaxFreq = NA, ntrend = 0,
   nlags = 0, alpha = 0.05)
 
-\method{plot}{mfpa}(x, xlab = "", ylab = "Values", ...)
+plot.mfpa(x, xlab = "", ylab = "Values", ...)
 
-\method{print}{mfpa}(x, ...)
+print.mfpa(x, ...)
 }
 \arguments{
 \item{y}{Vector of \emph{n} observations (vector of integer or real numbers,

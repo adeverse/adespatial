@@ -12,7 +12,7 @@ mspa(dudi, lwORorthobasisSp, nblocks, scannf = TRUE, nf = 2,
 \method{scatter}{mspa}(x, xax = 1, yax = 2, posieig = "topleft",
   bary = TRUE, plot = TRUE, storeData = TRUE, pos = -1, ...)
 
-\method{print}{mspa}(x, ...)
+print.mspa(x, ...)
 }
 \arguments{
 \item{dudi}{a duality diagram (i.e. a reduced space ordination) obtained by a

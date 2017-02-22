@@ -9,12 +9,12 @@
 \usage{
 multispati(dudi, listw, scannf = TRUE, nfposi = 2, nfnega = 0)
 
-\method{summary}{multispati}(object, ...)
+summary.multispati(object, ...)
 
-\method{print}{multispati}(x, ...)
+print.multispati(x, ...)
 
-\method{plot}{multispati}(x, xax = 1, yax = 2, pos = -1,
-  storeData = TRUE, plot = TRUE, ...)
+plot.multispati(x, xax = 1, yax = 2, pos = -1, storeData = TRUE,
+  plot = TRUE, ...)
 }
 \arguments{
 \item{dudi}{an object of class \code{dudi} obtained by the simple analysis of a data table}
