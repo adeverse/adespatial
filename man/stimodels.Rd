@@ -17,10 +17,14 @@ quicksti(Y, S, Ti, nperm = 999, alpha = 0.05, COD.S = NULL,
 corresponding to times, i.e. within each block all sites are provided 
 (in the same order).}
 
-\item{S}{Number of spatial points or a matrix of spatial coordinates.}
+\item{S}{Number of spatial points (when they are aligned on a transect or a
+time series and equispaced) or a matrix of spatial coordinates (when the
+sites are on a two-dimensional surface or on a line but very irregularly
+spaced).}
 
-\item{Ti}{Number of time campaigns or a matrix (a vector) of temporal
-coordinates.}
+\item{Ti}{Number of time campaigns (when equispaced) or a matrix (a
+vector) of temporal coordinates (when the time campaigns are very 
+irregularly spaced).}
 
 \item{model}{Linear space-time model to be used (can be either "2", "3a",
 "3b", "4", "5", "6a", "6b", or "7").}
