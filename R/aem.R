@@ -3,7 +3,7 @@
 #' This function constructs eigenvectors of a site-by-link matrix. Weights can 
 #' be applied to the links.
 #' 
-#' @param build.binary Object created by function \code{build.binary}.
+#' @param aem.build.binary Object created by function \code{aem.build.binary}.
 #' @param binary.mat Site (n rows) by link (k columns) matrix. The 1s in the 
 #'   matrix represents the presence of a link influencing a site, directly or 
 #'   indirectly, otherwise the values are 0s.
@@ -11,15 +11,15 @@
 #' @param rm.link0 Logical (\code{TRUE}, \code{FALSE}) determining if the links 
 #'   directly connecting a site to the origin (site 0) should be removed. 
 #'   Default value: \code{FALSE}. This parameter is only used when an object of 
-#'   class \code{build.binary} is provided to the function.
+#'   class \code{aem.build.binary} is provided to the function.
 #' @param print.binary.mat Logical (\code{TRUE}, \code{FALSE}) determining if 
 #'   the site-by-link matrix used in the analysis should be printed.
 #'   
 #' @details
 #' 
-#' If only an object of class \code{build.binary} is given to this function, The
+#' If only an object of class \code{aem.build.binary} is given to this function, The
 #' argument \code{binary.mat} is not considered. \code{binary.mat} is only 
-#' considered when the argument \code{build.binary} is missing.
+#' considered when the argument \code{aem.build.binary} is missing.
 #' 
 #' If weights are applied to the links, the length of vector \code{weight} has 
 #' to take into account wether the links connecting real sites to the origin 
@@ -49,7 +49,7 @@
 #' are considered negligeable. They have been removed from the created AEM 
 #' eigenfunctions.
 #' 
-#' @seealso  \code{\link{build.binary}}, \code{\link{svd}}
+#' @seealso  \code{\link{aem.build.binary}}, \code{\link{svd}}
 #'   
 #' @importFrom spdep cell2nb
 #'   
@@ -62,10 +62,10 @@
 #' xy <- cbind(1:25,expand.grid(1:5,1:5))
 #' 
 #' ### Build binary site-by-link matrix
-#' bin.mat <- build.binary(nb,xy)
+#' bin.mat <- aem.build.binary(nb,xy)
 #' 
-#' ### Construct AEM eigenfunctions from an object of class build.binary
-#' res <- aem(build.binary=bin.mat,rm.link0=FALSE)
+#' ### Construct AEM eigenfunctions from an object of class aem.build.binary
+#' res <- aem(aem.build.binary=bin.mat,rm.link0=FALSE)
 #' res$values
 #' 
 #' ### Illustrate 4 AEM eigenfunctions using bubble plots
@@ -124,7 +124,7 @@
 #' xy <- cbind(1:25,expand.grid(1:5,1:5))
 #' 
 #' ### Build binary site-by-link matrix
-#' bin.mat <- build.binary(nb,xy)
+#' bin.mat <- aem.build.binary(nb,xy)
 #' 
 #' ### Construct a matrix of distances
 #' long.lien.mat<-as.matrix(dist(xy))
@@ -142,15 +142,15 @@
 #' ### Construct a vector of weights based on distance
 #' weight.vec<-1-(long.lien/max(long.lien))^2
 #' 
-#' ### Construct AEM eigenfunctions from an object of class build.binary
-#' res <- aem(build.binary=bin.mat,weight=weight.vec,rm.link0=TRUE)
+#' ### Construct AEM eigenfunctions from an object of class aem.build.binary
+#' res <- aem(aem.build.binary=bin.mat,weight=weight.vec,rm.link0=TRUE)
 #' res
 #' }
 #' @keywords spatial
 #' @export
 
 `aem` <-
-    function (build.binary, binary.mat, weight, rm.link0 = FALSE, print.binary.mat=FALSE) 
+    function (aem.build.binary, binary.mat, weight, rm.link0 = FALSE, print.binary.mat=FALSE) 
     {
         if (missing(weight)) {
             weight <- 1
@@ -159,16 +159,16 @@
             stop("weight needs to be numeric")
         }
         
-        if (missing(build.binary)) {
+        if (missing(aem.build.binary)) {
             if (is.matrix(binary.mat) == FALSE) {
                 stop("binary.mat is not a matrix")
             }
             res.mat <- as.matrix(binary.mat)
         }
         else {
-            res.mat <- build.binary[[1]]
+            res.mat <- aem.build.binary[[1]]
             if (rm.link0) {
-                link0 <- which(build.binary[[2]][, 1] == 0)
+                link0 <- which(aem.build.binary[[2]][, 1] == 0)
                 res.mat <- res.mat[, -link0]
             }
         }

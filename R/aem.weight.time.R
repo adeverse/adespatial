@@ -1,7 +1,7 @@
-#' @describeIn weight.edges 
+#' @describeIn aem.weight.edges 
 #' @export
 
-weight.time <- function(dates, distmat=NULL,alpha=2, beta=NULL, max.d=NULL, unit.angle="degrees", rot.angle=0, rm.same.y=TRUE, plot.connexions=TRUE){
+aem.weight.time <- function(dates, distmat=NULL,alpha=2, beta=NULL, max.d=NULL, unit.angle="degrees", rot.angle=0, rm.same.y=TRUE, plot.connexions=TRUE){
     #
     # dates : vector of dates.
     # alpha : exponent of the first weighting function
@@ -18,6 +18,6 @@ weight.time <- function(dates, distmat=NULL,alpha=2, beta=NULL, max.d=NULL, unit
     n  <- length(dates)
     nb <- cell2nb(1,n)
     xy <- cbind(1:n, rep(1, n), dates)
-    w  <- weight.edges(nb.object=nb, coords=xy, distmat=distmat, alpha=alpha, beta=beta, max.d=max.d, unit.angle=unit.angle, rot.angle=rot.angle, rm.same.y=rm.same.y, plot.connexions=plot.connexions)	
+    w  <- aem.weight.edges(nb.object=nb, coords=xy, distmat=distmat, alpha=alpha, beta=beta, max.d=max.d, unit.angle=unit.angle, rot.angle=rot.angle, rm.same.y=rm.same.y, plot.connexions=plot.connexions)	
     w
 }	

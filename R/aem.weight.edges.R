@@ -1,12 +1,12 @@
-#'@aliases weight.time
+#'@aliases aem.weight.time
 #'  
 #'@title Weight edges when constructing AEM variables
 #'  
 #'@description These functions construct a vector of weights that can be
 #'  associated to the edges of the connexion diagram used as a basis to build
-#'  AEM eigenfunctions. \code{weight.edges} is general and can be used for 1 or
-#'  2 dimensional problems. \code{weight.time} is meant to be used only for time
-#'  series. It is a wrapper for \code{weight.edges}.
+#'  AEM eigenfunctions. \code{aem.weight.edges} is general and can be used for 1 or
+#'  2 dimensional problems. \code{aem.weight.time} is meant to be used only for time
+#'  series. It is a wrapper for \code{aem.weight.edges}.
 #'  
 #'@param dates A vector of dates, class 'numeric' or 'Date'.
 #'@param nb.object Object with class 'nb', computed by the spdep package,
@@ -40,14 +40,14 @@
 #'@details
 #'
 #'These functions should be used in close relationship with
-#'\code{\link{build.binary}}, consequently many of the arguments in this
-#'function and in \code{\link{build.binary}} are the same.
+#'\code{\link{aem.build.binary}}, consequently many of the arguments in this
+#'function and in \code{\link{aem.build.binary}} are the same.
 #'
 #'The argument \code{distmat} may contain general forms of dissimilarity, for
 #'example the difficulty of transfer of individuals, matter or energy among the
 #'sampling units through space or time.
 #'
-#'In \code{weight.edges}, two weighting functions, described in Legendre and
+#'In \code{aem.weight.edges}, two weighting functions, described in Legendre and
 #'Legendre (2012, eqs. 114.3 and 14.4) have been implemented, where \eqn{d_{ij}}
 #'is the distance between sites \eqn{i} and \eqn{j}:
 #'
@@ -79,7 +79,7 @@
 #'
 #'@author Olivier Gauthier, Pierre Legendre and F. Guillaume Blanchet
 #'  
-#'@seealso \code{\link{build.binary}}, \code{\link[spdep]{sp.correlogram}},
+#'@seealso \code{\link{aem.build.binary}}, \code{\link[spdep]{sp.correlogram}},
 #'  \code{\link[vegan]{mantel.correlog}}
 #'  
 #'  
@@ -98,33 +98,33 @@
 #' dates <- as.Date(c(129,269,500,631,864,976,1228,1352,1606,1730,1957,2087),origin="2000/1/1")
 #'autocor.limit <- 522  # Limit of autcorrelation in the correlogram
 #'
-#'### Using weight.time()
-#'(wtime <- weight.time(dates, alpha=2, max.d=autocor.limit))
+#'### Using aem.weight.time()
+#'(wtime <- aem.weight.time(dates, alpha=2, max.d=autocor.limit))
 
-#'### Using weight.edges()
+#'### Using aem.weight.edges()
 #'n <- length(dates)
 #'nb <- cell2nb(1, n)
 #'xy.dates <- cbind(1:n, rep(1, n), dates)
-#'(wtime <- weight.edges(nb, xy.dates, alpha=2, max.d=autocor.limit))
+#'(wtime <- aem.weight.edges(nb, xy.dates, alpha=2, max.d=autocor.limit))
 #'
 #'n <- length(dates)
 #'nb <- cell2nb(1, n)
 #'xy.dates <- cbind(1:n, dates, rep(1, n)) ## Note the inversion of 'dates' and 'rep(1,n)'
-#'wtime <- weight.edges(nb, xy.dates, alpha=2, 
+#'wtime <- aem.weight.edges(nb, xy.dates, alpha=2, 
 #'max.d=autocor.limit,rot.angle=90) # Note that 'rot.angle=90' was used
 #'
 #'### Spatial example using default d.max (notice the warning)
 #'###########################################################################
 #'nb<-cell2nb(5,5,"queen")
 #'xy <- cbind(1:25,expand.grid(1:5,1:5))
-#'(wspace <- weight.edges(nb,xy))
+#'(wspace <- aem.weight.edges(nb,xy))
 #'}
 #'
 #' @keywords spatial
 #' @keywords ts
 #' @export
 
-weight.edges <-
+aem.weight.edges <-
     function(nb.object, coords, distmat=NULL, alpha=2, beta=NULL, max.d=NULL,
         unit.angle="degrees", rot.angle=0, rm.same.y=TRUE, plot.connexions=TRUE)
     {

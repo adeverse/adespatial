@@ -4,11 +4,11 @@
 \alias{aem}
 \title{Construct asymmetric eigenvector maps (AEM)}
 \usage{
-aem(build.binary, binary.mat, weight, rm.link0 = FALSE,
+aem(aem.build.binary, binary.mat, weight, rm.link0 = FALSE,
   print.binary.mat = FALSE)
 }
 \arguments{
-\item{build.binary}{Object created by function \code{build.binary}.}
+\item{aem.build.binary}{Object created by function \code{aem.build.binary}.}
 
 \item{binary.mat}{Site (n rows) by link (k columns) matrix. The 1s in the 
 matrix represents the presence of a link influencing a site, directly or 
@@ -19,7 +19,7 @@ indirectly, otherwise the values are 0s.}
 \item{rm.link0}{Logical (\code{TRUE}, \code{FALSE}) determining if the links 
 directly connecting a site to the origin (site 0) should be removed. 
 Default value: \code{FALSE}. This parameter is only used when an object of 
-class \code{build.binary} is provided to the function.}
+class \code{aem.build.binary} is provided to the function.}
 
 \item{print.binary.mat}{Logical (\code{TRUE}, \code{FALSE}) determining if 
 the site-by-link matrix used in the analysis should be printed.}
@@ -35,9 +35,9 @@ This function constructs eigenvectors of a site-by-link matrix. Weights can
 be applied to the links.
 }
 \details{
-If only an object of class \code{build.binary} is given to this function, The
+If only an object of class \code{aem.build.binary} is given to this function, The
 argument \code{binary.mat} is not considered. \code{binary.mat} is only 
-considered when the argument \code{build.binary} is missing.
+considered when the argument \code{aem.build.binary} is missing.
 
 If weights are applied to the links, the length of vector \code{weight} has 
 to take into account wether the links connecting real sites to the origin 
@@ -61,10 +61,10 @@ nb <- cell2nb(5,5,"queen")
 xy <- cbind(1:25,expand.grid(1:5,1:5))
 
 ### Build binary site-by-link matrix
-bin.mat <- build.binary(nb,xy)
+bin.mat <- aem.build.binary(nb,xy)
 
-### Construct AEM eigenfunctions from an object of class build.binary
-res <- aem(build.binary=bin.mat,rm.link0=FALSE)
+### Construct AEM eigenfunctions from an object of class aem.build.binary
+res <- aem(aem.build.binary=bin.mat,rm.link0=FALSE)
 res$values
 
 ### Illustrate 4 AEM eigenfunctions using bubble plots
@@ -123,7 +123,7 @@ nb<-cell2nb(5,5,"queen")
 xy <- cbind(1:25,expand.grid(1:5,1:5))
 
 ### Build binary site-by-link matrix
-bin.mat <- build.binary(nb,xy)
+bin.mat <- aem.build.binary(nb,xy)
 
 ### Construct a matrix of distances
 long.lien.mat<-as.matrix(dist(xy))
@@ -141,8 +141,8 @@ for(i in 1:nrow(lien.b)){
 ### Construct a vector of weights based on distance
 weight.vec<-1-(long.lien/max(long.lien))^2
 
-### Construct AEM eigenfunctions from an object of class build.binary
-res <- aem(build.binary=bin.mat,weight=weight.vec,rm.link0=TRUE)
+### Construct AEM eigenfunctions from an object of class aem.build.binary
+res <- aem(aem.build.binary=bin.mat,weight=weight.vec,rm.link0=TRUE)
 res
 }
 }
@@ -155,7 +155,7 @@ spatial processes in ecological data. \emph{Ecological Modelling}, 215,
 325-336.
 }
 \seealso{
-\code{\link{build.binary}}, \code{\link{svd}}
+\code{\link{aem.build.binary}}, \code{\link{svd}}
 }
 \keyword{spatial}
 
