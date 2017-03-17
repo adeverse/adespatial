@@ -8,7 +8,7 @@
 scalogram(x, orthobasisSp, nblocks = ncol(orthobasisSp), nrepet = 999,
   p.adjust.method = "none")
 
-plot.scalogram(x, pos = -1, plot = TRUE, ...)
+\method{plot}{scalogram}(x, pos = -1, plot = TRUE, ...)
 }
 \arguments{
 \item{x}{a numeric vector for univariate data or an object of class \code{dudi} for 

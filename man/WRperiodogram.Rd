@@ -8,7 +8,7 @@
 WRperiodogram(x, T1 = 2, T2, nperm = 499, nopermute, mult = c("sidak",
   "bonferroni"), print.time = FALSE)
 
-plot.WRperio(x, prog = 1, alpha = 0.05, line.col = "red", ...)
+\method{plot}{WRperio}(x, prog = 1, alpha = 0.05, line.col = "red", ...)
 }
 \arguments{
 \item{x}{A vector of quantitative values, with class \code{numeric}, for 
