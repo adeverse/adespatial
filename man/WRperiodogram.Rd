@@ -8,7 +8,8 @@
 WRperiodogram(x, T1 = 2, T2, nperm = 499, nopermute, mult = c("sidak",
   "bonferroni"), print.time = FALSE)
 
-\method{plot}{WRperio}(x, prog = 1, alpha = 0.05, line.col = "red", ...)
+\method{plot}{WRperio}(x, prog = 1, alpha = 0.05, line.col = "red",
+  main = NULL, ...)
 }
 \arguments{
 \item{x}{A vector of quantitative values, with class \code{numeric}, for 
@@ -40,6 +41,9 @@ to alpha are represented by black symbols. Default: \code{alpha=0.05}.}
 
 \item{line.col}{Colour of the lines between symbols in the graph (default: 
 \code{line.col="red"}).}
+
+\item{main}{Main title of the plot. Users can write a custom title, in quotes 
+(default: \code{main="WR Periodogram"}).}
 
 \item{\dots}{Other graphical arguments passed to this function.}
 }
