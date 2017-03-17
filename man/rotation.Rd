@@ -7,12 +7,15 @@
 rotation(xy, angle)
 }
 \arguments{
-\item{xy}{A 2-columns matrix or data frame containing a set of X and Y coordinates.}
+\item{xy}{A 2-columns matrix or data frame containing a set of X and Y
+coordinates.}
 
-\item{angle}{Numeric. A scalar giving the angle at which the points should be rotated. The angle is in radians.}
+\item{angle}{Numeric. A scalar giving the angle at which the points should be
+rotated. The angle is in radians.}
 }
 \value{
-A 2-columns matrix of the same size as \code{xy} giving the rotated coordinates.
+A 2-columns matrix of the same size as \code{xy} giving the rotated
+coordinates.
 }
 \description{
 Rotate a set of XY coordinates by an angle (in radians)

@@ -113,7 +113,7 @@
 #' # Run space-time analysis for time blocks number 6 and 7. 
 #' # Interaction is then not significant and tests of main effects are done 
 #' # following model 5
-#' quicksti(trich.log[111:154,], S=22, Ti=2, nperm=999)
+#' quicksti(trich.log[111:154,], S=22, Ti=2, nperm=99)
 #' 
 #' @importFrom MASS ginv
 #' @importFrom stats model.matrix

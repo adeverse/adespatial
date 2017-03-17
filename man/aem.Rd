@@ -10,34 +10,51 @@ aem(build.binary, binary.mat, weight, rm.link0 = FALSE,
 \arguments{
 \item{build.binary}{Object created by function \code{build.binary}.}
 
-\item{binary.mat}{Site (n rows) by link (k columns) matrix. The 1s in the matrix represents the presence of a link influencing a site, directly or indirectly, otherwise the values are 0s.}
+\item{binary.mat}{Site (n rows) by link (k columns) matrix. The 1s in the 
+matrix represents the presence of a link influencing a site, directly or 
+indirectly, otherwise the values are 0s.}
 
 \item{weight}{Vector of weights of length k, to be applied to the links.}
 
-\item{rm.link0}{Logical (\code{TRUE}, \code{FALSE}) determining if the links directly connecting a site to the origin (site 0) should be removed. Default value: \code{FALSE}. This parameter is only used when an object of class \code{build.binary} is provided to the function.}
+\item{rm.link0}{Logical (\code{TRUE}, \code{FALSE}) determining if the links 
+directly connecting a site to the origin (site 0) should be removed. 
+Default value: \code{FALSE}. This parameter is only used when an object of 
+class \code{build.binary} is provided to the function.}
 
-\item{print.binary.mat}{Logical (\code{TRUE}, \code{FALSE}) determining if the site-by-link matrix used in the analysis should be printed.}
+\item{print.binary.mat}{Logical (\code{TRUE}, \code{FALSE}) determining if 
+the site-by-link matrix used in the analysis should be printed.}
 }
 \value{
-\item{\code{value}}{A vector of singular values associated with the AEM.}
-\item{\code{vectors}}{A matrix of eigenvector. Each column is an AEM eigenfunction (or variable).}
-\item{\code{mod.binary.mat}}{A site-by-link matrix modified through the function.}
+\item{\code{value}}{A vector of singular values associated with the AEM.} 
+\item{\code{vectors}}{A matrix of eigenvector. Each column is an AEM 
+eigenfunction (or variable).} \item{\code{mod.binary.mat}}{A site-by-link 
+matrix modified through the function.}
 }
 \description{
-This function constructs eigenvectors of a site-by-link matrix. Weights can be applied to the links.
+This function constructs eigenvectors of a site-by-link matrix. Weights can 
+be applied to the links.
 }
 \details{
-If only an object of class \code{build.binary} is given to this function, The argument \code{binary.mat} is not considered. \code{binary.mat} is only considered when the argument \code{build.binary} is missing.
+If only an object of class \code{build.binary} is given to this function, The
+argument \code{binary.mat} is not considered. \code{binary.mat} is only 
+considered when the argument \code{build.binary} is missing.
 
-If weights are applied to the links, the length of vector \code{weight} has to take into account wether the links connecting real sites to the origin (the fictitious site 0) have been kept or removed.
+If weights are applied to the links, the length of vector \code{weight} has 
+to take into account wether the links connecting real sites to the origin 
+(the fictitious site 0) have been kept or removed.
 }
 \note{
-It sometimes happens that AEM eigenfunctions have equal singular values. In that case, different sets of AEM eigenfunctions may be produced on different plateforms.
+It sometimes happens that AEM eigenfunctions have equal singular values. In 
+that case, different sets of AEM eigenfunctions may be produced on different 
+plateforms.
 
-Eigenvectors associated to an eigenvalue that is smaller than \eqn{10^{-12}} are considered negligeable. They have been removed from the created AEM eigenfunctions.
+Eigenvectors associated to an eigenvalue that is smaller than \eqn{10^{-12}} 
+are considered negligeable. They have been removed from the created AEM 
+eigenfunctions.
 }
 \examples{
 ### Construction of object of class nb (spdep)
+if(require("spdep", quietly = TRUE)){
 nb <- cell2nb(5,5,"queen")
 
 ### Create fictitious geographical coordinates 
@@ -54,13 +71,21 @@ res$values
 opal <- palette()
 palette(c("black","white"))
 par(mfrow=c(2,2))
-symbols(x=xy[,2:3],circles=abs(res$vectors[,1]),inches=FALSE,asp=1,fg=ifelse(sign(-res$vectors[,1])+1>0,1,0),bg=ifelse(sign(res$vectors[,1])+1>0,1,0),xlab="x",ylab="y")
+symbols(x=xy[,2:3], circles=abs(res$vectors[,1]), inches=FALSE, asp=1,
+ fg=ifelse(sign(-res$vectors[,1])+1>0,1,0), 
+ bg=ifelse(sign(res$vectors[,1])+1>0,1,0), xlab="x", ylab="y")
 title("AEM 1")
-symbols(x=xy[,2:3],circles=abs(res$vectors[,2]),inches=FALSE,asp=1,fg=ifelse(sign(-res$vectors[,2])+1>0,1,0),bg=ifelse(sign(res$vectors[,2])+1>0,1,0),xlab="x",ylab="y")
+symbols(x=xy[,2:3], circles=abs(res$vectors[,2]), inches=FALSE, 
+asp=1, fg=ifelse(sign(-res$vectors[,2])+1>0,1,0),
+ bg=ifelse(sign(res$vectors[,2])+1>0,1,0), xlab="x", ylab="y")
 title("AEM 2")
-symbols(x=xy[,2:3],circles=abs(res$vectors[,3]),inches=FALSE,asp=1,fg=ifelse(sign(-res$vectors[,3])+1>0,1,0),bg=ifelse(sign(res$vectors[,3])+1>0,1,0),xlab="x",ylab="y")
+symbols(x=xy[,2:3], circles=abs(res$vectors[,3]), inches=FALSE, 
+asp=1, fg=ifelse(sign(-res$vectors[,3])+1>0,1,0), 
+bg=ifelse(sign(res$vectors[,3])+1>0,1,0), xlab="x", ylab="y")
 title("AEM 3")
-symbols(x=xy[,2:3],circles=abs(res$vectors[,4]),inches=FALSE,asp=1,fg=ifelse(sign(-res$vectors[,4])+1>0,1,0),bg=ifelse(sign(res$vectors[,4])+1>0,1,0),xlab="x",ylab="y")
+symbols(x=xy[,2:3], circles=abs(res$vectors[,4]), inches=FALSE, asp=1,
+ fg=ifelse(sign(-res$vectors[,4])+1>0,1,0), 
+ bg=ifelse(sign(res$vectors[,4])+1>0,1,0), xlab="x", ylab="y")
 title("AEM 4")
 
 ### Construct AEM eigenfunctions using only a site-by-link matrix
@@ -69,18 +94,27 @@ res2$values
 
 ### Illustrate 4 AEM eigenfunctions using bubble plots
 par(mfrow=c(2,2))
-symbols(x=xy[,2:3],circles=abs(res2$vectors[,1]),inches=FALSE,asp=1,fg=ifelse(sign(-res2$vectors[,1])+1>0,1,0),bg=ifelse(sign(res2$vectors[,1])+1>0,1,0),xlab="x",ylab="y")
+symbols(x=xy[,2:3], circles=abs(res2$vectors[,1]), inches=FALSE, 
+asp=1, fg=ifelse(sign(-res2$vectors[,1])+1>0,1,0), 
+bg=ifelse(sign(res2$vectors[,1])+1>0,1,0), xlab="x", ylab="y")
 title("AEM 1")
-symbols(x=xy[,2:3],circles=abs(res2$vectors[,2]),inches=FALSE,asp=1,fg=ifelse(sign(-res2$vectors[,2])+1>0,1,0),bg=ifelse(sign(res2$vectors[,2])+1>0,1,0),xlab="x",ylab="y")
+symbols(x=xy[,2:3], circles=abs(res2$vectors[,2]), inches=FALSE,
+asp=1, fg=ifelse(sign(-res2$vectors[,2])+1>0,1,0), 
+bg=ifelse(sign(res2$vectors[,2])+1>0,1,0), xlab="x", ylab="y")
 title("AEM 2")
-symbols(x=xy[,2:3],circles=abs(res2$vectors[,3]),inches=FALSE,asp=1,fg=ifelse(sign(-res2$vectors[,3])+1>0,1,0),bg=ifelse(sign(res2$vectors[,3])+1>0,1,0),xlab="x",ylab="y")
+symbols(x=xy[,2:3], circles=abs(res2$vectors[,3]), inches=FALSE,
+asp=1, fg=ifelse(sign(-res2$vectors[,3])+1>0,1,0), 
+bg=ifelse(sign(res2$vectors[,3])+1>0,1,0), xlab="x", ylab="y")
 title("AEM 3")
-symbols(x=xy[,2:3],circles=abs(res2$vectors[,4]),inches=FALSE,asp=1,fg=ifelse(sign(-res2$vectors[,4])+1>0,1,0),bg=ifelse(sign(res2$vectors[,4])+1>0,1,0),xlab="x",ylab="y")
+symbols(x=xy[,2:3], circles=abs(res2$vectors[,4]), inches=FALSE,asp=1,
+ fg=ifelse(sign(-res2$vectors[,4])+1>0,1,0), 
+ bg=ifelse(sign(res2$vectors[,4])+1>0,1,0), xlab="x", ylab="y")
 title("AEM 4")
 
 palette(opal)
 
-### Construct AEM eigenfunctions with a function of the distance as weights to put on the links
+### Construct AEM eigenfunctions with a function of the distance
+### as weights to put on the links
 
 ### Construction of object of class nb (spdep)
 nb<-cell2nb(5,5,"queen")
@@ -110,13 +144,15 @@ weight.vec<-1-(long.lien/max(long.lien))^2
 ### Construct AEM eigenfunctions from an object of class build.binary
 res <- aem(build.binary=bin.mat,weight=weight.vec,rm.link0=TRUE)
 res
-
+}
 }
 \author{
 F. Guillaume Blanchet
 }
 \references{
-Blanchet F.G., P. Legendre and Borcard D. (2008) Modelling directional spatial processes in ecological data. \emph{Ecological Modelling}, 215, 325-336.
+Blanchet F.G., P. Legendre and Borcard D. (2008) Modelling directional 
+spatial processes in ecological data. \emph{Ecological Modelling}, 215, 
+325-336.
 }
 \seealso{
 \code{\link{build.binary}}, \code{\link{svd}}
