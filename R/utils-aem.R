@@ -1,3 +1,17 @@
+`r.order.link` <-
+    function (nrow.link, link, coords) 
+    {
+        for (i in 1:nrow.link) {
+            if (link[i, 2] != 0) {
+                if (coords[link[i, 3], 3] < coords[link[i, 2], 3]) {
+                    link[i, 2:3] <- c(link[i, 3], link[i, 2])
+                }
+            }
+        }
+        return(link)
+    }
+
+
 `remove.same.y` <-
     function(coords,link){
         
@@ -76,4 +90,22 @@
         return(link.tmp)
         
     }
+
+
+`rm.double.link` <-
+    function (link) 
+    {
+        for (i in 1:nrow(link)) {
+            tmp <- which(link[i, 1] == link[, 2] & link[i, 2] == 
+                    link[, 1])
+            if (length(tmp) != 0) {
+                link[tmp, ] <- c(0, 0)
+            }
+        }
+        tmp <- which(link[, 1] != 0 & link[, 2] != 0)
+        if (length(tmp) != 0) 
+            link <- link[tmp, ]
+        return(link)
+    }
+
 
