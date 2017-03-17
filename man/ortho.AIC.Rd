@@ -25,7 +25,7 @@ A vector with corrected AIC if \code{ord.var=FALSE}. A list if
 \description{
 This function compute corrected AIC for models with orthonormal and centered 
 explanatory variables such as MEM spatial eigenfunctions. Variables are
-sorted by their contribution to R2. .
+sorted by their contribution to R2.
 }
 \details{
 It ensures that a model with k variables is the best one that can be 
