@@ -163,7 +163,7 @@
 #' plot(ld.res.perio, prog=3) # Graph with progressive correction
 #' acf(ldeaths)   # acf() results, for comparison
 #' 
-#' @useDynLib adespatial
+#' @useDynLib adespatial, .registration = TRUE 
 #' @importFrom graphics lines points
 #' @export WRperiodogram
 WRperiodogram <- function(x, T1 = 2, T2, nperm = 499, nopermute, mult = c("sidak", "bonferroni"), print.time = FALSE) 
@@ -181,7 +181,7 @@ WRperiodogram <- function(x, T1 = 2, T2, nperm = 499, nopermute, mult = c("sidak
   pidx <- if(missing(nopermute)) 1L:length(x) else (1L:length(x))[-nopermute]
   #
   a <- system.time({
-  	res <- .C("WRperiodogram",as.double(x),n,as.integer(T1),as.integer(T2),double(nk),
+  	res <- .C("C_WRperiodogram",as.double(x),n,as.integer(T1),as.integer(T2),double(nk),
             as.integer(nperm),pidx-1L,length(pidx),integer(nk),NAOK = TRUE, PACKAGE = "adespatial")[c(5L,9L)]
 	})
   a[3] <- sprintf("%2f",a[3])

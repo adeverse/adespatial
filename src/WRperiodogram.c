@@ -61,7 +61,7 @@ void BBCMVAR(double* x, int* nx, int* T1, int* T2, double* out, double* cmacc, i
   return;
 }
 
-void WRperiodogram(double* x, int* nx, int* T1, int* T2, double* out, int* nperm, int* pidx, int* npidx, int* permout)
+void C_WRperiodogram(double* x, int* nx, int* T1, int* T2, double* out, int* nperm, int* pidx, int* npidx, int* permout)
 {
   // Allocate memory for the calculation of column means
   double rnb;

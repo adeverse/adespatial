@@ -40,7 +40,7 @@
 #' 
 #' @importFrom ade4 scalewt as.randtest
 #' @importFrom spdep Szero
-#' @useDynLib adespatial
+#' @useDynLib adespatial, .registration = TRUE 
 #' @export moranNP.randtest
 
 moranNP.randtest <- function(x, listw, nrepet = 999, alter = c("greater", "less", "two-sided"), ...) {

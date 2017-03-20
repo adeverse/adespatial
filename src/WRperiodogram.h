@@ -21,7 +21,7 @@ void BBCMVAR(double* x, int* nx, int* T1, int* T2, double* out, double* cmacc, i
    array cm and cmden should be pre-allocated to size T2, i.e. the maximum period.
    they were not internally allocated to spare system calls (and therefore save time) */
 
-void WRperiodogram(double* x, int* nx, int* T1, int* T2, double* out, int* nperm, int* pidx, int* npidx, int* permout);
+void C_WRperiodogram(double* x, int* nx, int* T1, int* T2, double* out, int* nperm, int* pidx, int* npidx, int* permout);
 /* array out and permout should be pre-allocated to size T2-T1+1 when calling from R
 */
 
