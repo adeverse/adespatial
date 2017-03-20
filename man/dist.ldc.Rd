@@ -12,7 +12,7 @@ dist.ldc(Y, method = "hellinger", binary = FALSE, samp = TRUE,
 \code{data.frame} or \code{matrix}.}
 
 \item{method}{One of the 21 dissimilarity coefficients available in the 
-function: {"hellinger"}, \code{"chord"}, \code{"chisquare"}, 
+function: \code{"hellinger"}, \code{"chord"}, \code{"chisquare"}, 
 \code{"profiles"}, \code{"percentdiff"}, \code{"ruzicka"}, 
 \code{"divergence"}, \code{"canberra"}, \code{"whittaker"}, 
 \code{"wishart"}, \code{"kulczynski"}, \code{"jaccard"}, \code{"sorensen"},
@@ -84,72 +84,73 @@ The dissimilarities computed by this function are the following.
   D, D[ik] = sqrt((b+c)/(a+b+c)) \item Sørensen D, D[ik] = 
   sqrt((b+c)/(2a+b+c)) \item Ochiai D, D[ik] = sqrt(1 - a/sqrt((a+b)(a+c))) }
   
-  \item Group 4 - Abundance-based indices of Chao et al. (2006) for binary 
-  data. For the meaning of the U and V notations, see Chao et al. (2006, 
-  section 3). When \code{samp=TRUE}, the abundance-based distances 
-  (ab.jaccard, ab.sorensen, ab.ochiai, ab.simpson) are computed for sample 
-  data. If \code{samp=FALSE}, indices are computed for true population data. 
-  – Do not use indices of group 4 with \code{samp=TRUE} on presence-absence 
-  data; the indices are not meant to accommodate this type of data. If 
-  \code{samp=FALSE} is used with presence-absence data, the indices are the 
-  regular {Jaccard, Sorensen, Ochiai, Simpson} indices. On output, however, 
-  the D matrices are not square-rooted, contrary to the {Jaccard, Sorensen, 
-  Ochiai} indices in section 3 which are square-rooted. \itemize{\item 
-  abundance-based Jaccard D, D[ik] = 1-(UV/(U+V-UV)) \item abundance-based 
-  Sørensen D, D[ik] = 1-(2UV/(U+V)) \item abundance-based Ochiai D, D[ik] = 
-  1-sqrt(UV) \item abundance-based Simpson D, D[ik] = 
-  1-(UV/(UV+min((U-UV),(V-UV)))) }
+  \item Group 4 - Abundance-based indices of Chao et al. (2006) for 
+  quantitative abundance data. These functions correct the index for species 
+  that have not been observed due to sampling errors. For the meaning of the 
+  U and V notations, see Chao et al. (2006, section 3). When 
+  \code{samp=TRUE}, the abundance-based distances (ab.jaccard, ab.sorensen, 
+  ab.ochiai, ab.simpson) are computed for sample data. If \code{samp=FALSE}, 
+  indices are computed for true population data. – Do not use indices of 
+  group 4 with \code{samp=TRUE} on presence-absence data; the indices are not
+  meant to accommodate this type of data. If \code{samp=FALSE} is used with 
+  presence-absence data, the indices are the regular {Jaccard, Sorensen, 
+  Ochiai, Simpson} indices. On output, however, the D matrices are not 
+  square-rooted, contrary to the {Jaccard, Sorensen, Ochiai} indices in 
+  section 3 which are square-rooted. \itemize{\item abundance-based Jaccard 
+  D, D[ik] = 1-(UV/(U+V-UV)) \item abundance-based Sørensen D, D[ik] = 
+  1-(2UV/(U+V)) \item abundance-based Ochiai D, D[ik] = 1-sqrt(UV) \item 
+  abundance-based Simpson D, D[ik] = 1-(UV/(UV+min((U-UV),(V-UV)))) }
   
   \item Group 5 – General-purpose dissimilarities that do not have an upper 
   bound (maximum D value). They are inappropriate for beta diversity studies.
   \itemize{\item Euclidean D, D[ik] = sqrt(sum(y[ij]-y[kj])^2) \item 
   Manhattan D, D[ik] = sum(abs(y[ij] - y[ik])) \item modified mean character 
-  difference, D[ik] = (1/pp) sum(abs(y[ij] - y[ik])) } } The properties of
-  all dissimilarities available in this function (except Ružička D) were
-  described and compared in Legendre & De Cáceres (2013), who showed that
-  most of these dissimilarities are appropriate for beta diversity studies.
-  Inappropriate are the Euclidean, Manhattan, modified mean character
-  difference, species profile and chi-square distances. Most of these
-  dissimilarities have a maximum value of either 1 or sqrt(2). Three
-  dissimilarities (Euclidean, Manhattan, Modified mean character difference)
-  do not have an upper bound and are thus inappropriate for beta diversity
-  studies. The chi-square distance has an upper bound of sqrt(2*(sum(Y))).\cr 
-  The Euclidean, Hellinger, chord, chi-square and species profiles
-  dissimilarities have the property of being Euclidean, meaning that they
-  never produce negative eigenvalues in principal coordinate analysis. The
-  Canberra, Whittaker, percentage difference, Wishart and Manhattan
-  coefficients are Euclidean when they are square-root transformed (Legendre
-  & De Cáceres 2013, Table 2). The distance forms (1-S) of the Jaccard,
-  Sørensen and Ochiai similarity (S) coefficients are Euclidean after taking
-  the square root of (1-S) (Legendre & Legendre 2012, Table 7.2). The D
-  matrices resulting from these three coefficients are outputted in the form
-  sqrt(1-S), as in function \code{dist.binary} of ade4, because that form is
-  Euclidean and will thus produce no negative eigenvalues in principal
-  coordinate analysis. \cr The Hellinger, chord, chi-square and species profile
-  dissimilarities are computed using the two-step procedure developed by
-  Legendre & Gallagher (2001). The data are first transformed using either
-  the row marginals, or the row and column marginals in the case of the
-  chi-square distance. The dissimilarities are then computed from the
-  transformed data using the Euclidean distance formula. As a consequence,
-  these four dissimilarities are necessarily Euclidean. D matrices for other
-  binary coefficients can be computed in two ways: either by using function
-  \code{dist.binary} of ade4, or by choosing option \code{binary=TRUE}, which
-  transforms the abundance data to binary form, and using one of the
-  quantitative indices of the present function. Table 1 of Legendre & De
-  Cáceres (2013) shows the incidence-based (presence-absence-based) indices
-  computed by the various indices using binary data. \cr The Euclidean distance
-  computed on untransformed presence-absence or abundance data produces
-  non-informative and incorrect ordinations, as shown in Legendre & Legendre
-  (2012, p. 300) and in Legendre & De Cáceres (2013). However, the Euclidean
-  distance computed on log-transformed abundance data produces meaningful
-  ordinations in principal coordinate analysis (PCoA). Nonetheless, it is
-  easier to compute a PCA of log-transformed abundance data instead of a
-  PCoA; the resulting ordination with scaling 1 will be meaningful. Messages
-  are printed to the R console indicating the Euclidean status of the
-  computed dissimilarity matrices. Note that for the chi-square distance, 
-  the columns that sum to zero are eliminated before calculation of the distances,
-   thus preventing divisions by zero in the calculation of the chi-square 
-   transformation.
+  difference, D[ik] = (1/pp) sum(abs(y[ij] - y[ik])) } } The properties of 
+  all dissimilarities available in this function (except Ružička D) were 
+  described and compared in Legendre & De Cáceres (2013), who showed that 
+  most of these dissimilarities are appropriate for beta diversity studies. 
+  Inappropriate are the Euclidean, Manhattan, modified mean character 
+  difference, species profile and chi-square distances. Most of these 
+  dissimilarities have a maximum value of either 1 or sqrt(2). Three 
+  dissimilarities (Euclidean, Manhattan, Modified mean character difference) 
+  do not have an upper bound and are thus inappropriate for beta diversity 
+  studies. The chi-square distance has an upper bound of
+  sqrt(2*(sum(Y))).\cr\cr The Euclidean, Hellinger, chord, chi-square and
+  species profiles dissimilarities have the property of being Euclidean,
+  meaning that they never produce negative eigenvalues in principal
+  coordinate analysis. The Canberra, Whittaker, percentage difference,
+  Wishart and Manhattan coefficients are Euclidean when they are square-root
+  transformed (Legendre & De Cáceres 2013, Table 2). The distance forms (1-S)
+  of the Jaccard, Sørensen and Ochiai similarity (S) coefficients are
+  Euclidean after taking the square root of (1-S) (Legendre & Legendre 2012,
+  Table 7.2). The D matrices resulting from these three coefficients are
+  outputted in the form sqrt(1-S), as in function \code{dist.binary} of ade4,
+  because that form is Euclidean and will thus produce no negative
+  eigenvalues in principal coordinate analysis. \cr\cr The Hellinger, chord,
+  chi-square and species profile dissimilarities are computed using the
+  two-step procedure developed by Legendre & Gallagher (2001). The data are
+  first transformed using either the row marginals, or the row and column
+  marginals in the case of the chi-square distance. The dissimilarities are
+  then computed from the transformed data using the Euclidean distance
+  formula. As a consequence, these four dissimilarities are necessarily
+  Euclidean. D matrices for other binary coefficients can be computed in two
+  ways: either by using function \code{dist.binary} of ade4, or by choosing
+  option \code{binary=TRUE}, which transforms the abundance data to binary
+  form, and using one of the quantitative indices of the present function.
+  Table 1 of Legendre & De Cáceres (2013) shows the incidence-based
+  (presence-absence-based) indices computed by the various indices using
+  binary data. \cr\cr The Euclidean distance computed on untransformed
+  presence-absence or abundance data produces non-informative and incorrect
+  ordinations, as shown in Legendre & Legendre (2012, p. 300) and in Legendre
+  & De Cáceres (2013). However, the Euclidean distance computed on
+  log-transformed abundance data produces meaningful ordinations in principal
+  coordinate analysis (PCoA). Nonetheless, it is easier to compute a PCA of
+  log-transformed abundance data instead of a PCoA; the resulting ordination
+  with scaling 1 will be meaningful. Messages are printed to the R console
+  indicating the Euclidean status of the computed dissimilarity matrices.
+  Note that for the chi-square distance, the columns that sum to zero are
+  eliminated before calculation of the distances, thus preventing divisions
+  by zero in the calculation of the chi-square transformation.
 }
 \examples{
 
