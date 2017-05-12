@@ -11,6 +11,7 @@ Maintainer: Stéphane Dray <stephane.dray@univ-lyon1.fr>
 Imports:
     ade4 (>= 1.7-6),
     adegraphics,
+    adephylo,
     sp,
     spdep,
     lattice,
@@ -21,9 +22,9 @@ Imports:
     stats,
     utils,
     shiny
-Suggests: vegan, knitr, maptools
+Suggests: vegan, knitr, maptools, ape
 License: GPL (>= 2)
 Encoding: UTF-8
 NeedsCompilation: yes
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 VignetteBuilder: knitr
