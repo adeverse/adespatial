@@ -3,6 +3,7 @@
 S3method("[",orthobasisSp)
 S3method(msr,"4thcorner")
 S3method(msr,default)
+S3method(msr,varipart)
 S3method(plot,WRperio)
 S3method(plot,mfpa)
 S3method(plot,multispati)
