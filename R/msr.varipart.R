@@ -130,18 +130,14 @@ msr.varipart <-
         b.adj <- ab.adj - a.adj
         c.adj <- sum(x$R2.adj[c("b", "c")]) - b.adj
         d.adj <- 1 - (a.adj + b.adj + c.adj)
-        
+        R2.adj.msr <- c(a.adj, b.adj, c.adj, d.adj)
+        names(R2.adj.msr) <- names(x$R2)
         res <-
             list(
                 test = test,
                 R2 = x$R2,
-                R2.adj.msr = c(
-                    a = a.adj,
-                    b = b.adj,
-                    c = c.adj,
-                    d = d.adj
+                R2.adj.msr = R2.adj.msr
                 )
-            )
         class(res) <- c("varipart", "list")
         return(res)
     }
