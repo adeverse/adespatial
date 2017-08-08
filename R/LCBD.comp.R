@@ -4,7 +4,7 @@
 #' dissimilarity matrix (D) or from a beta component matrix (Repl, RichDiff or 
 #' AbDiff, or Nes) (Legendre 2014).
 #' 
-#' @param D A dissimilarity or beta diversity component matrix (class 
+#' @param D A dissimilarity or beta diversity component matrix, class 
 #'   \code{dist} or \code{matrix}.
 #' @param sqrt.D Take the square root of the dissimilarities in matrix D before 
 #'   computing the LCBD indices.
@@ -41,7 +41,7 @@
 #'   data.
 #'   
 #' @return A list containing the following results: \itemize{ \item 
-#'   \code{SStotal_BDtotal}: Total sum of squares and total beta diversity [= 
+#'   \code{beta}: Total sum of squares and total beta diversity [= 
 #'   Var(Y)] of the data matrix. \item \code{LCBD}: Vector of Local 
 #'   contributions to beta diversity (LCBD) for the sites. \item \code{D}: The 
 #'   input dissimilarity matrix, class \code{dist}; only if \code{save.D=TRUE}}.
@@ -76,11 +76,11 @@
 #' out.comp = beta.div.comp(fish.sp, coef="S", quant=TRUE)
 #' 
 #' out.fish.D = LCBD.comp(out.comp$D, sqrt.D=TRUE)   # out.comp.D is not Euclidean
-#' out.fish.D$SStotal_BDtotal
+#' out.fish.D$beta
 #' out.fish.Repl = LCBD.comp(out.comp$repl, sqrt.D=TRUE)   # out.comp$repl is not Euclidean
-#' out.fish.Repl$SStotal_BDtotal
+#' out.fish.Repl$beta
 #' out.fish.AbDiff = LCBD.comp(out.comp$rich, sqrt.D=FALSE)   # out.comp$rich is Euclidean
-#' out.fish.AbDiff$SStotal_BDtotal
+#' out.fish.AbDiff$beta
 #' 
 #' ### Plot maps of the LCBD indices
 #' fish.xy = doubs$xy[-8,]   # Geographic coordinates; site 8 removed because no fish were caught
@@ -98,34 +98,45 @@
 #' col = c("white", "brown"), main = "Doubs fish abundance diff. LCBD")
 #' }
 #' 
+#' \dontrun{
+#' ### Example 3
+#' ### This example requires packages \code{"betapart"} and \code{"ade4"} for data. 
+#' ### For the Baselga-family indices, the same partitioning results are obtained using
+#' ### (1) beta.div.comp or (2) beta.pair.abund() of \code{"betapart"} and LCBD.comp()
+#' 
+#' data(doubs)   # Data available in \code{"ade4"}
+#' fish.sp = doubs$fish[-8,]   
+#' # Fish data; site 8 is removed because no fish were caught
+#' # We use abundance data in this example, not presence-absence data
+#' 
+#' # Partition into Baselga-family replacement and nestedness components 
+#' # using \code{"beta.div.comp"} with the percentage difference index (aka Bray-Curtis)
+#' out.comp = beta.div.comp(fish.sp, coef="BS", quant=TRUE)
+#' out.comp$part
+#' 
+#' # Compute the D and component matrices using \code{"beta.pair.abund"}
+#' out3 = beta.pair.abund(fish.sp, index.family = "bray")
+#' summary(out3)
+#' 
+#' is.euclid(out3$beta.bray)    # D matrix out3$beta.bray is not Euclidean
+#' out3.D = LCBD.comp(out3$beta.bray, sqrt.D=TRUE)
+#' out3.D$beta
+#' # Compare BDtotal here to BDtotal in out.comp$part (above)
+#' 
+#' out3.Repl = LCBD.comp(out3$beta.bray.bal, sqrt.D=TRUE)
+#' out3.Repl$beta
+#' # Compare BDtotal here to RichDiff in out.comp$part (above)
+#' 
+#' out3.AbDiff = LCBD.comp(out3$beta.bray.gra, sqrt.D=TRUE)
+#' out3.AbDiff$beta
+#' # Compare BDtotal here to RichDiff/Nes in out.comp$part (above)
+#' }
+#'
 #' @importFrom stats as.dist
 #' @export LCBD.comp
 #'   
 
 LCBD.comp <- function(D, sqrt.D = TRUE, save.D = FALSE) {
-    #
-    # Description --
-    #
-    # Compute LCBD indices (Legendre and De Cáceres 2013) from a dissimilarity
-    # matrix (D) or beta div. component matrices (Repl, RichDiff or AbDiff, or Nes).
-    #
-    # Arguments --
-    #
-    # D : Dissimilarity or beta diversity component matrix, class=dist.
-    # sqrt.D : Take sqrt() of components before computing LCBD.comp. Use
-    #     sqrt.D=TRUE for the replacement and richness/abundance difference indices
-    #     computed by beta.div.comp(), as well as for the corresponding D matrices.
-    # =>  When computing LCBD from a D matrix, use sqrt=TRUE if the D matrix is not
-    #     Euclidean. That property can be checked with function is.euclid() of ade4.
-    #
-    # Reference --
-    #
-    # Legendre, P. & De Cáceres, M. (2013) Beta diversity as the variance of
-    # community data: dissimilarity coefficients and partitioning. Ecology
-    # Letters 16: 951–963.
-    #
-    # License: GPL-2
-    # Author:: Pierre Legendre, August 2013
     
     ### Internal function   # Legendre & Legendre 2012, eq. 9.42
     centre <- function(D, n)
@@ -138,6 +149,7 @@ LCBD.comp <- function(D, sqrt.D = TRUE, save.D = FALSE) {
     }
     ###
     D <- as.dist(D)
+    if(sum(D)==0) stop("The dissimilarity matrix only contains zeros")
     x <- as.matrix(D)
     n <- nrow(x)
     
@@ -154,14 +166,15 @@ LCBD.comp <- function(D, sqrt.D = TRUE, save.D = FALSE) {
     }
     LCBD <-
         diag(G) / SStotal   # Legendre & De Caceres (2013), eq. 10b
+    beta <- c(SStotal, BDtotal)
+    names(beta) <- c("SStotal", "BDtotal")
     if (save.D) {
         out <- list(
-            SStotal_BDtotal = c(SStotal, BDtotal),
+            beta = beta,
             LCBD = LCBD,
             D = D
         )
     } else {
-        out <- list(SStotal_BDtotal = c(SStotal, BDtotal),
-                    LCBD = LCBD)
+        out <- list(beta = beta, LCBD = LCBD)
     }
 }

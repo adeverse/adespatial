@@ -7,7 +7,7 @@
 LCBD.comp(D, sqrt.D = TRUE, save.D = FALSE)
 }
 \arguments{
-\item{D}{A dissimilarity or beta diversity component matrix (class 
+\item{D}{A dissimilarity or beta diversity component matrix, class 
 \code{dist} or \code{matrix}.}
 
 \item{sqrt.D}{Take the square root of the dissimilarities in matrix D before 
@@ -18,7 +18,7 @@ appear in the output list.}
 }
 \value{
 A list containing the following results: \itemize{ \item 
-  \code{SStotal_BDtotal}: Total sum of squares and total beta diversity [= 
+  \code{beta}: Total sum of squares and total beta diversity [= 
   Var(Y)] of the data matrix. \item \code{LCBD}: Vector of Local 
   contributions to beta diversity (LCBD) for the sites. \item \code{D}: The 
   input dissimilarity matrix, class \code{dist}; only if \code{save.D=TRUE}}.
@@ -77,11 +77,11 @@ fish.sp = doubs$fish[-8,]   # Fish data; site 8 is removed because no fish were 
 out.comp = beta.div.comp(fish.sp, coef="S", quant=TRUE)
 
 out.fish.D = LCBD.comp(out.comp$D, sqrt.D=TRUE)   # out.comp.D is not Euclidean
-out.fish.D$SStotal_BDtotal
+out.fish.D$beta
 out.fish.Repl = LCBD.comp(out.comp$repl, sqrt.D=TRUE)   # out.comp$repl is not Euclidean
-out.fish.Repl$SStotal_BDtotal
+out.fish.Repl$beta
 out.fish.AbDiff = LCBD.comp(out.comp$rich, sqrt.D=FALSE)   # out.comp$rich is Euclidean
-out.fish.AbDiff$SStotal_BDtotal
+out.fish.AbDiff$beta
 
 ### Plot maps of the LCBD indices
 fish.xy = doubs$xy[-8,]   # Geographic coordinates; site 8 removed because no fish were caught
@@ -99,9 +99,40 @@ s.value(fish.xy, out.fish.AbDiff$LCBD, method="size", symbol = "circle",
 col = c("white", "brown"), main = "Doubs fish abundance diff. LCBD")
 }
 
+\dontrun{
+### Example 3
+### This example requires packages \\code{"betapart"} and \\code{"ade4"} for data. 
+### For the Baselga-family indices, the same partitioning results are obtained using
+### (1) beta.div.comp or (2) beta.pair.abund() of \\code{"betapart"} and LCBD.comp()
+
+data(doubs)   # Data available in \\code{"ade4"}
+fish.sp = doubs$fish[-8,]   
+# Fish data; site 8 is removed because no fish were caught
+# We use abundance data in this example, not presence-absence data
+
+# Partition into Baselga-family replacement and nestedness components 
+# using \\code{"beta.div.comp"} with the percentage difference index (aka Bray-Curtis)
+out.comp = beta.div.comp(fish.sp, coef="BS", quant=TRUE)
+out.comp$part
+
+# Compute the D and component matrices using \\code{"beta.pair.abund"}
+out3 = beta.pair.abund(fish.sp, index.family = "bray")
+summary(out3)
+
+is.euclid(out3$beta.bray)    # D matrix out3$beta.bray is not Euclidean
+out3.D = LCBD.comp(out3$beta.bray, sqrt.D=TRUE)
+out3.D$beta
+# Compare BDtotal here to BDtotal in out.comp$part (above)
+
+out3.Repl = LCBD.comp(out3$beta.bray.bal, sqrt.D=TRUE)
+out3.Repl$beta
+# Compare BDtotal here to RichDiff in out.comp$part (above)
+
+out3.AbDiff = LCBD.comp(out3$beta.bray.gra, sqrt.D=TRUE)
+out3.AbDiff$beta
+# Compare BDtotal here to RichDiff/Nes in out.comp$part (above)
 }
-\author{
-Pierre Legendre \email{pierre.legendre@umontreal.ca}
+
 }
 \references{
 Legendre, P. 2014. Interpreting the replacement and richness 
@@ -112,5 +143,7 @@ Legendre, P. 2014. Interpreting the replacement and richness
   community data: dissimilarity coefficients and partitioning. Ecology 
   Letters 16: 951-963.
 }
+\author{
+Pierre Legendre \email{pierre.legendre@umontreal.ca}
+}
 \keyword{spatial}
-
