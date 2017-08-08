@@ -12,8 +12,8 @@ dist.ldc(Y, method = "hellinger", binary = FALSE, samp = TRUE,
 \code{data.frame} or \code{matrix}.}
 
 \item{method}{One of the 21 dissimilarity coefficients available in the 
-function: \code{"hellinger"}, \code{"chord"}, \code{"chisquare"}, 
-\code{"profiles"}, \code{"percentdiff"}, \code{"ruzicka"}, 
+function: \code{"hellinger"}, \code{"chord"}, \code{"log.chord"}, 
+\code{"chisquare"}, \code{"profiles"}, \code{"percentdiff"}, \code{"ruzicka"}, 
 \code{"divergence"}, \code{"canberra"}, \code{"whittaker"}, 
 \code{"wishart"}, \code{"kulczynski"}, \code{"jaccard"}, \code{"sorensen"},
 \code{"ochiai"}, \code{"ab.jaccard"}, \code{"ab.sorensen"}, 
@@ -56,23 +56,30 @@ The dissimilarities computed by this function are the following.
   sum of values in Y. The indices are computed by functions written in C for 
   greater computation speed with large data matrices. \itemize{ \item Group 1
   - D computed by transformation of Y followed by Euclidean distance 
-  \itemize{\item Hellinger D, D[ik] = 
-  sqrt(sum((sqrt(y[ij]/y[i+])-sqrt(y[kj]/y[k+]))^2)) \item chord D, D[ik] = 
-  sqrt(sum((y[ij]/sqrt(sum(y[ij]^2))-y[kj]/sqrt(sum(y[kj]^2)))^2)) \item 
-  chi-square D, D[ik] = sqrt(y[++] sum((1/j[+j])(y[ij]/y[i+]-y[kj]/y[k+])^2))
+  \itemize{
+  \item Hellinger D, D[ik] = 
+  sqrt(sum((sqrt(y[ij]/y[i+])-sqrt(y[kj]/y[k+]))^2)) 
+  \item chord D, D[ik] = 
+  sqrt(sum((y[ij]/sqrt(sum(y[ij]^2))-y[kj]/sqrt(sum(y[kj]^2)))^2)) 
+  \item log-chord D, D[ik] = chord D[ik] computed on log(y[ij]+1)-transformed 
+  data (Legendre and Borcard submitted)
+  \item chi-square D, D[ik] = 
+  sqrt(y[++] sum((1/j[+j])(y[ij]/y[i+]-y[kj]/y[k+])^2))
   \item species profiles D, D[ik] = sqrt(sum((y[ij]/y[i+]-y[kj]/y[k+])^2)) }
   
   \item Group 2 - Other D functions appropriate for beta diversity studies 
-  where A = sum(min(y[ij],y[kj])), B = y[i+]-A, C = y[k+]-A \itemize{\item 
-  percentage difference D, D[ik] = (sum(abs(y[ij]-y[k,j])))/(y[i+]+y[k+]) or 
-  else, D[ik] = (B+C)/(2A+B+C) = \item Ružička D, D[ik] = 
-  1-(sum(min(y[ij],y[kj])/sum(max(y[ij],y[kj])) or else, D[ik] = 
-  (B+C)/(A+B+C) \item coeff. of divergence D, D[ik] = 
-  sqrt((1/pp)sum(((y[ij]-y(kj])/(y[ij]+y(kj]))^2)) \item Canberra metric D, 
-  D[ik] = (1/pp)sum(abs(y[ij]-y(kj])/(y[ij]+y(kj])) \item Whittaker D, D[ik] 
-  = 0.5*sum(abs(y[ij]/y[i+]-y(kj]/y[k+])) \item Wishart D, D[ik] = 
-  1-sum(y[ij]y[kj])/(sum(y[ij]^2)+sum(y[kj]^2)-sum(y[ij]y[kj])) \item 
-  Kulczynski D, D[ik] = 
+  where A = sum(min(y[ij],y[kj])), B = y[i+]-A, C = y[k+]-A 
+  \itemize{\item percentage difference D (aka Bray-Curtis), 
+  D[ik] = (sum(abs(y[ij]-y[k,j])))/(y[i+]+y[k+]) or else, D[ik] = (B+C)/(2A+B+C) 
+  \item Ružička D, D[ik] = 1-(sum(min(y[ij],y[kj])/sum(max(y[ij],y[kj])) 
+  or else, D[ik] = (B+C)/(A+B+C) 
+  \item coeff. of divergence D, D[ik] = 
+  sqrt((1/pp)sum(((y[ij]-y(kj])/(y[ij]+y(kj]))^2)) 
+  \item Canberra metric D, D[ik] = (1/pp)sum(abs(y[ij]-y(kj])/(y[ij]+y(kj]))
+  \item Whittaker D, D[ik] = 0.5*sum(abs(y[ij]/y[i+]-y(kj]/y[k+])) 
+  \item Wishart D, D[ik] = 
+  1-sum(y[ij]y[kj])/(sum(y[ij]^2)+sum(y[kj]^2)-sum(y[ij]y[kj])) 
+  \item Kulczynski D, D[ik] = 
   1-0.5((sum(min(y[ij],y[kj])/y[i+]+sum(min(y[ij],y[kj])/y[k+])) }
   
   \item Group 3 - Classical indices for binary data; they are appropriate for
@@ -172,13 +179,13 @@ D.out = dist.ldc(mat2,"percentdiff")
 
 
 }
-\author{
-Pierre Legendre \email{pierre.legendre@umontreal.ca} and Naima Madi
-}
 \references{
 Chao, A., R. L. Chazdon, R. K. Colwell and T. J. Shen. 2006. 
   Abundance-based similarity indices and their estimation when there are 
   unseen species in samples. Biometrics 62: 361–371.
+  
+  Legendre, P. and D. Borcard. (Submitted). Box-Cox-chord transformations for 
+  community composition data prior to beta diversity analysis.
   
   Legendre, P. and M. De Cáceres. 2013. Beta diversity as the variance of 
   community data: dissimilarity coefficients and partitioning. Ecology 
@@ -190,4 +197,6 @@ Chao, A., R. L. Chazdon, R. K. Colwell and T. J. Shen. 2006.
   Legendre, P. and Legendre, L. 2012. Numerical Ecology. 3rd English edition.
   Elsevier Science BV, Amsterdam.
 }
-
+\author{
+Pierre Legendre \email{pierre.legendre@umontreal.ca} and Naima Madi
+}
