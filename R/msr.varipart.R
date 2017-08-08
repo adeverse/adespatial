@@ -53,6 +53,7 @@
 #' vprda.msr <- msr(vprda, mafragh.lw, nrepet=99)
 #' vprda.msr
 #' @importFrom ade4 as.krandtest
+#' @importFrom stats as.formula lm.wfit model.frame
 #' @export
 msr.varipart <-
     function(x,
