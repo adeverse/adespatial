@@ -7,15 +7,15 @@
 beta.div.comp(mat, coef = "J", quant = FALSE, save.abc = FALSE)
 }
 \arguments{
-\item{mat}{Community composition data (\code{data.frame} or \code{matrix}.}
+\item{mat}{Community composition data (\code{data.frame} or \code{matrix}).}
 
 \item{coef}{Family of coefficients to be computed. \itemize{\item "S" or 
 "Sorensen": Podani family, Sørensen-based indices. \item "J" or "Jaccard": 
 Podani family, Jaccard-based indices. \item "BS" – Baselga family, 
 Sørensen-based indices. \item "BJ": Baselga family, Jaccard-based indices. 
 \item "N": Podani & Schmera (2011) relativized nestedness index.} The 
-quantitative form in the Sørensen family is the percentage difference index.
-The quantitative form in the Jaccard family is the Ruzicka index.}
+quantitative form of the Sørensen dissimilarity is the percentage difference index.
+The quantitative form of the Jaccard dissimilarity is the Ruzicka index.}
 
 \item{quant}{If \code{TRUE}, compute the quantitative forms of replacement, 
 nestedness and D. If \code{FALSE}, compute the presence-absence forms of the
@@ -27,40 +27,46 @@ used in presence-absence calculations.}
 \value{
 A list containing the following results:
  
- \itemize{\item \code{repl}: Replacement matrix, class = dist. \item
- \code{rich}: Richness/abundance difference or nestedness matrix (class
+ \itemize{
+\item \code{repl}: Replacement matrix, class = dist. 
+\item\code{rich}: Richness/abundance difference or nestedness matrix (class
  \code{dist}). With options "BJ", "BS" and "N", \code{rich} contains
  nestedness indices. With option "N", the repl[i,j] and rich[i,j] values do
- not add up to D[i,j]. \item \code{D}: Dissimilarity matrix (class
- \code{dist}). \item \code{part}: Beta diversity partitioning vector:
- \enumerate{ \item BDtotal (total beta diversity) = sum(D.ij)/(n*(n-1)) (Legendre & De Cáceres
- 2013). This is equal to sum(d.ij^2)/(n*(n-1)) where d.ij = sqrt(D.ij). The
+ not add up to D[i,j]. 
+\item \code{D}: Dissimilarity matrix (class\code{dist}). 
+\item \code{part}: Beta diversity partitioning vector:
+ \enumerate{ 
+\item BDtotal (total beta diversity) = sum(D.ij)/(n*(n-1)) (Legendre & De 
+ Cáceres 2013). This is equal to sum(d.ij^2)/(n*(n-1)) where d.ij = sqrt(D.ij). The
  dissimilarities are square-rooted because the Jaccard, Sørensen, Ruzicka and
- \%difference indices are not Euclidean. \item Total replacement diversity. \item
- Total richness difference diversity (or nestedness). \item Total replacement
- diversity/Total beta diversity. \item Total richness difference diversity (or
- nestedness)/Total beta diversity.} \item \code{note}: Name of the
- dissimilarity coefficient.} The Jaccard and Sørensen dissimilarity
- coefficients and their quantitative forms, the Ruzicka and %difference
+ percentage difference indices are not Euclidean. 
+\item Repl = Total replacement diversity. 
+\item RichDiff|Nes = Total richness difference diversity (or nestedness). 
+\item Repl/BDtotal = Total replacement diversity/Total beta diversity. 
+\item RichDiff/BDtotal = Total richness difference diversity (or nestedness)/Total 
+beta diversity.} 
+\item \code{note}: Name of the dissimilarity coefficient. }
+The Jaccard and Sørensen dissimilarity
+ coefficients and their quantitative forms, the Ruzicka and percentage difference
  indices, all have upper bounds (Dmax) of 1. Hence, when all sites contain a
  different set of species with no species in common, the maximum value that
  BDtotal can take is 0.5. See Legendre & De Caceres (2013, p. 958), section
  Maximum value of BD. This differs form the values produced by function
  beta.div(): with methods "hellinger", "chord" and "profiles", which have
- maximum values of sqrt(2), BDtotal has a maximum value of 1.
+ maximum values of sqrt(2), BDtotal has a maximum value of 1 for these dissimilarities.
 }
 \description{
 Podani-family and Baselga-family decompositions of the Jaccard and Sørensen 
-dissimilarity coefficients and their quantitative forms (Ruzicka and \%difference) 
-into replacement and richness difference components, for species 
+dissimilarity coefficients and their quantitative forms (Ruzicka and percentage  
+difference) into replacement and richness difference components, for species 
 presence-absence or abundance data, as described in Legendre (2014).
 }
 \details{
-For species presence-absence data, the distance coefficients are 
+For species presence-absence data, the dissimilarity coefficients are 
  Jaccard = (b+c)/(a+b+c) and Sørensen = (b+c)/(2*a+b+c) with the usual {a,b,c} 
- notation. For species abundance data, the distance coefficients are the 
+ notation. For species abundance data, the dissimilarity coefficients are the 
  Ruzicka index = (B+C)/(A+B+C) and Odum’s percentage difference = 
- (B+C)/(2A+B+C) (incorrectly called Bray-Curtis in some packages), where 
+ (B+C)/(2A+B+C) (aka Bray-Curtis in some packages), where 
  \itemize{\item A = sum of the intersections (or minima) of species 
  abundances at two sites, \item B = sum of abundances at site 1 minus A, 
  \item C = sum of abundances at site 2 minus A.} The binary 
@@ -77,16 +83,14 @@ fish.sp = doubs$fish[-8,]   # Fish data; site 8 is removed because no fish were 
 out1 = beta.div.comp(fish.sp, coef="J", quant=FALSE)
 out1$part
 
-# Compute and partition a matrix of \%difference indices (quantitative form of Sørensen index)
+# Compute and partition a matrix of percentage difference indices
+# (quantitative form of Sorensen index)
 out2 = beta.div.comp(fish.sp, coef="S", quant=TRUE)
 out2$part
 # In paragraph Value, see the description of the 5 elements of vector part. 
 # Is the fish beta diversity dominated by replacement or richness/abundance difference?
 }
 
-}
-\author{
-Pierre Legendre \email{pierre.legendre@umontreal.ca}
 }
 \references{
 Baselga, A. (2010) Partitioning the turnover and nestedness components of beta
@@ -119,4 +123,9 @@ Podani, J. & Schmera, D. 2011. A new conceptual and methodological framework
 for exploring and explaining pattern in presence-absence data. Oikos, 120,
 1625–1638.
 }
-
+\seealso{
+\code{\link{LCBD.comp}}
+}
+\author{
+Pierre Legendre \email{pierre.legendre@umontreal.ca}
+}
