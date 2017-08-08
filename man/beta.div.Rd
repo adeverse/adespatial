@@ -12,8 +12,8 @@ beta.div(Y, method = "hellinger", sqrt.D = FALSE, samp = TRUE,
 \code{data.frame} or \code{matrix}.}
 
 \item{method}{One of the 19 dissimilarity coefficients available in the
-function: \code{"hellinger"}, \code{"chord"}, \code{"chisquare"},
-\code{"profiles"}, \code{"percentdiff"}, \code{"ruzicka"},
+function: \code{"hellinger"}, \code{"chord"}, \code{"log.chord"},
+\code{"chisquare"}, \code{"profiles"}, \code{"percentdiff"}, \code{"ruzicka"},
 \code{"divergence"}, \code{"canberra"}, \code{"whittaker"},
 \code{"wishart"}, \code{"kulczynski"}, \code{"jaccard"}, \code{"sorensen"},
 \code{"ochiai"}, \code{"ab.jaccard"}, \code{"ab.sorensen"},
@@ -31,10 +31,10 @@ transformation of the dissimilarities makes these D matrices Euclidean.
 principal coordinate analysis; lack of this property does not adversely
 affect SStotal, BDtotal and LCBD. \item Note 2 – The logical value given to
 parameter \code{sqrt.D} has no incidence on calculations through methods
-\code{"euclidean"}, \code{"profiles"}, \code{"hellinger"}, \code{"chord"},
-\code{"chisquare"} since no D matrix is computed in those cases. \item Note
-3 – For methods \code{"jaccard"}, \code{"sorensen"}, \code{"ochiai"}, that
-function produces the dissimilarity matrix in the form sqrt(D), which is
+\code{"euclidean"}, \code{"profiles"}, \code{"hellinger"}, \code{"log.chord"},
+\code{"chord"}, \code{"chisquare"} since no D matrix is computed in those cases. 
+\item Note 3 – For methods \code{"jaccard"}, \code{"sorensen"}, \code{"ochiai"}, 
+that function produces the dissimilarity matrix in the form sqrt(D), which is
 Euclidean.}}
 
 \item{samp}{If \code{samp=TRUE}, the abundance-based distances (ab.jaccard,
@@ -54,7 +54,7 @@ when nperm is large.}
 }
 \value{
 A list containing the following results: \itemize{ \item
-  \code{SStotal_BDtotal}: Total sum of squares and total beta diversity [=
+  \code{beta}: Total sum of squares and total beta diversity [=
   Var(Y)] of the data matrix. BDtotal statistics computed with the same D
   index are comparable among data sets having the same or different numbers
   of sampling units (n), provided that they are of the same size or represent
@@ -90,18 +90,19 @@ Var(Y) for raw, untransformed community composition data is not recommended.
 Tests of significance of the LCDB indices are also produced.
 }
 \details{
-Calculations may be carried out in two ways, depending on the
-  selected method. \itemize{ \item For untransformed or transformed raw data,
-  the total sum of squares (SStotal) is first computed, then the total beta
-  diversity (BDtotal), which is SStotal divided by (n – 1), is calculated.
-  This algorithm is used for methods \code{"euclidean"}, \code{"profiles"},
-  \code{"hellinger"}, \code{"chord"}, \code{"chisquare"}. No transformation
-  of the data is computed when the method is \code{"euclidean"}. For methods
-  \code{"profiles"}, \code{"hellinger"}, \code{"chord"}, \code{"chisquare"},
-  the algorithm begins with computation of the same-name transformation of
-  the community data (Legendre and Gallagher 2001; Legendre and Legendre
-  2012, Section 7.7); SStotal and BDtotal are then computed for the
-  transformed data, followed by calculation of the SCBD and LCBD indices.
+Calculations may be carried out in two ways, depending on the selected method.
+  \itemize{ 
+  \item For untransformed or transformed raw data, the total sum of squares (SStotal) 
+  is first computed, then the total beta diversity (BDtotal), which is SStotal divided 
+  by (n – 1), is calculated. This algorithm is used for methods \code{"euclidean"}, 
+  \code{"profiles"}, \code{"hellinger"}, \code{"chord"}, \code{"log.chord"}, 
+  \code{"chisquare"}. No transformation of the data is computed when the method is 
+  \code{"euclidean"}. For methods \code{"profiles"}, \code{"hellinger"}, 
+  \code{"chord"}, \code{"log.chord"}, \code{"chisquare"}, the algorithm begins with 
+  computation of the same-name transformation of the community data (Legendre and 
+  Gallagher 2001; Legendre and Legendre 2012, Section 7.7; Legendre and Borcard 
+  submitted); SStotal and BDtotal are then computed for the transformed data, followed 
+  by calculation of the SCBD and LCBD indices.
   \item Calculations of BDtotal can also be conducted from a dissimilarity
   matrix. SStotal is computed by summing the squared dissimilarities in the
   lower triangular dissimilarity matrix and dividing by n. Then, total beta
@@ -116,16 +117,26 @@ Calculations may be carried out in two ways, depending on the
   presented in Table 1 of Legendre and De Cáceres (2013). The Ružička index
   is described in Legendre (2014); this coefficient is suitable for beta
   diversity studies. See Chao et al. (2006) for details about the
-  abundance-based (ab) coefficients.} Community composition data could be
-  log-transformed prior to analysis. This transformation makes the
-  distributions more symmetrical. Only the Euclidean distance option should
-  be used with log-transformed data. It is meaningless to subject
-  log-transformed data to the \code{"profiles"}, \code{"hellinger"},
-  \code{"chord"}, \code{"chisquare"} transformations available in this
-  function. One can use either the log(y+1 transformation (\code{log1p}
-  function of \code{base}), or Anderson et al. (2006) special log
-  transformation available in \code{vegan}: \code{decostand(mat, "log",
-  logbase=10)}. The Jaccard, Sørensen and Ochiai coefficients are the binary
+  abundance-based (ab) coefficients.} 
+  
+  Community composition data can be log-transformed prior to analysis with the 
+  chord distance; see Legendre and Borcard (submitted). The log(y+1) transformation
+  (\code{log1p} function of \code{base}) reduces the asymmetry of the species 
+  distributions. The chord-log distance, readily available among the methods of the 
+  \code{beta.div} function, is the chord distance computed on log(y+1)-transformed 
+  data. This combined transformation is meaningful for community composition data 
+  because the log is one of the transformations in the Box-Cox series, corresponding to 
+  exponent 0; see Legendre and Legendre (2012,  Section 1.5.6). Exponent 1 (no 
+  transformation of the data) followed by the chord transformation and calculation of 
+  the Euclidean distance would simply produce the chord distance. Exponent 0.5 (square 
+  root) followed by the chord transformation and the Euclidean distance would produce 
+  the Hellinger distance. The chord, Hellinger and log-chord distances represent a 
+  series where the data are increasingly transformed to reduce the asymmetry of the 
+  distributions. Note that it is meaningless to subject log-transformed community 
+  compostion data to the \code{"profiles"}, \code{"hellinger"}, or \code{"chisquare"} 
+  distances available in this function.  
+
+  The Jaccard, Sørensen and Ochiai coefficients are the binary
   forms of 10 of the 12 dissimilarity coefficients (including the Ružička
   index) that are suitable for beta diversity assessment. The equivalences
   are described in Legendre and De Cáceres (2013, Table 1). These popular
@@ -135,9 +146,11 @@ Calculations may be carried out in two ways, depending on the
   produces the dissimilarity matrix in the form sqrt(D), which is Euclidean.
   Hence for these three coefficients, function \code{beta.div} should be used
   with option \code{sqrt.D=FALSE}.
+  
   Species contributions to beta diversity (SCBD indices for the species) are computed
-  for the untransformed or transformed raw data, but they cannot be computed for
+  for untransformed or transformed raw data, but they cannot be computed from
   dissimilarity matrices.
+  
   Local contributions to beta diversity (LCBD indices) represent
   the degree of uniqueness of the sites in terms of their species
   compositions. They can be computed in all cases: raw (not recommended) or
@@ -176,9 +189,6 @@ g2+g1
 }
 
 }
-\author{
-Pierre Legendre \email{pierre.legendre@umontreal.ca}
-}
 \references{
 Chao, A., R. L. Chazdon, R. K. Colwell and T. J. Shen. 2006.
   Abundance-based similarity indices and their estimation when there are
@@ -187,6 +197,9 @@ Chao, A., R. L. Chazdon, R. K. Colwell and T. J. Shen. 2006.
   Legendre, P. 2014. Interpreting the replacement and richness difference
   components of beta diversity. Global Ecology and Biogeography 23:
   1324-1334.
+  
+  Legendre, P. and D. Borcard. (Submitted). Box-Cox-chord transformations for 
+  community composition data prior to beta diversity analysis.
 
   Legendre, P. and M. De Cáceres. 2013. Beta diversity as the variance of
   community data: dissimilarity coefficients and partitioning. Ecology
@@ -198,4 +211,6 @@ Chao, A., R. L. Chazdon, R. K. Colwell and T. J. Shen. 2006.
   Legendre, P. and Legendre, L. 2012. Numerical Ecology. 3rd English edition.
   Elsevier Science BV, Amsterdam.
 }
-
+\author{
+Pierre Legendre \email{pierre.legendre@umontreal.ca}
+}
