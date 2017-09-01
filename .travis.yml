@@ -4,10 +4,6 @@ language: r
 warnings_are_errors: true
 sudo: required
 
-r_github_packages:
-   - sdray/ade4
-   - sdray/adegraphics
-
 notifications:
   email:
     on_success: change
