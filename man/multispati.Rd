@@ -3,8 +3,11 @@
 \name{multispati}
 \alias{multispati}
 \alias{plot.multispati}
+\alias{summary.multispati}
 \alias{print.multispati}
 \alias{summary.multispati}
+\alias{print.multispati}
+\alias{plot.multispati}
 \title{Multivariate spatial analysis}
 \usage{
 multispati(dudi, listw, scannf = TRUE, nfposi = 2, nfnega = 0)
@@ -28,6 +31,8 @@ should be displayed}
 
 \item{nfnega}{an integer indicating the number of axes with negative autocorrelation}
 
+\item{\dots}{further arguments passed to or from other methods}
+
 \item{x, object}{an object of class \code{multispati}}
 
 \item{xax, yax}{the numbers of the x-axis and the y-axis}
@@ -41,8 +46,6 @@ returned object. If \code{FALSE}, only the names of the data arguments are
 stored}
 
 \item{plot}{a logical indicating if the graphics is displayed}
-
-\item{\dots}{further arguments passed to or from other methods}
 }
 \value{
 Returns an object of class \code{multispati}, which contains the
@@ -187,10 +190,6 @@ if (require(spdep, quiet = TRUE) & require(ade4, quiet = TRUE)) {
 
 
 }
-\author{
-Stéphane Dray \email{stephane.dray@univ-lyon1.fr} with contributions by 
-Daniel Chessel, Sebastien Ollier and Thibaut Jombart
-}
 \references{
 Dray, S., Said, S. and Debias, F. (2008) Spatial ordination of
 vegetation data using a generalization of Wartenberg's multivariate spatial
@@ -218,6 +217,9 @@ genetic variability. Submitted to \emph{Genetics}.
 \seealso{
 \code{\link[ade4]{dudi}},\code{\link[spdep]{mat2listw}}
 }
+\author{
+Stéphane Dray \email{stephane.dray@univ-lyon1.fr} with contributions by 
+Daniel Chessel, Sebastien Ollier and Thibaut Jombart
+}
 \keyword{multivariate}
 \keyword{spatial}
-

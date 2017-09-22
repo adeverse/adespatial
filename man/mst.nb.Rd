@@ -28,11 +28,10 @@ lines(xy[wh1[1,],1],xy[wh1[1,],2],lwd=2)
 title(main="Maximum distance of the minimum spanning tree in bold")
 
 }
-\author{
-Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
-}
 \seealso{
 \code{\link[spdep]{graph2nb}}, \code{\link{give.thresh}}
 }
+\author{
+Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
+}
 \keyword{spatial}
-

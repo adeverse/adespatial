@@ -117,9 +117,6 @@ str(bin.mat.pi3)
 }
 
 }
-\author{
-F. Guillaume Blanchet
-}
 \references{
 Blanchet F.G., P. Legendre and Borcard D. (2008) Modelling directional
 spatial processes in ecological data. \emph{Ecological Modelling}, 215,
@@ -128,5 +125,7 @@ spatial processes in ecological data. \emph{Ecological Modelling}, 215,
 \seealso{
 \code{\link{aem}}
 }
+\author{
+F. Guillaume Blanchet
+}
 \keyword{spatial}
-

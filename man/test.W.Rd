@@ -74,9 +74,6 @@ tri.f2 <- test.W(faudt,nbtri, f = f2, y = 2:10, dmax = maxi, xy = as.matrix(orib
 }
 
 }
-\author{
-Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
-}
 \references{
 Dray S., Legendre P. and Peres-Neto P. R. (2006) Spatial 
   modeling: a comprehensive framework for principal coordinate analysis of 
@@ -85,5 +82,7 @@ Dray S., Legendre P. and Peres-Neto P. R. (2006) Spatial
 \seealso{
 \code{\link{ortho.AIC}}, \code{\link{scores.listw}}
 }
+\author{
+Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
+}
 \keyword{spatial}
-

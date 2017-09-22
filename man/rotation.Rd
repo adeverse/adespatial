@@ -45,4 +45,3 @@ points(coords.90,pch=19)
 F. Guillaume Blanchet
 }
 \keyword{manip}
-

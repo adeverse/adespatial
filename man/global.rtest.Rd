@@ -46,15 +46,14 @@ These tests were originally part of the adegenet package for R.
 
 
 }
-\author{
-Thibaut Jombart \email{t.jombart@imperial.ac.uk}
-}
 \references{
 Jombart, T., Devillard, S., Dufour, A.-B. and Pontier, D. 2008. 
   Revealing cryptic spatial patterns in genetic variability by a new 
   multivariate method. \emph{Heredity}, 101, 92--103. doi:
   10.1038/hdy.2008.34.
 }
+\author{
+Thibaut Jombart \email{t.jombart@imperial.ac.uk}
+}
 \keyword{multivariate}
 \keyword{spatial}
-

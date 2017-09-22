@@ -49,9 +49,6 @@ sum(tests$obs)
 }
 
 }
-\author{
-Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
-}
 \references{
 Dray, S. (2011). A new perspective about Moran’s coefficient:
   spatial autocorrelation as a linear regression problem. Geographical
@@ -60,5 +57,7 @@ Dray, S. (2011). A new perspective about Moran’s coefficient:
 \seealso{
 \code{\link{moran.randtest}}
 }
+\author{
+Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
+}
 \keyword{spatial}
-

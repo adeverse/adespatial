@@ -24,4 +24,3 @@ and Borcard D. (2008) Modelling directional spatial processes in ecological
 data. \emph{Ecological Modelling}, 215, 325-336.
 }
 \keyword{datasets}
-

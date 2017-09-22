@@ -146,9 +146,6 @@ res <- aem(aem.build.binary=bin.mat,weight=weight.vec,rm.link0=TRUE)
 res
 }
 }
-\author{
-F. Guillaume Blanchet
-}
 \references{
 Blanchet F.G., P. Legendre and Borcard D. (2008) Modelling directional 
 spatial processes in ecological data. \emph{Ecological Modelling}, 215, 
@@ -157,5 +154,7 @@ spatial processes in ecological data. \emph{Ecological Modelling}, 215,
 \seealso{
 \code{\link{aem.build.binary}}, \code{\link{svd}}
 }
+\author{
+F. Guillaume Blanchet
+}
 \keyword{spatial}
-

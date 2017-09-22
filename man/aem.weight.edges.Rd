@@ -3,6 +3,7 @@
 \name{aem.weight.edges}
 \alias{aem.weight.edges}
 \alias{aem.weight.time}
+\alias{aem.weight.time}
 \title{Weight edges when constructing AEM variables}
 \usage{
 aem.weight.edges(nb.object, coords, distmat = NULL, alpha = 2,
@@ -93,6 +94,7 @@ provide the distance where the correlation becomes 0 as the value for max.d.
 \itemize{
 \item \code{aem.weight.time}: 
 }}
+
 \examples{
 
 ### Time serie example
@@ -124,9 +126,6 @@ xy <- cbind(1:25,expand.grid(1:5,1:5))
 }
 
 }
-\author{
-Olivier Gauthier, Pierre Legendre and F. Guillaume Blanchet
-}
 \references{
 Legendre, P. and L. Legendre (2012) \emph{Numerical Ecology}, 3rd English
 edition. Elsevier Science BV, Amsterdam.
@@ -139,6 +138,8 @@ Royal Society B - Biological Sciences}, 281, 20132728.
 \code{\link{aem.build.binary}}, \code{\link[spdep]{sp.correlogram}},
  \code{\link[vegan]{mantel.correlog}}
 }
+\author{
+Olivier Gauthier, Pierre Legendre and F. Guillaume Blanchet
+}
 \keyword{spatial}
 \keyword{ts}
-

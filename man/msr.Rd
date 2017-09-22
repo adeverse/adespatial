@@ -15,6 +15,8 @@ msr(x, ...)
 original variables. If \code{NCOL(x) > 1}, then the joint randomization 
 procedure that preserves the correlations among variables is used.}
 
+\item{\dots}{further arguments passed to or from other methods}
+
 \item{listwORorthobasis}{an object of the class \code{listw} (spatial 
 weights) created by the functions of the \pkg{spdep} package or an object 
 of class \code{orthobasis}}
@@ -31,9 +33,7 @@ original variable and its randomized replicates}
 
 \item{simplify}{A logical value. If \code{TRUE}, the outputs for univariate 
 procedures are returned in a matrix where each column corresponds to a 
-replicate. If \code{FALSE}n a \code{list} is returned.}
-
-\item{\dots}{further arguments passed to or from other methods}
+replicate. If \code{FALSE} a \code{list} is returned.}
 }
 \value{
 Either a matrix (if \code{simplify} is \code{TRUE}) or a list with 
@@ -103,10 +103,6 @@ apply(x1, 2, function(x) moran.mc(x, listw = lw1, nsim = 2)$statistic)
 apply(x1.6[[1]], 2, function(x) moran.mc(x, listw = lw1, nsim = 2)$statistic)
 
 }
-\author{
-Stephane Dray \email{stephane.dray@univ-lyon1.fr} and Helene H 
-  Wagner \email{helene.wagner@utoronto.ca}
-}
 \references{
 Wagner, H.H. and Dray S. (2015) Generating spatially-constrained 
   null models for irregularly spaced data using Moran spectral randomization 
@@ -116,5 +112,8 @@ Wagner, H.H. and Dray S. (2015) Generating spatially-constrained
 \seealso{
 \code{\link{scores.listw}}, \code{\link[spdep]{nb2listw}}
 }
+\author{
+Stephane Dray \email{stephane.dray@univ-lyon1.fr} and Helene H 
+  Wagner \email{helene.wagner@utoronto.ca}
+}
 \keyword{spatial}
-

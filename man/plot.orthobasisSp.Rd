@@ -45,10 +45,9 @@ plot(me[,1:6], mafragh$Spatial)
 }
         
 }
-\author{
-Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
-}
 \seealso{
 \code{\link[adegraphics]{s.Spatial}}
 }
-
+\author{
+Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
+}

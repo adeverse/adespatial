@@ -52,13 +52,12 @@ extractAIC(lm2) # classical AIC
 res$AICc0-2*(1*(1+1))/(nrow(x)-1-1) # the same
 
 }
-\author{
-Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
-}
 \references{
 Godinez-Dominguez E. and Freire J. (2003) Information-theoretic 
   approach for selection of spatial and temporal models of community 
   organization. Marine Ecology - Progress Series. 253, 17--24
 }
+\author{
+Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
+}
 \keyword{models}
-

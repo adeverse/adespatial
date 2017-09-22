@@ -66,14 +66,13 @@ y <- matrix(rnorm(50),10,5)
 forward.sel.par(y,x, alpha = 0.5)
  
 }
-\author{
-Pierre Legendre \email{pierre.legendre@umontreal.ca} and Guillaume 
-  Blanchet
-}
 \references{
 Miller, J. K. & S. D. Farr. 1971. Bimultivariate redundancy: a
   comprehensive measure of interbattery relationship. \emph{Multivariate
   Behavioral Research}, \bold{6}, 313--324.\cr
 }
+\author{
+Pierre Legendre \email{pierre.legendre@umontreal.ca} and Guillaume 
+  Blanchet
+}
 \keyword{multivariate}
-

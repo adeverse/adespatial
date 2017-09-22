@@ -12,4 +12,3 @@ data(trichoptera)
 A dataset containing the abundances of 56 species in 220 sites
 }
 \keyword{datasets}
-

@@ -4,6 +4,8 @@
 \alias{mfpa}
 \alias{plot.mfpa}
 \alias{print.mfpa}
+\alias{plot.mfpa}
+\alias{print.mfpa}
 \title{Multi-frequential periodogram analysis}
 \usage{
 mfpa(y, MaxNFreq = 2, MinFreq = 3, MaxFreq = NA, ntrend = 0,
@@ -239,9 +241,6 @@ res.noise <- mfpa(tide.noise, MaxNFreq = 1, MinFreq = 2, ntrend = 1, nlags = 2)
 plot(res.noise)
 
 }
-\author{
-Guillaume Larocque <glaroc@gmail.com> and Pierre Legendre.
-}
 \references{
 Dutilleul, P. 1990. Apport en analyse spectrale d’un périodogramme modifié et 
 modélisation des séries chronologiques avec répétitions en vue de leur 
@@ -270,4 +269,6 @@ A-236. Plenum, New York.
 Legendre, P. and L. Legendre. 2012. Numerical Ecology. 3rd English edition.
 Elsevier, Amsterdam.
 }
-
+\author{
+Guillaume Larocque <glaroc@gmail.com> and Pierre Legendre.
+}

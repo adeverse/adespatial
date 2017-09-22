@@ -25,4 +25,3 @@ th <- give.thresh(dxy)
 \author{
 Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
 }
-

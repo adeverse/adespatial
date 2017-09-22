@@ -70,11 +70,10 @@ y <- matrix(rnorm(50),10,5)
 forward.sel(y,x,nperm=99, alpha = 0.5)
  
 }
-\author{
-Stephane Dray \email{stephane.dray@univ-lyon1.fr}
-}
 \references{
 Canoco manual p.49
 }
+\author{
+Stephane Dray \email{stephane.dray@univ-lyon1.fr}
+}
 \keyword{multivariate}
-

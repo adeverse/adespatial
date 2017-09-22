@@ -4,6 +4,8 @@
 \alias{mspa}
 \alias{print.mspa}
 \alias{scatter.mspa}
+\alias{scatter.mspa}
+\alias{print.mspa}
 \title{Multi-Scale Pattern Analysis}
 \usage{
 mspa(dudi, lwORorthobasisSp, nblocks, scannf = TRUE, nf = 2,
@@ -169,9 +171,6 @@ mspaCan2 <- mspa(dudi=rda2, lw=cn, scannf=FALSE, nf=2)
 scatter(mspaCan2) # nothing left
 }
 }
-\author{
-Thibaut Jombart \email{t.jombart@imperial.ac.uk}
-}
 \references{
 Jombart T, Dray S, and Dufour, A-B. (2009) Finding essential 
   scales of spatial variation in ecological data: a multivariate approach. 
@@ -180,6 +179,8 @@ Jombart T, Dray S, and Dufour, A-B. (2009) Finding essential
 \seealso{
 \code{\link{chooseCN}} to obtain a list of spatial weights.
 }
+\author{
+Thibaut Jombart \email{t.jombart@imperial.ac.uk}
+}
 \keyword{multivariate}
 \keyword{spatial}
-

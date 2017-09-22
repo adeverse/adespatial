@@ -80,10 +80,6 @@ File vector \code{coord}, if provided, must contain Cartesian coordinates of the
 
 
 }
-\author{
-Pierre Legendre \email{pierre.legendre@umontreal.ca}, 2010. Adaptation to adespatial: Daniel Borcard and Pierre
- Legendre, 2016
-}
 \references{
 Borcard, D., F. Gillet and P. Legendre. 2011. Numerical ecology with R. Use R! series,
  Springer Science, New York.
@@ -95,5 +91,8 @@ Declerck, S. A. J., J. S. Coronel, P. Legendre & L. Brendonck. 2011. Scale depen
 \seealso{
 \code{\link{dbmem}}
 }
+\author{
+Pierre Legendre \email{pierre.legendre@umontreal.ca}, 2010. Adaptation to adespatial: Daniel Borcard and Pierre
+ Legendre, 2016
+}
 \keyword{spatial}
-

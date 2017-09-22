@@ -44,13 +44,12 @@ plot(mvspec$d, mvspec$var,type = 'b', pch = 20, xlab = "Distance", ylab = "C(dis
 }
 
 }
-\author{
-Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
-}
 \references{
 Wagner H. H. (2003) Spatial covariance in plant communities: 
   integrating ordination, geostatistics, and variance testing. Ecology, 84, 
   1045--1057
 }
+\author{
+Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
+}
 \keyword{spatial}
-

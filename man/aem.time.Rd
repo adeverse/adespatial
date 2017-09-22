@@ -76,9 +76,6 @@ w <- 1/(distances/max(distances))
 out <- aem.time(20, w=w, moran=TRUE, plot.moran=TRUE)
 
 }
-\author{
-Pierre Legendre and F. Guillaume Blanchet
-}
 \references{
 Blanchet F.G., P. Legendre and Borcard D. (2008) Modelling directional
 spatial processes in ecological data. \emph{Ecological Modelling}, 215,
@@ -98,6 +95,8 @@ Royal Society B - Biological Sciences}, 281, 20132728.
 \seealso{
 \code{\link{aem}}, \code{scores.listw}
 }
+\author{
+Pierre Legendre and F. Guillaume Blanchet
+}
 \keyword{multivariate}
 \keyword{spatial}
-

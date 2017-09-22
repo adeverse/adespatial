@@ -16,10 +16,9 @@ xy <- matrix(rnorm(50), 25)
 createlistw()
 }
 }
-\author{
-Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
-}
 \seealso{
 \code{\link{chooseCN}}
 }
-
+\author{
+Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
+}

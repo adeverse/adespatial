@@ -90,4 +90,3 @@ Thibaut Jombart \email{t.jombart@imperial.ac.uk}
 }
 \keyword{spatial}
 \keyword{utilities}
-

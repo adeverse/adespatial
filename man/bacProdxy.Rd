@@ -19,4 +19,3 @@ Blanchet F.G., P. Legendre, R. Maranger, D. Monti, and P. Pepin.
   different scales. \emph{Oecologia}, 166, 357-368.
 }
 \keyword{datasets}
-

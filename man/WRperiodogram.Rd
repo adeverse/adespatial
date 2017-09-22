@@ -3,6 +3,7 @@
 \name{WRperiodogram}
 \alias{WRperiodogram}
 \alias{plot.WRperio}
+\alias{plot.WRperio}
 \title{Whittaker-Robinson periodogram}
 \usage{
 WRperiodogram(x, T1 = 2, T2, nperm = 499, nopermute, mult = c("sidak",
@@ -173,10 +174,6 @@ plot(ld.res.perio, prog=3) # Graph with progressive correction
 acf(ldeaths)   # acf() results, for comparison
 
 }
-\author{
-Pierre Legendre \email{pierre.legendre@umontreal.ca} and Guillaume
-  Guenard
-}
 \references{
 Enright, J. T. 1965. The search for rhythmicity in biological time-series. 
 Journal of Theoretical Biology 8: 426-468.
@@ -192,5 +189,8 @@ monitored by the EMSO-Açores MoMAR observatory. Deep-Sea Research I 90:
 Whittaker, E. T. and G. Robinson. 1924. The calculus of observations – A 
 treatise on numerical mathematics. Blackie & Son, London.
 }
+\author{
+Pierre Legendre \email{pierre.legendre@umontreal.ca} and Guillaume
+  Guenard
+}
 \keyword{multivariate}
-

@@ -37,9 +37,6 @@ plot(pol2, mafragh$Spatial)
 
 
 }
-\author{
-Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
-}
 \references{
 Dray S., Pélissier R., Couteron P., Fortin M.J., Legendre P., Peres-Neto
 P.R., Bellier E., Bivand R., Blanchet F.G., De Caceres M., Dufour A.B.,
@@ -50,5 +47,7 @@ analysis. \emph{Ecological Monographs} \bold{82}, 257--275.
 \seealso{
 \code{\link{mem}} \code{\link[ade4]{orthobasis}}
 }
+\author{
+Stéphane Dray \email{stephane.dray@univ-lyon1.fr}
+}
 \keyword{spatial}
-

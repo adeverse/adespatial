@@ -119,10 +119,6 @@ tmp[1:10,1:6]
 }
 
 }
-\author{
-Stéphane Dray \email{stephane.dray@univ-lyon1.fr}, Pierre Legendre, 
- Daniel Borcard and F. Guillaume Blanchet
-}
 \references{
 Borcard, D. and P. Legendre. 2002. All-scale spatial analysis of ecological 
 data by means of principal coordinates of neighbour matrices. Ecological 
@@ -142,4 +138,7 @@ Elsevier Science BV, Amsterdam.
 \seealso{
 \code{\link{give.thresh}}, \code{\link{mem}}
 }
-
+\author{
+Stéphane Dray \email{stephane.dray@univ-lyon1.fr}, Pierre Legendre, 
+ Daniel Borcard and F. Guillaume Blanchet
+}
