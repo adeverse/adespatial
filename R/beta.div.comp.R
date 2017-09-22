@@ -223,7 +223,11 @@ beta.div.comp <-
                   rich.div,
                   repl.div / total.div,
                   rich.div / total.div)
-            #
+            if(coef<=2) 
+                names(part) <- c("BDtotal","Repl","RichDif","Repl/BDtotal","RichDif/BDtotal")
+            if(coef>=3)
+                names(part) <- c("BDtotal", "Repl", "Nes", "Repl/BDtotal", "Nes/BDtotal")
+            
             if (save.abc) {
                 res <- list(
                     repl = repl,
@@ -309,7 +313,10 @@ beta.div.comp <-
                   rich.div,
                   repl.div / total.div,
                   rich.div / total.div)
-            names(part) = c("BDtotal", "Repl", "RichDiff|Nes", "Repl/BDtotal", "RichDiff/BDtotal")
+            if(coef<=2) 
+                names(part) <- c("BDtotal","Repl","RichDif","Repl/BDtotal","RichDif/BDtotal")
+            if(coef>=3)
+                names(part) <- c("BDtotal", "Repl", "Nes", "Repl/BDtotal", "Nes/BDtotal")
             #
             res <- list(
                 repl = repl,
