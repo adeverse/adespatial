@@ -62,6 +62,7 @@ A list containing the following results: \itemize{ \item
   contributions to beta diversity (SCBD), if computed. \item \code{LCBD}:
   Vector of Local contributions to beta diversity (LCBD) for the sites. \item
   \code{p.LCBD}: P-values associated with the LCBD indices. \item
+  \code{p.adj}: Corrected P-values for the LCBD indices, Holm correction. \item
   \code{method}: Method selected. \item \code{note}: Notes indicate whether
   the selected coefficient is Euclidean or not. \item \code{D}: The distance
   matrix if \code{save.D=TRUE}. } When all sites contain a different set of
