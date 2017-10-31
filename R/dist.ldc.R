@@ -393,6 +393,6 @@ dist.ldc <-
                 }
             }
         )
-        #
+        if(!is.null(rownames(Y))) rownames(D) <- rownames(Y)
         D <- as.dist(D)
     }
