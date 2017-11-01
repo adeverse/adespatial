@@ -43,11 +43,12 @@ Spatial neighborhoods are managed in `spdep` as objects of class `nb`. It corres
 The function `poly2nb` allows to define neighborhood when the sampling sites are polygons and not points (two regions are neighbors if they share a common boundary).
 
 ```{r, echo = -1}
+data(mafragh)
+class(mafragh$Spatial)
 par(mar = c(0, 0, 3, 0))
-columbus <- readShapePoly(system.file("etc/shapes/columbus.shp", package="spdep")[1])
-xx <- poly2nb(columbus)
-plot(columbus, border = "grey")
-plot(xx, coordinates(columbus), add = TRUE, pch = 20, col = "red")
+xx <- poly2nb(mafragh$Spatial)
+plot(mafragh$Spatial, border = "grey")
+plot(xx, coordinates(mafragh$Spatial), add = TRUE, pch = 20, col = "red")
 title(main="Neighborhood for polygons")
 ```
 
