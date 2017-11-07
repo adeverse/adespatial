@@ -1,6 +1,6 @@
 #' Function to compute and test eigenvectors of spatial weighting matrices
 #' 
-#' This function is a user-friendly way to compute and test eigenvectors for 
+#' This function is a user-friendly way to compute and test eigenvectors for
 #' various definitions of spatial weighting matrices. It combines calls to the 
 #' functions \code{scores.listw} and \code{ortho.AIC}. It allows to test various
 #' definitions of the spatial weighting matrix and return results of 
@@ -25,7 +25,7 @@
 #' @param \dots Others arguments for the function \code{f}. It defines the range
 #'   of parameters which will be tested
 #' @return A list with the following elements: \item{all }{A data.frame where 
-#'   each row correspond to one spatial weighint matrix tested. It contains 
+#'   each row correspond to one spatial weighting matrix tested. It contains 
 #'   value of parameteres tested and corrected AIC and number of orthogonal 
 #'   vectors for the best model.} \item{best }{A list containing results of 
 #'   scores.listw and ortho.AIC of the best spatial weighting matrix according 

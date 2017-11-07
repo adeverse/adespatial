@@ -28,14 +28,14 @@ of parameters which will be tested}
 }
 \value{
 A list with the following elements: \item{all }{A data.frame where 
-  each row correspond to one spatial weighint matrix tested. It contains 
+  each row correspond to one spatial weighting matrix tested. It contains 
   value of parameteres tested and corrected AIC and number of orthogonal 
   vectors for the best model.} \item{best }{A list containing results of 
   scores.listw and ortho.AIC of the best spatial weighting matrix according 
   to corrected AIC.}
 }
 \description{
-This function is a user-friendly way to compute and test eigenvectors for 
+This function is a user-friendly way to compute and test eigenvectors for
 various definitions of spatial weighting matrices. It combines calls to the 
 functions \code{scores.listw} and \code{ortho.AIC}. It allows to test various
 definitions of the spatial weighting matrix and return results of 
@@ -45,7 +45,7 @@ definitions of the spatial weighting matrix and return results of
 This functions allows to test one binary spatial weighting matrix 
   (if only Y and nb are provided). It allows also to test a weighting 
   function based on distances (if f is provided) and a weighting function 
-  with different values of parameters if other arguments of \code{f} are 
+  with different values o   f parameters if other arguments of \code{f} are 
   provided.
 }
 \examples{
