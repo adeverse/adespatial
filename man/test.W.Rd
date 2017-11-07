@@ -45,7 +45,7 @@ definitions of the spatial weighting matrix and return results of
 This functions allows to test one binary spatial weighting matrix 
   (if only Y and nb are provided). It allows also to test a weighting 
   function based on distances (if f is provided) and a weighting function 
-  with different values o   f parameters if other arguments of \code{f} are 
+  with different values of parameters if other arguments of \code{f} are 
   provided.
 }
 \examples{
