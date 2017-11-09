@@ -21,8 +21,9 @@ Imports:
     MASS,
     stats,
     utils,
-    shiny
-Suggests: vegan, knitr, maptools, ape, rmarkdown
+    shiny,
+    vegan
+Suggests: knitr, maptools, ape, rmarkdown
 License: GPL (>= 2)
 Encoding: UTF-8
 NeedsCompilation: yes
