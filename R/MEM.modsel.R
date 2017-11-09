@@ -8,7 +8,8 @@
 #' used as spatial predictors within the best W matrix by performing a forward selection.
 #' It combines calls to the functions \code{scores.listw} and \code{forward.sel}.
 #' The list of W matrix candidates can easily be generated using the user-friendly 
-#' \code{listw.candidates} function.
+#' \code{listw.candidates} function. The significance of each W matrix is tested by
+#' 9999 permutations by the means of the function \code{anova.cca} (package \code{vegan}).
 #' 
 #' @details While the selection of the W matrix is the most critical step of the spatial
 #' eigenvector-based methods (Dray et al. 2006), Bauman et al. (2018) showed that 
@@ -16,13 +17,19 @@
 #' explicit control of the number of W matrices tested was not applied. The function
 #' MEM.modsel therefore applies a Sidak correction (Sidak 1967) for multiple tests to
 #' the p-value of the global test of each W matrix (i.e., the model integrating the 
-#' whole set of spatial predictors). Although the function can be run without this
+#' whole set of spatial predictors). The Sidak correction is computed as: 
+#'\eqn{P_corrected = 1 - (1 - P)^n}, where \eqn{n} is the number of tests performed, \eqn{P}.
+#' is the observed p-value, and \eqn{P_corrected} is the new p-value after the correction.
+#' The p-value is first computed by 9999 permutations with the function \code{anova.cca} 
+#' (package \code{vegan}), and is then corrected according to the total number of W matrices 
+#' tested (if \code{correction = TRUE}). Although the function can be run without this
 #' correction (\code{correction = FALSE}), using the default value (\code{correction = TRUE})
-#' is strongly recommended to avoid inflated type I error rates (see Bauman et al. 2018).
+#' is strongly recommended to avoid highly inflated type I error rates (Bauman et al. 2018).
 #' As a consequence of the necessity of the p-value correction, the significance threshold
-#' decreases as the number of W matrices tested increases. See 'Details' of the 
-#' function \code{\link{listw.candidates}} for recommendations about selecting a set of W
-#' matrix candidates. 
+#' decreases as the number of W matrices tested increases, hence leading to a trade-off
+#' between the gain of accuracy and the statistical power loss. See 'Details' of the 
+#' function \code{\link{listw.candidates}} for recommendations about selecting a suitable set 
+#' of W matrix candidates. 
 #' Once the W matrix was optimised, a subset of eigenvectors should be selected before 
 #' proceding to further analyses in order both to avoid model overfitting and a loss of 
 #' statistical power to detect the contribution of the environment to the variability of 
@@ -174,7 +181,7 @@
     # inflate the type I error rate. If the tested W matrix is significant at the corrected
     # threshold value of significance, a model selection is performed using Blanchet et 
     # al.'s (2008) forward selection with double stopping criterion.
-    pval <- anova.cca(rda(a, b), permutations = 9999)$Pr[1]
+    pval <- anova.cca(rda(a, b), permutations = how(nperm = 9999))$Pr[1]
     if (correction == TRUE) pval <- 1-(1-pval)^d    # Sidak correction 
     if (c == "all") pval <- 1-(1-pval)^2            # Sidak correction (autocor= "all") 
     if (pval <= alpha) {  
