@@ -16,15 +16,15 @@
 #'   Legendre 2002) criteria (see details below), or using another threshold 
 #'   distance to define the connected site pairs. The A matrix can be based on a
 #'   binary, linear, concave-down, or concave-up function. The linear,
-#'   concave-down, and concave-up weighting functions are defined by \code{1 -
-#'   (D/dmax)}, \code{1 - (D/dmax)^y}, and \code{1 / D^y}, respectively, where
+#'   concave-down, and concave-up weighting functions are defined by \eqn{1 -
+#'   (D/dmax)}, \eqn{1 - (D/dmax)^y}, and \eqn{1 / D^y}, respectively, where
 #'   \code{D} is the euclidean distance between the two sites considered,
 #'   \code{dmax} is the maximum euclidean distance between two sites, and 
 #'   \code{y} is a user-defined parametre that can either be a single value or a
 #'   vector of values. The argument \code{PCNM} consists in constructing a
 #'   distance-based W matrix based on the largest edge of the minimum spanning
 #'   tree as a connectivity distance threshold, and then by weighting the links
-#'   by the function \code{1-(D/(4*t))^2}, where \code{D} is the euclidean
+#'   by the function \eqn{1-(D/(4*t))^2}, where \code{D} is the euclidean
 #'   distance between the sites, and \code{t} is the distance threshold below
 #'   which two sites are considered connected (Dray et al. 2006). As optimising
 #'   the choice of a W matrix has to be done with a p-value correction depending
@@ -80,7 +80,7 @@
 #'   
 #' @author Bauman David \email{dbauman@@ulb.ac.be} or \email{davbauman@@gmail.com}
 #'   
-#' @seealso \code{\link{createlistw}} \code{\link{MEM.modsel}}
+#' @seealso \code{\link{createlistw}}, \code{\link{MEM.modsel}}
 #'   
 #' @references Borcard D. and Legendre P. (2002) All-scale spatial analysis of 
 #'   ecological data by means of principal coordinates of neighbour matrices.
