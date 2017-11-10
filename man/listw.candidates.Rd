@@ -13,7 +13,8 @@ listw.candidates(coord, style = "B", del = TRUE, gab = TRUE, rel = TRUE,
 \item{coord}{Vector, matrix, or dataframe of point coordinates}
 
 \item{style}{Coding scheme style (see \code{nb2listw} of the \code{spdep}
-package). Can take values 'W', 'B', 'C', 'U', 'minmax', and 'S'}
+package). Can take values 'W', 'B', 'C', 'U', 'minmax', and 'S'; default is
+'B'}
 
 \item{del}{Defines whether a B matrix based on the Delaunay triangulation
 should be used; default is TRUE. No edge effect correction implemented here}
@@ -142,7 +143,7 @@ Borcard D. and Legendre P. (2002) All-scale spatial analysis of
   *************************
 }
 \seealso{
-\code{\link{createlistw}} \code{\link{MEM.modsel}}
+\code{\link{createlistw}}, \code{\link{MEM.modsel}}
 }
 \author{
 Bauman David \email{dbauman@ulb.ac.be} or \email{davbauman@gmail.com}

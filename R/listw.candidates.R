@@ -39,7 +39,8 @@
 #'   
 #' @param coord Vector, matrix, or dataframe of point coordinates
 #' @param style Coding scheme style (see \code{nb2listw} of the \code{spdep}
-#'   package). Can take values 'W', 'B', 'C', 'U', 'minmax', and 'S'
+#'   package). Can take values 'W', 'B', 'C', 'U', 'minmax', and 'S'; default is
+#'   'B'
 #' @param del Defines whether a B matrix based on the Delaunay triangulation
 #'   should be used; default is TRUE. No edge effect correction implemented here
 #' @param gab Defines whether a B matrix based on a Gabriel's graph should be
