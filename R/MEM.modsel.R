@@ -115,7 +115,7 @@
 #' @keywords spatial
 #' 
 #' @examples
-#' library(spdep)
+#' if(require(spdep)) {
 #' ### Create a grid of 15 x 15:
 #' grid <- expand.grid(x = seq(1, 15, 1), y = seq(1, 15, 1))
 #' ### Generation of a response variable Y structured at broad scale by linear combination of
@@ -152,6 +152,7 @@
 #' W_sel$MEM.select
 #' W_sel$pval
 #' W_sel$R2adj
+#' }
 #'  
 #' @importFrom vegan rda anova.cca RsquareAdj
 #' @export MEM.modsel
@@ -181,7 +182,7 @@
     # inflate the type I error rate. If the tested W matrix is significant at the corrected
     # threshold value of significance, a model selection is performed using Blanchet et 
     # al.'s (2008) forward selection with double stopping criterion.
-    pval <- anova.cca(rda(a, b), permutations = how(nperm = 9999))$Pr[1]
+    pval <- anova.cca(rda(a, b), permutations = 9999)$Pr[1]
     if (correction == TRUE) pval <- 1-(1-pval)^d    # Sidak correction 
     if (c == "all") pval <- 1-(1-pval)^2            # Sidak correction (autocor= "all") 
     if (pval <= alpha) {  
