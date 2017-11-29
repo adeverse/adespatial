@@ -305,7 +305,7 @@
           round(L$R2adj, 3), ").", "\n", 
           "*****************************************************", "\n",
           "*****************************************************", "\n", sep = "")
-      list(MEM.all = L$MEM.all, MEM.select = L$MEM.select, 
+      list(MEM.all = L$MEM.all, MEM.select = L$MEM.select, listw = L$listw,
            MEM.AdjR2Cum = L$MEM.AdjR2Cum, name = L$name, pval = L$pval, R2adj = L$R2adj, 
            NbVar = L$NbVar, bestw_index = L$bestw_index)
     } else cat("\n", "\n", "*****************************************************", 
