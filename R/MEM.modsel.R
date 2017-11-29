@@ -68,6 +68,8 @@
 #' (2017) for a discussion on the choice of the spatial eigenvector selection method 
 #' according to the univariate or multivariate nature of the response data, and to the
 #' spatial paradigm considered.} 
+#' \item{listw}{Element of \code{candidates} (and object of class \code{listw}) corresponding 
+#' to the best W matrix selected.}
 #' \item{MEM.AdjR2Cum }{Vector of the cumulative adjusted R² of the eigenvectors of 
 #' \code{MEM.select }.} 
 #' \item{name }{Name of the best W matrix ("Connectivity matrix_Weighting matrix") if the 
@@ -220,6 +222,8 @@
   if (length(class(candidates)) == 1) nbtest <- length(candidates)
   else nbtest <- 1
   
+  lenlist <- c()   # Will help with the result output
+  
   for (h in 1:k) {
     
     # For model comparison and selection:
@@ -251,12 +255,12 @@
       }
     }
     # Selection of the best W matrix (and best eigenvector subset within it):
-    lenlist <- c()   # Will help with the result output  
     if (length(which(results[, 1] <= alpha_thresh)) > 0) {
       best <- which.max(results[, 2])
+      if (nbtest == 1) bestlistw = candidates else bestlistw = candidates[[best]]
       if (autocor != "all") {
         lenlist <- c(lenlist, cor[h])
-        L <- list(MEM.all = listW[[best]], MEM.select = listMEM[[best]], 
+        L <- list(MEM.all = listW[[best]], MEM.select = listMEM[[best]], listw = bestlistw,
                   MEM.AdjR2Cum = listR2[[best]], name = names(candidates)[best], 
                   pval = results[best, 1], R2adj = results[best, 2], 
                   NbVar = results[best, 3], bestw_index = best)
@@ -264,14 +268,14 @@
         lenlist <- c(lenlist, cor[h])
         if (h == 1) {
           L1 <- list(MEM.all = listW[[best]], MEM.select = listMEM[[best]], 
-                     MEM.AdjR2Cum = listR2[[best]], name = names(candidates)[best], 
-                     pval = results[best, 1], R2adj = results[best, 2], 
-                     NbVar = results[best, 3], bestw_index = best)
+                     listw = bestlistw, MEM.AdjR2Cum = listR2[[best]], 
+                     name = names(candidates)[best], pval = results[best, 1], 
+                     R2adj = results[best, 2], NbVar = results[best, 3], bestw_index = best)
         } else {
           L2 <- list(MEM.all = listW[[best]], MEM.select = listMEM[[best]], 
-                     MEM.AdjR2Cum = listR2[[best]], name = names(candidates)[best], 
-                     pval = results[best, 1], R2adj = results[best, 2], 
-                     NbVar = results[best, 3], bestw_index = best)
+                     listw = bestlistw, MEM.AdjR2Cum = listR2[[best]], 
+                     name = names(candidates)[best], pval = results[best, 1], 
+                     R2adj = results[best, 2], NbVar = results[best, 3], bestw_index = best)
         }
       }
     }
