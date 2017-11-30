@@ -125,7 +125,7 @@ Bauman D., Fortin M-J, Suez M., Drouet T. and Dray S. (2018) *******************
 \code{\link{MEM.modsel}}
 }
 \author{
-Stéphane Dray and Bauman David \email{stephane.dray@univ-lyon1.fr}, 
+Stephane Dray and Bauman David \email{stephane.dray@univ-lyon1.fr}, 
 \email{davbauman@gmail.com}
 }
 \keyword{spatial}
