@@ -11,8 +11,7 @@ envspace.test(E, Ab, coord, MEM_Ab, listw_E, autocor_E = c("positive",
 }
 \arguments{
 \item{E}{Vector, matrix, or dataframe of environmental variables (rows = sites, 
-columns = variables)
-           Each variable in E needs to be standardized and normalized prior to the test.}
+columns = variables)}
 
 \item{Ab}{Vector, matrix, or dataframe of species abundances (rows = sites, 
 columns = abundances)}
@@ -73,6 +72,58 @@ function first checks whether the both the environment and the response data dis
 significant spatial structures, and then proceeds to the significance test if and only 
 if both datasets display a spatial structure.
 }
+\details{
+\code{Ab} can be a vector or a multicolumn matrix or dataframe (multivariate
+response data). If multivariate, it is greatly advised to transform \code{Ab} prior
+to performing the VP and testing the JSEF (e.g., Hellinger transformation;
+Legendre and Gallagher 2001).
+
+\code{MEM_Ab} is a subset of spatial predictors (MEM variables), selected among the
+complete set of MEM variables of a given spatial weighting matrix (W matrix) chosen
+by the user. The function \code{\link{listw.candidates}} allows generating a list of 
+W matrix candidates to be fed to \code{\link{MEM.modsel}}, that optimises the choice 
+of the W matrix and selects the best subset of spatial predictors within it using the 
+forward selection with double stopping criterion of Blanchet et al. (2008; see Bauman
+et al. 2017, and Bauman et al. 2018 in prep. for a review of the methods to select
+a subset of spatial predictors in spatial eigenvector-based methods, and for a 
+method of spatial weighting matrix optimisation, respectively).
+\code{listw_E} corresponds to the spatial weights (W matrix) that will be used to
+build the MEM variables for the MSR test. The choice of the W matrix for \code{E} can 
+also be optimised using the \code{\link{MEM.modsel}} function, and attributing the 
+\code{$listw} output of \code{MEM.modsel} to the argument \code{listw_E} of 
+\code{envspace.test}.
+The W matrices selected for \code{Ab} and \code{E} should be chosen separately to 
+best model the spatial structure of both the response data and the environmental dataset. 
+If \code{MEM.modsel} is used, as advised, to build \code{MEM_Ab} and \code{listw_E}, 
+then \code{MEM_Ab} and \code{listw_E} are the \code{$MEM.select} and \code{$listw} elements 
+of the output of \code{MEM.modsel}, respectively (see example below).
+
+To verify that \code{E} displays a significant spatial pattern, prior to performing the
+test of the JSEF, a test (see function \code{\link{anova.cca}}) is performed on either 
+all the MEM variables generated on the basis of \code{listw_E} (\code{autocor_E = "all"}), 
+or on the MEM variables corresponding to a positive or negative autocorrelation 
+(\code{autocor_E = "positive"} or \code{"negative"}, respectively). If 
+\code{autocor_E = "all"}, the test is performed separately on the MEM variables 
+corresponding to positive and negative autocorrelation, and a p-value correction for
+multiple tests is performed (Sidak correction, see Blanchet et al. 2008). 
+
+\code{E} is a dataset of environmental variables chosen by the user. Although a 
+significant JSEF may provide an evidence of induced spatial dependence
+(ISD; Vleminckx et al. 2018), a non significant JSEF only indicate that no
+induced spatial dependence seems to occur in relation with the chosen environmental
+variables. This does not exclude the ISD to exist with respect to other unmeasured
+parameters.
+
+The function needs the environmental variables to be centred and scaled, which is why
+\code{scale} is set to \code{TRUE} by default. It should only be changed to \code{FALSE}
+if the user has already scaled \code{E} prior to using \code{envspace.test}.
+\code{regular} is a logical argument indicating whether a TT test should 
+be performed additionally to the MSR to test the JSEF. Since the TT can only
+be performed on regular sampling designs, \code{regular} should only be set to 
+\code{TRUE} if the sampling design is either a transect, or a grid displaying the 
+same number of sites for all lines and columns (although the number of sites can differ 
+between lines and columns).
+}
 \examples{
 if(require(vegan)) { 
 # Illustration of the test of the JSEF on the oribatid mite data
@@ -106,35 +157,36 @@ candidates <- listw.candidates(coord, del = FALSE, gab = TRUE, rel = FALSE,
 # W matrix for 'Y':
 modsel_Y <- MEM.modsel(Y, candidates, correction = TRUE, autocor = "positive")
 
-paste("The best W matrix for 'Y' was ", modsel_Y$name, ". The forward selection ",
+paste("The best W matrix for 'Y' was ", modsel_Y$best$name, ". The forward selection ",
       "with double stopping criterion (Blanchet et al. 2008) selected a best subset",
       " of spatial predictors within this W matrix. This subset contains ", 
-      modsel_Y$NbVar, " MEM variables and has an adjusted R2 of ", 
-      round(modsel_Y$R2adj, 3), ".", sep = "")
+      modsel_Y$best$NbVar, " MEM variables and has an adjusted R2 of ", 
+      round(modsel_Y$best$R2adj, 3), ".", sep = "")
 
 modsel_env <- MEM.modsel(env, candidates, correction = TRUE, autocor = "all")
 
-paste("The best W matrix for 'env' was ", modsel_env$name, ". The forward selection ",
+paste("The best W matrix for 'env' was ", modsel_env$best$name, ". The forward selection ",
       "with double stopping criterion (Blanchet et al. 2008) selected a best subset",
       " of spatial predictors within this W matrix. This subset contains ", 
-      modsel_env$NbVar, " MEM variables and has an adjusted R2 of ", 
-      round(modsel_env$R2adj, 3), ".", sep = "")
+      modsel_env$best$NbVar, " MEM variables and has an adjusted R2 of ", 
+      round(modsel_env$best$R2adj, 3), ".", sep = "")
 
 ### We perform the variation partitioning:
 # Subset of selected MEM variables within the best W matrix:
-MEM_Ab <- modsel_Y$MEM.select
+MEM_Ab <- modsel_Y$best$MEM.select
 
 VP <- varpart(Y, env, MEM_Ab)
 plot(VP)
 
 # Test of the joint space-environment fraction (fraction [b]):
 JSEF.test <- envspace.test(E = env, Ab = Y, coord = coord, MEM_Ab = MEM_Ab,
-                           listw_E = modsel_env$listw, scale = TRUE, regular = FALSE,
+                           listw_E = modsel_env$best$listw, scale = TRUE, regular = FALSE,
                            nMSR = 999)
 JSEF.test$R2adj
 JSEF.test$pval_MSR
 
-# The JSEF is very highly significant (p-value = 0).
+# The JSEF is very highly significant (p-value = 0), possibly suggesting an induced 
+# spatial dependence.
 }
 
 }

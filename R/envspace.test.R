@@ -31,15 +31,15 @@
 #' also be optimised using the \code{\link{MEM.modsel}} function, and attributing the 
 #' \code{$listw} output of \code{MEM.modsel} to the argument \code{listw_E} of 
 #' \code{envspace.test}.
-#' The W matrices selected for \code{Ab} and \code{E) should be chosen separately to 
+#' The W matrices selected for \code{Ab} and \code{E} should be chosen separately to 
 #' best model the spatial structure of both the response data and the environmental dataset. 
 #' If \code{MEM.modsel} is used, as advised, to build \code{MEM_Ab} and \code{listw_E}, 
-#' then \code{MEM_Ab} and \code{listw_E} are the \code{$MEM.select} and \code{$listw} parts 
+#' then \code{MEM_Ab} and \code{listw_E} are the \code{$MEM.select} and \code{$listw} elements 
 #' of the output of \code{MEM.modsel}, respectively (see example below).
 #' 
 #' To verify that \code{E} displays a significant spatial pattern, prior to performing the
 #' test of the JSEF, a test (see function \code{\link{anova.cca}}) is performed on either 
-#' all the MEM variables generated on the basis of \code{listw_E} (\code{autocor_E = "all"), 
+#' all the MEM variables generated on the basis of \code{listw_E} (\code{autocor_E = "all"}), 
 #' or on the MEM variables corresponding to a positive or negative autocorrelation 
 #' (\code{autocor_E = "positive"} or \code{"negative"}, respectively). If 
 #' \code{autocor_E = "all"}, the test is performed separately on the MEM variables 
@@ -57,15 +57,14 @@
 #' \code{scale} is set to \code{TRUE} by default. It should only be changed to \code{FALSE}
 #' if the user has already scaled \code{E} prior to using \code{envspace.test}.
 #' \code{regular} is a logical argument indicating whether a TT test should 
-#' be performed additionally to the MSR to test the JSEF. Since, the TT can only
+#' be performed additionally to the MSR to test the JSEF. Since the TT can only
 #' be performed on regular sampling designs, \code{regular} should only be set to 
-#' \code{TRUE} if the sampling design is a transect or a grid displaying the same number
-#' of sites for all lines and columns (although the number of sites can differ between 
-#' lines and columns).
+#' \code{TRUE} if the sampling design is either a transect, or a grid displaying the 
+#' same number of sites for all lines and columns (although the number of sites can differ 
+#' between lines and columns).
 #' 
 #' @param E Vector, matrix, or dataframe of environmental variables (rows = sites, 
 #' columns = variables)
-#'            Each variable in E needs to be standardized and normalized prior to the test.
 #' @param Ab Vector, matrix, or dataframe of species abundances (rows = sites, 
 #' columns = abundances)
 #' @param coord Matrix or dataframe of spatial coordinates of the sampled sites
@@ -158,35 +157,36 @@
 #' # W matrix for 'Y':
 #' modsel_Y <- MEM.modsel(Y, candidates, correction = TRUE, autocor = "positive")
 #' 
-#' paste("The best W matrix for 'Y' was ", modsel_Y$name, ". The forward selection ",
+#' paste("The best W matrix for 'Y' was ", modsel_Y$best$name, ". The forward selection ",
 #'       "with double stopping criterion (Blanchet et al. 2008) selected a best subset",
 #'       " of spatial predictors within this W matrix. This subset contains ", 
-#'       modsel_Y$NbVar, " MEM variables and has an adjusted R2 of ", 
-#'       round(modsel_Y$R2adj, 3), ".", sep = "")
+#'       modsel_Y$best$NbVar, " MEM variables and has an adjusted R2 of ", 
+#'       round(modsel_Y$best$R2adj, 3), ".", sep = "")
 #' 
 #' modsel_env <- MEM.modsel(env, candidates, correction = TRUE, autocor = "all")
 #' 
-#' paste("The best W matrix for 'env' was ", modsel_env$name, ". The forward selection ",
+#' paste("The best W matrix for 'env' was ", modsel_env$best$name, ". The forward selection ",
 #'       "with double stopping criterion (Blanchet et al. 2008) selected a best subset",
 #'       " of spatial predictors within this W matrix. This subset contains ", 
-#'       modsel_env$NbVar, " MEM variables and has an adjusted R2 of ", 
-#'       round(modsel_env$R2adj, 3), ".", sep = "")
+#'       modsel_env$best$NbVar, " MEM variables and has an adjusted R2 of ", 
+#'       round(modsel_env$best$R2adj, 3), ".", sep = "")
 #' 
 #' ### We perform the variation partitioning:
 #' # Subset of selected MEM variables within the best W matrix:
-#' MEM_Ab <- modsel_Y$MEM.select
+#' MEM_Ab <- modsel_Y$best$MEM.select
 #' 
 #' VP <- varpart(Y, env, MEM_Ab)
 #' plot(VP)
 #' 
 #' # Test of the joint space-environment fraction (fraction [b]):
 #' JSEF.test <- envspace.test(E = env, Ab = Y, coord = coord, MEM_Ab = MEM_Ab,
-#'                            listw_E = modsel_env$listw, scale = TRUE, regular = FALSE,
+#'                            listw_E = modsel_env$best$listw, scale = TRUE, regular = FALSE,
 #'                            nMSR = 999)
 #' JSEF.test$R2adj
 #' JSEF.test$pval_MSR
 #' 
-#' # The JSEF is very highly significant (p-value = 0).
+#' # The JSEF is very highly significant (p-value = 0), possibly suggesting an induced 
+#' # spatial dependence.
 #' }
 #' 
 #' @importFrom vegan rda anova.cca RsquareAdj varpart
