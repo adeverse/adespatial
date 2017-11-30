@@ -40,6 +40,8 @@ spatial eigenvector mapping for instance, Diniz-Filho et al. 2005). See Bauman e
 (2017) for a discussion on the choice of the spatial eigenvector selection method 
 according to the univariate or multivariate nature of the response data, and to the
 spatial paradigm considered.} 
+\item{listw}{Element of \code{candidates} (and object of class \code{listw}) corresponding 
+to the best W matrix selected.}
 \item{MEM.AdjR2Cum }{Vector of the cumulative adjusted R² of the eigenvectors of 
 \code{MEM.select }.} 
 \item{name }{Name of the best W matrix ("Connectivity matrix_Weighting matrix") if the 
