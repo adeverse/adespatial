@@ -88,7 +88,7 @@ Compute estimates of total beta diversity as the total variance in a
 community data matrix Y, as well as derived SCBD and LCBD statistics, for 19
 dissimilarity coefficients or the raw data table. Computing beta diversity as
 Var(Y) for raw, untransformed community composition data is not recommended.
-Tests of significance of the LCDB indices are also produced.
+Tests of significance of the LCBD indices are also produced.
 }
 \details{
 Calculations may be carried out in two ways, depending on the selected method.
@@ -172,16 +172,16 @@ if(require("vegan", quietly = TRUE) & require("adegraphics", quietly = TRUE)){
 data(mite)
 res = beta.div(mite, "hellinger", nperm=999)
 
-# Plot a map of the LCDB indices using the Cartesian coordinates
+# Plot a map of the LCBD indices using the Cartesian coordinates
 data(mite.xy)
 s.value(mite.xy, res$LCBD, symbol = "circle", col = c("white", "brown"), main="Map of mite LCBD")
 
 ### Example using the mite abundance data and the percentage difference dissimilarity
 res = beta.div(mite, "percentdiff", nperm=999, clock=TRUE)
 
-# Plot a map of the LCDB indices
-signif = which(res$p.LCBD <= 0.05)	# Which are the significant LCDB indices?
-nonsignif = which(res$p.LCBD > 0.05)	# Which are the non-significant LCDB indices?
+# Plot a map of the LCBD indices
+signif = which(res$p.LCBD <= 0.05)	# Which are the significant LCBD indices?
+nonsignif = which(res$p.LCBD > 0.05)	# Which are the non-significant LCBD indices?
 g1 <- s.value(mite.xy[signif,], res$LCBD[signif], ppoint.alpha = 0.5, plegend.drawKey = FALSE,
  symbol = "circle", col = c("white", "red"), main="Map of mite LCBD (red = significant indices)")
 g2 <- s.value(mite.xy[nonsignif,], res$LCBD[nonsignif], ppoint.alpha = 0.5,
