@@ -1,43 +1,48 @@
 #' Function to compute and manage Moran's Eigenvector Maps (MEM) of a listw
 #' object
-#' 
-#' These functions compute MEM (i.e., eigenvectors of a doubly centered spatial 
-#' weighting matrix). Corresponding eigenvalues are linearly related to Moran's 
+#'
+#' These functions compute MEM (i.e., eigenvectors of a doubly centered spatial
+#' weighting matrix). Corresponding eigenvalues are linearly related to Moran's
 #' index of spatial autocorrelation.
-#' 
-#' Testing the nullity of eigenvalues is based on E(i)/E(1) where E(i) is i-th 
+#'
+#' Testing the nullity of eigenvalues is based on E(i)/E(1) where E(i) is i-th
 #' eigenvalue and E(1) is the maximum absolute value of eigenvalues
-#' 
+#'
 #' @aliases scores.listw mem orthobasis.listw [.orthobasisSp
-#' @param listw An object of the class \code{listw} created by functions of the 
+#' @param listw An object of the class \code{listw} created by functions of the
 #'   \code{spdep} package
-#' @param wt A vector of weights. It is used to orthogonalize the eigenvectors. 
-#'   It could be useful if MEM are used in weighted regression or canonical 
+#' @param wt A vector of weights. It is used to orthogonalize the eigenvectors.
+#'   It could be useful if MEM are used in weighted regression or canonical
 #'   correspondence analysis
-#' @param MEM.autocor A string indicating if all MEMs must be returned or only 
-#'   those corresponding to non-null, positive or negative autocorrelation
-#' @param store.listw A logical indicating if the spatial weighting matrix 
+#' @param MEM.autocor A string indicating if all MEMs must be returned or only
+#'   those corresponding to non-null, positive or negative autocorrelation. The
+#'   difference between options \code{all} and \code{non-null} is the following:
+#'   when there are several null eigenvalues, option \code{all} removes only one
+#'   of the eigenvectors with null eigenvalues and returns (n-1) eigenvectors,
+#'   whereas \code{non-null} does not return any of the eigenvectors with null
+#'   eigenvalues.
+#' @param store.listw A logical indicating if the spatial weighting matrix
 #'   should be stored in the attribute \code{listw} of the returned object
 #' @param x An object of class \code{orthobasisSp}.
 #' @param i,j Elements to extract (integer or empty): index of rows (i) and
 #'   columns (j).
-#' @return An object of class \code{orthobasisSp} , subclass \code{orthobasis}. 
-#'   The MEMs are stored as a \code{data.frame}. It contains several attributes 
-#'   (see \code{?attributes}) including: \itemize{\item \code{values}: The 
-#'   associated eigenvalues. \item \code{listw}: The associated spatial 
+#' @return An object of class \code{orthobasisSp} , subclass \code{orthobasis}.
+#'   The MEMs are stored as a \code{data.frame}. It contains several attributes
+#'   (see \code{?attributes}) including: \itemize{\item \code{values}: The
+#'   associated eigenvalues. \item \code{listw}: The associated spatial
 #'   weighting matrix (if \code{store.listw = TRUE}). }
 #' @author Stéphane Dray \email{stephane.dray@@univ-lyon1.fr}
 #' @seealso \code{\link[spdep]{nb2listw}} \code{\link[ade4]{orthobasis}}
-#' @references Dray, S., Legendre, P., and Peres-Neto, P. R. (2006). Spatial 
-#'   modeling: a comprehensive framework for principal coordinate analysis of 
+#' @references Dray, S., Legendre, P., and Peres-Neto, P. R. (2006). Spatial
+#'   modeling: a comprehensive framework for principal coordinate analysis of
 #'   neighbor matrices (PCNM). \emph{Ecological Modelling} \bold{196}, 483--493.
-#'   
-#'   Griffith D. A. (1996) Spatial autocorrelation and eigenfunctions of the 
-#'   geographic weights matrix accompanying geo-referenced data. \emph{Canadian 
+#'
+#'   Griffith D. A. (1996) Spatial autocorrelation and eigenfunctions of the
+#'   geographic weights matrix accompanying geo-referenced data. \emph{Canadian
 #'   Geographer} \bold{40}, 351--367.
 #' @keywords spatial
 #' @examples
-#' 
+#'
 #' if(require("ade4", quietly = TRUE) & require("spdep", quietly = TRUE)){
 #' data(oribatid)
 #' nbtri <- tri2nb(as.matrix(oribatid$xy))
@@ -48,7 +53,7 @@
 #' s.value(oribatid$xy,sc.tri[,1:9])
 #' plot(sc.tri[,1:6], oribatid$xy, pSp.cex = 5, pSp.alpha = 0.5, pbackground.col = 'lightblue')
 #' }
-#' 
+#'
 #' @export scores.listw orthobasis.listw mem
 #' @importFrom ade4 bicenter.wt
 #' @importFrom spdep listw2mat
