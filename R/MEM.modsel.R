@@ -43,7 +43,9 @@
 #' eigenvector subset resulting from the forward selection displays the highest adjusted R².
 #'  
 #' @param x Vector, matrix, or dataframe of response data
-#' @param candidates A list of one or more spatial weighting matrices of class listw
+#' @param candidates A list of one or more spatial weighting matrices of the class 
+#' \code{listw}; \code{candidates} can be a list containing one or several spatial 
+#' weighting matrices, but it can also be a single listw object.
 #' @param autocor Sign of the spatial eigenvectors to consider; "positive", "negative", 
 #' or "all", for positively, negatively autocorrelated eigenvectors, or both, respectively; 
 #' default is "positive"
@@ -255,10 +257,18 @@
   # A multitest p-value correction is needed for controling the type-I error rate. 
   # We define the total nb of tests:
   # ********************************
-  # If we test more than 1 W matrix, 'candidates' only has one class, that is, list. 
-  # If we test only one W matrix, 'we have two'candidates' has two classes: listw and nb.
-  if (length(class(candidates)) == 1) nbtest <- length(candidates)
-  else nbtest <- 1
+  # If one tests more than 1 W matrix, 'candidates' only has one class, that is, 'list'. 
+  # The same applies if ones generates a single W matrix contained in a list, and if 
+  # the argument 'candidates is this list. However, in the case of a single W matrix,
+  # if 'candidates' is the listw object (and not a list containing it), then 'candidates'
+  # has two classes: 'listw' and 'nb':
+  if (length(class(candidates)) == 1) {
+    nbtest <- length(candidates)
+    control <- TRUE
+  } else {
+    nbtest <- 1
+    control <- FALSE
+  }
   
   lenlist <- c()   # Will help with the result output
   
@@ -277,7 +287,7 @@
     listW <- vector("list", nbtest)
     
     for (q in 1:nbtest) {
-      if (nbtest > 1) W <- scores.listw(candidates[[q]], MEM.autocor = cor[h])
+      if (control == TRUE) W <- scores.listw(candidates[[q]], MEM.autocor = cor[h])
       else W <- scores.listw(candidates, MEM.autocor = cor[h])
       listW[[q]] <- W
       listtest[[q]] <- MEM.test(x, W)
