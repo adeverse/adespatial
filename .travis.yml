@@ -7,6 +7,15 @@ r: devel
 warnings_are_errors: true
 sudo: required
 
+r_check_args: "--as-cran"
+
+r_packages:
+- devtools
+
+env:
+ global:
+- CRAN: http://cran.rstudio.com
+
 notifications:
   email:
     on_success: change
