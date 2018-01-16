@@ -22,9 +22,9 @@ Imports:
     stats,
     utils,
     shiny
-Suggests: vegan, knitr, maptools, ape, rmarkdown
+Suggests: vegan, knitr, RANN, rgeos, maptools, ape, rmarkdown
 License: GPL (>= 2)
 Encoding: UTF-8
 NeedsCompilation: yes
 RoxygenNote: 6.0.1
-VignetteBuilder: knitr
+VignetteBuilder: knitr, rmarkdown, RANN, rgeos, maptools
