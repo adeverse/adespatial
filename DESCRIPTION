@@ -1,7 +1,7 @@
 Package: adespatial
 Title: Multivariate Multiscale Spatial Analysis
-Version: 0.1-0
-Date: 2017-12-18
+Version: 0.1-1
+Date: 2018-01-16
 Author: Stéphane Dray, Guillaume Blanchet, Daniel Borcard, Sylvie Clappe, Guillaume Guenard,
     Thibaut Jombart, Guillaume Larocque, Pierre Legendre, Naima Madi, Helene H Wagner
 Description: Tools for the multiscale spatial analysis of multivariate data.
