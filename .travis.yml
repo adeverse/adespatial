@@ -12,6 +12,7 @@ r_check_args: "--as-cran"
 r_packages:
 - devtools
 - RANN
+- rgeos
 
 env:
  global:
