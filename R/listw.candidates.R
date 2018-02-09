@@ -83,16 +83,17 @@
 #'   
 #' @seealso \code{\link{createlistw}}, \code{\link{MEM.modsel}}
 #'   
-#' @references Borcard D. and Legendre P. (2002) All-scale spatial analysis of 
-#'   ecological data by means of principal coordinates of neighbour matrices.
-#'   Ecological Modelling, 153, 51--68
+#' @references Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) To link or not to link: 
+#' optimising the choice of a spatial weighting matrix in eigenvector-based methods. Methods 
+#' in Ecology and Evolution
+#' 
+#' Borcard D. and Legendre P. (2002) All-scale spatial analysis of 
+#' ecological data by means of principal coordinates of neighbour matrices.
+#' Ecological Modelling, 153, 51--68
 #'   
-#'   Dray S., Legendre P. and Peres-Neto P. R. (2006) Spatial modeling: a
-#'   comprehensive framework for principal coordinate analysis of neighbor
-#'   matrices (PCNM). Ecological Modelling, 196, 483--493
-#'   
-#'   Bauman D., Fortin M-J, Suez M., Drouet T. and Dray S. (2018)
-#'   *************************
+#' Dray S., Legendre P. and Peres-Neto P. R. (2006) Spatial modeling: a
+#' comprehensive framework for principal coordinate analysis of neighbor
+#' matrices (PCNM). Ecological Modelling, 196, 483--493
 #'   
 #' @keywords spatial
 #'   

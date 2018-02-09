@@ -23,7 +23,7 @@
 #' W matrix candidates to be fed to \code{\link{MEM.modsel}}, that optimises the choice 
 #' of the W matrix and selects the best subset of spatial predictors within it using the 
 #' forward selection with double stopping criterion of Blanchet et al. (2008; see Bauman
-#' et al. 2017, and Bauman et al. 2018 in prep. for a review of the methods to select
+#' et al. 2018a, and Bauman et al. 2018b in prep. for a review of the methods to select
 #' a subset of spatial predictors in spatial eigenvector-based methods, and for a 
 #' method of spatial weighting matrix optimisation, respectively).
 #' \code{listw_E} corresponds to the spatial weights (W matrix) that will be used to
@@ -105,9 +105,12 @@
 #' 
 #' @seealso \code{\link{varpart}}, \code{\link{MEM.modsel}}, \code{\link{listw.candidates}}
 #' 
-#' @references 
-#' Bauman D., Drouet T., Dray S. and Vleminckx J. (2017) Disentangling good from bad 
-#' practices in the selection of spatial or phylogenetic eigenvectors. Ecography 
+#' @references Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) To link or not to link: 
+#' optimising the choice of a spatial weighting matrix in eigenvector-based methods. Methods 
+#' in Ecology and Evolution
+#' 
+#' Bauman D., Drouet T., Dray S. and Vleminckx J. (2018b) Disentangling good from bad 
+#' practices in the selection of spatial or phylogenetic eigenvectors. Ecography, 41, 1--12
 #' 
 #' Blanchet G., Legendre P. and Borcard D. (2008) Forward selection of explanatory variables.
 #' Ecology, 89(9), 2623--2632

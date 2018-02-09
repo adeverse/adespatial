@@ -4,7 +4,7 @@
 #' MEM.modsel computes spatial eigenvectors for various definitions of spatial weighting
 #' matrices (W matrices) and optimises the selection of the W matrix by maximising the
 #' value of the adjusted R-squared while controling the type I error rate (see
-#' Bauman et al. 2018). The function also selects the best subset of eigenvectors to be
+#' Bauman et al. 2018a). The function also selects the best subset of eigenvectors to be
 #' used as spatial predictors within the best W matrix by performing a forward selection.
 #' It combines calls to the functions \code{scores.listw} and \code{forward.sel}.
 #' The list of W matrix candidates can easily be generated using the user-friendly 
@@ -12,7 +12,7 @@
 #' 9999 permutations by the means of the function \code{anova.cca} (package \code{vegan}).
 #' 
 #' @details While the selection of the W matrix is the most critical step of the spatial
-#' eigenvector-based methods (Dray et al. 2006), Bauman et al. (2018) showed that 
+#' eigenvector-based methods (Dray et al. 2006), Bauman et al. (2018a) showed that 
 #' optimising the choice of the W matrix led to inflated type I error rates if an
 #' explicit control of the number of W matrices tested was not applied. The function
 #' MEM.modsel therefore applies a Sidak correction (Sidak 1967) for multiple tests to
@@ -35,7 +35,7 @@
 #' statistical power to detect the contribution of the environment to the variability of 
 #' the response data (Griffith 2003, Dray et al. 2006, Blanchet et al. 2008, 
 #' Peres-Neto and Legendre 2010, Diniz-Filho et al. 2012). Although several eigenvector
-#' selection approaches have been proposed, Bauman et al. (2017) showed that the most
+#' selection approaches have been proposed, Bauman et al. (2018b) showed that the most
 #' powerful and accurate method, in terms of adjusted R-squared estimation, was the 
 #' forward selection with double stopping criterion of Blanchet et al. (2008). 
 #' The function \code{MEM.modsel} performs the forward selection on the significant W 
@@ -82,7 +82,7 @@
 #' used to remove the spatial signal from the response data in order to respect the condition
 #' of independency of the residuals in classical OLS or GLM models (spatial filtering through
 #' spatial eigenvector mapping for instance, Diniz-Filho et al. 2005). See Bauman et al.
-#' (2017) for a discussion on the choice of the spatial eigenvector selection method 
+#' (2018b) for a discussion on the choice of the spatial eigenvector selection method 
 #' according to the univariate or multivariate nature of the response data, and to the
 #' spatial paradigm considered.} 
 #' \item{listw}{Element of \code{candidates} (an object of class \code{listw}) corresponding 
@@ -115,31 +115,32 @@
 #' @seealso \code{\link{listw.candidates}}, \code{\link{scores.listw}}, 
 #' \code{\link[vegan]{varpart}}
 #' 
-#' @references Sidak Z. (1967) Rectangular confidence regions for the means of 
-#' multivariate normal distributions. Journal of the American Statistical Association, 62(318),
-#' 626--633
+#' @references Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) To link or not to link: 
+#' optimising the choice of a spatial weighting matrix in eigenvector-based methods. Methods 
+#' in Ecology and Evolution
 #' 
-#' Griffith D. (2003) Spatial autocorrelation and spatial filtering: gaining understanding 
-#' through theory and scientific visualization. Springer, Berlin
+#' Bauman D., Drouet T., Dray S. and Vleminckx J. (2018b) Disentangling good from bad 
+#' practices in the selection of spatial or phylogenetic eigenvectors. Ecography, 41, 1--12
+#' 
+#' Blanchet G., Legendre P. and Borcard D. (2008) Forward selection of explanatory variables.
+#' Ecology, 89(9), 2623--2632
+#' 
+#' Diniz-Filho J.A.F., Bini L.M., Rangel T.F., Morales-Castilla I. et al. (2012) On the 
+#' selection of phylogenetic eigenvectors for ecological analyses. Ecography, 35, 239--249
 #' 
 #' Dray S., Legendre P. and Peres-Neto P. R. (2006) Spatial modeling: a comprehensive 
 #' framework for principal coordinate analysis of neighbor matrices (PCNM). Ecological 
 #' Modelling, 196, 483--493
 #' 
-#' Blanchet G., Legendre P. and Borcard D. (2008) Forward selection of explanatory variables.
-#' Ecology, 89(9), 2623--2632
+#' Griffith D. (2003) Spatial autocorrelation and spatial filtering: gaining understanding 
+#' through theory and scientific visualization. Springer, Berlin
 #' 
 #' Peres-Neto P. and Legendre P. (2010) Estimating and controlling for spatial structure 
 #' in the study of ecological communities. Global Ecology and Biogeography, 19, 174--184
 #' 
-#' Diniz-Filho J.A.F., Bini L.M., Rangel T.F., Morales-Castilla I. et al. (2012) On the 
-#' selection of phylogenetic eigenvectors for ecological analyses. Ecography, 35, 239--249
-#' 
-#' Bauman D., Drouet T., Dray S. and Vleminckx J. (2017) Disentangling good from bad 
-#' practices in the selection of spatial or phylogenetic eigenvectors. Ecography 
-#' 
-#' Bauman D., Fortin M-J, Suez M., Drouet T. and Dray S. (2018) Optimising the selection
-#' of a spatial weighting matrix in spatial eigenvector-based methods
+#' Sidak Z. (1967) Rectangular confidence regions for the means of 
+#' multivariate normal distributions. Journal of the American Statistical Association, 62(318),
+#' 626--633
 #' 
 #' @keywords spatial
 #' 
