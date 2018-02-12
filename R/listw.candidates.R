@@ -8,8 +8,8 @@
 #' the type I error rate.
 #' 
 #' @details The function allows to construct W matrices based on any combination
-#'   of the B and A matrices. The B matrices are either graph-based or
-#'   distance-based. The function proposes the Delaunay triangulation, Gabriel's
+#'   of B and A matrices. The B matrices are either graph-based or
+#'   distance-based. The function proposes the Delaunay triangulation, Gabriel
 #'   graph, relative neighbourhood graph, and the minimum spanning tree criteria
 #'   to build a graph-based B matrix. Distance-based W matrices can be built
 #'   with the principal coordinates of neighbour matrices (PCNM; Borcard and
