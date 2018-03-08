@@ -5,12 +5,13 @@
 #' variation partitioning (VP). The adjusted R-squared (Peres-Neto et al. 2006; R2adj) of 
 #' the JSEF is not an actual R2, as it is computed by subtracting the R2adj of other
 #' fractions of the VP and therefore has zero degree of freedom. The JSEF
-#' can therefore not be computed in the classical way. The function \code{envspace.test}
-#' provides two ways of testing this fraction: a torus-translation (or torus randomisation)
-#' test (TT), for regular sampling designs, and Moran spectral randomization (MSR). The 
-#' function first checks whether the both the environment and the response data display 
-#' significant spatial structures, and then proceeds to the significance test if and only 
-#' if both datasets display a spatial structure.
+#' can therefore not be computed in the classical way (residuals permutation). 
+#' The function \code{envspace.test} provides two ways of testing this fraction: a 
+#' torus-translation (or torus randomisation) test (TT), for regular sampling designs, 
+#' and Moran spectral randomization (MSR). The function first checks whether both the 
+#' environment and the response data display significant spatial structures, and whether
+#' the response data is significantly related to the environment, and then proceeds to 
+#' the significance test of the JSEF if and only if those three conditions are fulfilled.
 #' 
 #' @details \code{Ab} can be a vector or a multicolumn matrix or dataframe (multivariate
 #' response data). If multivariate, it is greatly advised to transform \code{Ab} prior
@@ -106,8 +107,7 @@
 #' @seealso \code{\link{varpart}}, \code{\link{MEM.modsel}}, \code{\link{listw.candidates}}
 #' 
 #' @references Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) To link or not to link: 
-#' optimising the choice of a spatial weighting matrix in eigenvector-based methods. Methods 
-#' in Ecology and Evolution
+#' optimising the choice of a spatial weighting matrix in eigenvector-based methods. Ecology
 #' 
 #' Bauman D., Drouet T., Dray S. and Vleminckx J. (2018b) Disentangling good from bad 
 #' practices in the selection of spatial or phylogenetic eigenvectors. Ecography, 41, 1--12
@@ -137,7 +137,7 @@
 #' Y <- decostand(mite, method = "hellinger")
 #' # Environmental explanatory dataset:
 #' data(mite.env)
-#' # For the example, we only use two numerical explanatory variables:
+#' # We only use two numerical explanatory variables:
 #' env <- mite.env[, 1:2]
 #' dim(Y)
 #' dim(env)
@@ -145,8 +145,8 @@
 #' data(mite.xy)
 #' coord <- mite.xy
 #' 
-#' ### Building a list of spatial weighting matrix (W matrix) candidates for the 
-#' ### optimisation of the W matrix selection for 'Y' and 'env':
+#' ### Building a list of candidate spatial weighting matrices (W matrices) for the 
+#' ### optimisation of the W matrix selection, separately for 'Y' and 'env':
 #' # We create five candidates: a connectivity matrix based on a Gabriel graphs, on
 #' # a minimum spanning tree (i.e., two contrasted graph-based W matrices), either
 #' # not weighted, or weighted by a linear function decreasing with the distance),
@@ -313,7 +313,7 @@
   ###   TESTING R2env-space USING MORAN SPECTRAL RANDOMISATIONS   ###
   #******************************************************************
 
-  ## Moran Spectral Randomisation of environmental structures (N = nMSR):
+  ## Moran Spectral Randomisation of environmental structures:
   MSR.ENV <- msr(E, listw_E, nrepet = nMSR, method = MSRmethod) 
   
   ## vector to be filled with null values of R?env-space:
