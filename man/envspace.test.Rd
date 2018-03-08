@@ -65,12 +65,13 @@ This function performs a test of the joint space-environment fraction (JSEF) of 
 variation partitioning (VP). The adjusted R-squared (Peres-Neto et al. 2006; R2adj) of 
 the JSEF is not an actual R2, as it is computed by subtracting the R2adj of other
 fractions of the VP and therefore has zero degree of freedom. The JSEF
-can therefore not be computed in the classical way. The function \code{envspace.test}
-provides two ways of testing this fraction: a torus-translation (or torus randomisation)
-test (TT), for regular sampling designs, and Moran spectral randomization (MSR). The 
-function first checks whether the both the environment and the response data display 
-significant spatial structures, and then proceeds to the significance test if and only 
-if both datasets display a spatial structure.
+can therefore not be computed in the classical way (residuals permutation). 
+The function \code{envspace.test} provides two ways of testing this fraction: a 
+torus-translation (or torus randomisation) test (TT), for regular sampling designs, 
+and Moran spectral randomization (MSR). The function first checks whether both the 
+environment and the response data display significant spatial structures, and whether
+the response data is significantly related to the environment, and then proceeds to 
+the significance test of the JSEF if and only if those three conditions are fulfilled.
 }
 \details{
 \code{Ab} can be a vector or a multicolumn matrix or dataframe (multivariate
@@ -84,7 +85,7 @@ by the user. The function \code{\link{listw.candidates}} allows generating a lis
 W matrix candidates to be fed to \code{\link{MEM.modsel}}, that optimises the choice 
 of the W matrix and selects the best subset of spatial predictors within it using the 
 forward selection with double stopping criterion of Blanchet et al. (2008; see Bauman
-et al. 2017, and Bauman et al. 2018 in prep. for a review of the methods to select
+et al. 2018a, and Bauman et al. 2018b in prep. for a review of the methods to select
 a subset of spatial predictors in spatial eigenvector-based methods, and for a 
 method of spatial weighting matrix optimisation, respectively).
 \code{listw_E} corresponds to the spatial weights (W matrix) that will be used to
@@ -134,7 +135,7 @@ data(mite)
 Y <- decostand(mite, method = "hellinger")
 # Environmental explanatory dataset:
 data(mite.env)
-# For the example, we only use two numerical explanatory variables:
+# We only use two numerical explanatory variables:
 env <- mite.env[, 1:2]
 dim(Y)
 dim(env)
@@ -142,8 +143,8 @@ dim(env)
 data(mite.xy)
 coord <- mite.xy
 
-### Building a list of spatial weighting matrix (W matrix) candidates for the 
-### optimisation of the W matrix selection for 'Y' and 'env':
+### Building a list of candidate spatial weighting matrices (W matrices) for the 
+### optimisation of the W matrix selection, separately for 'Y' and 'env':
 # We create five candidates: a connectivity matrix based on a Gabriel graphs, on
 # a minimum spanning tree (i.e., two contrasted graph-based W matrices), either
 # not weighted, or weighted by a linear function decreasing with the distance),
@@ -191,8 +192,11 @@ JSEF.test$pval_MSR
 
 }
 \references{
-Bauman D., Drouet T., Dray S. and Vleminckx J. (2017) Disentangling good from bad 
-practices in the selection of spatial or phylogenetic eigenvectors. Ecography 
+Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) To link or not to link: 
+optimising the choice of a spatial weighting matrix in eigenvector-based methods. Ecology
+
+Bauman D., Drouet T., Dray S. and Vleminckx J. (2018b) Disentangling good from bad 
+practices in the selection of spatial or phylogenetic eigenvectors. Ecography, 41, 1--12
 
 Blanchet G., Legendre P. and Borcard D. (2008) Forward selection of explanatory variables.
 Ecology, 89(9), 2623--2632

@@ -77,8 +77,8 @@ the type I error rate.
 }
 \details{
 The function allows to construct W matrices based on any combination
-  of the B and A matrices. The B matrices are either graph-based or
-  distance-based. The function proposes the Delaunay triangulation, Gabriel's
+  of B and A matrices. The B matrices are either graph-based or
+  distance-based. The function proposes the Delaunay triangulation, Gabriel
   graph, relative neighbourhood graph, and the minimum spanning tree criteria
   to build a graph-based B matrix. Distance-based W matrices can be built
   with the principal coordinates of neighbour matrices (PCNM; Borcard and
@@ -131,16 +131,16 @@ length(candidates2)
 
 }
 \references{
+Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) To link or not to link: 
+optimising the choice of a spatial weighting matrix in eigenvector-based methods. Ecology
+
 Borcard D. and Legendre P. (2002) All-scale spatial analysis of 
-  ecological data by means of principal coordinates of neighbour matrices.
-  Ecological Modelling, 153, 51--68
+ecological data by means of principal coordinates of neighbour matrices.
+Ecological Modelling, 153, 51--68
   
-  Dray S., Legendre P. and Peres-Neto P. R. (2006) Spatial modeling: a
-  comprehensive framework for principal coordinate analysis of neighbor
-  matrices (PCNM). Ecological Modelling, 196, 483--493
-  
-  Bauman D., Fortin M-J, Suez M., Drouet T. and Dray S. (2018)
-  *************************
+Dray S., Legendre P. and Peres-Neto P. R. (2006) Spatial modeling: a
+comprehensive framework for principal coordinate analysis of neighbor
+matrices (PCNM). Ecological Modelling, 196, 483--493
 }
 \seealso{
 \code{\link{createlistw}}, \code{\link{MEM.modsel}}
