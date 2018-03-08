@@ -84,8 +84,7 @@
 #' @seealso \code{\link{createlistw}}, \code{\link{MEM.modsel}}
 #'   
 #' @references Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) To link or not to link: 
-#' optimising the choice of a spatial weighting matrix in eigenvector-based methods. Methods 
-#' in Ecology and Evolution
+#' optimising the choice of a spatial weighting matrix in eigenvector-based methods. Ecology
 #' 
 #' Borcard D. and Legendre P. (2002) All-scale spatial analysis of 
 #' ecological data by means of principal coordinates of neighbour matrices.

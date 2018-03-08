@@ -116,8 +116,7 @@
 #' \code{\link[vegan]{varpart}}
 #' 
 #' @references Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) To link or not to link: 
-#' optimising the choice of a spatial weighting matrix in eigenvector-based methods. Methods 
-#' in Ecology and Evolution
+#' optimising the choice of a spatial weighting matrix in eigenvector-based methods. Ecology
 #' 
 #' Bauman D., Drouet T., Dray S. and Vleminckx J. (2018b) Disentangling good from bad 
 #' practices in the selection of spatial or phylogenetic eigenvectors. Ecography, 41, 1--12
