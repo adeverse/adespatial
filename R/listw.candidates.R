@@ -144,7 +144,7 @@
                                 y_fconcdown = 5, 
                                 y_fconcup = 0.5) {
   
-  if (any(del, gab, rel, mst, PCNM, DB) == FALSE) stop("No connectivity matrix selected")
+  if (any(del, gab, rel, mst, PCNM, DB, PCNM) == FALSE) stop("No connectivity matrix selected")
   if (any(binary, flin, fconcdown, fconcup) == FALSE) stop("No weighting matrix selected")
   if (any(is.na(coord))) stop("NA entries in coord")
   # If DB = TRUE and no value was specified for d2, then d2 is set to be the
