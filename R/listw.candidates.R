@@ -42,32 +42,36 @@
 #'   package). Can take values 'W', 'B', 'C', 'U', 'minmax', and 'S'; default is
 #'   'B'
 #' @param del Defines whether a B matrix based on the Delaunay triangulation
-#'   should be used; default is TRUE. No edge effect correction implemented here
+#'   should be used; default is FALSE. No edge effect correction implemented here (see
+#'   discussion of Bauman et al. 2018)
 #' @param gab Defines whether a B matrix based on a Gabriel's graph should be
-#'   used; default is TRUE
+#'   used; default is FALSE
 #' @param rel Defines whether a B matrix based on a relative neighbourhood graph
-#'   should be used; default is TRUE
+#'   should be used; default is FALSE
 #' @param mst Defines whether a B matrix based on a minimum spanning tree should
-#'   be used; default is TRUE
+#'   be used; default is FALSE
 #' @param PCNM Defines whether a distance-based W matrix based on the principal 
 #'   coordinates of neighbour matrices (PCNM) criteria should be used (see
-#'   'Details'); default is TRUE
+#'   'Details'); default is FALSE
 #' @param DB Defines whether a distance-based W matrix should be built; default
-#'   is TRUE
-#' @param DBthresh Only considered if DB is TRUE; defines the connectivity
-#'   distance threshold below which two sites are connected. It can be a single
-#'   value or a vector of values, in which case a different W matrix will be
-#'   generated for each threshold value. The default value is the minimum
-#'   distance keeping all points connected (i.e., the largest edge of the 
-#'   minimum spanning tree)
+#'   is FALSE
+#' @param d2 Only considered if DB is TRUE; defines the connectivity
+#'   distance threshold below which two sites are connected (i.e., maximum distance between two
+#'   neighbors. It can either be a single value or a vector of values, in which case a 
+#'   different W matrix will be generated for each threshold value. The default value is the 
+#'   minimum distance keeping all points connected (i.e., the largest edge of the minimum 
+#'   spanning tree)
+#' @param d1 Only considered if DB is TRUE; single value defining the distance beyond which 
+#'   two sites are connected (i.e., minimum distance between two neighbor sites). The default 
+#'   value is 0 (no constraint on the min distance). \code{d1} must be smaller than \code{d2}
 #' @param binary Defines whether W matrices based on the selected B matrices
-#'   should be created without weights on the connexions; default is TRUE
+#'   should be created without weights on the connexions; default is FALSE
 #' @param flin Defines whether the linear weighting function should be used (see
-#'   Details below); default is TRUE
+#'   Details below); default is FALSE
 #' @param fconcdown Defines whether the concave-down weighting function should
-#'   be used (see Details below); default is TRUE
+#'   be used (see Details below); default is FALSE
 #' @param fconcup Defines whether the concave-up weighting function should be
-#'   used (see Details below); default is TRUE
+#'   used (see Details below); default is FALSE
 #' @param y_fconcdown Single value or vector of values of the \code{y} parametre
 #'   in the concave-down weighting function; default is 5
 #' @param y_fconcup Single value or vector of values of the \code{y} parametre
@@ -83,8 +87,8 @@
 #'   
 #' @seealso \code{\link{createlistw}}, \code{\link{MEM.modsel}}
 #'   
-#' @references Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) To link or not to link: 
-#' optimising the choice of a spatial weighting matrix in eigenvector-based methods. Ecology
+#' @references Bauman D., Fortin M-J., Drouet T. and Dray S. (2018) Otimising the choice of 
+#' a spatial weighting matrix in eigenvector-based methods. Ecology
 #' 
 #' Borcard D. and Legendre P. (2002) All-scale spatial analysis of 
 #' ecological data by means of principal coordinates of neighbour matrices.
@@ -105,7 +109,7 @@
 #' ### we want to test and compare (with the MEM.modsel function). We test a Gabriel's graph, 
 #' ### a minimum spanning tree, and a distance-based connectivity defined by a threshold
 #' ### distance corresponding to the smallest distance keeping all sites connected (i.e., 
-#' ### the defaut value of DBthresh). These connectivity matrices are then either not weighted 
+#' ### the defaut value of d2). These connectivity matrices are then either not weighted 
 #' ### (binary weighting), or weighted by the linearly decreasing function:
 #' candidates <- listw.candidates(coord = xy, del = FALSE, rel = FALSE, fconcdown = FALSE, 
 #'                                fconcup = FALSE, PCNM = FALSE)
@@ -125,26 +129,29 @@
 
 "listw.candidates" <- function (coord, 
                                 style = "B", 
-                                del = TRUE, 
-                                gab = TRUE, 
-                                rel = TRUE, 
-                                mst = TRUE, 
-                                PCNM = TRUE,  
-                                DB = TRUE, 
-                                DBthresh, 
-                                binary = TRUE, 
-                                flin = TRUE, 
-                                fconcdown = TRUE, 
-                                fconcup = TRUE, 
+                                del = FALSE, 
+                                gab = FALSE, 
+                                rel = FALSE, 
+                                mst = FALSE, 
+                                PCNM = FALSE,  
+                                DB = FALSE, 
+                                d1, 
+                                d2,
+                                binary = FALSE, 
+                                flin = FALSE, 
+                                fconcdown = FALSE, 
+                                fconcup = FALSE, 
                                 y_fconcdown = 5, 
                                 y_fconcup = 0.5) {
   
+  if (any(del, gab, rel, mst, PCNM, DB) == FALSE) stop("No connectivity matrix selected")
+  if (any(binary, flin, fconcdown, fconcup) == FALSE) stop("No weighting matrix selected")
   if (any(is.na(coord))) stop("NA entries in coord")
-  # If DB = TRUE and no value was specified for DBthresh, then DBthresh is set to be the
+  # If DB = TRUE and no value was specified for d2, then d2 is set to be the
   # largest edge of the minimum spanning tree (minimum distance keeping all points connected):
   if (DB == TRUE) {
-    class <- class(try(is.vector(DBthresh), TRUE))
-    if (class == "try-error") DBthresh <- give.thresh(dist(coord))
+    class <- class(try(is.vector(d2), TRUE))
+    if (class == "try-error") d2 <- give.thresh(dist(coord))
   }
   
   if (length(which(c(flin, fconcdown, fconcup) == TRUE)) != 0) weightfun = TRUE
@@ -162,7 +169,7 @@
   # Total nb of W matrices to be built:
   # ***********************************
   nbB <- length(which(c(del, gab, rel, mst) == TRUE))
-  if (DB == TRUE) nbB <- nbB + length(DBthresh)
+  if (DB == TRUE) nbB <- nbB + length(d2)
   nbw <- nbB
   control_BinLin <- FALSE
   control_f2 <- FALSE
@@ -351,20 +358,20 @@
     count <- count + 1
     f <- function (D, t) { 1-(D/(4*t))^2 }           # PCNM criterion
     lowlim <- give.thresh(xy.d1)
-    matB <- dnearneigh(lowlim, x = as.matrix(coord), d1 = 0)
+    matB <- dnearneigh(lowlim, x = as.matrix(coord), d1 = d1)
     listwcand[[count]] <- nb2listw(matB, style = style, 
                                    glist = lapply(nbdists(matB, as.matrix(coord)),
                                                   f, t = lowlim))
     names(listwcand)[count] <- "DBMEM_PCNM"
   }
   if (DB == TRUE) {
-    Y.listDB <- lapply(DBthresh, dnearneigh, x = as.matrix(coord), d1 = 0)
+    Y.listDB <- lapply(d2, dnearneigh, x = as.matrix(coord), d1 = d1)
     if (binary == TRUE) {
       count <- count + 1
-      for (i in 1:length(DBthresh)) {
+      for (i in 1:length(d2)) {
         listwcand[[count]] <- nb2listw(Y.listDB[[i]], style = style)
         names(listwcand)[count] <- paste("DB", i, "_Binary", sep = "")
-        if (i != length(DBthresh)) count <- count + 1
+        if (i != length(d2)) count <- count + 1
       }
     }
     if (weightfun == TRUE) {
@@ -373,17 +380,17 @@
       max.list <- lapply(unlist, max)
       if (flin == TRUE) {
         count <- count + 1
-        for (i in 1:length(DBthresh)) {
+        for (i in 1:length(d2)) {
           listwcand[[count]] <- nb2listw(Y.listDB[[i]], style = style, 
                                          glist = lapply(nbdists(Y.listDB[[i]], 
                                                                 as.matrix(coord)),
                                                         f1, dmax = max.list[[i]]))
           names(listwcand)[count] <- paste("DB", i, "_Linear", sep = "")
-          if (i != length(DBthresh)) count <- count + 1
+          if (i != length(d2)) count <- count + 1
         }
       } 
       if (fconcdown == TRUE) { 
-        for (j in 1:length(DBthresh)) {
+        for (j in 1:length(d2)) {
           count <- count + 1
           for (i in y_fconcdown) {
             listwcand[[count]] <- nb2listw(Y.listDB[[j]], style = style, 
@@ -396,7 +403,7 @@
         }
       }
       if (fconcup == TRUE) { 
-        for (j in 1:length(DBthresh)) {
+        for (j in 1:length(d2)) {
           count <- count + 1
           for (i in y_fconcup) {
             listwcand[[count]] <- nb2listw(Y.listDB[[j]], style = style, 

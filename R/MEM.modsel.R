@@ -165,12 +165,11 @@
 #' ### we want to test and compare (with the MEM.modsel function). We test a Gabriel's graph, 
 #' ### a minimum spanning tree, and a distance-based connectivity defined by a threshold
 #' ### distance corresponding to the smallest distance keeping all sites connected (i.e., 
-#' ### the defaut value of DBthresh; see help of function listw.candidates). 
+#' ### the defaut value of d2; see help of function listw.candidates). 
 #' ### These connectivity matrices are then either not weighted (binary weighting), or 
 #' ### weighted by the linearly decreasing function (see help of the function listw.candidates):
-#' candidates <- listw.candidates(coord = xy, del = FALSE, gab = TRUE, rel = FALSE, mst = TRUE,
-#'                                binary = TRUE, flin = TRUE, fconcdown = FALSE, 
-#'                                fconcup = FALSE, PCNM = FALSE)
+#' candidates <- listw.candidates(coord = xy, gab = TRUE, mst = TRUE, binary = TRUE, 
+#'                                flin = TRUE)
 #' ### Number of W matrix candidates generated:
 #' nbw <- length(candidates)
 #' ### Significance threshold value after p-value correction (Sidak correction):

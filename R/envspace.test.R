@@ -152,10 +152,8 @@
 #' # not weighted, or weighted by a linear function decreasing with the distance),
 #' # and a distance-based W matrix corresponding to the connectivity and weighting
 #' # criteria of the original PCNM method:
-#' candidates <- listw.candidates(coord, del = FALSE, gab = TRUE, rel = FALSE,
-#'                                mst = TRUE, DB = FALSE, PCNM = TRUE, 
-#'                                binary = TRUE, flin = TRUE, fconcdown = FALSE,
-#'                                fconcup = FALSE)
+#' candidates <- listw.candidates(coord, gab = TRUE, mst = TRUE, PCNM = TRUE, binary = TRUE, 
+#'                                flin = TRUE)
 #' ### Optimisation of the choice of a W matrix:
 #' # W matrix for 'Y':
 #' modsel_Y <- MEM.modsel(Y, candidates, correction = TRUE, autocor = "positive")
