@@ -341,7 +341,8 @@
                   MEM.AdjR2Cum = listR2[[best]], name = names(candidates)[best], 
                   pval = results[best, 1], R2.global = results[best, 2], 
                   R2.select = results[best, 3], NbVar = results[best, 4], bestw_index = best)
-        L.all <- list(MEM.all = listW, pval = results[, 1], R2.global = results[, 2])
+        L.all <- list(MEM.all = listW, pval = results[, 1], R2.global = results[, 2], 
+                      R2.select = results[, 3])
       } else {
         lenlist <- c(lenlist, cor[h])
         if (h == 1) {
@@ -350,14 +351,16 @@
                      name = names(candidates)[best], pval = results[best, 1], 
                      R2.global = results[best, 2], R2.select = results[best, 3], 
                      NbVar = results[best, 4], bestw_index = best)
-          L1.all <- list(MEM.all = listW, pval = results[, 1], R2.global = results[, 2])
+          L1.all <- list(MEM.all = listW, pval = results[, 1], R2.global = results[, 2],
+                         R2.select = results[, 3])
         } else {
           L2 <- list(MEM.all = listW[[best]], MEM.select = listMEM[[best]], 
                      listw = bestlistw, MEM.AdjR2Cum = listR2[[best]], 
                      name = names(candidates)[best], pval = results[best, 1], 
                      R2.global = results[best, 2], R2.select = results[best, 3], 
                      NbVar = results[best, 4], bestw_index = best)
-          L2.all <- list(MEM.all = listW, pval = results[, 1], R2.global = results[, 2])
+          L2.all <- list(MEM.all = listW, pval = results[, 1], R2.global = results[, 2],
+                         R2.select = results[, 3])
         }
       }
     }
