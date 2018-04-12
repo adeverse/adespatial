@@ -1,21 +1,24 @@
-#' Function to optimise the selection of a spatial weighting matrix and select the best 
+#' Function to optimize the selection of a spatial weighting matrix and select the best 
 #' subset of eigenvectors within it
 #' 
-#' MEM.modsel computes spatial eigenvectors for various definitions of spatial weighting
-#' matrices (W matrices) and optimises the selection of the W matrix by maximising the
-#' value of the adjusted R-squared while controling the type I error rate (see
+#' \code{MEM.modsel} computes spatial eigenvectors for various definitions of spatial weighting
+#' matrices (W matrices) and optimizes the selection of the W matrix by maximizing the
+#' value of the adjusted R-squared (R2) while controling the type I error rate (see
 #' Bauman et al. 2018a). The function also selects the best subset of eigenvectors to be
-#' used as spatial predictors within the best W matrix by performing a forward selection.
-#' It combines calls to the functions \code{scores.listw} and \code{forward.sel}.
+#' used as spatial predictors within the best W matrix by performing a forward selection with
+#' double stopping criterion (Blanchet et al. 2008). The best W matrix returned is selected
+#' on the basis of the R2 of either the global models or the subsets of eigenvectors selected
+#' by the forward selections.
+#' \code{MEM.modsel} combines calls to the functions \code{scores.listw} and \code{forward.sel}.
 #' The list of W matrix candidates can easily be generated using the user-friendly 
 #' \code{listw.candidates} function. The significance of each W matrix is tested by
-#' 9999 permutations by the means of the function \code{anova.cca} (package \code{vegan}).
+#' 9999 permutations with the function \code{anova.cca} (package \code{vegan}).
 #' 
 #' @details While the selection of the W matrix is the most critical step of the spatial
 #' eigenvector-based methods (Dray et al. 2006), Bauman et al. (2018a) showed that 
-#' optimising the choice of the W matrix led to inflated type I error rates if an
+#' optimizing the choice of the W matrix led to inflated type I error rates if an
 #' explicit control of the number of W matrices tested was not applied. The function
-#' MEM.modsel therefore applies a Sidak correction (Sidak 1967) for multiple tests to
+#' \code{MEM.modsel} therefore applies a Sidak correction (Sidak 1967) for multiple tests to
 #' the p-value of the global test of each W matrix (i.e., the model integrating the 
 #' whole set of spatial predictors). The Sidak correction is computed as: 
 #'\eqn{P_corrected = 1 - (1 - P)^n}, where \eqn{n} is the number of tests performed, \eqn{P}
@@ -29,18 +32,22 @@
 #' decreases as the number of W matrices tested increases, hence leading to a trade-off
 #' between the gain of accuracy and the statistical power loss. See 'Details' of the 
 #' function \code{\link{listw.candidates}} for recommendations about selecting a suitable set 
-#' of W matrix candidates. 
-#' Once the W matrix was optimised, a subset of eigenvectors should be selected before 
-#' proceding to further analyses in order both to avoid model overfitting and a loss of 
-#' statistical power to detect the contribution of the environment to the variability of 
-#' the response data (Griffith 2003, Dray et al. 2006, Blanchet et al. 2008, 
-#' Peres-Neto and Legendre 2010, Diniz-Filho et al. 2012). Although several eigenvector
-#' selection approaches have been proposed, Bauman et al. (2018b) showed that the most
-#' powerful and accurate method, in terms of adjusted R-squared estimation, was the 
-#' forward selection with double stopping criterion of Blanchet et al. (2008). 
+#' of candidate W matrices. 
+#' Once the W matrix was optimized, a subset of spatial eigenvectors (also referred to as
+#' spatial predictors or MEM variables) should be selected before proceding to further 
+#' analyses in order both to avoid model overfitting and a loss of statistical power to detect 
+#' the contribution of the environment to the variability of the response data 
+#' (Griffith 2003, Dray et al. 2006, Blanchet et al. 2008, Peres-Neto and Legendre 2010, 
+#' Diniz-Filho et al. 2012). Although several eigenvector selection approaches have been 
+#' proposed, Bauman et al. (2018b) showed that the most powerful and accurate method, 
+#' in terms of adjusted R2 estimation, was the forward selection with double stopping 
+#' criterion of Blanchet et al. (2008). 
 #' The function \code{MEM.modsel} performs the forward selection on the significant W 
 #' matrices and selects among these the best W matrix as the one for which the 
-#' eigenvector subset resulting from the forward selection displays the highest adjusted R².
+#' eigenvector subset resulting from the forward selection displays the highest adjusted R2.
+#' \code{MEM.modsel} can also return the W matrix yielding the highest global R2 (i.e., 
+#' considering the models of the response variable against the entire set of MEM variables
+#' generated for a given W matrix) as the best W matrix (see argument \code{crit}).
 #'  
 #' @param x Vector, matrix, or dataframe of response data
 #' @param candidates A list of one or more spatial weighting matrices of the class 
@@ -49,14 +56,22 @@
 #' @param autocor Sign of the spatial eigenvectors to consider; "positive", "negative", 
 #' or "all", for positively, negatively autocorrelated eigenvectors, or both, respectively; 
 #' default is "positive"
+#' @param crit Criterion to select the best W matrix among the set of significant candidate 
+#' matrices. The default option (\code{selection}) compares the adjusted R2 of the forward
+#' selected subsets of spatial eigenvectors and defines the optimized W matrix as the one
+#' corresponding to the highest R2 value. If one wants to select the best W matrix on the basis
+#' of all the MEM variables generated by \code{scores.listw} (see argument \code{autocor}), then
+#' \code{crit} can be changed to \code{global}.
 #' @param alpha_thresh Uncorrected predefined significance value; default is 0.05
 #' @param correction wheter the p-value of the global test performed on each W matrix should
 #' be corrected for multiple tests (TRUE) or not (FALSE); default is TRUE
-#' @param summary Logical; Whether a message summarising the results should be returned
-#' or not; Default is \code{TRUE}
+#' @param summary Logical; Whether a message summarizing the results should be returned
+#' or not; The R2 value returned in the message depends on
+#' the argument \code{crit} (R2 of the subset of forward selected predictors or R2 of the
+#' global model); Default is \code{TRUE}
 #' 
 #' @return The function returns two lists containing several features of the W matrix selected
-#' by the optimisation procedure, and general features of all the W matrices generated and 
+#' by the optimization procedure, and general features of all the W matrices generated and 
 #' tested: 
 #' The first list, \code{all}, contains: \describe{
 #' \item{MEM.all}{A list of all the MEM variables (as generated by \code{scores.listw}) 
@@ -64,9 +79,8 @@
 #' as the W matrices in \code{candidates}.}
 #' \item{pval}{The p-values (corrected by the Sidak correction if \code{correction = TRUE})
 #' of the global models for each W matrix tested.}
-#' \item{R2adj}{The adjusted R-squared of the best subset of MEM variables within each W matrix,
-#' after the forward selection. R2adj are available only for the W matrices for which the
-#' global corrected p-value was significant.}
+#' \item{R2.global}{The adjusted R2 of the complete set of MEM variables of each W 
+#' matrix. R2.global are available only for the significant W matrices.}
 #' }
 #' 
 #' The second list, \code{best}, contains the features of the best model: \describe{
@@ -95,15 +109,18 @@
 #' provided to \code{MEM.modsel}.} 
 #' \item{pval}{Global p-value of the best W matrix (after multiple-test correction, if 
 #' the \code{correction} argument = TRUE).}
-#' \item{R2adj}{Adjusted R-squared of \code{MEM.select}.}
+#' \item{R2.global}{The adjusted R2 of the complete set of MEM variables of the best W 
+#' matrix.}
+#' \item{R2.select}{Adjusted R2 of \code{MEM.select} (the subset of forward selected MEM
+#' variables).}
 #' \item{NbVar}{Number of spatial predictors selected by the forward selection.}
 #' \item{bestw_index}{Index of the best W matrix in the list \code{candidates} provided 
 #' to \code{MEM.modsel}.}
 #' }
 #' If \code{autocor = "all"} and a significant spatial model was selected for both the
-#' MEM variables corresponding to positive and negative autocorrelation, then the two
-#' lists (\code{all} and \code{best}) are generated twice, for the two sets of MEM variables,
-#' and are in two lists: \describe{
+#' MEM variables associated to positive and negative eigenvalues, then both lists
+#' (\code{all} and \code{best}) are generated twice, for both sets of MEM variables,
+#' and are returned in two different lists: \describe{
 #' \item{MEM.pos}{Lists \code{all} and \code{best} for the MEM variables corresponding to
 #' a positive autocorrelation.}
 #' \item{MEM.neg}{Lists \code{all} and \code{best} for the MEM variables corresponding to
@@ -115,8 +132,8 @@
 #' @seealso \code{\link{listw.candidates}}, \code{\link{scores.listw}}, 
 #' \code{\link[vegan]{varpart}}
 #' 
-#' @references Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) To link or not to link: 
-#' optimising the choice of a spatial weighting matrix in eigenvector-based methods. Ecology
+#' @references Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) Optimizing the choice of 
+#' a spatial weighting matrix in eigenvector-based methods. Ecology
 #' 
 #' Bauman D., Drouet T., Dray S. and Vleminckx J. (2018b) Disentangling good from bad 
 #' practices in the selection of spatial or phylogenetic eigenvectors. Ecography, 41, 1--12
@@ -174,9 +191,10 @@
 #' nbw <- length(candidates)
 #' ### Significance threshold value after p-value correction (Sidak correction):
 #' 1 - (1 - 0.05)^(1/nbw)
-#' ### Optimisation of the selection of the W matrix among the candidates generated above, 
+#' ### Optimization of the selection of the W matrix among the candidates generated above, 
 #' ### using the corrected significance threshold calculated above for the global tests:
-#' W_sel <- MEM.modsel(Y_sampled, candidates, autocor = "positive", correction = TRUE)
+#' W_sel <- MEM.modsel(Y_sampled, candidates, autocor = "positive", crit = "selection", 
+#'                     correction = TRUE)
 #' ### Some characteristics of the best spatial model:
 #' # Best W matrix:
 #' W_sel$best$name
@@ -186,12 +204,12 @@
 #' # Corrected p-value of the global test of the best W matrix: 
 #' W_sel$best$pval
 #' # Adjusted R2 of the subset of spatial predictors selected within the chosen W matrix:
-#' W_sel$best$R2adj
+#' W_sel$best$R2.select
 #' # p-values of all the tested W matrices:
 #' W_sel$all$pval
 #' # Adjusted R2 of the subset of spatial predictors selected for all the significant
 #' # W matrices:
-#' W_sel$all$R2adj
+#' W_sel$all$R2.select
 #' }
 #'  
 #' @importFrom vegan rda anova.cca RsquareAdj
@@ -200,6 +218,7 @@
 "MEM.modsel" <- function(x, 
                          candidates, 
                          autocor = c("positive", "negative", "all"), 
+                         crit = c("selection", "global"),
                          alpha_thresh = 0.05, 
                          correction = TRUE,
                          summary = TRUE) {
@@ -209,6 +228,8 @@
   
   if (correction == TRUE) sidak <- "corrected" else sidak <- "uncorrected"
   autocor <- match.arg(autocor)
+  
+  crit <- match.arg(crit)
 
   # **********************************************************************************  
   MEM.test <- function(a = x, 
@@ -220,9 +241,9 @@
     # MEM.test is an internal function that tests the significance of a W matrix while taking
     # into consideration the total number of W matrices tested in MEM.modsel. This total
     # number of tests is used to apply a correction to the p-value in order not to
-    # inflate the type I error rate. If the tested W matrix is significant at the corrected
-    # threshold value of significance, a model selection is performed using Blanchet et 
-    # al.'s (2008) forward selection with double stopping criterion.
+    # inflate the type I error rate (if corr = TRUE). If the tested W matrix is significant 
+    # at the corrected threshold value of significance, a model selection is performed using 
+    # Blanchet et al.'s (2008) forward selection with double stopping criterion.
     pval <- anova.cca(rda(a, b), permutations = 9999)$Pr[1]
     if (correction == TRUE) pval <- 1-(1-pval)^d    # Sidak correction 
     if (c == "all") pval <- 1-(1-pval)^2            # Sidak correction (autocor= "all") 
@@ -232,8 +253,8 @@
       if (class != "try-error") { 
         sign <- sort(fsel$order)
         MEM.select <- b[, c(sign)] 
-        list(MEM.select = MEM.select, NbVar = length(sign), pval = pval, 
-             R2adj = RsquareAdj(rda(a, MEM.select))$adj.r.squared, AdjR2Cum = fsel$AdjR2Cum)
+        list(MEM.select = MEM.select, NbVar = length(sign), pval = pval, R2.global = R2adj,
+             R2.select = RsquareAdj(rda(a, MEM.select))$adj.r.squared, AdjR2Cum = fsel$AdjR2Cum)
       } else return(pval)
     } else return(pval)
   }                                                  # End of the MEM.test() function
@@ -274,8 +295,8 @@
   for (h in 1:k) {
     
     # For model comparison and selection:
-    results <- as.data.frame(matrix(nrow = nbtest, ncol = 3))
-    colnames(results) <- c("pval_sidak", "R2adj", "NbMEM")     
+    results <- as.data.frame(matrix(nrow = nbtest, ncol = 4))
+    colnames(results) <- c("pval_sidak", "R2.global", "R2.select", "NbMEM")     
     # List of the MEM.select matrices (subsets of MEM variables for each signif. W matrix):
     listMEM <- vector("list", nbtest)
     # and corresponding R2:
@@ -296,8 +317,9 @@
     for (i in 1:nbtest) {
       if (is.list(listtest[[i]]) == TRUE) {
         results[i, 1] <- listtest[[i]]$pval
-        results[i, 2] <- listtest[[i]]$R2adj
-        results[i, 3] <- listtest[[i]]$NbVar
+        results[i, 2] <- listtest[[i]]$R2.global
+        results[i, 3] <- listtest[[i]]$R2.select
+        results[i, 4] <- listtest[[i]]$NbVar
         listMEM[[i]] <- listtest[[i]]$MEM.select
         listR2[[i]] <- listtest[[i]]$AdjR2Cum
         p <- c(p, listtest[[i]]$pval)
@@ -308,29 +330,34 @@
     }
     # Selection of the best W matrix (and best eigenvector subset within it):
     if (length(which(p <= alpha_thresh)) > 0) {
-      best <- which.max(results[, 2])
+      
+      if (crit == "selection") best <- which.max(results[, 3])
+      else best <- which.max(results[, 2])
+      
       if (nbtest == 1) bestlistw = candidates else bestlistw = candidates[[best]]
       if (autocor != "all") {
         lenlist <- c(lenlist, cor[h])
         L <- list(MEM.all = listW[[best]], MEM.select = listMEM[[best]], listw = bestlistw,
                   MEM.AdjR2Cum = listR2[[best]], name = names(candidates)[best], 
-                  pval = results[best, 1], R2adj = results[best, 2], 
-                  NbVar = results[best, 3], bestw_index = best)
-        L.all <- list(MEM.all = listW, pval = results[, 1], R2adj = results[, 2])
+                  pval = results[best, 1], R2.global = results[best, 2], 
+                  R2.select = results[best, 3], NbVar = results[best, 4], bestw_index = best)
+        L.all <- list(MEM.all = listW, pval = results[, 1], R2.global = results[, 2])
       } else {
         lenlist <- c(lenlist, cor[h])
         if (h == 1) {
           L1 <- list(MEM.all = listW[[best]], MEM.select = listMEM[[best]], 
                      listw = bestlistw, MEM.AdjR2Cum = listR2[[best]], 
                      name = names(candidates)[best], pval = results[best, 1], 
-                     R2adj = results[best, 2], NbVar = results[best, 3], bestw_index = best)
-          L1.all <- list(MEM.all = listW, pval = results[, 1], R2adj = results[, 2])
+                     R2.global = results[best, 2], R2.select = results[best, 3], 
+                     NbVar = results[best, 4], bestw_index = best)
+          L1.all <- list(MEM.all = listW, pval = results[, 1], R2.global = results[, 2])
         } else {
           L2 <- list(MEM.all = listW[[best]], MEM.select = listMEM[[best]], 
                      listw = bestlistw, MEM.AdjR2Cum = listR2[[best]], 
                      name = names(candidates)[best], pval = results[best, 1], 
-                     R2adj = results[best, 2], NbVar = results[best, 3], bestw_index = best)
-          L2.all <- list(MEM.all = listW, pval = results[, 1], R2adj = results[, 2])
+                     R2.global = results[best, 2], R2.select = results[best, 3], 
+                     NbVar = results[best, 4], bestw_index = best)
+          L2.all <- list(MEM.all = listW, pval = results[, 1], R2.global = results[, 2])
         }
       }
     }
@@ -338,18 +365,21 @@
   
   # Output of the MEM.modsel function:
   if (length(lenlist) == 2) {
-    if (summary == TRUE)
-      cat("\n", "\n", "*****************************************************", "\n",
+    if (summary == TRUE) {
+      if (crit == "selection")
+        val <- c(round(L1$R2.select, 3), round(L2$R2.select, 3))
+      else 
+        val <- c(round(L1$R2.global, 3), round(L2$R2.global, 3))
+      cat("\n", "*****************************************************", "\n",
           "*****************************************************", "\n",
-          "A best positive (", sidak, " p-value = ", round(L1$pval, 5), ", R2adj of the", 
-          "\n", "selected MEM variables = ", round(L1$R2adj, 3), 
-          ") and best negative (", sidak, " p-value = ", round(L2$pval, 5), ",", "\n", 
-          "R2adj of the selected MEM variables = ", round(L2$R2adj, 3), ")", 
-          "MEM models were selected.", "\n", 
+          "A best positive (", sidak, " p-value = ", round(L1$pval, 5), ", adjusted R2 =", 
+          "\n", val[1], ") and best negative (", sidak, " p-value = ", round(L2$pval, 5), ",", 
+          "\n", "adjusted R2 = ", val[2], ")", "MEM models were selected.", "\n", 
           "*****************************************************", "\n",
           "*****************************************************", "\n",
           "The output of the function is a list of two lists (MEM.pos and MEM.neg).", "\n",
           sep = "")
+    }
     return(list(MEM.pos = list(all = L1.all, best = L1), 
                 MEM.neg = list(all = L2.all, best = L2)))
   } else 
@@ -363,22 +393,27 @@
           L.all <- L2.all
         }
       }
-      if (summary == TRUE)
-        cat("\n", "\n", "*****************************************************", 
+      if (summary == TRUE) {
+        if (crit == "selection")
+          val <- round(L$R2.select, 3)
+        else 
+          val <- round(L$R2.global, 3)
+        cat("\n", "*****************************************************", 
             "\n", "*****************************************************", "\n",
             "A best ", lenlist, " MEM model was selected (", sidak, " p-value = ", 
-            round(L$pval, 5), ", R2adj of the selected", "\n",  "MEM variables = ", 
-            round(L$R2adj, 3), ").", "\n", 
+            round(L$pval, 5), ", adjusted R2 = ", val, ").", "\n", 
             "*****************************************************", "\n",
             "*****************************************************", "\n", sep = "")
+      }
       return(list(all = L.all, 
                   best = list(MEM.all = L$MEM.all, MEM.select = L$MEM.select, 
                               listw = L$listw, MEM.AdjR2Cum = L$MEM.AdjR2Cum, 
-                              name = L$name, pval = L$pval, R2adj = L$R2adj, 
-                              NbVar = L$NbVar, bestw_index = L$bestw_index)))
+                              name = L$name, pval = L$pval, R2.global = L$R2.global, 
+                              R2.select = L$R2.select, NbVar = L$NbVar, 
+                              bestw_index = L$bestw_index)))
     } else 
       if (summary == TRUE)
-        cat("\n", "\n", "*****************************************************", 
+        cat("\n", "*****************************************************", 
             "\n", "*****************************************************", "\n",
             "No significant spatial structure was detected in the data.", "\n",
             "\n", sep = "")

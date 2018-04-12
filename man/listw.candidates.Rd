@@ -4,10 +4,10 @@
 \alias{listw.candidates}
 \title{Function to create a list of spatial weighting matrices}
 \usage{
-listw.candidates(coord, style = "B", del = TRUE, gab = TRUE, rel = TRUE,
-  mst = TRUE, PCNM = TRUE, DB = TRUE, DBthresh, binary = TRUE,
-  flin = TRUE, fconcdown = TRUE, fconcup = TRUE, y_fconcdown = 5,
-  y_fconcup = 0.5)
+listw.candidates(coord, style = "B", del = FALSE, gab = FALSE,
+  rel = FALSE, mst = FALSE, PCNM = FALSE, DB = FALSE, d1 = 0, d2,
+  binary = FALSE, flin = FALSE, fconcdown = FALSE, fconcup = FALSE,
+  y_fconcdown = 5, y_fconcup = 0.5)
 }
 \arguments{
 \item{coord}{Vector, matrix, or dataframe of point coordinates}
@@ -17,42 +17,47 @@ package). Can take values 'W', 'B', 'C', 'U', 'minmax', and 'S'; default is
 'B'}
 
 \item{del}{Defines whether a B matrix based on the Delaunay triangulation
-should be used; default is TRUE. No edge effect correction implemented here}
+should be used; default is FALSE. No edge effect correction implemented here (see
+discussion of Bauman et al. 2018)}
 
 \item{gab}{Defines whether a B matrix based on a Gabriel's graph should be
-used; default is TRUE}
+used; default is FALSE}
 
 \item{rel}{Defines whether a B matrix based on a relative neighbourhood graph
-should be used; default is TRUE}
+should be used; default is FALSE}
 
 \item{mst}{Defines whether a B matrix based on a minimum spanning tree should
-be used; default is TRUE}
+be used; default is FALSE}
 
 \item{PCNM}{Defines whether a distance-based W matrix based on the principal 
 coordinates of neighbour matrices (PCNM) criteria should be used (see
-'Details'); default is TRUE}
+'Details'); default is FALSE}
 
 \item{DB}{Defines whether a distance-based W matrix should be built; default
-is TRUE}
+is FALSE}
 
-\item{DBthresh}{Only considered if DB is TRUE; defines the connectivity
-distance threshold below which two sites are connected. It can be a single
-value or a vector of values, in which case a different W matrix will be
-generated for each threshold value. The default value is the minimum
-distance keeping all points connected (i.e., the largest edge of the 
-minimum spanning tree)}
+\item{d1}{Only considered if DB is TRUE; single value defining the distance beyond which 
+two sites are connected (i.e., minimum distance between two neighbor sites). The default 
+value is 0 (no constraint on the min distance). \code{d1} must be smaller than \code{d2}}
+
+\item{d2}{Only considered if DB is TRUE; defines the connectivity
+distance threshold below which two sites are connected (i.e., maximum distance between two
+neighbors. It can either be a single value or a vector of values, in which case a 
+different W matrix will be generated for each threshold value. The default value is the 
+minimum distance keeping all points connected (i.e., the largest edge of the minimum 
+spanning tree)}
 
 \item{binary}{Defines whether W matrices based on the selected B matrices
-should be created without weights on the connexions; default is TRUE}
+should be created without weights on the connexions; default is FALSE}
 
 \item{flin}{Defines whether the linear weighting function should be used (see
-Details below); default is TRUE}
+Details below); default is FALSE}
 
 \item{fconcdown}{Defines whether the concave-down weighting function should
-be used (see Details below); default is TRUE}
+be used (see Details below); default is FALSE}
 
 \item{fconcup}{Defines whether the concave-up weighting function should be
-used (see Details below); default is TRUE}
+used (see Details below); default is FALSE}
 
 \item{y_fconcdown}{Single value or vector of values of the \code{y} parametre
 in the concave-down weighting function; default is 5}
@@ -115,24 +120,23 @@ xy[, 2] <- sample(c(1:120), 100, replace = FALSE)
 ### we want to test and compare (with the MEM.modsel function). We test a Gabriel's graph, 
 ### a minimum spanning tree, and a distance-based connectivity defined by a threshold
 ### distance corresponding to the smallest distance keeping all sites connected (i.e., 
-### the defaut value of DBthresh). These connectivity matrices are then either not weighted 
+### the defaut value of d2). These connectivity matrices are then either not weighted 
 ### (binary weighting), or weighted by the linearly decreasing function:
-candidates <- listw.candidates(coord = xy, del = FALSE, rel = FALSE, fconcdown = FALSE, 
-                               fconcup = FALSE, PCNM = FALSE)
+candidates <- listw.candidates(coord = xy, gab = TRUE, mst = TRUE, DB = TRUE,
+                               binary = TRUE, flin = TRUE)
 ### Construction of a different list of spatial weighting matrices. This time, the
 ### connexions are defined by a distance-based criterion based on the same threshold
-### value, but the connexions are weighted by the concave-down function with a y parametre
+### value, but the connections are weighted by the concave-down function with a y parametre
 ### varying between 2 and 5, and a concave-up function with a y parametre of 0.2.
-candidates2 <- listw.candidates(coord = xy, del = FALSE, gab = FALSE, rel = FALSE, 
-                                mst = FALSE, PCNM = FALSE, bin = FALSE, y_fconcdown = c(1:5),
-                                y_fconcup = 0.2)
+candidates2 <- listw.candidates(coord = xy, DB = TRUE, fconcdown = TRUE, fconcup = TRUE,
+                                y_fconcdown = c(1:5), y_fconcup = 0.2)
 ### Number of spatial weighting matrices generated:
 length(candidates2) 
 
 }
 \references{
-Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) To link or not to link: 
-optimising the choice of a spatial weighting matrix in eigenvector-based methods. Ecology
+Bauman D., Fortin M-J., Drouet T. and Dray S. (2018) Otimising the choice of 
+a spatial weighting matrix in eigenvector-based methods. Ecology
 
 Borcard D. and Legendre P. (2002) All-scale spatial analysis of 
 ecological data by means of principal coordinates of neighbour matrices.

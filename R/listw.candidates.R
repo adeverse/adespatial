@@ -111,15 +111,17 @@
 #' ### distance corresponding to the smallest distance keeping all sites connected (i.e., 
 #' ### the defaut value of d2). These connectivity matrices are then either not weighted 
 #' ### (binary weighting), or weighted by the linearly decreasing function:
-#' candidates <- listw.candidates(coord = xy, del = FALSE, rel = FALSE, fconcdown = FALSE, 
-#'                                fconcup = FALSE, PCNM = FALSE)
+#' candidates <- listw.candidates(coord = xy, gab = TRUE, mst = TRUE, DB = TRUE,
+#'                                binary = TRUE, flin = TRUE)
+#' names(candidates)                              
+#' plot(candidates[[1]], xy)
+#' plot(candidates[[3]], xy)
 #' ### Construction of a different list of spatial weighting matrices. This time, the
 #' ### connexions are defined by a distance-based criterion based on the same threshold
-#' ### value, but the connexions are weighted by the concave-down function with a y parametre
+#' ### value, but the connections are weighted by the concave-down function with a y parametre
 #' ### varying between 2 and 5, and a concave-up function with a y parametre of 0.2.
-#' candidates2 <- listw.candidates(coord = xy, del = FALSE, gab = FALSE, rel = FALSE, 
-#'                                 mst = FALSE, PCNM = FALSE, bin = FALSE, y_fconcdown = c(1:5),
-#'                                 y_fconcup = 0.2)
+#' candidates2 <- listw.candidates(coord = xy, DB = TRUE, fconcdown = TRUE, fconcup = TRUE,
+#'                                 y_fconcdown = c(1:5), y_fconcup = 0.2)
 #' ### Number of spatial weighting matrices generated:
 #' length(candidates2) 
 #' 

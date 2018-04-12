@@ -150,27 +150,25 @@ coord <- mite.xy
 # not weighted, or weighted by a linear function decreasing with the distance),
 # and a distance-based W matrix corresponding to the connectivity and weighting
 # criteria of the original PCNM method:
-candidates <- listw.candidates(coord, del = FALSE, gab = TRUE, rel = FALSE,
-                               mst = TRUE, DB = FALSE, PCNM = TRUE, 
-                               binary = TRUE, flin = TRUE, fconcdown = FALSE,
-                               fconcup = FALSE)
+candidates <- listw.candidates(coord, gab = TRUE, mst = TRUE, PCNM = TRUE, binary = TRUE, 
+                               flin = TRUE)
 ### Optimisation of the choice of a W matrix:
-# W matrix for 'Y':
-modsel_Y <- MEM.modsel(Y, candidates, correction = TRUE, autocor = "positive")
+# W matrix for 'Y' (based on the best forward selected subset of MEM variables):
+modsel_Y <- MEM.modsel(Y, candidates, correction = TRUE, crit = "selection",
+                       autocor = "positive")
 
 paste("The best W matrix for 'Y' was ", modsel_Y$best$name, ". The forward selection ",
       "with double stopping criterion (Blanchet et al. 2008) selected a best subset",
       " of spatial predictors within this W matrix. This subset contains ", 
       modsel_Y$best$NbVar, " MEM variables and has an adjusted R2 of ", 
-      round(modsel_Y$best$R2adj, 3), ".", sep = "")
+      round(modsel_Y$best$R2.select, 3), ".", sep = "")
 
-modsel_env <- MEM.modsel(env, candidates, correction = TRUE, autocor = "all")
+# W matrix for 'env' (based on the global models, as all MEM variables are used in MSR):
+modsel_env <- MEM.modsel(env, candidates, correction = TRUE, crit = "global", 
+                         autocor = "all")
 
-paste("The best W matrix for 'env' was ", modsel_env$best$name, ". The forward selection ",
-      "with double stopping criterion (Blanchet et al. 2008) selected a best subset",
-      " of spatial predictors within this W matrix. This subset contains ", 
-      modsel_env$best$NbVar, " MEM variables and has an adjusted R2 of ", 
-      round(modsel_env$best$R2adj, 3), ".", sep = "")
+paste("The best W matrix for 'env' was ", modsel_env$best$name, ". This model has a global",
+      "adjusted R2 of ", round(modsel_env$best$R2.global, 3), ".", sep = "")
 
 ### We perform the variation partitioning:
 # Subset of selected MEM variables within the best W matrix:
