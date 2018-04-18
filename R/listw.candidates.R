@@ -28,11 +28,11 @@
 #'   distance between the sites, and \code{t} is the distance threshold below
 #'   which two sites are considered connected (Dray et al. 2006). As optimising
 #'   the choice of a W matrix has to be done with a p-value correction depending
-#'   on the number of W matrix candidates tested (see function
+#'   on the number of candidate W matrices tested (see function
 #'   \code{MEM.modsel}), Bauman et al. (2018) strongly encouraged plotting the
 #'   concave-down and concave-up weighting functions with several parametre
-#'   values in order to only choose the realistic ones to build the W matrix
-#'   candidates (e.g., ranging between 0.1 and 1 for the concave-up function, as
+#'   values in order to only choose the realistic ones to build the candidate W
+#'   matrices (e.g., ranging between 0.1 and 1 for the concave-up function, as
 #'   values over 1 would make no ecological sense). First visualising the 
 #'   connectivity schemes with the \code{createlistw} function may also help
 #'   choosing the B matrices to select for the \code{listw.candidates} function.
@@ -87,7 +87,7 @@
 #'   
 #' @seealso \code{\link{createlistw}}, \code{\link{MEM.modsel}}
 #'   
-#' @references Bauman D., Fortin M-J., Drouet T. and Dray S. (2018) Otimising the choice of 
+#' @references Bauman D., Fortin M-J., Drouet T. and Dray S. (2018) Optimising the choice of 
 #' a spatial weighting matrix in eigenvector-based methods. Ecology
 #' 
 #' Borcard D. and Legendre P. (2002) All-scale spatial analysis of 
@@ -124,9 +124,11 @@
 #'                                 y_fconcdown = c(1:5), y_fconcup = 0.2)
 #' ### Number of spatial weighting matrices generated:
 #' length(candidates2) 
+#' ### A single W matrix can also easily be generated with listw.candidates:
+#' listw <- listw.candidates(xy, gab = TRUE, bin = TRUE)
+#' plot(listw[[1]], xy)
 #' 
-#' @importFrom spdep tri2nb nb2listw nbdists graph2nb gabrielneigh relativeneigh
-#'   dnearneigh
+#' @importFrom spdep tri2nb nb2listw nbdists graph2nb gabrielneigh relativeneigh dnearneigh
 #' @export
 
 "listw.candidates" <- function (coord, 
@@ -198,12 +200,12 @@
   }
   if (PCNM == TRUE) nbw <- nbw + 1
   
-  # List for the W matrix candidates:
+  # List for the candidate W matrices:
   listwcand <- vector("list", nbw)
   count <- 0
   
-  # Construction of the list of W matrix candidates: 
-  # ************************************************
+  # Construction of the list of candidate W matrices: 
+  # *************************************************
   if (del == TRUE) {
     Y.del <- tri2nb(jitter(as.matrix(coord), factor = 0.001))
     if (binary == TRUE) {

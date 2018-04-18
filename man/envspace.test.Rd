@@ -82,7 +82,7 @@ Legendre and Gallagher 2001).
 \code{MEM_Ab} is a subset of spatial predictors (MEM variables), selected among the
 complete set of MEM variables of a given spatial weighting matrix (W matrix) chosen
 by the user. The function \code{\link{listw.candidates}} allows generating a list of 
-W matrix candidates to be fed to \code{\link{MEM.modsel}}, that optimises the choice 
+candidate W matrices to be fed to \code{\link{MEM.modsel}}, that optimises the choice 
 of the W matrix and selects the best subset of spatial predictors within it using the 
 forward selection with double stopping criterion of Blanchet et al. (2008; see Bauman
 et al. 2018a, and Bauman et al. 2018b in prep. for a review of the methods to select
@@ -154,7 +154,7 @@ candidates <- listw.candidates(coord, gab = TRUE, mst = TRUE, PCNM = TRUE, binar
                                flin = TRUE)
 ### Optimisation of the choice of a W matrix:
 # W matrix for 'Y' (based on the best forward selected subset of MEM variables):
-modsel_Y <- MEM.modsel(Y, candidates, correction = TRUE, crit = "selection",
+modsel_Y <- MEM.modsel(Y, candidates, correction = TRUE, crit = "forward",
                        autocor = "positive")
 
 paste("The best W matrix for 'Y' was ", modsel_Y$best$name, ". The forward selection ",

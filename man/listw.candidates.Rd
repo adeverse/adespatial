@@ -102,11 +102,11 @@ The function allows to construct W matrices based on any combination
   distance between the sites, and \code{t} is the distance threshold below
   which two sites are considered connected (Dray et al. 2006). As optimising
   the choice of a W matrix has to be done with a p-value correction depending
-  on the number of W matrix candidates tested (see function
+  on the number of candidate W matrices tested (see function
   \code{MEM.modsel}), Bauman et al. (2018) strongly encouraged plotting the
   concave-down and concave-up weighting functions with several parametre
-  values in order to only choose the realistic ones to build the W matrix
-  candidates (e.g., ranging between 0.1 and 1 for the concave-up function, as
+  values in order to only choose the realistic ones to build the candidate W
+  matrices (e.g., ranging between 0.1 and 1 for the concave-up function, as
   values over 1 would make no ecological sense). First visualising the 
   connectivity schemes with the \code{createlistw} function may also help
   choosing the B matrices to select for the \code{listw.candidates} function.
@@ -124,6 +124,9 @@ xy[, 2] <- sample(c(1:120), 100, replace = FALSE)
 ### (binary weighting), or weighted by the linearly decreasing function:
 candidates <- listw.candidates(coord = xy, gab = TRUE, mst = TRUE, DB = TRUE,
                                binary = TRUE, flin = TRUE)
+names(candidates)                              
+plot(candidates[[1]], xy)
+plot(candidates[[3]], xy)
 ### Construction of a different list of spatial weighting matrices. This time, the
 ### connexions are defined by a distance-based criterion based on the same threshold
 ### value, but the connections are weighted by the concave-down function with a y parametre
@@ -132,10 +135,13 @@ candidates2 <- listw.candidates(coord = xy, DB = TRUE, fconcdown = TRUE, fconcup
                                 y_fconcdown = c(1:5), y_fconcup = 0.2)
 ### Number of spatial weighting matrices generated:
 length(candidates2) 
+### A single W matrix can also easily be generated with listw.candidates:
+listw <- listw.candidates(xy, gab = TRUE, bin = TRUE)
+plot(listw[[1]], xy)
 
 }
 \references{
-Bauman D., Fortin M-J., Drouet T. and Dray S. (2018) Otimising the choice of 
+Bauman D., Fortin M-J., Drouet T. and Dray S. (2018) Optimising the choice of 
 a spatial weighting matrix in eigenvector-based methods. Ecology
 
 Borcard D. and Legendre P. (2002) All-scale spatial analysis of 
