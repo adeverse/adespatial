@@ -21,8 +21,8 @@ or "all", for positively, negatively autocorrelated eigenvectors, or both, respe
 default is "positive"}
 
 \item{crit}{Criterion to select the best W matrix among the set of significant candidate 
-matrices. Either \code{forward} (default option), \code{"MIR"}, or \code{"global"} (see
-\code{Details}).}
+matrices. Either \code{forward} (default option), \code{"MIR"} (for univariate \code{x} 
+only), or \code{"global"} (see \code{Details}).}
 
 \item{alpha_thresh}{Uncorrected predefined significance value; default is 0.05}
 
@@ -168,9 +168,13 @@ subset of spatial eigenvectors yields the highest adjusted R2. If \code{crit = "
 \code{MEM.modsel} performs the MIR selection on all the significant candidate W matrices,
 and selects the best W matrix as the one with the smallest number of MIR-selected spatial 
 eigenvectors. If two or more W matrices present the same smallest number of predictors, 
-then the choice is made among them on the basis of the adjusted R2, as for a same number of 
-spatial eigenvectors, a higher R2 indicate a more accurate description of the spatial 
-structure in the residuals (Bauman et al. 2018a).
+then the choice is made among them on the basis of the adjusted R2 of the selected 
+eigenvectors, as for a same number of spatial eigenvectors, a higher R2 indicate a more 
+accurate description of the spatial structure in the residuals (Bauman et al. 2018a).
+
+Note that the MIR criterion of optimization can only be used for a univariate \code{x}, 
+as the Moran's I is a univariate index. If \code{x} is multivariate, in all cases the best 
+choice is the forward selection (\code{crit = "forward"}) (see Bauman et al. 2018b).
 }
 \examples{
 if(require(spdep)) {
@@ -248,7 +252,7 @@ Griffith D. (2003) Spatial autocorrelation and spatial filtering: gaining unders
 through theory and scientific visualization. Springer, Berlin
 
 Munoz, F. 2009. Distance-based eigenvector maps (DBEM) to analyse metapopulation structure 
-with irregular sampling. Ecological Modelling, 220, 2683–-2689.
+with irregular sampling. Ecological Modelling, 220, 2683–-2689
 
 Peres-Neto P. and Legendre P. (2010) Estimating and controlling for spatial structure 
 in the study of ecological communities. Global Ecology and Biogeography, 19, 174--184
@@ -256,6 +260,10 @@ in the study of ecological communities. Global Ecology and Biogeography, 19, 174
 Sidak Z. (1967) Rectangular confidence regions for the means of 
 multivariate normal distributions. Journal of the American Statistical Association, 62(318),
 626--633
+
+Wagner H., Dray S. (2015). Generating spatially constrained null models for irregularly 
+spaced data using Moran spectral randomization methods. Methods in Ecology and Evolution, 
+6, 1169--1178
 }
 \seealso{
 \code{\link{listw.candidates}}, \code{\link{MEM.moransel}}, 

@@ -76,9 +76,13 @@
 #' \code{MEM.modsel} performs the MIR selection on all the significant candidate W matrices,
 #' and selects the best W matrix as the one with the smallest number of MIR-selected spatial 
 #' eigenvectors. If two or more W matrices present the same smallest number of predictors, 
-#' then the choice is made among them on the basis of the adjusted R2, as for a same number of 
-#' spatial eigenvectors, a higher R2 indicate a more accurate description of the spatial 
-#' structure in the residuals (Bauman et al. 2018a).
+#' then the choice is made among them on the basis of the adjusted R2 of the selected 
+#' eigenvectors, as for a same number of spatial eigenvectors, a higher R2 indicate a more 
+#' accurate description of the spatial structure in the residuals (Bauman et al. 2018a).
+#' 
+#' Note that the MIR criterion of optimization can only be used for a univariate \code{x}, 
+#' as the Moran's I is a univariate index. If \code{x} is multivariate, in all cases the best 
+#' choice is the forward selection (\code{crit = "forward"}) (see Bauman et al. 2018b).
 #'  
 #' @param x Vector, matrix, or dataframe of response data
 #' @param candidates A list of one or more spatial weighting matrices of the class 
@@ -88,8 +92,8 @@
 #' or "all", for positively, negatively autocorrelated eigenvectors, or both, respectively; 
 #' default is "positive"
 #' @param crit Criterion to select the best W matrix among the set of significant candidate 
-#' matrices. Either \code{forward} (default option), \code{"MIR"}, or \code{"global"} (see
-#' \code{Details}).
+#' matrices. Either \code{forward} (default option), \code{"MIR"} (for univariate \code{x} 
+#' only), or \code{"global"} (see \code{Details}).
 #' @param alpha_thresh Uncorrected predefined significance value; default is 0.05
 #' @param correction wheter the p-value of the global test performed on each W matrix should
 #' be corrected for multiple tests (TRUE) or not (FALSE); default is TRUE
@@ -179,7 +183,7 @@
 #' through theory and scientific visualization. Springer, Berlin
 #' 
 #' Munoz, F. 2009. Distance-based eigenvector maps (DBEM) to analyse metapopulation structure 
-#' with irregular sampling. Ecological Modelling, 220, 2683–-2689.
+#' with irregular sampling. Ecological Modelling, 220, 2683–-2689
 #' 
 #' Peres-Neto P. and Legendre P. (2010) Estimating and controlling for spatial structure 
 #' in the study of ecological communities. Global Ecology and Biogeography, 19, 174--184
@@ -187,6 +191,10 @@
 #' Sidak Z. (1967) Rectangular confidence regions for the means of 
 #' multivariate normal distributions. Journal of the American Statistical Association, 62(318),
 #' 626--633
+#' 
+#' Wagner H., Dray S. (2015). Generating spatially constrained null models for irregularly 
+#' spaced data using Moran spectral randomization methods. Methods in Ecology and Evolution, 
+#' 6, 1169--1178
 #' 
 #' @keywords spatial
 #' 
@@ -245,6 +253,7 @@
 #' }
 #'  
 #' @importFrom vegan rda anova.cca RsquareAdj
+#' @importFrom stats na.omit
 #' @export MEM.modsel
 
 "MEM.modsel" <- function(x, 
@@ -258,10 +267,12 @@
   x <- as.data.frame(x)
   if (any(is.na(x))) stop ("NA entries in x")
   
+  crit <- match.arg(crit)
+  if (crit == "MIR") 
+    if (ncol(x) != 1) stop ("MIR criterion can only be used for a univariate x")
+  
   if (correction == TRUE) sidak <- "corrected" else sidak <- "uncorrected"
   autocor <- match.arg(autocor)
-  
-  crit <- match.arg(crit)
 
   # **********************************************************************************  
   MEM.test <- function(response = x, 
@@ -295,7 +306,8 @@
                AdjR2Cum = fsel$AdjR2Cum)
         } else return(pval)
       } else if (selection == "MIR") {
-          mir <- MEM.moransel(response, attributes(mem)$listw, MEM.autocor = c, alpha = alpha)
+          mir <- MEM.moransel(as.vector(response)[, 1], attributes(mem)$listw, MEM.autocor = c, 
+                              alpha = alpha)
           if (class(mir) == "list") {
             select <- mir$MEM.select
             list(MEM.select = select, NbVar = ncol(select), pval = pval, R2.global = R2, 
@@ -387,12 +399,14 @@
     # Selection of the best W matrix (and best eigenvector subset within it):
     if (length(which(p <= alpha_thresh)) > 0) {
       
-      if (crit == "forward") best <- which.max(results[, 3])
-      else if (crit == "global") best <- which.max(results[, 2])
+      if (crit == "forward") 
+        best <- which.max(results[, 3])
+      else if (crit == "global") 
+        best <- which.max(results[, 2])
       else {   # crit = "MIR"
-        min_Nb_MEM <- which(results[, 4] == which.min(results[, 4]))
-        if (length(min_Nb_MEM) == 1) best <- which.min(results[, 4])
-        else best <- which.max(results[, 3][min_Nb_MEM])
+        rows_min <- which(results[, 4] == min(na.omit(results[, 4])))
+        if (length(rows_min) == 1) best <- rows_min
+        else best <- as.numeric(rownames(results)[rows_min][which.max(results[rows_min, 3])])
       }
       
       if (nbtest == 1) {

@@ -64,7 +64,7 @@ explanatory variables (e.g., environmental) is the selection of a subset of spat
 eigenvectors, once the choice of a W matrix was made. The selection of a subset of spatial
 predictors avoids model overfitting and a loss of statistical power to detect the 
 contribution of the environment to the variability of the response data (Griffith 2003, 
-Dray et al. 2006, Blanchet et al. 2008b, Peres-Neto and Legendre 2010, 
+Dray et al. 2006, Blanchet et al. 2008, Peres-Neto and Legendre 2010, 
 Diniz-Filho et al. 2012). Bauman et al. (2018b) have shown that while the forward selection
 with double stopping criterion (Blanchet et al. 2008) was the eigenvector selection method
 that yielded the highest statistical power and R-squared estimation accuracy, performing
