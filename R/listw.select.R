@@ -1,16 +1,22 @@
 #' Function to optimize the selection of a spatial weighting matrix and select the best 
 #' subset of eigenvectors
 #' 
-#' \code{listw.select} computes spatial eigenvectors for various definitions of spatial 
-#' weighting matrices (SWM) and optimizes the selection of the SWM by maximizing the
-#' value of the adjusted R-squared (R2) or by minimizing the residual spatial autocorrelation.
-#' The function controls the type I error rate by accounting for the number of tests performed
-#' (see Bauman et al. 2018a). 
-#' \code{listw.select} combines calls to the functions \code{scores.listw} and 
-#' \code{forward.sel} or \code{\link{MEM.moransel}}.
-#' The list of candidate SWMs can easily be generated using the user-friendly 
-#' \code{\link{listw.candidates}} function. The significance of each SWM is tested by
-#' 9999 permutations with the function \code{anova.cca} (package \code{vegan}).
+#' \code{listw.select} computes MEM variables for various definitions of spatial weighting 
+#' matrices (SWM) and optimizes the selection of the SWM and of a subset of MEM variables. 
+#' The MEM variables are eigenvectors of a doubly centered SWM. Corresponding eigenvalues are 
+#' linearly related to Moran's index of spatial autocorrelation. 
+#' The optimization is done by maximizing the adjusted R-squared (R2) or by minimizing the 
+#' residual spatial autocorrelation. The function controls the type I error rate by accounting 
+#' for the number of tests performed (see Bauman et al. 2018a). 
+#' 
+#' \code{mem.select} computes MEM variables for a single definition of SWM, test its 
+#' significances, and optimizes the selection of MEM variables within the SWM using the same
+#' criteria than \code{listw.select}.
+#' These functions combine calls to the functions \code{scores.listw} and \code{forward.sel} 
+#' or \code{\link{MEM.moransel}}.
+#' The list of candidate SWMs can easily be generated using \code{\link{listw.candidates}}.
+#' The significance of each SWM is tested by 9999 permutations with the function 
+#' \code{anova.cca} (package \code{vegan}).
 #' 
 #' @details While the selection of the SWM is the most critical step of the spatial
 #' eigenvector-based methods (Dray et al. 2006), Bauman et al. (2018a) showed that 
@@ -96,7 +102,12 @@
 #' Note that the MIR criterion of optimization can only be used for a univariate \code{x}, 
 #' as the Moran's I is a univariate index. If \code{x} is multivariate, then the best 
 #' criterion is the forward selection (see Bauman et al. 2018b).
-#'  
+#' 
+#' \code{mem.select} works exactly like \code{listw.select} but for a single SWM. Its purpose
+#' is to test the SWM and, if significant, to optimize the selection of a subset of spatial
+#' predictors within it.
+#'
+#' @aliases listw.select mem.select  
 #' @param x Vector, matrix, or dataframe of the response variable(s)
 #' @param candidates A list of one or more spatial weighting matrices of the class 
 #' \code{listw}; \code{candidates} can be a list containing one or several spatial 
@@ -114,7 +125,7 @@
 #' or not; The R2 value returned in the message depends on the argument \code{crit} (R2 of 
 #' the subset of selected predictors or R2 of the global model); Default is \code{TRUE}
 #' 
-#' @return The function returns two lists containing several features of the SWM selected
+#' @return \code{listw.select} returns two lists containing several features of the SWM selected
 #' by the optimization procedure, and general features of all the SWMs generated and tested: 
 #' 
 #' The first list, \code{$all}, contains: 
@@ -163,6 +174,9 @@
 #' \item{bestw_index}{Index of the best SWM in the list \code{candidates} provided 
 #' to \code{listw.select}.}
 #' }
+#' 
+#' The function \code{mem.select} only returns one list, corresponding to the \code{$best} list
+#' of \code{listw.selec}, but without the objects \code{name} and \code{bestW_index}.
 #' 
 #' @author Bauman David \email{dbauman@@ulb.ac.be} or \email{davbauman@@gmail.com}
 #' 
@@ -260,7 +274,8 @@
 #'  
 #' @importFrom vegan rda anova.cca RsquareAdj
 #' @importFrom stats na.omit
-#' @export listw.select
+#' @export listw.select mem.select
+#' @rdname mem.select
 
 "listw.select" <- function(x, 
                            candidates, 
@@ -602,3 +617,22 @@
             "\n", "No significant spatial structure was detected in the data.", "\n", sep = "")
   }
 }
+
+#' @rdname mem.select
+"mem.select" <- function(x, 
+                         candidates, 
+                         autocor = c("positive", "negative", "all"), 
+                         crit = c("forward", "MIR", "global"),
+                         alpha = 0.05, 
+                         summary = TRUE) {
+  crit <- match.arg(crit)
+  autocor <- match.arg(autocor)
+  res <- listw.select(x = x, candidates = candidates, autocor = autocor, crit = crit,
+                      alpha = alpha, correction = TRUE, summary = summary)
+  res2 <- list(MEM.all = res$best$MEM.all, MEM.select = res$best$MEM.select, 
+               listw = res$best$listw, MEM.AdjR2Cum = res$best$MEM.AdjR2Cum, 
+               pval = res$best$pval, R2.global = res$best$R2.global, 
+               R2.select = res$best$R2.select, NbVar = res$best$NbVar)
+  return(res2)
+}
+  
