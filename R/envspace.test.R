@@ -19,24 +19,24 @@
 #' Legendre and Gallagher 2001).
 #' 
 #' \code{MEM_Ab} is a subset of spatial predictors (MEM variables), selected among the
-#' complete set of MEM variables of a given spatial weighting matrix (W matrix) chosen
+#' complete set of MEM variables of a given spatial weighting matrix (SWM) chosen
 #' by the user. The function \code{\link{listw.candidates}} allows generating a list of 
-#' candidate W matrices to be fed to \code{\link{MEM.modsel}}, that optimises the choice 
-#' of the W matrix and selects the best subset of spatial predictors within it using the 
+#' candidate SWMs to be fed to \code{\link{listw.select}}, that optimises the choice 
+#' of the SWM and selects the best subset of spatial predictors within it using the 
 #' forward selection with double stopping criterion of Blanchet et al. (2008; see Bauman
 #' et al. 2018a, and Bauman et al. 2018b in prep. for a review of the methods to select
 #' a subset of spatial predictors in spatial eigenvector-based methods, and for a 
 #' method of spatial weighting matrix optimisation, respectively).
-#' \code{listw_E} corresponds to the spatial weights (W matrix) that will be used to
-#' build the MEM variables for the MSR test. The choice of the W matrix for \code{E} can 
-#' also be optimised using the \code{\link{MEM.modsel}} function, and attributing the 
-#' \code{$listw} output of \code{MEM.modsel} to the argument \code{listw_E} of 
+#' \code{listw_E} corresponds to the spatial weights (SWM) that will be used to
+#' build the MEM variables for the MSR test. The choice of the SWM for \code{E} can 
+#' also be optimised using the \code{\link{listw.select}} function, and attributing the 
+#' \code{$listw} output of \code{listw.select} to the argument \code{listw_E} of 
 #' \code{envspace.test}.
-#' The W matrices selected for \code{Ab} and \code{E} should be chosen separately to 
+#' The SWMs selected for \code{Ab} and \code{E} should be chosen separately to 
 #' best model the spatial structure of both the response data and the environmental dataset. 
-#' If \code{MEM.modsel} is used, as advised, to build \code{MEM_Ab} and \code{listw_E}, 
+#' If \code{listw.select} is used, as advised, to build \code{MEM_Ab} and \code{listw_E}, 
 #' then \code{MEM_Ab} and \code{listw_E} are the \code{$MEM.select} and \code{$listw} elements 
-#' of the output of \code{MEM.modsel}, respectively (see example below).
+#' of the output of \code{listw.select}, respectively (see example below).
 #' 
 #' To verify that \code{E} displays a significant spatial pattern, prior to performing the
 #' test of the JSEF, a test (see function \code{\link{anova.cca}}) is performed on either 
@@ -72,7 +72,7 @@
 #' @param MEM_Ab Matrix or dataframe of spatial predictors (MEM variables) for the response
 #' data (\code{Ab})
 #' @param listw_E An object of class \code{listw} (spatial weights) created by the functions
-#' of the \bold{\code{spdep}} package or returned by the function \code{\link{MEM.modsel}} in
+#' of the \bold{\code{spdep}} package or returned by the function \code{\link{listw.select}} in
 #' its \code{$listw} output
 #' @param autocor_E A string indicating whether all the MEM variables built on the basis of
 #' \code{listW_E} should be used to test the significance of a spatial structure in \code{E},
@@ -104,7 +104,7 @@
 #' @author Jason Vleminckx and David Bauman, \email{jasvlx86@@gmail.com}, 
 #' \email{davbauman@@gmail.com}
 #' 
-#' @seealso \code{\link{varpart}}, \code{\link{MEM.modsel}}, \code{\link{listw.candidates}}
+#' @seealso \code{\link{varpart}}, \code{\link{listw.select}}, \code{\link{listw.candidates}}
 #' 
 #' @references Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) To link or not to link: 
 #' optimising the choice of a spatial weighting matrix in eigenvector-based methods. Ecology
@@ -145,35 +145,35 @@
 #' data(mite.xy)
 #' coord <- mite.xy
 #' 
-#' ### Building a list of candidate spatial weighting matrices (W matrices) for the 
-#' ### optimisation of the W matrix selection, separately for 'Y' and 'env':
+#' ### Building a list of candidate spatial weighting matrices (SWMs) for the 
+#' ### optimisation of the SWM selection, separately for 'Y' and 'env':
 #' # We create five candidates: a connectivity matrix based on a Gabriel graphs, on
-#' # a minimum spanning tree (i.e., two contrasted graph-based W matrices), either
+#' # a minimum spanning tree (i.e., two contrasted graph-based SWMs), either
 #' # not weighted, or weighted by a linear function decreasing with the distance),
-#' # and a distance-based W matrix corresponding to the connectivity and weighting
+#' # and a distance-based SWM corresponding to the connectivity and weighting
 #' # criteria of the original PCNM method:
 #' candidates <- listw.candidates(coord, gab = TRUE, mst = TRUE, PCNM = TRUE, binary = TRUE, 
 #'                                flin = TRUE)
-#' ### Optimisation of the choice of a W matrix:
-#' # W matrix for 'Y' (based on the best forward selected subset of MEM variables):
-#' modsel_Y <- MEM.modsel(Y, candidates, correction = TRUE, crit = "forward",
+#' ### Optimisation of the choice of a SWM:
+#' # SWM for 'Y' (based on the best forward selected subset of MEM variables):
+#' modsel_Y <- listw.select(Y, candidates, correction = TRUE, crit = "forward",
 #'                        autocor = "positive")
 #' 
-#' paste("The best W matrix for 'Y' was ", modsel_Y$best$name, ". The forward selection ",
+#' paste("The best SWM for 'Y' was ", modsel_Y$best$name, ". The forward selection ",
 #'       "with double stopping criterion (Blanchet et al. 2008) selected a best subset",
-#'       " of spatial predictors within this W matrix. This subset contains ", 
+#'       " of spatial predictors within this SWM. This subset contains ", 
 #'       modsel_Y$best$NbVar, " MEM variables and has an adjusted R2 of ", 
 #'       round(modsel_Y$best$R2.select, 3), ".", sep = "")
 #' 
-#' # W matrix for 'env' (based on the global models, as all MEM variables are used in MSR):
-#' modsel_env <- MEM.modsel(env, candidates, correction = TRUE, crit = "global", 
+#' # SWM for 'env' (based on the global models, as all MEM variables are used in MSR):
+#' modsel_env <- listw.select(env, candidates, correction = TRUE, crit = "global", 
 #'                          autocor = "all")
 #' 
-#' paste("The best W matrix for 'env' was ", modsel_env$best$name, ". This model has a global",
+#' paste("The best SWM for 'env' was ", modsel_env$best$name, ". This model has a global",
 #'       "adjusted R2 of ", round(modsel_env$best$R2.global, 3), ".", sep = "")
 #' 
 #' ### We perform the variation partitioning:
-#' # Subset of selected MEM variables within the best W matrix:
+#' # Subset of selected MEM variables within the best SWM:
 #' MEM_Ab <- modsel_Y$best$MEM.select
 #' 
 #' VP <- varpart(Y, env, MEM_Ab)

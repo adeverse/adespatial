@@ -39,7 +39,7 @@ W matrix was built.} \item{MEM }{A list containing the results of
 This function is a user-friendly way to compute eigenvectors for various 
 possible definitions of spatial weighting matrices (W matrices). It uses the 
 function \code{scores.listw} to build the MEM variables on the basis of the 
-W matrix provided. Contrary to \code{\link{MEM.modsel}}, \code{test.W.R2} 
+W matrix provided. Contrary to \code{\link{listw.select}}, \code{test.W.R2} 
 does not test the significance of the W matrix nor select the best subset of
 spatial predictors within it; it simply generates and returns the complete set 
 of MEM variables positively, negatively or both positively and negatively
@@ -60,16 +60,16 @@ This functions allows to test one binary spatial weighting matrix
   of the significance threshold value of the W matrices), and was used in
   many studies to select a best subset of spatial predictors, while the method
   was not designed for this purpose and therefore led to highly inflated type
-  I error rates (see Bauman et al. 2017 for details). The function 
+  I error rates (see Bauman et al. 2018a for details). The function 
   \code{test.W} should therefore not be used anymore. Instead, the user can
   use \code{test.W.R2} to generate the MEM variables according to different W
   matrices (but see warnings below), or can use the combination of 
-  \code{\link{listw.candidates}} and \code{\link{MEM.modsel}} which is the best
+  \code{\link{listw.candidates}} and \code{\link{listw.select}} which is the best
   user-friendly way to both select a W matrix and a subset of spatial predictors
-  within it while keeping a correct type I error rate (Bauman et al. 2018).
+  within it while keeping a correct type I error rate (Bauman et al. 2018b).
   Note that if a significance test is performed on a W matrix, the significance 
   threshold value must be corrected to consider the total number of W matrices 
-  tested (Bauman et al. 2018). For instance, if the user buids W matrices using 
+  tested (Bauman et al. 2018b). For instance, if the user buids W matrices using 
   a Gabriel's graph and a weighting function for which five parametre values are 
   tested, then a list of five W matrices will be returned by \code{test.W.R2}, 
   and the significance of each of the five W matrices should be tested at a 
@@ -78,11 +78,11 @@ This functions allows to test one binary spatial weighting matrix
   test himself the significance of the global model (whole set of MEM
   variables generated) at the corrected significance threshold value, and
   then proceed to an eigenvector selection within the chosen W matrix (see 
-  Bauman et al. 2017 for a discussion on which spatial eigenvector selection
+  Bauman et al. 2018a for a discussion on which spatial eigenvector selection
   method to use in which situation).
   The function \code{\link{listw.candidates}} builds a list of W matrices
   the user is interested to compare, and this list can be entered to the
-  function \code{\link{MEM.modsel}} which optimises the selection of the 
+  function \code{\link{listw.select}} which optimises the selection of the 
   W matrix while controling the type I error rate, and then selects the best
   spatial predictor subset within the optimal W matrix.
 }
@@ -114,15 +114,16 @@ Dray S., Legendre P. and Peres-Neto P. R. (2006) Spatial
   modeling: a comprehensive framework for principal coordinate analysis of 
   neighbor matrices (PCNM). Ecological Modelling, 196, 483--493
   
-Bauman D., Drouet T., Dray S. and Vleminckx J. (2017) Disentangling good from bad 
-practices in the selection of spatial or phylogenetic eigenvectors. Ecography 
-*******************************
+Bauman D., Drouet T., Dray S. and Vleminckx J. (2018a) Disentangling good from bad 
+practices in the selection of spatial or phylogenetic eigenvectors. Ecography, 41,
+1--12
 
-Bauman D., Fortin M-J, Suez M., Drouet T. and Dray S. (2018) ********************
+Bauman D., Fortin M-J, Drouet T. and Dray S. (2018b) Optimizing the choice of 
+a spatial weighting matrix in eigenvector-based methods. Ecology
 }
 \seealso{
 \code{\link{scores.listw}}, \code{\link{listw.candidates}}, 
-\code{\link{MEM.modsel}}
+\code{\link{listw.select}}
 }
 \author{
 Stephane Dray and Bauman David \email{stephane.dray@univ-lyon1.fr}, 

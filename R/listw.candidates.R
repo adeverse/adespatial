@@ -1,17 +1,17 @@
 #' Function to create a list of spatial weighting matrices
 #' 
 #' This function is a user-friendly way to create a list of spatial weighting
-#' matrices (W matrices) by selecting a set of predefined connectivity and
+#' matrices (SWM) by selecting a set of predefined connectivity and
 #' weighting matrices (B and A matrices, respectively). The list can then be fed
-#' to the function \code{MEM.modsel} to optimise the selection of the W matrix
+#' to the function \code{listw.select} to optimize the selection of the SWM
 #' and select the best eigenvector subset within this matrix while controlling
 #' the type I error rate.
 #' 
-#' @details The function allows to construct W matrices based on any combination
+#' @details The function allows to construct SWMs based on any combination
 #'   of B and A matrices. The B matrices are either graph-based or
 #'   distance-based. The function proposes the Delaunay triangulation, Gabriel
 #'   graph, relative neighbourhood graph, and the minimum spanning tree criteria
-#'   to build a graph-based B matrix. Distance-based W matrices can be built
+#'   to build a graph-based B matrix. Distance-based SWMs can be built
 #'   with the principal coordinates of neighbour matrices (PCNM; Borcard and
 #'   Legendre 2002) criteria (see details below), or using another threshold 
 #'   distance to define the connected site pairs. The A matrix can be based on a
@@ -22,18 +22,18 @@
 #'   \code{dmax} is the maximum euclidean distance between two sites, and 
 #'   \code{y} is a user-defined parametre that can either be a single value or a
 #'   vector of values. The argument \code{PCNM} consists in constructing a
-#'   distance-based W matrix based on the largest edge of the minimum spanning
+#'   distance-based SWM based on the largest edge of the minimum spanning
 #'   tree as a connectivity distance threshold, and then by weighting the links
 #'   by the function \eqn{1-(D/(4*t))^2}, where \code{D} is the euclidean
 #'   distance between the sites, and \code{t} is the distance threshold below
-#'   which two sites are considered connected (Dray et al. 2006). As optimising
-#'   the choice of a W matrix has to be done with a p-value correction depending
-#'   on the number of candidate W matrices tested (see function
-#'   \code{MEM.modsel}), Bauman et al. (2018) strongly encouraged plotting the
+#'   which two sites are considered connected (Dray et al. 2006). As optimizing
+#'   the choice of a SWM has to be done with a p-value correction depending
+#'   on the number of candidate SWMs tested (see function
+#'   \code{listw.select}), Bauman et al. (2018) strongly encouraged plotting the
 #'   concave-down and concave-up weighting functions with several parametre
 #'   values in order to only choose the realistic ones to build the candidate W
 #'   matrices (e.g., ranging between 0.1 and 1 for the concave-up function, as
-#'   values over 1 would make no ecological sense). First visualising the 
+#'   values over 1 would make no ecological sense). First visualizing the 
 #'   connectivity schemes with the \code{createlistw} function may also help
 #'   choosing the B matrices to select for the \code{listw.candidates} function.
 #'   
@@ -50,21 +50,21 @@
 #'   should be used; default is FALSE
 #' @param mst Defines whether a B matrix based on a minimum spanning tree should
 #'   be used; default is FALSE
-#' @param PCNM Defines whether a distance-based W matrix based on the principal 
+#' @param PCNM Defines whether a distance-based SWM based on the principal 
 #'   coordinates of neighbour matrices (PCNM) criteria should be used (see
 #'   'Details'); default is FALSE
-#' @param DB Defines whether a distance-based W matrix should be built; default
+#' @param DB Defines whether a distance-based SWM should be built; default
 #'   is FALSE
 #' @param d2 Only considered if DB is TRUE; defines the connectivity
 #'   distance threshold below which two sites are connected (i.e., maximum distance between two
 #'   neighbors. It can either be a single value or a vector of values, in which case a 
-#'   different W matrix will be generated for each threshold value. The default value is the 
+#'   different SWM will be generated for each threshold value. The default value is the 
 #'   minimum distance keeping all points connected (i.e., the largest edge of the minimum 
 #'   spanning tree)
 #' @param d1 Only considered if DB is TRUE; single value defining the distance beyond which 
 #'   two sites are connected (i.e., minimum distance between two neighbor sites). The default 
 #'   value is 0 (no constraint on the min distance). \code{d1} must be smaller than \code{d2}
-#' @param binary Defines whether W matrices based on the selected B matrices
+#' @param binary Defines whether SWMs based on the selected B matrices
 #'   should be created without weights on the connexions; default is FALSE
 #' @param flin Defines whether the linear weighting function should be used (see
 #'   Details below); default is FALSE
@@ -77,17 +77,17 @@
 #' @param y_fconcup Single value or vector of values of the \code{y} parametre
 #'   in the concave-up weighting function; default is 0.5
 #'   
-#' @return A list of W matrices. Each element of the list was built by
+#' @return A list of SWMs. Each element of the list was built by
 #'   \code{nb2listw} (package \code{spdep}) and therefore is of class
-#'   \code{listw} and \code{nb}. The name of each element of the list (W matrix)
+#'   \code{listw} and \code{nb}. The name of each element of the list (SWM)
 #'   is composed of the corresponding B and A matrices, followed (if any) by the
 #'   \code{y} parametre value of the weighting function.
 #'   
 #' @author Bauman David \email{dbauman@@ulb.ac.be} or \email{davbauman@@gmail.com}
 #'   
-#' @seealso \code{\link{createlistw}}, \code{\link{MEM.modsel}}
+#' @seealso \code{\link{createlistw}}, \code{\link{listw.select}}
 #'   
-#' @references Bauman D., Fortin M-J., Drouet T. and Dray S. (2018) Optimising the choice of 
+#' @references Bauman D., Fortin M-J., Drouet T. and Dray S. (2018) Optimizing the choice of 
 #' a spatial weighting matrix in eigenvector-based methods. Ecology
 #' 
 #' Borcard D. and Legendre P. (2002) All-scale spatial analysis of 
@@ -106,7 +106,7 @@
 #' xy[, 1] <- sample(c(1:120), 100, replace = FALSE)
 #' xy[, 2] <- sample(c(1:120), 100, replace = FALSE)
 #' ### The function listw.candidates is used to build the spatial weighting matrices that
-#' ### we want to test and compare (with the MEM.modsel function). We test a Gabriel's graph, 
+#' ### we want to test and compare (with the listw.select function). We test a Gabriel's graph, 
 #' ### a minimum spanning tree, and a distance-based connectivity defined by a threshold
 #' ### distance corresponding to the smallest distance keeping all sites connected (i.e., 
 #' ### the defaut value of d2). These connectivity matrices are then either not weighted 
@@ -124,7 +124,7 @@
 #'                                 y_fconcdown = c(1:5), y_fconcup = 0.2)
 #' ### Number of spatial weighting matrices generated:
 #' length(candidates2) 
-#' ### A single W matrix can also easily be generated with listw.candidates:
+#' ### A single SWM can also easily be generated with listw.candidates:
 #' listw <- listw.candidates(xy, gab = TRUE, bin = TRUE)
 #' plot(listw[[1]], xy)
 #' 
@@ -174,8 +174,8 @@
   
   xy.d1 <- dist(coord)
   
-  # Total nb of W matrices to be built:
-  # ***********************************
+  # Total nb of SWMs to be built:
+  # *****************************
   nbB <- length(which(c(del, gab, rel, mst) == TRUE))
   if (DB == TRUE) nbB <- nbB + length(d2)
   nbw <- nbB
@@ -200,12 +200,12 @@
   }
   if (PCNM == TRUE) nbw <- nbw + 1
   
-  # List for the candidate W matrices:
+  # List for the candidate SWMs:
   listwcand <- vector("list", nbw)
   count <- 0
   
-  # Construction of the list of candidate W matrices: 
-  # *************************************************
+  # Construction of the list of candidate SWMs: 
+  # *******************************************
   if (del == TRUE) {
     Y.del <- tri2nb(jitter(as.matrix(coord), factor = 0.001))
     if (binary == TRUE) {
