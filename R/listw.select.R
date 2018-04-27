@@ -1,15 +1,13 @@
 #' Function to optimize the selection of a spatial weighting matrix and select the best 
 #' subset of eigenvectors
 #' 
-#' \code{listw.select} computes MEM variables for various definitions of spatial weighting 
-#' matrices (SWM) and optimizes the selection of the SWM and of a subset of MEM variables. 
-#' The MEM variables are eigenvectors of a doubly centered SWM. Corresponding eigenvalues are 
-#' linearly related to Moran's index of spatial autocorrelation. 
+#' \code{listw.select} computes MEM variables (i.e., eigenvectors of a doubly centered spatial 
+#' weighting matrix) for various definitions of spatial weighting matrices (SWM) and optimizes 
+#' the selection of the SWM and of a subset of MEM variables. 
 #' The optimization is done by maximizing the adjusted R-squared (R2) or by minimizing the 
 #' residual spatial autocorrelation. The function controls the type I error rate by accounting 
-#' for the number of tests performed (see Bauman et al. 2018a). 
-#' 
-#' \code{mem.select} computes MEM variables for a single definition of SWM, test its 
+#' for the number of tests performed. 
+#' Function \code{mem.select} computes MEM variables for a single definition of SWM, test its 
 #' significances, and optimizes the selection of MEM variables within the SWM using the same
 #' criteria than \code{listw.select}.
 #' These functions combine calls to the functions \code{scores.listw} and \code{forward.sel} 
@@ -109,9 +107,9 @@
 #'
 #' @aliases listw.select mem.select  
 #' @param x Vector, matrix, or dataframe of the response variable(s)
-#' @param candidates A list of one or more spatial weighting matrices of the class 
-#' \code{listw}; \code{candidates} can be a list containing one or several spatial 
-#' weighting matrices, but it can also be a single \code{listw} object
+#' @param candidates A list of one or more SWMs of the class \code{listw}; \code{candidates} 
+#' can be a list of several SWM (when using \code{listw.select}), but it can also be a list 
+#' of one SWM or a single \code{listw} object (when using \code{mem.select})
 #' @param autocor Sign of the spatial eigenvectors to consider; "positive", "negative", 
 #' or "all", for positively, negatively autocorrelated eigenvectors, or both, respectively; 
 #' default is "positive"
@@ -271,11 +269,10 @@
 #' 
 #' # See Appendix S3 of Bauman et al. 2018a for more extensive examples and illustrations.
 #' }
-#'  
+#' 
+#' @export listw.select mem.select 
 #' @importFrom vegan rda anova.cca RsquareAdj
 #' @importFrom stats na.omit
-#' @export listw.select mem.select
-#' @rdname mem.select
 
 "listw.select" <- function(x, 
                            candidates, 
@@ -618,7 +615,7 @@
   }
 }
 
-#' @rdname mem.select
+#' @rdname listw.select
 "mem.select" <- function(x, 
                          candidates, 
                          autocor = c("positive", "negative", "all"), 

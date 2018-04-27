@@ -2,12 +2,17 @@
 % Please edit documentation in R/listw.select.R
 \name{listw.select}
 \alias{listw.select}
+\alias{mem.select}
+\alias{mem.select}
 \title{Function to optimize the selection of a spatial weighting matrix and select the best 
 subset of eigenvectors}
 \usage{
 listw.select(x, candidates, autocor = c("positive", "negative", "all"),
   crit = c("forward", "MIR", "global"), alpha = 0.05, correction = TRUE,
   summary = TRUE)
+
+mem.select(x, candidates, autocor = c("positive", "negative", "all"),
+  crit = c("forward", "MIR", "global"), alpha = 0.05, summary = TRUE)
 }
 \arguments{
 \item{x}{Vector, matrix, or dataframe of the response variable(s)}
@@ -34,7 +39,7 @@ or not; The R2 value returned in the message depends on the argument \code{crit}
 the subset of selected predictors or R2 of the global model); Default is \code{TRUE}}
 }
 \value{
-The function returns two lists containing several features of the SWM selected
+\code{listw.select} returns two lists containing several features of the SWM selected
 by the optimization procedure, and general features of all the SWMs generated and tested: 
 
 The first list, \code{$all}, contains: 
@@ -83,18 +88,25 @@ matrix. If \code{autocor = "all"}, two values (positive and negative MEM models)
 \item{bestw_index}{Index of the best SWM in the list \code{candidates} provided 
 to \code{listw.select}.}
 }
+
+The function \code{mem.select} only returns one list, corresponding to the \code{$best} list
+of \code{listw.selec}, but without the objects \code{name} and \code{bestW_index}.
 }
 \description{
-\code{listw.select} computes spatial eigenvectors for various definitions of spatial 
-weighting matrices (SWM) and optimizes the selection of the SWM by maximizing the
-value of the adjusted R-squared (R2) or by minimizing the residual spatial autocorrelation.
-The function controls the type I error rate by accounting for the number of tests performed
-(see Bauman et al. 2018a). 
-\code{listw.select} combines calls to the functions \code{scores.listw} and 
-\code{forward.sel} or \code{\link{MEM.moransel}}.
-The list of candidate SWMs can easily be generated using the user-friendly 
-\code{\link{listw.candidates}} function. The significance of each SWM is tested by
-9999 permutations with the function \code{anova.cca} (package \code{vegan}).
+\code{listw.select} computes MEM variables (i.e., eigenvectors of a doubly centered spatial 
+weighting matrix) for various definitions of spatial weighting matrices (SWM) and optimizes 
+the selection of the SWM and of a subset of MEM variables. 
+The optimization is done by maximizing the adjusted R-squared (R2) or by minimizing the 
+residual spatial autocorrelation. The function controls the type I error rate by accounting 
+for the number of tests performed. 
+Function \code{mem.select} computes MEM variables for a single definition of SWM, test its 
+significances, and optimizes the selection of MEM variables within the SWM using the same
+criteria than \code{listw.select}.
+These functions combine calls to the functions \code{scores.listw} and \code{forward.sel} 
+or \code{\link{MEM.moransel}}.
+The list of candidate SWMs can easily be generated using \code{\link{listw.candidates}}.
+The significance of each SWM is tested by 9999 permutations with the function 
+\code{anova.cca} (package \code{vegan}).
 }
 \details{
 While the selection of the SWM is the most critical step of the spatial
@@ -181,6 +193,10 @@ sum of the adjusted R2 or number of selected spatial eigenvectors, for
 Note that the MIR criterion of optimization can only be used for a univariate \code{x}, 
 as the Moran's I is a univariate index. If \code{x} is multivariate, then the best 
 criterion is the forward selection (see Bauman et al. 2018b).
+
+\code{mem.select} works exactly like \code{listw.select} but for a single SWM. Its purpose
+is to test the SWM and, if significant, to optimize the selection of a subset of spatial
+predictors within it.
 }
 \examples{
 if(require(spdep)) {
@@ -235,7 +251,7 @@ W_sel$all$R2.select
 
 # See Appendix S3 of Bauman et al. 2018a for more extensive examples and illustrations.
 }
- 
+
 }
 \references{
 Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) Optimizing the choice of 
