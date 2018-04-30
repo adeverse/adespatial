@@ -207,7 +207,7 @@
   # Construction of the list of candidate SWMs: 
   # *******************************************
   if (del == TRUE) {
-    Y.del <- tri2nb(jitter(as.matrix(coord), factor = 0.001))
+    Y.del <- tri2nb(as.matrix(coord))
     if (binary == TRUE) {
       count <- count + 1
       listwcand[[count]] <- nb2listw(Y.del, style = style)
