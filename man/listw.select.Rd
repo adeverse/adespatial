@@ -17,9 +17,9 @@ mem.select(x, candidates, autocor = c("positive", "negative", "all"),
 \arguments{
 \item{x}{Vector, matrix, or dataframe of the response variable(s)}
 
-\item{candidates}{A list of one or more spatial weighting matrices of the class 
-\code{listw}; \code{candidates} can be a list containing one or several spatial 
-weighting matrices, but it can also be a single \code{listw} object}
+\item{candidates}{A list of one or more SWMs of the class \code{listw}; \code{candidates} 
+can be a list of several SWM (when using \code{listw.select}), but it can also be a list 
+of one SWM or a single \code{listw} object (when using \code{mem.select})}
 
 \item{autocor}{Sign of the spatial eigenvectors to consider; "positive", "negative", 
 or "all", for positively, negatively autocorrelated eigenvectors, or both, respectively; 
@@ -223,8 +223,7 @@ Y_sampled <- Y[sample]
 ### the defaut value of d2; see help of function listw.candidates). 
 ### These connectivity matrices are then either not weighted (binary weighting), or 
 ### weighted by the linearly decreasing function (see help of the function listw.candidates):
-candidates <- listw.candidates(coord = xy, gab = TRUE, mst = TRUE, binary = TRUE, 
-                               flin = TRUE)
+candidates <- listw.candidates(coord = xy, nb = c("gab", "mst"), weights = c("binary", "flin"))
 ### Number of candidate W matrices generated:
 nbw <- length(candidates)
 ### Significance threshold value after p-value correction (Sidak correction):

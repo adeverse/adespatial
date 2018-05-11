@@ -150,8 +150,7 @@ coord <- mite.xy
 # not weighted, or weighted by a linear function decreasing with the distance),
 # and a distance-based SWM corresponding to the connectivity and weighting
 # criteria of the original PCNM method:
-candidates <- listw.candidates(coord, gab = TRUE, mst = TRUE, PCNM = TRUE, binary = TRUE, 
-                               flin = TRUE)
+candidates <- listw.candidates(coord, nb = c("gab", "mst", "pcnm"), weights = c("binary", "flin"))
 ### Optimisation of the choice of a SWM:
 # SWM for 'Y' (based on the best forward selected subset of MEM variables):
 modsel_Y <- listw.select(Y, candidates, correction = TRUE, crit = "forward",

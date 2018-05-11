@@ -21,7 +21,7 @@
 #'   \code{D} is the euclidean distance between the two sites considered,
 #'   \code{dmax} is the maximum euclidean distance between two sites, and 
 #'   \code{y} is a user-defined parametre that can either be a single value or a
-#'   vector of values. The argument \code{PCNM} consists in constructing a
+#'   vector of values. The choice \code{nb = "pcnm"} consists in constructing a
 #'   distance-based SWM based on the largest edge of the minimum spanning
 #'   tree as a connectivity distance threshold, and then by weighting the links
 #'   by the function \eqn{1-(D/(4*t))^2}, where \code{D} is the euclidean
@@ -41,49 +41,44 @@
 #' @param style Coding scheme style (see \code{nb2listw} of the \code{spdep}
 #'   package). Can take values 'W', 'B', 'C', 'U', 'minmax', and 'S'; default is
 #'   'B'
-#' @param del Defines whether a B matrix based on the Delaunay triangulation
-#'   should be used; default is FALSE. No edge effect correction implemented here (see
-#'   discussion of Bauman et al. 2018)
-#' @param gab Defines whether a B matrix based on a Gabriel's graph should be
-#'   used; default is FALSE
-#' @param rel Defines whether a B matrix based on a relative neighbourhood graph
-#'   should be used; default is FALSE
-#' @param mst Defines whether a B matrix based on a minimum spanning tree should
-#'   be used; default is FALSE
-#' @param PCNM Defines whether a distance-based SWM based on the principal 
-#'   coordinates of neighbour matrices (PCNM) criteria should be used (see
-#'   'Details'); default is FALSE
-#' @param DB Defines whether a distance-based SWM should be built; default
-#'   is FALSE
-#' @param d2 Only considered if DB is TRUE; defines the connectivity
+#' @param nb Defines how the B matrix (connectivity) is build:
+#'  * \code{del} Delaunay triangulation
+#'  * \code{gab} Gabriel's graph 
+#'  * \code{rel} Relative neighbourhood graph
+#'  * \code{mst} Minimum spanning tree
+#'  * \code{pcnm} Distance-based SWM based on the principal 
+#'   coordinates of neighbour matrices (PCNM) criteria (see
+#'   'Details')
+#'  * \code{dnear} Distance-based
+#'  
+#' @param d2 Only considered if \code{nb = "dnear"}. It defines the connectivity
 #'   distance threshold below which two sites are connected (i.e., maximum distance between two
 #'   neighbors. It can either be a single value or a vector of values, in which case a 
 #'   different SWM will be generated for each threshold value. The default value is the 
 #'   minimum distance keeping all points connected (i.e., the largest edge of the minimum 
 #'   spanning tree)
-#' @param d1 Only considered if DB is TRUE; single value defining the distance beyond which 
+#' @param d1 Only considered if \code{nb = "dnear"}. A single value defining the distance beyond which 
 #'   two sites are connected (i.e., minimum distance between two neighbor sites). The default 
 #'   value is 0 (no constraint on the min distance). \code{d1} must be smaller than \code{d2}
-#' @param binary Defines whether SWMs based on the selected B matrices
-#'   should be created without weights on the connexions; default is FALSE
-#' @param flin Defines whether the linear weighting function should be used (see
-#'   Details below); default is FALSE
-#' @param fconcdown Defines whether the concave-down weighting function should
-#'   be used (see Details below); default is FALSE
-#' @param fconcup Defines whether the concave-up weighting function should be
-#'   used (see Details below); default is FALSE
-#' @param y_fconcdown Single value or vector of values of the \code{y} parametre
+#' @param weights Defines how the A matrix (weighths) is build:
+#'  * \code{binary} without weights
+#'  * \code{flin} Linear weighting function 
+#'  * \code{fdown} Concave-down weighting function(see Details below)
+#'  * \code{fup} Concave-up weighting function (see Details below)
+#'  
+#' @md 
+#' @param y_fdown Single value or vector of values of the \code{y} parameter
 #'   in the concave-down weighting function; default is 5
-#' @param y_fconcup Single value or vector of values of the \code{y} parametre
+#' @param y_fup Single value or vector of values of the \code{y} parameter
 #'   in the concave-up weighting function; default is 0.5
 #'   
 #' @return A list of SWMs. Each element of the list was built by
 #'   \code{nb2listw} (package \code{spdep}) and therefore is of class
 #'   \code{listw} and \code{nb}. The name of each element of the list (SWM)
 #'   is composed of the corresponding B and A matrices, followed (if any) by the
-#'   \code{y} parametre value of the weighting function.
+#'   \code{y} parameter value of the weighting function.
 #'   
-#' @author Bauman David \email{dbauman@@ulb.ac.be} or \email{davbauman@@gmail.com}
+#' @author Bauman David \email{dbauman@@ulb.ac.be} or \email{davbauman@@gmail.com} and Stéphane Dray
 #'   
 #' @seealso \code{\link{createlistw}}, \code{\link{listw.select}}
 #'   
@@ -111,319 +106,164 @@
 #' ### distance corresponding to the smallest distance keeping all sites connected (i.e., 
 #' ### the defaut value of d2). These connectivity matrices are then either not weighted 
 #' ### (binary weighting), or weighted by the linearly decreasing function:
-#' candidates <- listw.candidates(coord = xy, gab = TRUE, mst = TRUE, DB = TRUE,
-#'                                binary = TRUE, flin = TRUE)
+#' candidates <- listw.candidates(coord = xy, nb = c("gab", "mst", "dnear"), 
+#'                                weights = c("binary", "flin"))
 #' names(candidates)                              
 #' plot(candidates[[1]], xy)
 #' plot(candidates[[3]], xy)
 #' ### Construction of a different list of spatial weighting matrices. This time, the
 #' ### connexions are defined by a distance-based criterion based on the same threshold
-#' ### value, but the connections are weighted by the concave-down function with a y parametre
+#' ### value, but the connections are weighted by the concave-down function with a y parameter
 #' ### varying between 2 and 5, and a concave-up function with a y parametre of 0.2.
-#' candidates2 <- listw.candidates(coord = xy, DB = TRUE, fconcdown = TRUE, fconcup = TRUE,
-#'                                 y_fconcdown = c(1:5), y_fconcup = 0.2)
+#' candidates2 <- listw.candidates(coord = xy, nb = "dnear", weights = c("fdown", "fup"),
+#'                                 y_fdown = 1:5, y_fup = 0.2)
 #' ### Number of spatial weighting matrices generated:
 #' length(candidates2) 
 #' ### A single SWM can also easily be generated with listw.candidates:
-#' listw <- listw.candidates(xy, gab = TRUE, bin = TRUE)
-#' plot(listw[[1]], xy)
+#' lw <- listw.candidates(xy, nb = "gab", weights = "bin")
+#' plot(lw[[1]], xy)
 #' 
 #' @importFrom spdep tri2nb nb2listw nbdists graph2nb gabrielneigh relativeneigh dnearneigh
 #' @export
 
 "listw.candidates" <- function (coord, 
-                                style = "B", 
-                                del = FALSE, 
-                                gab = FALSE, 
-                                rel = FALSE, 
-                                mst = FALSE, 
-                                PCNM = FALSE,  
-                                DB = FALSE, 
-                                d1 = 0, 
-                                d2,
-                                binary = FALSE, 
-                                flin = FALSE, 
-                                fconcdown = FALSE, 
-                                fconcup = FALSE, 
-                                y_fconcdown = 5, 
-                                y_fconcup = 0.5) {
-  
-  if (PCNM == FALSE) {
-    if (any(del, gab, rel, mst, DB) == FALSE) 
-      stop("No connectivity matrix selected")
-    if (any(binary, flin, fconcdown, fconcup) == FALSE) 
-      stop("No weighting matrix selected")
-  }
-  if (any(is.na(coord))) stop("NA entries in coord")
-  # If DB = TRUE and no value was specified for d2, then d2 is set to be the
-  # largest edge of the minimum spanning tree (minimum distance keeping all points connected):
-  if (DB == TRUE) {
-    class <- class(try(is.vector(d2), TRUE))
-    if (class == "try-error") d2 <- give.thresh(dist(coord))
-  }
-  
-  if (length(which(c(flin, fconcdown, fconcup) == TRUE)) != 0) weightfun = TRUE
-  else weightfun = FALSE
-  
-  # Definition of the weighting functions:
-  if (weightfun == TRUE) {
-    f1 <- function (D, dmax)     { 1 - (D/dmax) }       # Linear function
-    f2 <- function (D, dmax, y)  { 1 - (D/dmax)^y }     # Concave-down function
-    f3 <- function (D, y)        { 1 / D^y }            # Concave-up function
-  }
-  
-  xy.d1 <- dist(coord)
-  
-  # Total nb of SWMs to be built:
-  # *****************************
-  nbB <- length(which(c(del, gab, rel, mst) == TRUE))
-  if (DB == TRUE) nbB <- nbB + length(d2)
-  nbw <- nbB
-  control_BinLin <- FALSE
-  control_f2 <- FALSE
-  if (length(which(c(binary, flin) == TRUE)) != 0) {
-    control_BinLin <- TRUE
-    nbw <- nbB * length(which(c(binary, flin) == TRUE))
-  }
-  if (weightfun == TRUE) {
-    if (fconcdown == TRUE) {
-      control_f2 <- TRUE
-      yf2 <- length(y_fconcdown)
-      if (control_BinLin == TRUE) nbw <- nbw + (nbB * yf2) 
-      else nbw <- nbB * yf2
+    style = "B", 
+    nb = c("del", "gab", "rel", "mst", "pcnm", "dnear"),
+    d1 = 0, 
+    d2,
+    weights = c("binary", "flin", "fup", "fdown"),
+    y_fdown = 5, 
+    y_fup = 0.5) {
+    
+    nb <- match.arg(nb, several.ok = TRUE)
+    weights <- match.arg(weights, several.ok = TRUE)
+    
+    
+    if(length(nb) == 0) 
+        stop("No connectivity matrix selected")
+    if (length(weights) == 0) 
+        stop("No weighting matrix selected")
+    
+    if (anyNA(coord)) stop("NA entries in coord")
+    
+    coord.mat <- as.matrix(coord)
+    xy.d1 <- dist(coord.mat)  
+    
+    res <- list()
+    ## Manage the case of pcnm separately (as it is not concerned by weights)
+    if ("pcnm" %in% nb) {
+        f <- function (D, t) { 1-(D/(4*t))^2 }           # PCNM criterion
+        lowlim <- give.thresh(xy.d1)
+        matB <- dnearneigh(x = coord.mat, d1 = 0, d2 = lowlim)
+        res[[1]] <- nb2listw(matB, style = style, 
+                    glist = lapply(nbdists(matB, coord.mat),
+                        f, t = lowlim))
+        names(res) <- "DBEM_PCNM"
+        nb <- nb[-match("pcnm", nb)]
+        if(length(nb) == 0)
+            return(res)
     }
-    if (fconcup == TRUE) {
-      yf3 <- length(y_fconcup)
-      if (control_BinLin == TRUE) nbw <- nbw + (nbB * yf3) 
-      else if (control_f2 == TRUE) nbw <- nbw + nbB * yf3 else nbw <- nbB * yf3
-    }
-  }
-  if (PCNM == TRUE) nbw <- nbw + 1
-  
-  # List for the candidate SWMs:
-  listwcand <- vector("list", nbw)
-  count <- 0
-  
-  # Construction of the list of candidate SWMs: 
-  # *******************************************
-  if (del == TRUE) {
-    Y.del <- tri2nb(as.matrix(coord))
-    if (binary == TRUE) {
-      count <- count + 1
-      listwcand[[count]] <- nb2listw(Y.del, style = style)
-      names(listwcand)[count] <- "Delaunay_Binary"
-    }
-    if (weightfun == TRUE) {
-      max.del <- max(unlist(nbdists(Y.del, as.matrix(coord))))
-      if (flin == TRUE) {
-        count <- count + 1
-        listwcand[[count]] <- nb2listw(Y.del, style = style, 
-                                       glist = lapply(nbdists(Y.del, as.matrix(coord)),
-                                                      f1, dmax = max.del))
-        names(listwcand)[count] <- "Delaunay_Linear"
-      } 
-      if (fconcdown == TRUE) {      
-        count <- count + 1
-        for (i in y_fconcdown) {
-          listwcand[[count]] <- nb2listw(Y.del, style = style, 
-                                         glist = lapply(nbdists(Y.del, as.matrix(coord)), 
-                                                        f2, y = i, dmax = max.del))
-          names(listwcand)[count] <- paste("Delaunay_Concave down (y = ", i, ")", sep = "")
-          if (i != y_fconcdown[length(y_fconcdown)]) count <- count + 1
+    
+    
+    .addweights <- function(nb.object, nb.dist, coord.mat, weights, style, Prefix,
+        y_fdown, y_fup) {
+        ## this utility function returns a list of listw objects created 
+        ## using a single nb.object and several weights
+        res <- list()
+        res.names <- c()
+        f1 <- function (D, dmax)     { 1 - (D/dmax) }       # Linear function
+        f2 <- function (D, dmax, y)  { 1 - (D/dmax)^y }     # Concave-down function
+        f3 <- function (D, y)        { 1 / D^y }            # Concave-up function
+        
+        if ("binary" %in% weights) {
+            res <- c(res, list(nb2listw(nb.object, style = style)))
+            res.names <- c(res.names, paste(Prefix, "Binary", sep = "_"))
         }
-      }
-      if (fconcup == TRUE) {      
-        count <- count + 1
-        for (i in y_fconcup) {
-          listwcand[[count]] <- nb2listw(Y.del, style = style, 
-                                         glist = lapply(nbdists(Y.del, as.matrix(coord)), 
-                                                        f3, y = i))
-          names(listwcand)[count] <- paste("Delaunay_Concave up (y = ", i, ")", sep = "")
-          if (i != y_fconcup[length(y_fconcup)]) count <- count + 1
+        
+        if ("flin" %in% weights) {
+            max.del <- max(unlist(nbdists(nb.object, coord.mat)))
+            
+            res <- c(res, list(nb2listw(nb.object, style = style, 
+                glist = lapply(nb.dist, f1, dmax = max.del))))
+            res.names <- c(res.names, paste(Prefix, "Linear", sep = "_"))
         }
-      }
+        
+        if ("fdown" %in% weights) {
+            max.del <- max(unlist(nbdists(nb.object, coord.mat)))
+            for (i in y_fdown) {
+                res <- c(res, list(nb2listw(nb.object, style = style, 
+                    glist = lapply(nbdists(nb.object, coord.mat), 
+                        f2, y = i, dmax = max.del))))
+                res.names <- c(res.names, paste(Prefix, "Down", i, sep = "_"))
+                
+            }
+        }
+        
+        
+        if ("fup" %in% weights) {
+            for (i in y_fup) {
+                res <- c(res, list(nb2listw(nb.object, style = style, 
+                    glist = lapply(nbdists(nb.object, coord.mat), 
+                        f3, y = i))))
+                res.names <- c(res.names, paste(Prefix, "Up", i, sep = "_"))
+                
+            }
+        }
+        
+        names(res) <- res.names
+        return(res)
     }
-  }
-  if (gab == TRUE) {
-    Y.gab <- graph2nb(gabrielneigh(as.matrix(coord), nnmult = 5), sym = TRUE)
-    if (binary == TRUE) {
-      count <- count + 1
-      listwcand[[count]] <- nb2listw(Y.gab, style = style)
-      names(listwcand)[count] <- "Gabriel_Binary"
+    
+    
+    
+    if ("del" %in% nb) {
+        nb.object <- tri2nb(coord.mat)
+        nb.dist <- nbdists(nb.object, coord.mat)
+        res <- c(res, .addweights(nb.object, nb.dist, coord.mat, weights, style, 
+            Prefix = "Delaunay", y_fdown, y_fup))
     }
-    if (weightfun == TRUE) {
-      max.gab <- max(unlist(nbdists(Y.gab, as.matrix(coord))))
-      if (flin == TRUE) {
-        count <- count + 1
-        listwcand[[count]] <- nb2listw(Y.gab, style = style, 
-                                       glist = lapply(nbdists(Y.gab, as.matrix(coord)),
-                                                      f1, dmax = max.gab))
-        names(listwcand)[count] <- "Gabriel_Linear"
-      } 
-      if (fconcdown == TRUE) {      
-        count <- count + 1
-        for (i in y_fconcdown) {
-          listwcand[[count]] <- nb2listw(Y.gab, style = style, 
-                                         glist = lapply(nbdists(Y.gab, as.matrix(coord)),
-                                                                f2, y = i, dmax = max.gab))
-          names(listwcand)[count] <- paste("Gabriel_Concave down (y = ", i, ")", sep = "")
-          if (i != y_fconcdown[length(y_fconcdown)]) count <- count + 1
-        }
-      }
-      if (fconcup == TRUE) {      
-        count <- count + 1
-        for (i in y_fconcup) {
-          listwcand[[count]] <- nb2listw(Y.gab, style = style, 
-                                         glist = lapply(nbdists(Y.gab, as.matrix(coord)), 
-                                                        f3, y = i))
-          names(listwcand)[count] <- paste("Gabriel_Concave up (y = ", i, ")", sep = "")
-          if (i != y_fconcup[length(y_fconcup)]) count <- count + 1
-        }
-      }
+    
+    
+    if ("gab" %in% nb) {
+        nb.object <- graph2nb(gabrielneigh(coord.mat, nnmult = 5), sym = TRUE)
+        nb.dist <- nbdists(nb.object, coord.mat)
+        res <- c(res, .addweights(nb.object, nb.dist, coord.mat, weights, style, 
+            Prefix = "Gabriel", y_fdown, y_fup))
     }
-  }
-  if (rel == TRUE) {
-    Y.rel <- graph2nb(relativeneigh(as.matrix(coord), nnmult = 5), sym = TRUE)
-    if (binary == TRUE) {
-      count <- count + 1
-      listwcand[[count]] <- nb2listw(Y.rel, style = style)
-      names(listwcand)[count] <- "Rel. neighbourhood_Binary"
+    
+    
+    if ("rel" %in% nb) {
+        nb.object <- graph2nb(relativeneigh(coord.mat, nnmult = 5), sym = TRUE)
+        nb.dist <- nbdists(nb.object, coord.mat)
+        res <- c(res, .addweights(nb.object, nb.dist, coord.mat, weights, style, 
+            Prefix = "Relative", y_fdown, y_fup))
     }
-    if (weightfun == TRUE) {
-      max.rel <- max(unlist(nbdists(Y.rel, as.matrix(coord))))
-      if (flin == TRUE) {
-        count <- count + 1
-        listwcand[[count]] <- nb2listw(Y.rel, style = style, 
-                                       glist = lapply(nbdists(Y.rel, as.matrix(coord)), 
-                                                      f1, dmax = max.rel))
-        names(listwcand)[count] <- "Rel. neighbourhood_Linear"
-      } 
-      if (fconcdown == TRUE) {      
-        count <- count + 1
-        for (i in y_fconcdown) {
-          listwcand[[count]] <- nb2listw(Y.rel, style = style, 
-                                         glist = lapply(nbdists(Y.rel, as.matrix(coord)),
-                                                        f2, y = i, dmax = max.rel))
-          names(listwcand)[count] <- paste("Rel. neighbourhood_Concave down (y = ", i, ")", 
-                                           sep = "")
-          if (i != y_fconcdown[length(y_fconcdown)]) count <- count + 1
-        }
-      }
-      if (fconcup == TRUE) {      
-        count <- count + 1
-        for (i in y_fconcup) {
-          listwcand[[count]] <- nb2listw(Y.rel, style = style, 
-                                         glist = lapply(nbdists(Y.rel, as.matrix(coord)),
-                                                        f3, y = i))
-          names(listwcand)[count] <- paste("Rel. neighbourhood_Concave up (y = ", i, ")", 
-                                           sep = "")
-          if (i != y_fconcup[length(y_fconcup)]) count <- count + 1
-        }
-      }
+    
+    if ("mst" %in% nb) {
+        nb.object <- mst.nb(xy.d1)
+        nb.dist <- nbdists(nb.object, coord.mat)
+        res <- c(res, .addweights(nb.object, nb.dist, coord.mat, weights, style, 
+            Prefix = "MST", y_fdown, y_fup))
     }
-  }
-  if (mst == TRUE) {
-    Y.mst <- mst.nb(xy.d1)
-    if (binary == TRUE) {
-      count <- count + 1
-      listwcand[[count]] <- nb2listw(Y.mst, style = style)
-      names(listwcand)[count] <- "Min. spanning tree_Binary"
+    
+    if ("dnear" %in% nb) {
+        # If "dnear" and no value specified for d2, then d2 is set to be the
+        # largest edge of the minimum spanning tree (minimum distance keeping all points connected)
+        if (missing(d2))
+            d2 <- give.thresh(xy.d1)
+    
+        nb.dnear <- lapply(d2, dnearneigh, x = coord.mat, d1 = d1)
+        for(nb.i in 1:length(nb.dnear)){
+            nb.object <- nb.dnear[[nb.i]]
+            nb.dist <- nbdists(nb.object, coord.mat)
+            res <- c(res, .addweights(nb.object, nb.dist, coord.mat, weights, style, 
+                Prefix = paste("Dnear", round(d2[nb.i], 2), sep = ""), y_fdown, y_fup))
+            
+            
+        }
+        
     }
-    if (weightfun == TRUE) {
-      max.mst <- max(unlist(nbdists(Y.mst, as.matrix(coord))))
-      if (flin == TRUE) {
-        count <- count + 1
-        listwcand[[count]] <- nb2listw(Y.mst, style = style, 
-                                       glist = lapply(nbdists(Y.mst, as.matrix(coord)),
-                                                      f1, dmax = max.mst))
-        names(listwcand)[count] <- "Min. spanning tree_Linear"
-      } 
-      if (fconcdown == TRUE) {      
-        count <- count + 1
-        for (i in y_fconcdown) {
-          listwcand[[count]] <- nb2listw(Y.mst, style = style, 
-                                         glist = lapply(nbdists(Y.mst, as.matrix(coord)),
-                                                                f2, y = i, dmax = max.mst))
-          names(listwcand)[count] <- paste("Min. spanning tree_Concave down (y = ", i, ")", 
-                                           sep = "")
-          if (i != y_fconcdown[length(y_fconcdown)]) count <- count + 1
-        }
-      }
-      if (fconcup == TRUE) {      
-        count <- count + 1
-        for (i in y_fconcup) {
-          listwcand[[count]] <- nb2listw(Y.mst, style = style, 
-                                         glist = lapply(nbdists(Y.mst, as.matrix(coord)),
-                                                        f3, y = i))
-          names(listwcand)[count] <- paste("Min. spanning tree_Concave up (y = ", i, ")", 
-                                           sep = "")
-          if (i != y_fconcup[length(y_fconcup)]) count <- count + 1
-        }
-      }
-    }
-  }
-  if (PCNM == TRUE) {
-    count <- count + 1
-    f <- function (D, t) { 1-(D/(4*t))^2 }           # PCNM criterion
-    lowlim <- give.thresh(xy.d1)
-    matB <- dnearneigh(lowlim, x = as.matrix(coord), d1 = d1)
-    listwcand[[count]] <- nb2listw(matB, style = style, 
-                                   glist = lapply(nbdists(matB, as.matrix(coord)),
-                                                  f, t = lowlim))
-    names(listwcand)[count] <- "DBMEM_PCNM"
-  }
-  if (DB == TRUE) {
-    Y.listDB <- lapply(d2, dnearneigh, x = as.matrix(coord), d1 = d1)
-    if (binary == TRUE) {
-      count <- count + 1
-      for (i in 1:length(d2)) {
-        listwcand[[count]] <- nb2listw(Y.listDB[[i]], style = style)
-        names(listwcand)[count] <- paste("DB", i, "_Binary", sep = "")
-        if (i != length(d2)) count <- count + 1
-      }
-    }
-    if (weightfun == TRUE) {
-      nbdist <- lapply(Y.listDB, coords = as.matrix(coord), nbdists)
-      unlist <- lapply(nbdist, unlist)
-      max.list <- lapply(unlist, max)
-      if (flin == TRUE) {
-        count <- count + 1
-        for (i in 1:length(d2)) {
-          listwcand[[count]] <- nb2listw(Y.listDB[[i]], style = style, 
-                                         glist = lapply(nbdists(Y.listDB[[i]], 
-                                                                as.matrix(coord)),
-                                                        f1, dmax = max.list[[i]]))
-          names(listwcand)[count] <- paste("DB", i, "_Linear", sep = "")
-          if (i != length(d2)) count <- count + 1
-        }
-      } 
-      if (fconcdown == TRUE) { 
-        for (j in 1:length(d2)) {
-          count <- count + 1
-          for (i in y_fconcdown) {
-            listwcand[[count]] <- nb2listw(Y.listDB[[j]], style = style, 
-                                           glist = lapply(nbdists(Y.listDB[[j]], 
-                                                                  as.matrix(coord)),
-                                                          f2, y = i, dmax = max.list[[j]]))
-            names(listwcand)[count] <- paste("DB", j, "_Concave down (y = ", i, ")", sep = "")
-            if (i != y_fconcdown[length(y_fconcdown)]) count <- count + 1
-          }
-        }
-      }
-      if (fconcup == TRUE) { 
-        for (j in 1:length(d2)) {
-          count <- count + 1
-          for (i in y_fconcup) {
-            listwcand[[count]] <- nb2listw(Y.listDB[[j]], style = style, 
-                                           glist = lapply(nbdists(Y.listDB[[j]], 
-                                                                  as.matrix(coord)), f3, 
-                                                          y = i))
-            names(listwcand)[count] <- paste("DB", j, "_Concave up (y = ", i, ")", sep = "")
-            if (i != y_fconcup[length(y_fconcup)]) count <- count + 1
-          }
-        }
-      }
-    }
-  }
-  return(listwcand)
+    
+    return(res)
+    
 }

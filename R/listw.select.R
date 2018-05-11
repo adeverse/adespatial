@@ -241,8 +241,7 @@
 #' ### the defaut value of d2; see help of function listw.candidates). 
 #' ### These connectivity matrices are then either not weighted (binary weighting), or 
 #' ### weighted by the linearly decreasing function (see help of the function listw.candidates):
-#' candidates <- listw.candidates(coord = xy, gab = TRUE, mst = TRUE, binary = TRUE, 
-#'                                flin = TRUE)
+#' candidates <- listw.candidates(coord = xy, nb = c("gab", "mst"), weights = c("binary", "flin"))
 #' ### Number of candidate W matrices generated:
 #' nbw <- length(candidates)
 #' ### Significance threshold value after p-value correction (Sidak correction):

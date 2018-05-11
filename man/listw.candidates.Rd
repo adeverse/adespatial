@@ -4,10 +4,9 @@
 \alias{listw.candidates}
 \title{Function to create a list of spatial weighting matrices}
 \usage{
-listw.candidates(coord, style = "B", del = FALSE, gab = FALSE,
-  rel = FALSE, mst = FALSE, PCNM = FALSE, DB = FALSE, d1 = 0, d2,
-  binary = FALSE, flin = FALSE, fconcdown = FALSE, fconcup = FALSE,
-  y_fconcdown = 5, y_fconcup = 0.5)
+listw.candidates(coord, style = "B", nb = c("del", "gab", "rel", "mst",
+  "pcnm", "dnear"), d1 = 0, d2, weights = c("binary", "flin", "fup",
+  "fdown"), y_fdown = 5, y_fup = 0.5)
 }
 \arguments{
 \item{coord}{Vector, matrix, or dataframe of point coordinates}
@@ -16,61 +15,49 @@ listw.candidates(coord, style = "B", del = FALSE, gab = FALSE,
 package). Can take values 'W', 'B', 'C', 'U', 'minmax', and 'S'; default is
 'B'}
 
-\item{del}{Defines whether a B matrix based on the Delaunay triangulation
-should be used; default is FALSE. No edge effect correction implemented here (see
-discussion of Bauman et al. 2018)}
+\item{nb}{Defines how the B matrix (connectivity) is build:
+\itemize{
+\item \code{del} Delaunay triangulation
+\item \code{gab} Gabriel's graph
+\item \code{rel} Relative neighbourhood graph
+\item \code{mst} Minimum spanning tree
+\item \code{pcnm} Distance-based SWM based on the principal
+coordinates of neighbour matrices (PCNM) criteria (see
+'Details')
+\item \code{dnear} Distance-based
+}}
 
-\item{gab}{Defines whether a B matrix based on a Gabriel's graph should be
-used; default is FALSE}
-
-\item{rel}{Defines whether a B matrix based on a relative neighbourhood graph
-should be used; default is FALSE}
-
-\item{mst}{Defines whether a B matrix based on a minimum spanning tree should
-be used; default is FALSE}
-
-\item{PCNM}{Defines whether a distance-based SWM based on the principal 
-coordinates of neighbour matrices (PCNM) criteria should be used (see
-'Details'); default is FALSE}
-
-\item{DB}{Defines whether a distance-based SWM should be built; default
-is FALSE}
-
-\item{d1}{Only considered if DB is TRUE; single value defining the distance beyond which 
-two sites are connected (i.e., minimum distance between two neighbor sites). The default 
+\item{d1}{Only considered if \code{nb = "dnear"}. A single value defining the distance beyond which
+two sites are connected (i.e., minimum distance between two neighbor sites). The default
 value is 0 (no constraint on the min distance). \code{d1} must be smaller than \code{d2}}
 
-\item{d2}{Only considered if DB is TRUE; defines the connectivity
+\item{d2}{Only considered if \code{nb = "dnear"}. It defines the connectivity
 distance threshold below which two sites are connected (i.e., maximum distance between two
-neighbors. It can either be a single value or a vector of values, in which case a 
-different SWM will be generated for each threshold value. The default value is the 
-minimum distance keeping all points connected (i.e., the largest edge of the minimum 
+neighbors. It can either be a single value or a vector of values, in which case a
+different SWM will be generated for each threshold value. The default value is the
+minimum distance keeping all points connected (i.e., the largest edge of the minimum
 spanning tree)}
 
-\item{binary}{Defines whether SWMs based on the selected B matrices
-should be created without weights on the connexions; default is FALSE}
+\item{weights}{Defines how the A matrix (weighths) is build:
+\itemize{
+\item \code{binary} without weights
+\item \code{flin} Linear weighting function
+\item \code{fdown} Concave-down weighting function(see Details below)
+\item \code{fup} Concave-up weighting function (see Details below)
+}}
 
-\item{flin}{Defines whether the linear weighting function should be used (see
-Details below); default is FALSE}
-
-\item{fconcdown}{Defines whether the concave-down weighting function should
-be used (see Details below); default is FALSE}
-
-\item{fconcup}{Defines whether the concave-up weighting function should be
-used (see Details below); default is FALSE}
-
-\item{y_fconcdown}{Single value or vector of values of the \code{y} parametre
+\item{y_fdown}{Single value or vector of values of the \code{y} parameter
 in the concave-down weighting function; default is 5}
 
-\item{y_fconcup}{Single value or vector of values of the \code{y} parametre
+\item{y_fup}{Single value or vector of values of the \code{y} parameter
 in the concave-up weighting function; default is 0.5}
 }
 \value{
 A list of SWMs. Each element of the list was built by
-  \code{nb2listw} (package \code{spdep}) and therefore is of class
-  \code{listw} and \code{nb}. The name of each element of the list (SWM)
-  is composed of the corresponding B and A matrices, followed (if any) by the
-  \code{y} parametre value of the weighting function.
+\code{nb2listw} (package \code{spdep}) and therefore is of class
+\code{listw} and \code{nb}. The name of each element of the list (SWM)
+is composed of the corresponding B and A matrices, followed (if any) by the
+\code{y} parameter value of the weighting function.
 }
 \description{
 This function is a user-friendly way to create a list of spatial weighting
@@ -82,34 +69,34 @@ the type I error rate.
 }
 \details{
 The function allows to construct SWMs based on any combination
-  of B and A matrices. The B matrices are either graph-based or
-  distance-based. The function proposes the Delaunay triangulation, Gabriel
-  graph, relative neighbourhood graph, and the minimum spanning tree criteria
-  to build a graph-based B matrix. Distance-based SWMs can be built
-  with the principal coordinates of neighbour matrices (PCNM; Borcard and
-  Legendre 2002) criteria (see details below), or using another threshold 
-  distance to define the connected site pairs. The A matrix can be based on a
-  binary, linear, concave-down, or concave-up function. The linear,
-  concave-down, and concave-up weighting functions are defined by \eqn{1 -
+of B and A matrices. The B matrices are either graph-based or
+distance-based. The function proposes the Delaunay triangulation, Gabriel
+graph, relative neighbourhood graph, and the minimum spanning tree criteria
+to build a graph-based B matrix. Distance-based SWMs can be built
+with the principal coordinates of neighbour matrices (PCNM; Borcard and
+Legendre 2002) criteria (see details below), or using another threshold
+distance to define the connected site pairs. The A matrix can be based on a
+binary, linear, concave-down, or concave-up function. The linear,
+concave-down, and concave-up weighting functions are defined by \eqn{1 -
   (D/dmax)}, \eqn{1 - (D/dmax)^y}, and \eqn{1 / D^y}, respectively, where
-  \code{D} is the euclidean distance between the two sites considered,
-  \code{dmax} is the maximum euclidean distance between two sites, and 
-  \code{y} is a user-defined parametre that can either be a single value or a
-  vector of values. The argument \code{PCNM} consists in constructing a
-  distance-based SWM based on the largest edge of the minimum spanning
-  tree as a connectivity distance threshold, and then by weighting the links
-  by the function \eqn{1-(D/(4*t))^2}, where \code{D} is the euclidean
-  distance between the sites, and \code{t} is the distance threshold below
-  which two sites are considered connected (Dray et al. 2006). As optimizing
-  the choice of a SWM has to be done with a p-value correction depending
-  on the number of candidate SWMs tested (see function
-  \code{listw.select}), Bauman et al. (2018) strongly encouraged plotting the
-  concave-down and concave-up weighting functions with several parametre
-  values in order to only choose the realistic ones to build the candidate W
-  matrices (e.g., ranging between 0.1 and 1 for the concave-up function, as
-  values over 1 would make no ecological sense). First visualizing the 
-  connectivity schemes with the \code{createlistw} function may also help
-  choosing the B matrices to select for the \code{listw.candidates} function.
+\code{D} is the euclidean distance between the two sites considered,
+\code{dmax} is the maximum euclidean distance between two sites, and
+\code{y} is a user-defined parametre that can either be a single value or a
+vector of values. The choice \code{nb = "pcnm"} consists in constructing a
+distance-based SWM based on the largest edge of the minimum spanning
+tree as a connectivity distance threshold, and then by weighting the links
+by the function \eqn{1-(D/(4*t))^2}, where \code{D} is the euclidean
+distance between the sites, and \code{t} is the distance threshold below
+which two sites are considered connected (Dray et al. 2006). As optimizing
+the choice of a SWM has to be done with a p-value correction depending
+on the number of candidate SWMs tested (see function
+\code{listw.select}), Bauman et al. (2018) strongly encouraged plotting the
+concave-down and concave-up weighting functions with several parametre
+values in order to only choose the realistic ones to build the candidate W
+matrices (e.g., ranging between 0.1 and 1 for the concave-up function, as
+values over 1 would make no ecological sense). First visualizing the
+connectivity schemes with the \code{createlistw} function may also help
+choosing the B matrices to select for the \code{listw.candidates} function.
 }
 \examples{
 ### Create 100 random sampling locations in a squared grid of 120 x 120:
@@ -122,32 +109,32 @@ xy[, 2] <- sample(c(1:120), 100, replace = FALSE)
 ### distance corresponding to the smallest distance keeping all sites connected (i.e., 
 ### the defaut value of d2). These connectivity matrices are then either not weighted 
 ### (binary weighting), or weighted by the linearly decreasing function:
-candidates <- listw.candidates(coord = xy, gab = TRUE, mst = TRUE, DB = TRUE,
-                               binary = TRUE, flin = TRUE)
+candidates <- listw.candidates(coord = xy, nb = c("gab", "mst", "dnear"), 
+                               weights = c("binary", "flin"))
 names(candidates)                              
 plot(candidates[[1]], xy)
 plot(candidates[[3]], xy)
 ### Construction of a different list of spatial weighting matrices. This time, the
 ### connexions are defined by a distance-based criterion based on the same threshold
-### value, but the connections are weighted by the concave-down function with a y parametre
+### value, but the connections are weighted by the concave-down function with a y parameter
 ### varying between 2 and 5, and a concave-up function with a y parametre of 0.2.
-candidates2 <- listw.candidates(coord = xy, DB = TRUE, fconcdown = TRUE, fconcup = TRUE,
-                                y_fconcdown = c(1:5), y_fconcup = 0.2)
+candidates2 <- listw.candidates(coord = xy, nb = "dnear", weights = c("fdown", "fup"),
+                                y_fdown = 1:5, y_fup = 0.2)
 ### Number of spatial weighting matrices generated:
 length(candidates2) 
 ### A single SWM can also easily be generated with listw.candidates:
-listw <- listw.candidates(xy, gab = TRUE, bin = TRUE)
-plot(listw[[1]], xy)
+lw <- listw.candidates(xy, nb = "gab", weights = "bin")
+plot(lw[[1]], xy)
 
 }
 \references{
-Bauman D., Fortin M-J., Drouet T. and Dray S. (2018) Optimizing the choice of 
+Bauman D., Fortin M-J., Drouet T. and Dray S. (2018) Optimizing the choice of
 a spatial weighting matrix in eigenvector-based methods. Ecology
 
-Borcard D. and Legendre P. (2002) All-scale spatial analysis of 
+Borcard D. and Legendre P. (2002) All-scale spatial analysis of
 ecological data by means of principal coordinates of neighbour matrices.
 Ecological Modelling, 153, 51--68
-  
+
 Dray S., Legendre P. and Peres-Neto P. R. (2006) Spatial modeling: a
 comprehensive framework for principal coordinate analysis of neighbor
 matrices (PCNM). Ecological Modelling, 196, 483--493
@@ -156,6 +143,6 @@ matrices (PCNM). Ecological Modelling, 196, 483--493
 \code{\link{createlistw}}, \code{\link{listw.select}}
 }
 \author{
-Bauman David \email{dbauman@ulb.ac.be} or \email{davbauman@gmail.com}
+Bauman David \email{dbauman@ulb.ac.be} or \email{davbauman@gmail.com} and Stéphane Dray
 }
 \keyword{spatial}

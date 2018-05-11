@@ -121,7 +121,7 @@ mod <- lm(spe ~ ., data = env)
 # model as covariables with the MIR selection:
 # 1) We build a spatial weighting matrix based on Gabriel graph with a
 # weighting function decreasing linearly with the distance:
-w <- listw.candidates(coord, gab = TRUE, flin = TRUE)
+w <- listw.candidates(coord, nb = "gab", weights = "flin")
 # 2) We test the spatial autocorrelation of the model residuals and, if
 # necessary, select a subset of spatial predictors:
 y <- residuals(mod)
