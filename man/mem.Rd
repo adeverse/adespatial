@@ -23,7 +23,7 @@ orthobasis.listw(listw, wt = rep(1, length(listw$neighbours)),
   MEM.autocor = c("non-null", "all", "positive", "negative"),
   store.listw = FALSE)
 
-\method{[}{orthobasisSp}(x, i, j)
+\method{[}{orthobasisSp}(x, i, j, drop = TRUE)
 }
 \arguments{
 \item{listw}{An object of the class \code{listw} created by functions of the 
@@ -43,6 +43,9 @@ should be stored in the attribute \code{listw} of the returned object}
 
 \item{i, j}{Elements to extract (integer or empty): index of rows (i) and
 columns (j).}
+
+\item{drop}{A logical. If TRUE, object containing only one colum is converted in 
+vector}
 }
 \value{
 An object of class \code{orthobasisSp} , subclass \code{orthobasis}. 
