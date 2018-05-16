@@ -21,6 +21,8 @@
 #' @param x An object of class \code{orthobasisSp}.
 #' @param i,j Elements to extract (integer or empty): index of rows (i) and
 #'   columns (j).
+#' @param drop A logical. If TRUE, object containing only one colum is converted in 
+#' vector
 #' @return An object of class \code{orthobasisSp} , subclass \code{orthobasis}. 
 #'   The MEMs are stored as a \code{data.frame}. It contains several attributes 
 #'   (see \code{?attributes}) including: \itemize{\item \code{values}: The 
@@ -138,7 +140,7 @@ orthobasis.listw <- function (listw,  wt = rep(1, length(listw$neighbours)),
 
 #' @rdname mem
 #' @export
-"[.orthobasisSp" <- function (x, i, j) {
+"[.orthobasisSp" <- function (x, i, j, drop = TRUE) {
     
     ## i: index of rows
     ## j: index of columns
@@ -155,7 +157,7 @@ orthobasis.listw <- function (listw,  wt = rep(1, length(listw$neighbours)),
     }
     attr(res,"call") <- match.call()
     attr(res,"class") <- attr(x,"class") 
-    if(ncol(res) == 1)
+    if(ncol(res) == 1 & (drop == TRUE))
         res <- as.vector(as.matrix(res))
     return(res)
 }
