@@ -143,6 +143,6 @@ matrices (PCNM). Ecological Modelling, 196, 483--493
 \code{\link{createlistw}}, \code{\link{listw.select}}
 }
 \author{
-Bauman David \email{dbauman@ulb.ac.be} or \email{davbauman@gmail.com} and Stéphane Dray
+David Bauman (\email{dbauman@ulb.ac.be} or \email{davbauman@gmail.com}) and Stéphane Dray
 }
 \keyword{spatial}

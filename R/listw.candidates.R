@@ -78,7 +78,7 @@
 #'   is composed of the corresponding B and A matrices, followed (if any) by the
 #'   \code{y} parameter value of the weighting function.
 #'   
-#' @author Bauman David \email{dbauman@@ulb.ac.be} or \email{davbauman@@gmail.com} and Stéphane Dray
+#' @author David Bauman (\email{dbauman@@ulb.ac.be} or \email{davbauman@@gmail.com}) and Stéphane Dray
 #'   
 #' @seealso \code{\link{createlistw}}, \code{\link{listw.select}}
 #'   
