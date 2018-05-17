@@ -34,7 +34,7 @@
 #'   values in order to only choose the realistic ones to build the candidate W
 #'   matrices (e.g., ranging between 0.1 and 1 for the concave-up function, as
 #'   values over 1 would make no ecological sense). First visualizing the 
-#'   connectivity schemes with the \code{createlistw} function may also help
+#'   connectivity schemes with the \code{listw.explore} function may also help
 #'   choosing the B matrices to select for the \code{listw.candidates} function.
 #'   
 #' @param coord Vector, matrix, or dataframe of point coordinates
@@ -80,7 +80,7 @@
 #'   
 #' @author David Bauman (\email{dbauman@@ulb.ac.be} or \email{davbauman@@gmail.com}) and Stéphane Dray
 #'   
-#' @seealso \code{\link{createlistw}}, \code{\link{listw.select}}
+#' @seealso \code{\link{listw.explore}}, \code{\link{listw.select}}
 #'   
 #' @references Bauman D., Fortin M-J., Drouet T. and Dray S. (2018) Optimizing the choice of 
 #' a spatial weighting matrix in eigenvector-based methods. Ecology
