@@ -1,6 +1,6 @@
 #' Interactive tool to generate R code that creates a spatial weighting matrix
 #' 
-#' @export createlistw
+#' @export listw.explore
 #' @importFrom shiny runApp
 #' @author Stéphane Dray \email{stephane.dray@@univ-lyon1.fr}
 #' @seealso \code{\link{chooseCN}}
@@ -8,8 +8,8 @@
 #' \dontrun{
 #' ## a matrix or an object of class 'Spatial*' should be in the global environment
 #' xy <- matrix(rnorm(50), 25)
-#' createlistw()
+#' listw.explore()
 #' }
-createlistw <- function (){
-    runApp(system.file('createlistw', package = 'adespatial'))
+listw.explore <- function (){
+    runApp(system.file('listw.explore', package = 'adespatial'))
 }

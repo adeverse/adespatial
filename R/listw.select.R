@@ -78,14 +78,17 @@
 #' @param candidates A list of SWMs of the class \code{listw};
 #'  \code{candidates} can be created by \code{listw.candidates}
 #' @param MEM.autocor Sign of the spatial eigenvectors to generate; \code{"positive"},
-#'   \code{"negative"), or \code{"all"}, for positively, negatively autocorrelated
+#'   \code{"negative"}, or \code{"all"}, for positively, negatively autocorrelated
 #'   eigenvectors, or both, respectively; default is \code{"positive"}
 #' @param method Criterion to select the best subset of MEM variables. Either
 #'   \code{forward} (default option), \code{"MIR"} (for univariate \code{x}
 #'   only), or \code{"global"} (see \code{Details})
 #' @param MEM.all A logical indicating if the complete set of MEM variables for the best model
 #'   should be returned
-#' @param nperm Number of permutations to perform the tests; Default is 999
+#' @param nperm Number of permutations to perform the tests in the selection 
+#' procedure; Default is 999
+#' @param nperm.global Number of permutations to perform the tests in the global test;
+#'  Default is 9999
 #' @param alpha Significance threshold value for the tests; Default is 0.05
 #' @param p.adjust A logical indicating wheter the p-value of the global test performed on each SWM
 #'  should be corrected for multiple tests (TRUE) or not (FALSE); default is
@@ -180,8 +183,8 @@
     candidates, 
     MEM.autocor = c("positive", "negative", "all"), 
     method = c("FWD", "MIR", "global"),
-    MEM.all = FALSE, nperm = 999, alpha = 0.05, 
-    p.adjust = TRUE) {
+    MEM.all = FALSE, nperm = 999, nperm.global = 9999, 
+    alpha = 0.05, p.adjust = TRUE) {
     
     
     method <- match.arg(method)
@@ -189,7 +192,7 @@
     
     ntest <- ifelse(p.adjust, length(candidates), 1)
     res.tmp <- lapply(candidates, mem.select, x = x, MEM.autocor = MEM.autocor, 
-        method = method, MEM.all = MEM.all, nperm = nperm, alpha = alpha, ntest = ntest)
+        method = method, MEM.all = MEM.all, nperm = nperm, nperm.global = nperm.global, alpha = alpha, ntest = ntest)
     
     res <- data.frame(row.names = names(candidates))
     

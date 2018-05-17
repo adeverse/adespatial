@@ -268,13 +268,13 @@ The matrix representation of a `listw` object can also be obtained:
 print(listw2mat(listwgab),digits=3)
 ```
 
-To facilitate the building of spatial neighborhoods (`nb` object) and associated spatial weighting matrices (`listw` object), the package `adespatial` provides an interactive graphical interface. The interface is launched by the call `createlistw()` assuming that spatial coordinates are still stored in an object of the R session ([Figure 2](#createlistw)).
+To facilitate the building of spatial neighborhoods (`nb` object) and associated spatial weighting matrices (`listw` object), the package `adespatial` provides an interactive graphical interface. The interface is launched by the call `listw.explore()` assuming that spatial coordinates are still stored in an object of the R session ([Figure 2](#createlistw)).
 
 <br>
 <div style="text-align:center">
 <a name="createlistw"></a>
 <img src="createlistw.png" style="width:700px"/>
-<span style="color:blue">Figure 2: The interactive interface provided by the function `createlistw`. </span>
+<span style="color:blue">Figure 2: The interactive interface provided by the function `listw.explore`. </span>
 </div>
 <br>
 
