@@ -15,7 +15,9 @@
 #'   environmental) variables should be considered in the model.
 #' @param listw A spatial weighting matrix of class \code{listw}; can be created
 #'   with functions of the package \code{spdep}, or with the user-friendly
-#'   function \code{listw.candidates}
+#'   function \code{listw.candidates}. Note that, the function \code{listw.candidates}
+#'   returns a \code{list} of \code{listw} and subselection by \code{[[]]} should be 
+#'   performed in this case (see \code{Example})
 #' @param MEM.autocor Sign of the spatial eigenvectors to generate; "positive",
 #'   "negative", or "all", for positively, negatively autocorrelated
 #'   eigenvectors, or both, respectively; default is "positive"
@@ -24,7 +26,10 @@
 #'   only), or \code{"global"} (see \code{Details})
 #' @param MEM.all A logical indicating if the complete set of MEM variables
 #'   should be returned
-#' @param nperm Number of permutations to perform the tests; Default is 999
+#' @param nperm Number of permutations to perform the tests in the selection 
+#' procedure; Default is 999
+#' @param nperm.global Number of permutations to perform the tests in the global test;
+#'  Default is 9999
 #' @param alpha Significance threshold value for the tests; Default is 0.05
 #' @param \dots Other parameters (for internal use with \code{listw.select})
 #' 
@@ -43,8 +48,7 @@
 #' @details The function provides three different methods to select a subset of
 #'   MEM variables. For all methods, a global test is firstly performed. If
 #'   \code{MEM.autocor = "all"}, two global tests are performed and p-values are
-#'   corrected for multiple comparison (significance threshold equal to
-#'   \code{alpha} divided by two).
+#'   corrected for multiple comparison (Sidak correction).
 #'   
 #'   If the MEM variables are to be further used in a model including actual
 #'   predictors (e.g. environmental), then a subset of spatial eigenvectors
@@ -207,7 +211,7 @@
 
 
 mem.select <- function(x, listw, MEM.autocor = c("positive", "negative", "all"), 
-    method = c("FWD", "MIR", "global"), MEM.all = FALSE, nperm = 999, alpha = 0.05, ...){
+    method = c("FWD", "MIR", "global"), MEM.all = FALSE, nperm = 999, nperm.global = 9999, alpha = 0.05, ...){
     
     method <- match.arg(method)
     MEM.autocor <- match.arg(MEM.autocor)
@@ -227,9 +231,9 @@ mem.select <- function(x, listw, MEM.autocor = c("positive", "negative", "all"),
     if(MEM.autocor == "all"){
         ntest <- ntest * 2
         res.pos <- mem.select(x = x, listw = listw, MEM.autocor = "positive", 
-            method = method, MEM.all = MEM.all, nperm = nperm, alpha = alpha, ntest = ntest)
+            method = method, MEM.all = MEM.all, nperm = nperm, nperm.global = nperm.global, alpha = alpha, ntest = ntest)
         res.neg <- mem.select(x = x, listw = listw, MEM.autocor = "negative", 
-            method = method, MEM.all = MEM.all, nperm = nperm, alpha = alpha, ntest = ntest)
+            method = method, MEM.all = MEM.all, nperm = nperm, nperm.global = nperm.global, alpha = alpha, ntest = ntest)
         # combine results for positive and negative autocorrelations
         res <- list(global.test =  list(positive = res.pos$global.test, negative = res.neg$global.test))
         if(MEM.all)
@@ -268,7 +272,7 @@ mem.select <- function(x, listw, MEM.autocor = c("positive", "negative", "all"),
             alter <- "greater"
         else if (MEM.autocor == "negative")
             alter <- "less"
-        testI <- moran.randtest(x, listw, nperm, alter = alter)
+        testI <- moran.randtest(x, listw, nperm.global, alter = alter)
         ##pvalue correction
         testI$pvalue <- 1-(1-testI$pvalue)^ntest
         
@@ -310,7 +314,7 @@ mem.select <- function(x, listw, MEM.autocor = c("positive", "negative", "all"),
         
     } else {
         x <- as.data.frame(x)
-        testF <- .testglobal(x, as.matrix(MEM), nperm)
+        testF <- .testglobal(x, as.matrix(MEM), nperm.global)
         ##pvalue correction
         testF$pvalue <- 1-(1-testF$pvalue)^ntest
         
@@ -324,7 +328,9 @@ mem.select <- function(x, listw, MEM.autocor = c("positive", "negative", "all"),
             return(res)
         }  
         
-        if (method == "FWD"){
+        if (method == "global"){
+            res <- c(res, list(MEM.select = MEM))
+        } else if (method == "FWD"){
             class <- class(try(fsel <- forward.sel(x, MEM, adjR2thresh = testF$obs, nperm = nperm), 
                 TRUE))
             if (class != "try-error") { 

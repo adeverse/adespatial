@@ -95,7 +95,7 @@ concave-down and concave-up weighting functions with several parametre
 values in order to only choose the realistic ones to build the candidate W
 matrices (e.g., ranging between 0.1 and 1 for the concave-up function, as
 values over 1 would make no ecological sense). First visualizing the
-connectivity schemes with the \code{createlistw} function may also help
+connectivity schemes with the \code{listw.explore} function may also help
 choosing the B matrices to select for the \code{listw.candidates} function.
 }
 \examples{
@@ -140,7 +140,7 @@ comprehensive framework for principal coordinate analysis of neighbor
 matrices (PCNM). Ecological Modelling, 196, 483--493
 }
 \seealso{
-\code{\link{createlistw}}, \code{\link{listw.select}}
+\code{\link{listw.explore}}, \code{\link{listw.select}}
 }
 \author{
 David Bauman (\email{dbauman@ulb.ac.be} or \email{davbauman@gmail.com}) and Stéphane Dray

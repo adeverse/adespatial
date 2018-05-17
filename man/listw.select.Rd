@@ -3,11 +3,11 @@
 \name{listw.select}
 \alias{listw.select}
 \title{Function to optimize the selection of a spatial weighting matrix and select
-the best subset of eigenvectors}
+the best subset of eigenvectors (MEM, Moran's Eigenvector Maps)}
 \usage{
 listw.select(x, candidates, MEM.autocor = c("positive", "negative", "all"),
   method = c("FWD", "MIR", "global"), MEM.all = FALSE, nperm = 999,
-  alpha = 0.05, p.adjust = TRUE)
+  nperm.global = 9999, alpha = 0.05, p.adjust = TRUE)
 }
 \arguments{
 \item{x}{Vector, matrix, or dataframe of the response variable(s)}
@@ -15,9 +15,9 @@ listw.select(x, candidates, MEM.autocor = c("positive", "negative", "all"),
 \item{candidates}{A list of SWMs of the class \code{listw};
 \code{candidates} can be created by \code{listw.candidates}}
 
-\item{MEM.autocor}{Sign of the spatial eigenvectors to generate; "positive",
-"negative", or "all", for positively, negatively autocorrelated
-eigenvectors, or both, respectively; default is "positive"}
+\item{MEM.autocor}{Sign of the spatial eigenvectors to generate; \code{"positive"},
+\code{"negative"}, or \code{"all"}, for positively, negatively autocorrelated
+eigenvectors, or both, respectively; default is \code{"positive"}}
 
 \item{method}{Criterion to select the best subset of MEM variables. Either
 \code{forward} (default option), \code{"MIR"} (for univariate \code{x}
@@ -26,7 +26,11 @@ only), or \code{"global"} (see \code{Details})}
 \item{MEM.all}{A logical indicating if the complete set of MEM variables for the best model
 should be returned}
 
-\item{nperm}{Number of permutations to perform the tests; Default is 999}
+\item{nperm}{Number of permutations to perform the tests in the selection 
+procedure; Default is 999}
+
+\item{nperm.global}{Number of permutations to perform the tests in the global test;
+Default is 9999}
 
 \item{alpha}{Significance threshold value for the tests; Default is 0.05}
 
@@ -53,7 +57,7 @@ can easily be generated using \code{\link{listw.candidates}}.
 }
 \details{
 While the selection of the SWM is the most critical step of the
- spatial eigenvector-based methods (Dray et al. 2006), Bauman et al. (2018a)
+ spatial eigenvector-based methods (Dray et al. 2006), Bauman et al. (2018)
  showed that optimizing the choice of the SWM led to inflated type I error
  rates if an explicit control of the number of SWMs tested was not applied.
  The function \code{listw.select} therefore applies a Sidak correction (Sidak
@@ -62,69 +66,34 @@ While the selection of the SWM is the most critical step of the
  correction is computed as: \eqn{P_corrected = 1 - (1 - P)^n}, where \eqn{n}
  is the number of tests performed, \eqn{P} is the observed p-value, and
  \eqn{P_corrected} is the new p-value after the correction. The p-value is
- first computed using \code{nperm} permutations and then corrected according to the total number
- of SWMs tested (if \code{p.adjust = TRUE}). Although the function can be
- run without this correction, using the default
- value is strongly recommended to avoid inflated
- type I error rates (Bauman et al. 2018a).
+ first computed using \code{nperm} permutations and then corrected according to 
+ the total number of SWMs tested (if \code{p.adjust = TRUE}). Although the 
+ function can be run without this correction, using the default value is strongly 
+ recommended to avoid inflated type I error rates (Bauman et al. 2018).
 
- As a consequence of the p-value correction, the
- significance threshold decreases as the number of SWMs increases, hence
- leading to a trade-off between the gain of accuracy and the power loss. 
+ As a consequence of the p-value correction, the significance threshold decreases 
+ as the number of SWMs increases, hence leading to a trade-off between the gain of 
+ accuracy and the power loss. 
 
  The optimization criterion of the SWM performed by \code{listw.select} is
  either based on the maximization of the adjusted R2 of all the generated
  spatial eigenvectors (also referred to as spatial predictors or MEM
  variables) (\code{method = "global"}), or is based on an optimized subset of
- eigenvectors (\code{method= "FWD"} or \code{"MIR"}). If the objective is
- only to optimize the selection of the SWM, without the intervention of the
- selection of a subset of predictors within each SWM (\code{method=
- "global"}), then the best SWM will be the one maximizing the adjusted global
- R2, that is, the R2 of the model of \code{x} against the whole set of
- generated MEM variables. If \code{MEM.autocor = "all"}, then the adjusted R2 is
- computed separately on the MEM associated to positive and negative
- eigenvalues (hereafter positive and negative MEM variables, respectively),
- and the SWM yielding the highest sum of the the two R2 values is selected.
- Using \code{method = "global"} may be interesting when the complete set of MEM
- variables will be used, like in Moran spectral randomizations (Wagner and
- Dray 2015) or when using smoothed MEM (Munoz 2009).
+ eigenvectors (\code{method = "FWD"} and \code{"MIR"}). 
+ 
+ If the objective is only to optimize the selection of the SWM, without the 
+ intervention of the selection of a subset of predictors within each SWM 
+ (\code{method = "global"}), then the best SWM is the one maximizing the adjusted 
+ global R2, that is, the R2 of the model of \code{x} against the whole set of
+ generated MEM variables (\code{method = "global"}). 
 
- If the MEM variables will be further used in a model including actual
- predictors (e.g. environmental), then a subset of spatial eigenvectors will
- need to be selected before proceeding to further analyses to avoid model
- overfitting and a loss of statistical power to detect the contribution of
- the environment to the variability of the response data (Griffith 2003, Dray
- et al. 2006, Blanchet et al. 2008, Peres-Neto and Legendre 2010, Diniz-Filho
- et al. 2012). In this case, the optimization of the SWM should be based on
- the best subset of spatial predictors within each candidate SWM. Although
- several eigenvector selection approaches have been proposed to select this
- best subset of eigenvectors, Bauman et al. (2018b) showed that two main
- procedures should be preferred, depending on the underlying objective.
-
- The most powerful and accurate selection method, in terms of R2 estimation,
- is the forward selection with double stopping criterion of Blanchet et al.
- (2008). This method (\code{method = "FWD"}, default option) should be
- preferred when the objective is to capture as accurately as possible the
- spatial patterns of \code{x}. If the objective is to optimize the detection
- of the spatial patterns in the residuals of a model of the response
- variable(s) against a set of environmental predictors, for instance, then
- \code{x} should be the model residuals, and \code{FWD = "forward"}. This
- can be interesting if the objective is to optimize the detection of residual
- spatial patterns once the effect of the environmental predictors has been
- removed.
-
- If however there is no interest in exploring accurate spatial structures in
- the residuals of the model of \code{x} against the environmental predictors,
- and the objective is only to remove the spatial autocorrelation from the
- model residuals with a small number of spatial predictors, then accuracy is
- not as important and one should focus mainly on the number of spatial
- predictors (Bauman et al. 2018b). In this case, using \code{method = "MIR"} is
- the most adapted choice. This optimization criterion selects the smallest
- subset of spatial predictors necessary to capture all the spatial
- autocorrelation in \code{x} (see function \code{\link{mem.select}}. It has
- the advantage to maintain the standard errors of the actual predictor
- coefficients as low as possible.
-
+ The optimization of the SWM depends on the choosen \code{method}. See 
+ \code{\link{mem.select}} for a description of the situations in which 
+ \code{method = "FWD"}, \code{"MIR"}, and \code{"global"} should be preferred.
+ 
+ If a subset of MEM variables is needed, then the optimization of the subset
+ of spatial predictors guides the optimization of the selection of SWM 
+ (\code{method = "FWD"} or \code{"MIR"}).
  If \code{method = "FWD"}, \code{listw.select} performs the forward
  selection on the significant SWMs and selects among these the SWM for which
  the forward-selected subset of spatial eigenvectors yields the highest
@@ -132,19 +101,22 @@ While the selection of the SWM is the most critical step of the
  selection on all the significant candidate SWMs, and selects the best SWM as
  the one with the smallest number of MIR-selected spatial eigenvectors. If
  two or more SWMs present the same smallest number of predictors, then the
- selection is made among them on the basis of the residual Moran's I. If \code{MEM.autocor = "all"}, the
- optimization criteria described above are applied on the sum of the adjusted
- R2 or number of selected spatial eigenvectors, for \code{method = "FWD"}
- and \code{"MIR"}, respectively.
-
- Note that the MIR criterion of optimization can only be used for a
- univariate \code{x}, as the Moran's I is a univariate index. If \code{x} is
- multivariate, then the best criterion is the forward selection (see Bauman
- et al. 2018b).
-
- \code{mem.select} works exactly like \code{listw.select} but for a single
- SWM. Its purpose is to test the SWM and, if significant, to optimize the
- selection of a subset of spatial predictors within it.
+ selection is made among them on the basis of the residual Moran's I. 
+ If \code{MEM.autocor = "all"}, the optimization criteria described above are 
+ applied on the sum of the adjusted R2 or number of selected spatial eigenvectors, 
+ for \code{method = "FWD"} and \code{"MIR"}, respectively.
+ If no subset of MEM variable is required, then the optimization of the SWM is
+ based on the maximization of the adjusted R2 of all the generated MEM variables
+ (\code{method = "global"}).
+ 
+ If \code{MEM.autocor = "all"}, n-1 MEM variables are generated. In this case, if 
+ \code{method = "global"} or \code{method = "FWD"}, the adjusted R2 is computed 
+ separately on the MEM associated to positive and negative eigenvalues (hereafter 
+ positive and negative MEM variables, respectively), and the SWM yielding the 
+ highest sum of the the two R2 values is selected. If \code{method = "MIR"}, the
+ MIR selection is performed separately on the positive and negative MEM variables,
+ and the SWM is selected based on the sum of the number of positive and
+ negative spatial predictors.
 }
 \examples{
 if(require(spdep)) {
@@ -196,48 +168,25 @@ W_sel$candidates$Pvalue
 # W matrices:
 W_sel$candidates$R2Adj.select
 
-# See Appendix S3 of Bauman et al. 2018a for more extensive examples and illustrations.
+# See Appendix S3 of Bauman et al. 2018 for more extensive examples and illustrations.
 }
 
 }
 \references{
-Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) Optimizing
+Bauman D., Fortin M-J, Drouet T. and Dray S. (2018) Optimizing
  the choice of a spatial weighting matrix in eigenvector-based methods.
  Ecology
 
- Bauman D., Drouet T., Dray S. and Vleminckx J. (2018b) Disentangling good
- from bad practices in the selection of spatial or phylogenetic eigenvectors.
- Ecography, 41, 1--12
-
  Blanchet G., Legendre P. and Borcard D. (2008) Forward selection of
  explanatory variables. Ecology, 89(9), 2623--2632
-
- Diniz-Filho J.A.F., Bini L.M., Rangel T.F., Morales-Castilla I. et al.
- (2012) On the selection of phylogenetic eigenvectors for ecological
- analyses. Ecography, 35, 239--249
 
  Dray S., Legendre P. and Peres-Neto P. R. (2006) Spatial modeling: a
  comprehensive framework for principal coordinate analysis of neighbor
  matrices (PCNM). Ecological Modelling, 196, 483--493
 
- Griffith D. (2003) Spatial autocorrelation and spatial filtering: gaining
- understanding through theory and scientific visualization. Springer, Berlin
-
- Munoz, F. 2009. Distance-based eigenvector maps (DBEM) to analyse
- metapopulation structure with irregular sampling. Ecological Modelling, 220,
- 2683–-2689
-
- Peres-Neto P. and Legendre P. (2010) Estimating and controlling for spatial
- structure in the study of ecological communities. Global Ecology and
- Biogeography, 19, 174--184
-
  Sidak Z. (1967) Rectangular confidence regions for the means of multivariate
  normal distributions. Journal of the American Statistical Association,
  62(318), 626--633
-
- Wagner H., Dray S. (2015). Generating spatially constrained null models for
- irregularly spaced data using Moran spectral randomization methods. Methods
- in Ecology and Evolution, 6, 1169--1178
 }
 \seealso{
 \code{\link{listw.candidates}}, \code{\link{mem.select}},
