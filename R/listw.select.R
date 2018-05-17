@@ -1,5 +1,5 @@
 #'Function to optimize the selection of a spatial weighting matrix and select
-#'the best subset of eigenvectors
+#'the best subset of eigenvectors (MEM, Moran's Eigenvector Maps)
 #'
 #'\code{listw.select} computes MEM variables (i.e., eigenvectors of a doubly
 #'centered spatial weighting matrix) for various definitions of spatial
@@ -22,23 +22,22 @@
 #'  correction is computed as: \eqn{P_corrected = 1 - (1 - P)^n}, where \eqn{n}
 #'  is the number of tests performed, \eqn{P} is the observed p-value, and
 #'  \eqn{P_corrected} is the new p-value after the correction. The p-value is
-#'  first computed using \code{nperm} permutations and then corrected according to the total number
-#'  of SWMs tested (if \code{p.adjust = TRUE}). Although the function can be
-#'  run without this correction, using the default
-#'  value is strongly recommended to avoid inflated
-#'  type I error rates (Bauman et al. 2018a).
+#'  first computed using \code{nperm} permutations and then corrected according to 
+#'  the total number of SWMs tested (if \code{p.adjust = TRUE}). Although the 
+#'  function can be run without this correction, using the default value is strongly 
+#'  recommended to avoid inflated type I error rates (Bauman et al. 2018a).
 #'
-#'  As a consequence of the p-value correction, the
-#'  significance threshold decreases as the number of SWMs increases, hence
-#'  leading to a trade-off between the gain of accuracy and the power loss. 
+#'  As a consequence of the p-value correction, the significance threshold decreases 
+#'  as the number of SWMs increases, hence leading to a trade-off between the gain of 
+#'  accuracy and the power loss. 
 #'
 #'  The optimization criterion of the SWM performed by \code{listw.select} is
 #'  either based on the maximization of the adjusted R2 of all the generated
 #'  spatial eigenvectors (also referred to as spatial predictors or MEM
 #'  variables) (\code{method = "global"}), or is based on an optimized subset of
-#'  eigenvectors (\code{method= "FWD"} or \code{"MIR"}). If the objective is
+#'  eigenvectors (\code{method = "FWD"} or \code{"MIR"}). If the objective is
 #'  only to optimize the selection of the SWM, without the intervention of the
-#'  selection of a subset of predictors within each SWM (\code{method=
+#'  selection of a subset of predictors within each SWM (\code{method =
 #'  "global"}), then the best SWM will be the one maximizing the adjusted global
 #'  R2, that is, the R2 of the model of \code{x} against the whole set of
 #'  generated MEM variables. If \code{MEM.autocor = "all"}, then the adjusted R2 is
@@ -49,9 +48,9 @@
 #'  variables will be used, like in Moran spectral randomizations (Wagner and
 #'  Dray 2015) or when using smoothed MEM (Munoz 2009).
 #'
-#'  If the MEM variables will be further used in a model including actual
-#'  predictors (e.g. environmental), then a subset of spatial eigenvectors will
-#'  need to be selected before proceeding to further analyses to avoid model
+#'  If the MEM variables are to be further used in a model including actual
+#'  predictors (e.g. environmental), then a subset of spatial eigenvectors
+#'  needs to be selected before proceeding to further analyses to avoid model
 #'  overfitting and a loss of statistical power to detect the contribution of
 #'  the environment to the variability of the response data (Griffith 2003, Dray
 #'  et al. 2006, Blanchet et al. 2008, Peres-Neto and Legendre 2010, Diniz-Filho
@@ -81,7 +80,7 @@
 #'  predictors (Bauman et al. 2018b). In this case, using \code{method = "MIR"} is
 #'  the most adapted choice. This optimization criterion selects the smallest
 #'  subset of spatial predictors necessary to capture all the spatial
-#'  autocorrelation in \code{x} (see function \code{\link{mem.select}}. It has
+#'  autocorrelation in \code{x} (see function \code{\link{mem.select}}). It has
 #'  the advantage to maintain the standard errors of the actual predictor
 #'  coefficients as low as possible.
 #'
@@ -92,26 +91,22 @@
 #'  selection on all the significant candidate SWMs, and selects the best SWM as
 #'  the one with the smallest number of MIR-selected spatial eigenvectors. If
 #'  two or more SWMs present the same smallest number of predictors, then the
-#'  selection is made among them on the basis of the residual Moran's I. If \code{MEM.autocor = "all"}, the
-#'  optimization criteria described above are applied on the sum of the adjusted
-#'  R2 or number of selected spatial eigenvectors, for \code{method = "FWD"}
-#'  and \code{"MIR"}, respectively.
+#'  selection is made among them on the basis of the residual Moran's I. 
+#'  If \code{MEM.autocor = "all"}, the optimization criteria described above are 
+#'  applied on the sum of the adjusted R2 or number of selected spatial eigenvectors, 
+#'  for \code{method = "FWD"} and \code{"MIR"}, respectively.
 #'
 #'  Note that the MIR criterion of optimization can only be used for a
 #'  univariate \code{x}, as the Moran's I is a univariate index. If \code{x} is
 #'  multivariate, then the best criterion is the forward selection (see Bauman
 #'  et al. 2018b).
 #'
-#'  \code{mem.select} works exactly like \code{listw.select} but for a single
-#'  SWM. Its purpose is to test the SWM and, if significant, to optimize the
-#'  selection of a subset of spatial predictors within it.
-#'
-#'@param x Vector, matrix, or dataframe of the response variable(s)
-#'@param candidates A list of SWMs of the class \code{listw};
+#' @param x Vector, matrix, or dataframe of the response variable(s)
+#' @param candidates A list of SWMs of the class \code{listw};
 #'  \code{candidates} can be created by \code{listw.candidates}
-#' @param MEM.autocor Sign of the spatial eigenvectors to generate; "positive",
-#'   "negative", or "all", for positively, negatively autocorrelated
-#'   eigenvectors, or both, respectively; default is "positive"
+#' @param MEM.autocor Sign of the spatial eigenvectors to generate; \code{"positive"},
+#'   \code{"negative"), or \code{"all"}, for positively, negatively autocorrelated
+#'   eigenvectors, or both, respectively; default is \code{"positive"}
 #' @param method Criterion to select the best subset of MEM variables. Either
 #'   \code{forward} (default option), \code{"MIR"} (for univariate \code{x}
 #'   only), or \code{"global"} (see \code{Details})
@@ -313,8 +308,8 @@
         } else if(method == "MIR") {
             best <- which(res$N.var == min(na.omit(res$N.var)))
             if(length(best) > 1)
-                ## if different models have the same nummber of variables
-                ## minimizes  residual autocorrelation
+                ## if different models have the same number of variables
+                ## minimizes residual autocorrelation
                 best <- best[which.min(abs(res$I.select[best]))] 
         }
         
