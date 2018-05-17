@@ -35,55 +35,21 @@
 #'  either based on the maximization of the adjusted R2 of all the generated
 #'  spatial eigenvectors (also referred to as spatial predictors or MEM
 #'  variables) (\code{method = "global"}), or is based on an optimized subset of
-#'  eigenvectors (\code{method = "FWD"} or \code{"MIR"}). If the objective is
-#'  only to optimize the selection of the SWM, without the intervention of the
-#'  selection of a subset of predictors within each SWM (\code{method =
-#'  "global"}), then the best SWM will be the one maximizing the adjusted global
-#'  R2, that is, the R2 of the model of \code{x} against the whole set of
-#'  generated MEM variables. If \code{MEM.autocor = "all"}, then the adjusted R2 is
-#'  computed separately on the MEM associated to positive and negative
-#'  eigenvalues (hereafter positive and negative MEM variables, respectively),
-#'  and the SWM yielding the highest sum of the the two R2 values is selected.
-#'  Using \code{method = "global"} may be interesting when the complete set of MEM
-#'  variables will be used, like in Moran spectral randomizations (Wagner and
-#'  Dray 2015) or when using smoothed MEM (Munoz 2009).
+#'  eigenvectors (\code{method = "FWD"} and \code{"MIR"}). 
+#'  
+#'  If the objective is only to optimize the selection of the SWM, without the 
+#'  intervention of the selection of a subset of predictors within each SWM 
+#'  (\code{method = "global"}), then the best SWM is the one maximizing the adjusted 
+#'  global R2, that is, the R2 of the model of \code{x} against the whole set of
+#'  generated MEM variables (\code{method = "global"}). 
 #'
-#'  If the MEM variables are to be further used in a model including actual
-#'  predictors (e.g. environmental), then a subset of spatial eigenvectors
-#'  needs to be selected before proceeding to further analyses to avoid model
-#'  overfitting and a loss of statistical power to detect the contribution of
-#'  the environment to the variability of the response data (Griffith 2003, Dray
-#'  et al. 2006, Blanchet et al. 2008, Peres-Neto and Legendre 2010, Diniz-Filho
-#'  et al. 2012). In this case, the optimization of the SWM should be based on
-#'  the best subset of spatial predictors within each candidate SWM. Although
-#'  several eigenvector selection approaches have been proposed to select this
-#'  best subset of eigenvectors, Bauman et al. (2018b) showed that two main
-#'  procedures should be preferred, depending on the underlying objective.
-#'
-#'  The most powerful and accurate selection method, in terms of R2 estimation,
-#'  is the forward selection with double stopping criterion of Blanchet et al.
-#'  (2008). This method (\code{method = "FWD"}, default option) should be
-#'  preferred when the objective is to capture as accurately as possible the
-#'  spatial patterns of \code{x}. If the objective is to optimize the detection
-#'  of the spatial patterns in the residuals of a model of the response
-#'  variable(s) against a set of environmental predictors, for instance, then
-#'  \code{x} should be the model residuals, and \code{FWD = "forward"}. This
-#'  can be interesting if the objective is to optimize the detection of residual
-#'  spatial patterns once the effect of the environmental predictors has been
-#'  removed.
-#'
-#'  If however there is no interest in exploring accurate spatial structures in
-#'  the residuals of the model of \code{x} against the environmental predictors,
-#'  and the objective is only to remove the spatial autocorrelation from the
-#'  model residuals with a small number of spatial predictors, then accuracy is
-#'  not as important and one should focus mainly on the number of spatial
-#'  predictors (Bauman et al. 2018b). In this case, using \code{method = "MIR"} is
-#'  the most adapted choice. This optimization criterion selects the smallest
-#'  subset of spatial predictors necessary to capture all the spatial
-#'  autocorrelation in \code{x} (see function \code{\link{mem.select}}). It has
-#'  the advantage to maintain the standard errors of the actual predictor
-#'  coefficients as low as possible.
-#'
+#'  The optimization of the SWM depends on the choosen \code{method}. See 
+#'  \code{\link{mem.select}} for a description of the situations in which 
+#'  \code{method = "FWD"}, \code{"MIR"}, and \code{"global"} should be preferred.
+#'  
+#'  If a subset of MEM variables is needed, then the optimization of the subset
+#'  of spatial predictors guides the optimization of the selection of SWM 
+#'  (\code{method = "FWD"} or \code{"MIR"}).
 #'  If \code{method = "FWD"}, \code{listw.select} performs the forward
 #'  selection on the significant SWMs and selects among these the SWM for which
 #'  the forward-selected subset of spatial eigenvectors yields the highest
@@ -95,12 +61,19 @@
 #'  If \code{MEM.autocor = "all"}, the optimization criteria described above are 
 #'  applied on the sum of the adjusted R2 or number of selected spatial eigenvectors, 
 #'  for \code{method = "FWD"} and \code{"MIR"}, respectively.
-#'
-#'  Note that the MIR criterion of optimization can only be used for a
-#'  univariate \code{x}, as the Moran's I is a univariate index. If \code{x} is
-#'  multivariate, then the best criterion is the forward selection (see Bauman
-#'  et al. 2018b).
-#'
+#'  If no subset of MEM variable is required, then the optimization of the SWM is
+#'  based on the maximization of the adjusted R2 of all the generated MEM variables
+#'  (\code{method = "global"}).
+#'  
+#'  If \code{MEM.autocor = "all"}, n-1 MEM variables are generated. In this case, if 
+#'  \code{method = "global"} or \code{method = "FWD"}, the adjusted R2 is computed 
+#'  separately on the MEM associated to positive and negative eigenvalues (hereafter 
+#'  positive and negative MEM variables, respectively), and the SWM yielding the 
+#'  highest sum of the the two R2 values is selected. If \code{method = "MIR"}, the
+#'  MIR selection is performed separately on the positive and negative MEM variables,
+#'  and the SWM is selected based on the sum of the number of positive and
+#'  negative spatial predictors.
+#'   
 #' @param x Vector, matrix, or dataframe of the response variable(s)
 #' @param candidates A list of SWMs of the class \code{listw};
 #'  \code{candidates} can be created by \code{listw.candidates}

@@ -45,6 +45,43 @@
 #'   \code{MEM.autocor = "all"}, two global tests are performed and p-values are
 #'   corrected for multiple comparison (significance threshold equal to
 #'   \code{alpha} divided by two).
+#'   
+#'   If the MEM variables are to be further used in a model including actual
+#'   predictors (e.g. environmental), then a subset of spatial eigenvectors
+#'   needs to be selected before proceeding to further analyses to avoid model
+#'   overfitting and/or a loss of statistical power to detect the contribution of
+#'   the environment to the variability of the response data (Griffith 2003, Dray
+#'   et al. 2006, Blanchet et al. 2008, Peres-Neto and Legendre 2010, Diniz-Filho
+#'   et al. 2012). Although several eigenvector selection approaches have been 
+#'   proposed to select a best subset of eigenvectors, Bauman et al. (2018) showed 
+#'   that two main procedures should be preferred, depending on the underlying 
+#'   objective: the forward selection with double stopping criterion (Blanchet et
+#'   al. 2008; \code{method = "FWD"}) or the minimization of the residual spatial 
+#'   autocorrelation (Griffith and Peres-Neto 2006; MIR selection in Bauman et al.
+#'   2018, \code{method = "MIR"}). 
+#'   The most powerful and accurate selection method, in terms of R2 estimation,
+#'   is the forward selection. This method should be preferred when the objective 
+#'   is to capture as accurately as possible the spatial patterns of \code{x}. If 
+#'   the objective is to optimize the detection of the spatial patterns in the 
+#'   residuals of a model of the response variable(s) against a set of environmental 
+#'   predictors, for instance, then \code{x} should be the model residuals, and 
+#'   \code{method = "FWD"}. This allows optimizing the detection of residual
+#'   spatial patterns once the effect of the environmental predictors has been
+#'   removed. 
+#'   If however the objective is only to remove the spatial autocorrelation from the
+#'   residuals of a model of \code{x} against a set of actual predictors (e.g.
+#'   environmental) with a small number of spatial predictors, then accuracy is
+#'   not as important and one should focus mainly on the number of spatial
+#'   predictors (Bauman et al. 2018). In this case, \code{method = "MIR"} is more 
+#'   adapted, as it has the advantage to maintain the standard errors of the actual 
+#'   predictor coefficients as low as possible. Note that \code{method = "MIR"} can 
+#'   only be used for a univariate \code{x}, as the Moran's I is a univariate index. 
+#'   If \code{x} is multivariate, then the best criterion is the forward selection 
+#'   (see Bauman et al. 2018).
+#'   A third option is to not perform any selection of MEM variables 
+#'   (\code{method = "global"}). This option may be interesting when the complete set 
+#'   of MEM variables will be used, like in Moran spectral randomizations (Wagner and
+#'   Dray 2015) or when using smoothed MEM (Munoz 2009).
 #'
 #'   For \code{method = "MIR"}, the global test consists in computing the
 #'   Moran's I of \code{x} (e.g. residuals of the model of the response variable
@@ -61,20 +98,16 @@
 #'   For \code{method = "global"} and \code{method = "FWD"}, the global test
 #'   consists in computing the adjusted global R2, that is, the R2 of the model
 #'   of \code{x} against the whole set of generated MEM variables and tests it
-#'   by permutation (results stored in \code{gloabl.test}).
+#'   by permutation (results stored in \code{global.test}).
 #'
 #'   For \code{method = "global"}, if the adjusted global R2 is significant, the
-#'   functions returns the whole set of generated MEM variables in
-#'   \code{MEM.select}.
+#'   functions returns the whole set of generated MEM variables in \code{MEM.select}.
 #'
 #'   For \code{method = "FWD"}, if the adjusted global R2 is significant, the
-#'   function performs a forward selection procedure that searches among the set
-#'   of generated spatial predictors the one that best maximizes the R2 of the
-#'   model. It is the forward selection with double stopping criterion of
-#'   Blanchet et al. (2008).
-#'   
-#'   See \code{\link{listw.select}} for a description of the situations in which 
-#'   \code{method = "FWD"}, \code{"MIR"}, and \code{"global"} should be preferred.
+#'   function performs a forward selection with double stopping criterion that 
+#'   searches among the set of generated spatial predictors the one that best maximizes 
+#'   the R2 of the model. The procedure is repeated untill one of the two stopping
+#'   criterion is reached (see Blanchet et al. 2008).
 #'
 #'   For the \code{method = "FWD"} and \code{method = "MIR"}, the MEM selected
 #'   by the procedure are returned in \code{MEM.select} and a summary of the
@@ -95,9 +128,24 @@
 #'
 #' Blanchet G., Legendre P. and Borcard D. (2008) Forward selection of
 #' explanatory variables. Ecology, 89(9), 2623--2632
+#' 
+#' Diniz-Filho J.A.F., Bini L.M., Rangel T.F., Morales-Castilla I. et al.
+#' (2012) On the selection of phylogenetic eigenvectors for ecological
+#' analyses. Ecography, 35, 239--249
+#' 
+#' Dray S., Legendre P. and Peres-Neto P. R. (2006) Spatial modeling: a
+#' comprehensive framework for principal coordinate analysis of neighbor
+#' matrices (PCNM). Ecological Modelling, 196, 483--493
+#' 
+#' Griffith D. (2003) Spatial autocorrelation and spatial filtering: gaining
+#' understanding through theory and scientific visualization. Springer, Berlin
 #'
 #' Griffith D., Peres-Neto P. (2006) Spatial modeling in Ecology: the
 #' flexibility of eigenfunction spatial analyses. Ecology, 87, 2603--2613
+#' 
+#' Peres-Neto P. and Legendre P. (2010) Estimating and controlling for spatial
+#' structure in the study of ecological communities. Global Ecology and
+#' Biogeography, 19, 174--184
 #'
 #'
 #' @keywords spatial
@@ -141,8 +189,6 @@
 #'mod_complete <- lm(spe ~ ., data = env2)
 #'summary(mod_complete)$coefficient[, 1]   # Coefficient estimates
 #'summary(mod_complete)$coefficient[, 2]   # Standard errors
-#'
-#'# See Appendix S3 of Bauman et al. 2018a for more extensive examples and illustrations.
 #'}
 #'
 #'
