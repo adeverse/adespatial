@@ -13,7 +13,7 @@
 #'
 #'
 #'@details While the selection of the SWM is the most critical step of the
-#'  spatial eigenvector-based methods (Dray et al. 2006), Bauman et al. (2018a)
+#'  spatial eigenvector-based methods (Dray et al. 2006), Bauman et al. (2018)
 #'  showed that optimizing the choice of the SWM led to inflated type I error
 #'  rates if an explicit control of the number of SWMs tested was not applied.
 #'  The function \code{listw.select} therefore applies a Sidak correction (Sidak
@@ -25,7 +25,7 @@
 #'  first computed using \code{nperm} permutations and then corrected according to 
 #'  the total number of SWMs tested (if \code{p.adjust = TRUE}). Although the 
 #'  function can be run without this correction, using the default value is strongly 
-#'  recommended to avoid inflated type I error rates (Bauman et al. 2018a).
+#'  recommended to avoid inflated type I error rates (Bauman et al. 2018).
 #'
 #'  As a consequence of the p-value correction, the significance threshold decreases 
 #'  as the number of SWMs increases, hence leading to a trade-off between the gain of 
@@ -103,43 +103,20 @@
 #'@seealso \code{\link{listw.candidates}}, \code{\link{mem.select}},
 #'  \code{\link{scores.listw}}
 #'
-#'@references Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) Optimizing
+#'@references Bauman D., Fortin M-J, Drouet T. and Dray S. (2018) Optimizing
 #'  the choice of a spatial weighting matrix in eigenvector-based methods.
 #'  Ecology
 #'
-#'  Bauman D., Drouet T., Dray S. and Vleminckx J. (2018b) Disentangling good
-#'  from bad practices in the selection of spatial or phylogenetic eigenvectors.
-#'  Ecography, 41, 1--12
-#'
 #'  Blanchet G., Legendre P. and Borcard D. (2008) Forward selection of
 #'  explanatory variables. Ecology, 89(9), 2623--2632
-#'
-#'  Diniz-Filho J.A.F., Bini L.M., Rangel T.F., Morales-Castilla I. et al.
-#'  (2012) On the selection of phylogenetic eigenvectors for ecological
-#'  analyses. Ecography, 35, 239--249
 #'
 #'  Dray S., Legendre P. and Peres-Neto P. R. (2006) Spatial modeling: a
 #'  comprehensive framework for principal coordinate analysis of neighbor
 #'  matrices (PCNM). Ecological Modelling, 196, 483--493
 #'
-#'  Griffith D. (2003) Spatial autocorrelation and spatial filtering: gaining
-#'  understanding through theory and scientific visualization. Springer, Berlin
-#'
-#'  Munoz, F. 2009. Distance-based eigenvector maps (DBEM) to analyse
-#'  metapopulation structure with irregular sampling. Ecological Modelling, 220,
-#'  2683–-2689
-#'
-#'  Peres-Neto P. and Legendre P. (2010) Estimating and controlling for spatial
-#'  structure in the study of ecological communities. Global Ecology and
-#'  Biogeography, 19, 174--184
-#'
 #'  Sidak Z. (1967) Rectangular confidence regions for the means of multivariate
 #'  normal distributions. Journal of the American Statistical Association,
 #'  62(318), 626--633
-#'
-#'  Wagner H., Dray S. (2015). Generating spatially constrained null models for
-#'  irregularly spaced data using Moran spectral randomization methods. Methods
-#'  in Ecology and Evolution, 6, 1169--1178
 #'
 #'@keywords spatial
 #'
@@ -193,7 +170,7 @@
 #' # W matrices:
 #' W_sel$candidates$R2Adj.select
 #'
-#' # See Appendix S3 of Bauman et al. 2018a for more extensive examples and illustrations.
+#' # See Appendix S3 of Bauman et al. 2018 for more extensive examples and illustrations.
 #' }
 #'
 #'@export listw.select

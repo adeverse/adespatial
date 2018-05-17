@@ -140,13 +140,20 @@
 #' Griffith D. (2003) Spatial autocorrelation and spatial filtering: gaining
 #' understanding through theory and scientific visualization. Springer, Berlin
 #'
-#' Griffith D., Peres-Neto P. (2006) Spatial modeling in Ecology: the
+#' Griffith D. and Peres-Neto P. (2006) Spatial modeling in Ecology: the
 #' flexibility of eigenfunction spatial analyses. Ecology, 87, 2603--2613
+#' 
+#' Munoz, F. 2009. Distance-based eigenvector maps (DBEM) to analyse
+#' metapopulation structure with irregular sampling. Ecological Modelling, 220,
+#' 2683–-2689
 #' 
 #' Peres-Neto P. and Legendre P. (2010) Estimating and controlling for spatial
 #' structure in the study of ecological communities. Global Ecology and
 #' Biogeography, 19, 174--184
-#'
+#' 
+#' Wagner H., Dray S. (2015). Generating spatially constrained null models for
+#' irregularly spaced data using Moran spectral randomization methods. Methods
+#' in Ecology and Evolution, 6, 1169--1178
 #'
 #' @keywords spatial
 #'
