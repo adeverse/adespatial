@@ -94,6 +94,6 @@
         ##  resmat[,3] <- resmat[,3]*trdt/trori
         ##  resmat[,4] <- resmat[,4]*trdt/trori
         ##}
-        names(resmat) <- c("variables","order","R2","R2Cum","AdjR2Cum","F","pval")
+        names(resmat) <- c("variables","order","R2","R2Cum","AdjR2Cum","F","pvalue")
         return(resmat)
     }
