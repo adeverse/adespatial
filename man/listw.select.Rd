@@ -125,17 +125,17 @@ grid <- expand.grid(x = seq(1, 15, 1), y = seq(1, 15, 1))
 ### Generate a response variable Y structured at broad scale by linear combination of
 ### the first three MEM variables to which a normal noise is added:
 nb <- cell2nb(nrow = 15, ncol = 15, "queen")
-nb2 <- nb2listw(nb, style = "B")
-MEM <- scores.listw(nb2, MEM.autocor = "positive")
+lw <- nb2listw(nb, style = "B")
+MEM <- scores.listw(lw, MEM.autocor = "positive")
 # Degree of spatial autocorrelation:
 intensity <- 0.8
 Y_space <- scale(MEM[, 1] + MEM[, 2] + MEM[, 3]) * intensity
 Y_noise <- scale(rnorm(n = nrow(MEM), mean = 0, sd = 1)) * (1 - intensity)
 Y <- Y_space + Y_noise
 ### Y is sampled in 100 randomly-chosen sites of the grid:
-sample <- sample(c(1:nrow(grid)), 100, replace = FALSE)
-xy <- grid[sample, ]
-Y_sampled <- Y[sample]
+idx.sample <- sample(c(1:nrow(grid)), 100, replace = FALSE)
+xy <- grid[idx.sample, ]
+Y_sampled <- Y[idx.sample]
 ### The function listw.candidates is used to build the spatial weighting matrices that
 ### we want to test and compare (with the listw.select function). We test a Gabriel's graph,
 ### a minimum spanning tree, and a distance-based connectivity defined by a threshold
