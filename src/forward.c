@@ -15,7 +15,7 @@
 /*            Declaration        */
 /* ============================= */
 void forwardsel (double *tabXR, double *tabYR, int *nrowXR, int *ncolXR, int *ncolYR, double *pvalue, int *ordre,
-    double *Fvalue, int *nperm, double *R2cum, double *adjR2cum, int *K, double *R2seuil, double *adjR2seuil,double *R2more, int *nbcovar, double *alpha);
+    double *Fvalue, int *nperm, double *R2cum, double *adjR2cum, int *K, double *R2seuil, double *adjR2seuil,double *R2more, int *nbcovar, double *alpha, int *verbose);
 void projX (double **tabX, double **projsurX);
 void constnewX (double **tabX, double **tabnewX, int *vecsel);
 double calcF (double R2X, double R2XZ, int q, int n, int p);
@@ -31,7 +31,7 @@ void dinvG(double **X, double **X_inv);
 /* ============================= */
 
 void forwardsel (double *tabXR, double *tabYR, int *nrowXR, int *ncolXR, int *ncolYR, double *pvalue, int *ordre,
-    double *Fvalue, int *nperm, double *R2cum, double *adjR2cum, int *K, double *R2seuil, double *adjR2seuil, double *R2more, int *nbcovar, double *alpha){
+    double *Fvalue, int *nperm, double *R2cum, double *adjR2cum, int *K, double *R2seuil, double *adjR2seuil, double *R2more, int *nbcovar, double *alpha, int *verbose){
     /* CANOCO 4.5 p. 49 */
     /* nouvelle version 01/11/2004 */
     /* on ne stocke plus le projecteur au complet (qui est n x n)
@@ -84,8 +84,9 @@ void forwardsel (double *tabXR, double *tabYR, int *nrowXR, int *ncolXR, int *nc
             break;
         }
         
-        Rprintf("Testing variable %d\n",i);
-        
+        if(*verbose == 1){
+            Rprintf("Testing variable %d\n",i);
+        }
         R2max=0;
         adjR2max=0;
         R2maxj=0;

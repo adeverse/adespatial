@@ -6,7 +6,7 @@
 \usage{
 forward.sel(Y, X, K = nrow(X) - 1, R2thresh = 0.99, adjR2thresh = 0.99,
   nperm = 999, R2more = 0.001, alpha = 0.05, Xscale = TRUE,
-  Ycenter = TRUE, Yscale = FALSE)
+  Ycenter = TRUE, Yscale = FALSE, verbose = TRUE)
 }
 \arguments{
 \item{Y}{Response data matrix with n rows and m columns containing 
@@ -42,6 +42,9 @@ setting is TRUE}
 
 \item{Yscale}{Standardize the variables in table Y to variance 1. The default
 setting is FALSE.}
+
+\item{verbose}{If 'TRUE' more diagnostics are printed. The default setting is
+TRUE}
 }
 \value{
 A dataframe with: \item{ variables }{ The names of the variables } 

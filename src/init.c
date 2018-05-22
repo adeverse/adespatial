@@ -32,7 +32,7 @@ extern SEXP wishart(SEXP);
 
 static const R_CMethodDef CEntries[] = {
     {"buildbinary",   (DL_FUNC) &buildbinary,    6},
-    {"forwardsel",    (DL_FUNC) &forwardsel,    17},
+    {"forwardsel",    (DL_FUNC) &forwardsel,    18},
     {"testglobal",    (DL_FUNC) &testglobal,     7},
     {"C_WRperiodogram", (DL_FUNC) &C_WRperiodogram,  9},
     {NULL, NULL, 0}

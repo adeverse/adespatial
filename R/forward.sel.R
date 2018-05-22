@@ -30,6 +30,8 @@
 #' @param Ycenter Center the variables in table Y. The default setting is TRUE
 #' @param Yscale Standardize the variables in table Y to variance 1. The default
 #'   setting is FALSE.
+#' @param verbose If 'TRUE' more diagnostics are printed. The default setting is
+#'   TRUE
 #' @return A dataframe with: \item{ variables }{ The names of the variables } 
 #'   \item{ order }{ The order of the selection of the variables } \item{ R2 }{ 
 #'   The R2 of the variable selected } \item{ R2Cum }{ The cumulative R2 of the 
@@ -51,7 +53,8 @@
 #' @useDynLib adespatial, .registration = TRUE 
 #' @export forward.sel
 "forward.sel" <-
-    function(Y, X , K = nrow(X)-1, R2thresh = .99, adjR2thresh = .99, nperm = 999, R2more = 0.001, alpha = 0.05, Xscale = TRUE, Ycenter = TRUE, Yscale = FALSE){
+    function(Y, X , K = nrow(X)-1, R2thresh = .99, adjR2thresh = .99, nperm = 999, R2more = 0.001,
+        alpha = 0.05, Xscale = TRUE, Ycenter = TRUE, Yscale = FALSE, verbose = TRUE){
         X <- as.data.frame(X)
         Y <- as.data.frame(Y)
         if (any(is.na(X))|any(is.na(X))) stop("na entries in table")
@@ -77,7 +80,7 @@
         adjR2 <- rep(0,ncol(X))
         Fvalue <- rep(0,ncol(X))
         res <- list()
-        res <- .C("forwardsel", as.double(t(X)), as.double(t(Y)), as.integer(nrow(X)),as.integer(ncol(X)),as.integer(ncol(Y)),pval=as.double(pval), ord=as.integer(ordre),Fval=as.double(Fvalue),as.integer(nperm),R2=as.double(R2),adjR2=as.double(adjR2),as.integer(K),as.double(R2thresh),as.double(adjR2thresh),as.double(R2more),as.integer(nbcovar),as.double(alpha),PACKAGE="adespatial")[c("ord","Fval","pval","R2","adjR2")]
+        res <- .C("forwardsel", as.double(t(X)), as.double(t(Y)), as.integer(nrow(X)),as.integer(ncol(X)),as.integer(ncol(Y)),pval=as.double(pval), ord=as.integer(ordre),Fval=as.double(Fvalue),as.integer(nperm),R2=as.double(R2),adjR2=as.double(adjR2),as.integer(K),as.double(R2thresh),as.double(adjR2thresh),as.double(R2more),as.integer(nbcovar),as.double(alpha), as.integer(verbose), PACKAGE="adespatial")[c("ord","Fval","pval","R2","adjR2")]
         lambdA <- c(res$R2[1],diff(res$R2))
         resmat <- data.frame(res$ord,lambdA,res$R2,res$adjR2,res$Fval,res$pval)
         if(sum(res$ord>0)==0) stop("No variables selected. Please change your parameters.")
@@ -91,6 +94,6 @@
         ##  resmat[,3] <- resmat[,3]*trdt/trori
         ##  resmat[,4] <- resmat[,4]*trdt/trori
         ##}
-        names(resmat) <- c("variables","order","R2","R2Cum","AdjR2Cum","F","pval")
+        names(resmat) <- c("variables","order","R2","R2Cum","AdjR2Cum","F","pvalue")
         return(resmat)
     }
