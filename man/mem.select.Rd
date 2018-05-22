@@ -7,7 +7,7 @@ Eigenvector Maps)}
 \usage{
 mem.select(x, listw, MEM.autocor = c("positive", "negative", "all"),
   method = c("FWD", "MIR", "global"), MEM.all = FALSE, nperm = 999,
-  nperm.global = 9999, alpha = 0.05, ...)
+  nperm.global = 9999, alpha = 0.05, verbose = FALSE, ...)
 }
 \arguments{
 \item{x}{A vector, matrix, or dataframe of response variable(s). The
@@ -39,6 +39,9 @@ procedure; Default is 999}
 Default is 9999}
 
 \item{alpha}{Significance threshold value for the tests; Default is 0.05}
+
+\item{verbose}{If 'TRUE' more diagnostics are printed. The default setting is
+FALSE}
 
 \item{\dots}{Other parameters (for internal use with \code{listw.select})}
 }
@@ -157,22 +160,27 @@ data(mite.xy)
 coord <- mite.xy
 # We build the model we are interested in:
 mod <- lm(spe ~ ., data = env)
+
+
 # In order to avoid possible type I error rate inflation issues, we check 
 # whether the model residuals are independent, and if they are spatially
 # autocorrelated, we select a small subset of MEM variables to add to the
 # model as covariables with the MIR selection:
+
 # 1) We build a spatial weighting matrix based on Gabriel graph with a
 # weighting function decreasing linearly with the distance:
 w <- listw.candidates(coord, nb = "gab", weights = "flin")
+
+
 # 2) We test the spatial autocorrelation of the model residuals and, if
 # necessary, select a subset of spatial predictors:
 y <- residuals(mod)
-MEM <- mem.select(x = y, listw = w[[1]], MEM.autocor = "positive", nperm = 999,
-                 alpha = 0.05)
+MEM <- mem.select(x = y, listw = w[[1]], method = "MIR", MEM.autocor = "positive",
+         nperm = 999, alpha = 0.05)
 dim(MEM$MEM.select)
 # The residuals of the model presented spatial autocorrelation. The selection
-# of one MEM variable was sufficient for the Moran's I of the residuals not to
-# be significant anymore.
+# of MEM variables is thus performed to remove residual autocorrelation.
+
 # 3) We can reconstruct our model adding the selected MEM variable as covariables:
 env2 <- cbind(env, MEM$MEM.select)
 mod_complete <- lm(spe ~ ., data = env2)
