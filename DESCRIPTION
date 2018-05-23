@@ -3,7 +3,7 @@ Title: Multivariate Multiscale Spatial Analysis
 Version: 0.2-0
 Date: 2018-05-23
 Author: Stéphane Dray, David Bauman, Guillaume Blanchet, Daniel Borcard, Sylvie Clappe, Guillaume Guenard,
-Thibaut Jombart, Guillaume Larocque, Pierre Legendre, Naima Madi, Helene H Wagner
+    Thibaut Jombart, Guillaume Larocque, Pierre Legendre, Naima Madi, Helene H Wagner
 Description: Tools for the multiscale spatial analysis of multivariate data.
     Several methods are based on the use of a spatial weighting matrix and its
     eigenvector decomposition (Moran's Eigenvectors Maps, MEM).
