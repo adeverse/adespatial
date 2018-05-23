@@ -53,10 +53,10 @@ columns (j).}
 vector}
 }
 \value{
-An object of class \code{orthobasisSp} , subclass \code{orthobasis}.
-  The MEMs are stored as a \code{data.frame}. It contains several attributes
-  (see \code{?attributes}) including: \itemize{\item \code{values}: The
-  associated eigenvalues. \item \code{listw}: The associated spatial
+An object of class \code{orthobasisSp} , subclass \code{orthobasis}. 
+  The MEMs are stored as a \code{data.frame}. It contains several attributes 
+  (see \code{?attributes}) including: \itemize{\item \code{values}: The 
+  associated eigenvalues. \item \code{listw}: The associated spatial 
   weighting matrix (if \code{store.listw = TRUE}). }
 }
 \description{

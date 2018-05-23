@@ -151,7 +151,7 @@ nbw <- length(candidates)
 ### Optimization of the selection of the SWM among the candidates generated above,
 ### using the corrected significance threshold calculated above for the global tests:
 W_sel <- listw.select(Y_sampled, candidates, MEM.autocor = "positive", method = "FWD",
-                    p.adjust = TRUE)
+                    p.adjust = TRUE, nperm = 299)
 ### Some characteristics of the best spatial model:
 # Best SWM:
 W_sel$best.id
