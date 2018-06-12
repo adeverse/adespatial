@@ -1,33 +1,33 @@
-#' Perform a test of the joint space-environment fraction of a variation partitioning
+#' Perform a test of the shared space-environment fraction of a variation partitioning
 #' using torus-translation (TT) or Moran Spectral Randomisation (MSR)
 #' 
-#' The function uses two different spatially-constrained null models to test the joint 
-#' space-environment fraction (JSEF, or fraction [b]) of a variation partitioning of two 
+#' The function uses two different spatially-constrained null models to test the shared 
+#' space-environment fraction (SSEF, or fraction [b]) of a variation partitioning of two 
 #' explanatory components.
 #' 
-#' @details The function tests the JSEF (also known as fraction [b]) of a variation 
+#' @details The function tests the SSEF (also known as fraction [b]) of a variation 
 #' partitioning of a response variable or matrix (\code{y}) between an environmental and a
-#' spatial component (\code{env}, and \code{MEM.spe}, respectively). The JSEF is the 
-#' variation of \code{y} explained jointly by \code{env} and \code{MEM.spe}. 
-#' The adjusted R-squared (Peres-Neto et al. 2006; R2adj) of the JSEF is not an 
+#' spatial component (\code{env}, and \code{MEM.spe}, respectively). The SSEF is the 
+#' explained variation of \code{y} shared by \code{env} and \code{MEM.spe}. 
+#' The adjusted R-squared (Peres-Neto et al. 2006; R2adj) of the SSEF is not an 
 #' actual R2, as it is computed by subtracting the adjusted R2adj of other fractions and 
 #' therefore has zero degree of freedom (Legendre and Legendre 2012). 
-#' The JSEF can therefore not be computed in the classical way (residuals permutation; 
+#' The SSEF can therefore not be computed in the classical way (residuals permutation; 
 #' Anderson and Legendre 1999, Legendre and Legendre 2012). 
 #' 
 #' The function \code{envspace.test} provides two ways of testing this fraction, that is,
 #' spatially-constrained null models based either on a torus-translation test (TT) (for 
 #' regular sampling designs only), or on Moran spectral randomizations (MSR) (for any type
-#' of sampling design). The test of the JSEF should only be performed if both the global 
+#' of sampling design). The test of the SSEF should only be performed if both the global 
 #' models of \code{y} against all the environmental variables and against all spatial variables
 #' are significant (see Bauman et al. 2018c).
 #' The function first checks whether the environment displays significant spatial structures, 
-#' and then proceeds to the test of the JSEF if this condition is fulfilled (details in
+#' and then proceeds to the test of the SSEF if this condition is fulfilled (details in
 #' Bauman et al. 2018c).
 #' 
 #' \code{spe} can be a vector or a multicolumn matrix or dataframe (multivariate
 #' response data). If multivariate, it is greatly advised to transform \code{spe} prior
-#' to performing the variation partitioning and testing the JSEF (e.g., Hellinger 
+#' to performing the variation partitioning and testing the SSEF (e.g., Hellinger 
 #' transformation; see Legendre and Gallagher 2001).
 #' 
 #' \code{MEM.spe} is a set of spatial predictors (MEM variables). It is recommended to be
@@ -49,7 +49,7 @@
 #' best model the spatial structure of both \code{spe} and \code{env} (see example).
 #' 
 #' To verify that \code{env} displays a significant spatial pattern, prior to performing the
-#' test of the JSEF, a residuals permutation test is performed on the global set of MEM 
+#' test of the SSEF, a residuals permutation test is performed on the global set of MEM 
 #' variables (generated internally from \code{listw.env}) associated to the type of 
 #' spatial structure of interest (see argument \code{MEM.autocor}). This test is performed 
 #' with \code{mem.select}. The choice of \code{MEM.autocor} should be made according to 
@@ -57,13 +57,13 @@
 #' 
 #' \code{env} is a dataset of environmental variables chosen by the user. We recommend dealing
 #' with collinearity issues prior to performing the variation partitioning and the test of
-#' the JSEF (see Dormann et al. 2013 for a review of methods to cope with collinearity).
+#' the SSEF (see Dormann et al. 2013 for a review of methods to cope with collinearity).
 #' 
 #' The function needs the environmental variables to be centred and scaled, which is why
 #' \code{scale} is set to \code{TRUE} by default. It should only be changed to \code{FALSE}
 #' if the user has already scaled \code{env} prior to using \code{envspace.test}.
 #' \code{regular} is a logical argument indicating whether a TT test should 
-#' be performed additionally to the MSR to test the JSEF. Since the TT can only
+#' be performed additionally to the MSR to test the SSEF. Since the TT can only
 #' be performed on regular sampling designs, \code{regular} should only be set to 
 #' \code{TRUE} if the sampling design is either a transect, or a grid displaying the 
 #' same number of sites for all lines and columns (although the number of sites per column 
@@ -78,10 +78,10 @@
 #' original ones. 
 #' It is also on the basis of \code{listw.env} that MEM variables will be generated to test
 #' whether \code{env} is spatially structured (i.e. global test) prior to perform the test of
-#' the JSEF.
+#' the SSEF.
 #' 
-#' It is worth mentioning that, although a significant JSEF may provide evidence of an 
-#' induced spatial dependence (Bauman et al. 2018c), a non-significant JSEF only indicates 
+#' It is worth mentioning that, although a significant SSEF may provide evidence of an 
+#' induced spatial dependence (Bauman et al. 2018c), a non-significant SSEF only indicates 
 #' that no induced spatial dependence could be detected in relation with the chosen 
 #' environmental variables. This does not exclude that this effect may exist with respect 
 #' to some unmeasured variables.
@@ -108,7 +108,7 @@
 #' three available procedures are \code{"singleton"} (default), \code{"pair"}, and 
 #' \code{"triplet"} (see \code{\link{msr}} for details)
 #' @param alpha Threshold value of null hypothesis rejection for the test of a 
-#' spatial structure in the environment, and for the joint environment-space fraction of 
+#' spatial structure in the environment, and for the shared environment-space fraction of 
 #' the variation partitioning; Default is 0.05
 #' @param summary Logical; Whether a message summarising the results should be returned
 #' or not; Default is \code{FALSE}
@@ -116,9 +116,9 @@
 #' @return If the condition of \code{env} being spatially structured is fulfilled, the test 
 #' is performed and the function returns a list containing the following elements: 
 #' \describe{
-#' \item{R2adj}{The adjusted R-squared value of the JSEF.}
-#' \item{pval_TT}{The significance value of the JSEF obtained by TT.}
-#' \item{pval_MSR}{The significance value of the JSEF obtained by MSR.}
+#' \item{R2adj}{The adjusted R-squared value of the SSEF.}
+#' \item{pval_TT}{The significance value of the SSEF obtained by TT.}
+#' \item{pval_MSR}{The significance value of the SSEF obtained by MSR.}
 #' }
 #' Otherwise, the function returns a message informing why the test was not performed.
 #' 
@@ -139,7 +139,7 @@
 #' of a spatial weighting matrix in eigenvector-based methods. Ecology
 #' 
 #' Bauman D., Vleminckx J., Hardy O., Drouet T. (2018c) Testing and interpreting the 
-#' joint space-environment fraction in variation partitioning analyses of ecological data.
+#' shared space-environment fraction in variation partitioning analyses of ecological data.
 #' Oikos
 #' 
 #' Blanchet G., Legendre P. and Borcard D. (2008) Forward selection of explanatory variables.
@@ -161,7 +161,7 @@
 #' 
 #' @examples
 #' if(require(vegan)) { 
-#' # Illustration of the test of the JSEF on the oribatid mite data
+#' # Illustration of the test of the SSEF on the oribatid mite data
 #' # (Borcard et al. 1992, 1994 for details on the dataset):
 #' # Community data (response matrix):
 #' data(mite)
@@ -213,14 +213,14 @@
 #' VP <- varpart(Y, env, MEM.spe)
 #' plot(VP)
 #' 
-#' # Test of the joint space-environment fraction (fraction [b]):
-#' JSEF.test <- envspace.test(spe, env, coord, MEM.spe, 
+#' # Test of the shared space-environment fraction (fraction [b]):
+#' SSEF.test <- envspace.test(spe, env, coord, MEM.spe, 
 #'                            listw.env = candidates[[modsel.env$best.id]], scale = TRUE, 
 #'                            regular = FALSE, nperm = 999)
-#' JSEF.test$R2adj
-#' JSEF.test$pval_MSR
+#' SSEF.test$R2adj
+#' SSEF.test$pval_MSR
 #' 
-#' # The JSEF is highly significant, indicating a potential induced spatial dependence.
+#' # The SSEF is highly significant, indicating a potential induced spatial dependence.
 #' }
 #' 
 #' @importFrom vegan rda anova.cca RsquareAdj varpart
@@ -300,11 +300,11 @@
   ###   TESTING THE R2 of the env-space FRACTION OF THE VARIATION PARTITIONING   ###
   #*********************************************************************************
   
-  ## Define whether the JSEF computed from the unadjusted fractions is negative:
-  JSEF.unadj <- RsquareAdj(rda(spe, env))$r.squared - RsquareAdj(rda(spe, env, MEM.spe))$r.squared
-  alternative <- ifelse(JSEF.unadj < 0, "smaller", "greater")
+  ## Define whether the SSEF computed from the unadjusted fractions is negative:
+  SSEF.unadj <- RsquareAdj(rda(spe, env))$r.squared - RsquareAdj(rda(spe, env, MEM.spe))$r.squared
+  alternative <- ifelse(SSEF.unadj < 0, "smaller", "greater")
   
-  ## Observed JSEF value:
+  ## Observed SSEF value:
   #**********************
   R2.b <- varpart(M[, c(3:(2+nspe))], env, MEM.spe)$part$indfract$Adj.R.square[2]
 
@@ -371,7 +371,7 @@
   if (summary == "TRUE") {
     if (regular == TRUE)
       cat("\n", "************************************************************************", 
-          "\n", "The R2 value of the joint space-environment fraction (R2adj) ", 
+          "\n", "The R2 value of the shared space-environment fraction (R2adj) ", 
           "and the corresponding", "\n", "p-values computed with the TT test and the",
           " MSR are:", "\n", "R2adj = ", round(R2.b, 3), ", p-value TT = ", p.value.toro, 
           ", and p-value MSR = ", p.value.MSR, ".",
@@ -379,7 +379,7 @@
           "\n", "\n", sep = "")
     else
       cat("\n", "************************************************************************", 
-          "\n", "The R2 value of the joint space-environment fraction (R2adj) ", 
+          "\n", "The R2 value of the shared space-environment fraction (R2adj) ", 
           "and the corresponding", "\n", "p-value computed with the MSR test are:",
           "\n", "R2adj = ", round(R2.b, 3), ", p-value MSR = ", p.value.MSR, ".", 
           "\n", "************************************************************************", 

@@ -143,7 +143,7 @@
 #' Ecography, 41, 1--12
 #' 
 #' Bauman D., Vleminckx J., Hardy O., Drouet T. (2018c) Testing and interpreting the 
-#' joint space-environment fraction in variation partitioning analyses of ecological data.
+#' shared space-environment fraction in variation partitioning analyses of ecological data.
 #' Oikos
 #'
 #' Blanchet G., Legendre P. and Borcard D. (2008) Forward selection of
