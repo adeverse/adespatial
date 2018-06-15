@@ -138,12 +138,18 @@ plot.scalogram <- function(x, pos = -1, plot = TRUE, ...){
     sortparameters <- sortparamADEgS(..., graphsnames = graphsnames)
     
     ## parameters management
+
+    ## cut in 10 labels but consider case with less labels
+    x.lab.pos <- unique(as.integer(pretty(1:length(x$obs), 10))) 
+    ## remove labels outside the range of MEM
+    x.lab.pos <- x.lab.pos[x.lab.pos%in%1:length(x$obs)]
     params <- list()
-    params$obs <- list(p1d.horizontal = FALSE, plabels.cex = 2, paxes.draw = TRUE, ylab = expression(R^2), scales = list(x = list(labels = x$names)), ylim = c(0,1))
+    params$obs <- list(p1d.horizontal = FALSE, plabels.cex = 2, paxes.draw = TRUE, ylab = expression(R^2), scales = list(x = list(labels = x$names[x.lab.pos], at = x.lab.pos, rot = 45)), ylim = c(0, min(1, 1.5*max(x$obs))))
     params$sim <- list(p1d.horizontal = FALSE)
     names(params) <- graphsnames
     sortparameters <- modifyList(params, sortparameters, keep.null = TRUE)
     
+
     ## prepare and create plots
     g1 <- do.call("s1d.barchart", c(list(score = substitute(x$obs), labels = substitute(ifelse(x$adj.pvalue < 0.05, "*", " ")), plot = FALSE, pos = pos - 2), sortparameters$obs))
     g2 <- do.call("s1d.curve", c(list(score = substitute(apply(x$sim, 2, quantile, 0.95)), plot = FALSE, pos = pos - 2), sortparameters$sim))
