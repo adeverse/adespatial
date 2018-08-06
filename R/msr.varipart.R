@@ -64,13 +64,27 @@ msr.varipart <-
 
         appel <- as.list(x$call)
         
-        dudiY <- eval.parent(appel$dudiY)
+        Y <- eval.parent(appel$Y)
         X <- data.frame(eval.parent(appel$X))
         W <- data.frame(eval.parent(appel$W))
-        response.generic <- as.matrix(dudiY$tab)
-        inertot <- sum(dudiY$eig)
-        sqlw <- sqrt(dudiY$lw)
-        sqcw <- sqrt(dudiY$cw)
+        
+        if (!inherits(Y, "dudi")) {
+            response.generic <- as.matrix(scalewt(Y, scale = eval.parent(appel$scale)))
+            lw <- rep(1/NROW(Y), NROW(Y))
+            sqlw <- sqrt(lw)
+            sqcw <- sqrt(rep(1, NCOL(Y)))
+            wt <- outer(sqlw, sqcw)
+            inertot <- sum((response.generic * wt)^2)
+        } else {
+            inertot <- sum(Y$eig)
+            lw <- Y$lw
+            sqlw <- sqrt(lw)
+            sqcw <- sqrt(Y$cw)
+            response.generic <- as.matrix(Y$tab)
+            wt <- outer(sqlw, sqcw)
+        }
+        
+
         Xmsr <- msr(X,
             listwORorthobasis,
             nrepet = nrepet,
@@ -80,9 +94,25 @@ msr.varipart <-
         
         
         # fast computation of R2/adjusted using MSR procedure
-        R2msrtest <- function(df) {
+        
+        R2msrtest.QR <- function(df) {
             isim <- c()
             for (i in 1:nrepet) {
+                df[[i]] <- data.frame(df[[i]])
+                mf <- model.matrix(~., df[[i]])
+                x.expl <- scalewt(mf[, -1, drop = FALSE], scale = FALSE, wt = lw) * sqrt(lw)
+                response.generic = response.generic * wt
+                Q <- qr(x.expl, tol = 1e-06)
+                Yfit.X <- qr.fitted(Q, response.generic)
+                isim[i] <- sum(Yfit.X^2) / inertot
+            }
+            return(isim)
+        }
+        
+        R2msrtest.lmwfit <- function(df) {
+            isim <- c()
+            for (i in 1:nrepet) {
+                df[[i]] <- data.frame(df[[i]])
                 colnames(df[[i]])[1:ncol(X)] <- colnames(X)
                 fmla <-
                     as.formula(paste("response.generic ~", paste(colnames(df[[i]]), collapse = "+")))
@@ -90,13 +120,13 @@ msr.varipart <-
                     model.frame(fmla, data = cbind.data.frame(response.generic, df[[i]]))
                 mt <- attr(mf, "terms")
                 xm <- model.matrix(mt, mf)
-                wt <- outer(sqlw, sqcw)
+   
                 ## Fast function for computing sum of squares of the fitted table
                 isim[i] <-
                     sum((lm.wfit(
                         y = response.generic,
                         x = xm,
-                        w = dudiY$lw
+                        w = lw
                     )$fitted.values * wt) ^ 2) / inertot
             }
             
@@ -105,13 +135,17 @@ msr.varipart <-
         }
         
         ab.ini <- sum(x$R2[c("a", "b")])
-        abc.ini <- sum(x$R2[c("a", "b", "c")])
         bc.ini <- sum(x$R2[c("b", "c")])
+        
+        R2msrtest <- R2msrtest.lmwfit
+        if (identical(all.equal(lw, rep(1/length(lw), length(lw))), TRUE))
+            R2msrtest <- R2msrtest.QR
         
         msr.ab <- R2msrtest(Xmsr)
         msr.abc <- R2msrtest(WXmsr)
         
-        # test <- as.krandtest(
+        #  abc.ini <- sum(x$R2[c("a", "b", "c")])
+        #  test <- as.krandtest(
         #     obs = c(ab.ini, abc.ini),
         #     sim = cbind(msr.ab, msr.abc),
         #     names = c("ab", "abc"),
@@ -126,7 +160,7 @@ msr.varipart <-
          )
          
         
-        ab.adj <- 1 - (1 - ab.ini) / (1-mean(msr.ab))
+        ab.adj <- 1 - (1 - ab.ini) / (1 - mean(msr.ab))
         a.adj <- 1 - (1 - x$R2["a"]) / (1 - mean(msr.abc - bc.ini))
         b.adj <- ab.adj - a.adj
         c.adj <- sum(x$R2.adj[c("b", "c")]) - b.adj
