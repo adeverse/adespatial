@@ -59,11 +59,9 @@
 #' with collinearity issues prior to performing the variation partitioning and the test of
 #' the SSEF (see Dormann et al. 2013 for a review of methods to cope with collinearity).
 #' 
-#' The function needs the environmental variables to be centred and scaled, which is why
-#' \code{scale} is set to \code{TRUE} by default. It should only be changed to \code{FALSE}
-#' if the user has already scaled \code{env} prior to using \code{envspace.test}.
+
 #' \code{regular} is a logical argument indicating whether a TT test should 
-#' be performed additionally to the MSR to test the SSEF. Since the TT can only
+#' be performed instead of the MSR to test the SSEF. Since the TT can only
 #' be performed on regular sampling designs, \code{regular} should only be set to 
 #' \code{TRUE} if the sampling design is either a transect, or a grid displaying the 
 #' same number of sites for all lines and columns (although the number of sites per column 
@@ -97,8 +95,6 @@
 #' @param MEM.autocor A string indicating the type of spatial structure of interest for 
 #' \code{env} (\code{"positive"}, \code{"negative"}, or \code{"all"}, for positive, negative, 
 #' or both types of spatial autocorrelations, respectively); Default is \code{"positive"}
-#' @param scale Logical value indicating whether the environmental variables should be
-#' centered and scaled (standardised data are necessary); Default is \code{TRUE}
 #' @param regular Logical argument indicating whether a torus-translation test will be
 #' performed, in addition to the MSR. Set to \code{TRUE} only if the sampling design is regular 
 #' (same number of sites on each line, same number of sites on each column). Set to
@@ -110,17 +106,9 @@
 #' @param alpha Threshold value of null hypothesis rejection for the test of a 
 #' spatial structure in the environment, and for the shared environment-space fraction of 
 #' the variation partitioning; Default is 0.05
-#' @param summary Logical; Whether a message summarising the results should be returned
-#' or not; Default is \code{FALSE}
 #' 
 #' @return If the condition of \code{env} being spatially structured is fulfilled, the test 
-#' is performed and the function returns a list containing the following elements: 
-#' \describe{
-#' \item{R2adj}{The adjusted R-squared value of the SSEF.}
-#' \item{pval_TT}{The significance value of the SSEF obtained by TT.}
-#' \item{pval_MSR}{The significance value of the SSEF obtained by MSR.}
-#' }
-#' Otherwise, the function returns a message informing why the test was not performed.
+#' is performed and the function returns an object of class \code{randtest} containing the results of the test.
 #' 
 #' @author David Bauman and Jason Vleminckx, \email{davbauman@@gmail.com}, 
 #' \email{jasvlx86@@gmail.com}
@@ -188,7 +176,7 @@
 #'                                                                                 "flin"))
 #' ### Optimisation of the selection of a SWM:
 #' # SWM for 'Y' (based on the best forward-selected subset of MEM variables):
-#' modsel.Y <- listw.select(Y, candidates, method = "forward", MEM.autocor = "positive",
+#' modsel.Y <- listw.select(Y, candidates, method = "FWD", MEM.autocor = "positive",
 #'                          p.adjust = TRUE)
 #'                          
 #' names(candidates)[modsel.Y$best.id]                 # Best SWM selected
@@ -214,11 +202,10 @@
 #' plot(VP)
 #' 
 #' # Test of the shared space-environment fraction (fraction [b]):
-#' SSEF.test <- envspace.test(spe, env, coord, MEM.spe, 
-#'                            listw.env = candidates[[modsel.env$best.id]], scale = TRUE, 
+#' SSEF.test <- envspace.test(Y, env, coord, MEM.spe, 
+#'                            listw.env = candidates[[modsel.env$best.id]], 
 #'                            regular = FALSE, nperm = 999)
-#' SSEF.test$R2adj
-#' SSEF.test$pval_MSR
+#' SSEF.test
 #' 
 #' # The SSEF is highly significant, indicating a potential induced spatial dependence.
 #' }
@@ -232,12 +219,10 @@
                             MEM.spe,
                             listw.env,
                             MEM.autocor = c("positive", "negative", "all"),
-                            scale = TRUE, 
                             regular = FALSE, 
                             nperm = 999,
                             MSR.method = "singleton",
-                            alpha = 0.05,
-                            summary = FALSE) {
+                            alpha = 0.05) {
   
   spe <- as.data.frame(spe)
   coord <- as.matrix(coord)
@@ -249,28 +234,28 @@
   if (inherits(listw.env, what = "listw") == FALSE)
     stop("listw.env is not an object of class 'listw'")
   if (is.vector(MEM.spe) == FALSE) {
-    if (ncol(MEM.spe) == nrow(coord)-1)
+    if (ncol(MEM.spe) == nrow(coord) - 1)
       stop("n-1 MEM variables in 'MEM.spe'. Select a subset to avoid saturated model issues.")
   }
 
   nspe <- ncol(spe)  
-  if(is.vector(env) == "TRUE") 
+  if (is.vector(env) == "TRUE") 
     nenv <- 1
   else nenv <- ncol(env)
     
   M <- as.data.frame(matrix(0, ncol = (ncol(coord) + nspe + nenv), 
                             nrow = nrow(cbind(spe, env))))
   
-  M[, c(1: 2)] <- coord
+  M[, c(1:2)] <- coord
   M[, c(3:(2 + nspe))] <- spe
-  M[, c((3 + nspe): ncol(M))] <- env
+  M[, c((3 + nspe):ncol(M))] <- env
 
   # Testing whether the environment displays a significant spatial structure:
   # *************************************************************************
   MEM.autocor <- match.arg(MEM.autocor)
   global <- mem.select(env, listw.env, method = "global", 
                        MEM.autocor = MEM.autocor, alpha = alpha)$global.test
-  if(MEM.autocor != "all") 
+  if (MEM.autocor != "all") 
     pval <- global$pvalue 
   else 
     pval <- c(global$positive$pvalue, global$negative$pvalue)
@@ -283,7 +268,7 @@
   # Testing whether the response data displays a significant spatial structure:
   # ***************************************************************************
   test.spe <- anova.cca(rda(spe, MEM.spe))
-  if(test.spe$Pr[1] > alpha) {
+  if (test.spe$Pr[1] > alpha) {
     message("No significant spatial structure detected in 'spe'; the test was not performed")
     return()
   }
@@ -291,7 +276,7 @@
   # Testing whether the response data is significantly related to the environment:
   # ******************************************************************************
   test.env <- anova.cca(rda(spe, env))
-  if(test.env$Pr[1] > alpha) {
+  if (test.env$Pr[1] > alpha) {
     message("No significant relation between 'spe' and 'env'; the test was not performed")
     return()
   }
@@ -302,31 +287,24 @@
   
   ## Define whether the SSEF computed from the unadjusted fractions is negative:
   SSEF.unadj <- RsquareAdj(rda(spe, env))$r.squared - RsquareAdj(rda(spe, env, MEM.spe))$r.squared
-  alternative <- ifelse(SSEF.unadj < 0, "smaller", "greater")
+  alternative <- ifelse(SSEF.unadj < 0, "less", "greater")
   
   ## Observed SSEF value:
   #**********************
-  R2.b <- varpart(M[, c(3:(2+nspe))], env, MEM.spe)$part$indfract$Adj.R.square[2]
+  R2.b <- varpart(M[, c(3:(2 + nspe))], env, MEM.spe)$part$indfract$Adj.R.square[2]
 
-     #***********************************
-     ###   USING Torus-translations   ###
-     #***********************************
-  
+
+  E.b <- c() 
   if (regular == "TRUE") {
-    
-    ## vector to be filled with null values of R2env-space:
-    #******************************************************
-    E.b.T <- c()
-    ## Calculate p-value:
-    #********************
+      ## Torus-translations
     for (k in 1:nperm) {
       M2 <- M
       sens <- runif(1, min = 0, max = 1)
       rx <- ceiling(runif(1, 0.01, 0.99) * 50)
       ry <- ceiling(runif(1, 0.01, 0.99) * 25)
       if (sens <= 0.5) { 
-        M2[, 1] <- (M2 [, 1] + rx) %% max(M2 [, 1])
-        M2[, 2] <- (M2 [, 2] + ry) %% max(M2 [, 2])
+        M2[, 1] <- (M2[, 1] + rx) %% max(M2[, 1])
+        M2[, 2] <- (M2[, 2] + ry) %% max(M2[, 2])
       } else { 
         M2[, 1] <- max(M2[, 1]) - (M2[, 1] + rx) %% max(M2[, 1])
         M2[, 2] <- max(M2[, 2]) - (M2[, 2] + ry) %% max(M2[, 2]) 
@@ -334,57 +312,29 @@
       M3 <- M
       M2 <- M2[order(M2[, 2]), ]
       M2 <- M2[order(M2[, 1]), ]
-      M3[, c((3 + nspe): ncol(M))] <- M2[, c((3 + nspe): ncol(M))]
+      M3[, c((3 + nspe):ncol(M))] <- M2[, c((3 + nspe):ncol(M))]
       E.toro <- M3[, c((3 + nspe):(3 + nenv))]
-      E.b.T <- c(E.b.T, varpart(M[, c(3:(2+nspe))], E.toro, 
+      E.b <- c(E.b, varpart(M[, c(3:(2 + nspe))], E.toro, 
                                 MEM.spe)$part$indfract$Adj.R.square[2])
-    }  # end of the "for (k in 1:nperm) {"
+    }  
     
-    if (alternative == "greater")
-      p.value.toro <- length(which(c(R2.b, E.b.T) >= R2.b)) / (nperm+1)
-    else p.value.toro <- length(which(c(R2.b, E.b.T) <= R2.b)) / (nperm+1)
-    
-  } else p.value.toro <- "Not computed"
-  
-  #******************************************************************
-  ###   TESTING R2env-space USING MORAN SPECTRAL RANDOMISATIONS   ###
-  #******************************************************************
+  } else {
+      ## MSR
 
   ## Moran Spectral Randomisation of environmental structures:
   MSR.ENV <- msr(env, listw.env, nrepet = nperm, method = MSR.method, simplify = FALSE) 
-  
-  ## vector to be filled with null values of R2env-space:
-  #******************************************************
-  E.b.MSR <- c()
+
   
   ## calculate p-value:
   #********************
-  for(k in 1:nperm){
-      E.b.MSR <- c(E.b.MSR, varpart(M[, c(3:(2+nspe))], 
+  for (k in 1:nperm) {
+      E.b <- c(E.b, varpart(M[, c(3:(2 + nspe))], 
                                     MSR.ENV[[k]], MEM.spe)$part$indfract$Adj.R.square[2])
   }
   
-  if (alternative == "greater")
-    p.value.MSR <- length(which(c(R2.b, E.b.MSR) >= R2.b)) / (nperm+1)
-  else p.value.MSR <- length(which(c(R2.b, E.b.MSR) <= R2.b)) / (nperm+1)
-
-  if (summary == "TRUE") {
-    if (regular == TRUE)
-      cat("\n", "************************************************************************", 
-          "\n", "The R2 value of the shared space-environment fraction (R2adj) ", 
-          "and the corresponding", "\n", "p-values computed with the TT test and the",
-          " MSR are:", "\n", "R2adj = ", round(R2.b, 3), ", p-value TT = ", p.value.toro, 
-          ", and p-value MSR = ", p.value.MSR, ".",
-          "\n", "************************************************************************", 
-          "\n", "\n", sep = "")
-    else
-      cat("\n", "************************************************************************", 
-          "\n", "The R2 value of the shared space-environment fraction (R2adj) ", 
-          "and the corresponding", "\n", "p-value computed with the MSR test are:",
-          "\n", "R2adj = ", round(R2.b, 3), ", p-value MSR = ", p.value.MSR, ".", 
-          "\n", "************************************************************************", 
-          "\n", "\n", sep = "")
   }
   
-  list(R2adj = R2.b, pval_TT = p.value.toro, pval_MSR = p.value.MSR)
+  
+  return(as.randtest(obs = R2.b, sim = E.b, alter = alternative))
+  
 }
