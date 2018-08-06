@@ -60,15 +60,12 @@ is composed of the corresponding B and A matrices, followed (if any) by the
 \code{y} parameter value of the weighting function.
 }
 \description{
-This function is a user-friendly way to create a list of spatial weighting
-matrices (SWM) by selecting a set of predefined connectivity and
-weighting matrices (B and A matrices, respectively). The list can then be fed
-to the function \code{listw.select} to optimize the selection of the SWM
-and select the best eigenvector subset within this matrix while controlling
-the type I error rate.
+This function is a user-friendly way to create a list of one or several spatial
+weighting matrices (SWM) by selecting a set of predefined connectivity and
+weighting matrices (B and A matrices, respectively).
 }
 \details{
-The function allows to construct SWMs based on any combination
+The function allows constructing SWMs based on any combination
 of B and A matrices. The B matrices are either graph-based or
 distance-based. The function proposes the Delaunay triangulation, Gabriel
 graph, relative neighbourhood graph, and the minimum spanning tree criteria
@@ -97,6 +94,12 @@ matrices (e.g., ranging between 0.1 and 1 for the concave-up function, as
 values over 1 would make no ecological sense). First visualizing the
 connectivity schemes with the \code{listw.explore} function may also help
 choosing the B matrices to select for the \code{listw.candidates} function.
+
+Spatial eigenvectors can be generated from any candidate SWM obtained by
+\code{listw.candidates} using \code{\link{scores.listw}}, or can be generated
+and tested (recommended option for real data analysis) using
+\code{\link{mem.select}}. If several SWMs were created, the selection of an
+optimized SWM can be made using \code{\link{listw.select}}.
 }
 \examples{
 ### Create 100 random sampling locations in a squared grid of 120 x 120:
@@ -126,6 +129,12 @@ length(candidates2)
 lw <- listw.candidates(xy, nb = "gab", weights = "bin")
 plot(lw[[1]], xy)
 
+### Generating MEM variables from an object of listw.candidates with scores.listw:
+MEM <- scores.listw(lw[[1]])
+### See functions mem.select and listw.select for examples of how to use an object
+### created by listw.candidates with these functions.
+
+
 }
 \references{
 Bauman D., Fortin M-J., Drouet T. and Dray S. (2018) Optimizing the choice of
@@ -140,7 +149,7 @@ comprehensive framework for principal coordinate analysis of neighbor
 matrices (PCNM). Ecological Modelling, 196, 483--493
 }
 \seealso{
-\code{\link{listw.explore}}, \code{\link{listw.select}}
+\code{\link{listw.explore}}, \code{\link{scores.listw}}, \code{\link{mem.select}}, \code{\link{listw.select}}
 }
 \author{
 David Bauman (\email{dbauman@ulb.ac.be} or \email{davbauman@gmail.com}) and Stéphane Dray

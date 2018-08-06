@@ -128,14 +128,14 @@
 #' 
 #' ### Generating MEM variables from an object of listw.candidates with scores.listw:
 #' MEM <- scores.listw(lw[[1]])
-#' ### See gunctions mem.select and listw.select for examples of how to use an object
+#' ### See functions mem.select and listw.select for examples of how to use an object
 #' ### created by listw.candidates with these functions.
 #' 
 #' 
 #' @importFrom spdep tri2nb nb2listw nbdists graph2nb gabrielneigh relativeneigh dnearneigh
 #' @export
 
-"listw.candidates" <- function (coord, 
+"listw.candidates" <- function(coord, 
     style = "B", 
     nb = c("del", "gab", "rel", "mst", "pcnm", "dnear"),
     d1 = 0, 
