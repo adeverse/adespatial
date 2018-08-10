@@ -88,7 +88,7 @@ msr.varipart <-
         Xmsr <- msr(X,
             listwORorthobasis,
             nrepet = nrepet,
-            method = method)
+            method = method, simplify = FALSE)
        
         WXmsr <- lapply(Xmsr, cbind, W)
         
