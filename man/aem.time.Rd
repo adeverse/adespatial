@@ -4,7 +4,7 @@
 \alias{aem.time}
 \title{AEM for time series}
 \usage{
-aem.time(n, w = NULL, moran = FALSE, plot.moran = FALSE)
+aem.time(n, w = NULL, moran = FALSE)
 }
 \arguments{
 \item{n}{Numeric. Number of points in the series.}
@@ -16,20 +16,15 @@ in the spatial or temporal series.}
 
 \item{moran}{Logical. If \code{TRUE}, Moran's I are computed for all AEM. If
 \code{FALSE} (default value), Moran's I are not computed.}
-
-\item{plot.moran}{Logical.  If \code{TRUE}, a plot of the Moran's I
-associated to each AEM is drawn, if \code{FALSE} (default value) no plot is
-drawn. Also, if \code{moran} is \code{FALSE}, this argument becomes
-invalid.}
 }
 \value{
-\item{E}{Nodes-by-edges matrix E. } \item{values}{Eigenvalues of the
-principal component analysis of E. } \item{aem}{Matrix of AEM eigenfunctions
-normalized to unit length. } \item{Moran}{A three-column table giving:
-\code{Moran} = Moran's I statistics, \code{p.value} = p-values (2-tailed
-parametric test), \code{Positive} = 1 for Moran's I larger than the expected
-value. Computed using function \code{moran.I.multi} of the AEM package. }
-\item{expected_Moran}{The expected value of Moran's I. }
+\item{E}{Nodes-by-edges matrix E. }
+\item{values}{Eigenvalues of the
+principal component analysis of E. }
+\item{aem}{Matrix of AEM eigenfunctions
+normalized to unit length. }
+\item{Moran}{Moran's I statistics tested by a bilateral test with 999 permutations}
+\item{listw}{An object of class \code{listw} with the associated spatial weighting matrix}
 }
 \description{
 This function constructs AEM eigenfunctions for multi-scale analysis of a
@@ -63,7 +58,7 @@ generated from the point positions along the series.
 \examples{
 
 # Time series containing 20 equispaced observations
-out <- aem.time(20, moran=TRUE, plot.moran=TRUE)
+out <- aem.time(20, moran = TRUE)
 
 # Time series containing 20 observations with unequal spacing
 # Generate (n-1) random interpoint distances
@@ -73,7 +68,7 @@ distances <- runif(19,1,5)
 w <- 1/(distances/max(distances))
 
 # Compute the AEM eigenfunctions
-out <- aem.time(20, w=w, moran=TRUE, plot.moran=TRUE)
+out <- aem.time(20, w = w, moran = TRUE)
 
 }
 \references{

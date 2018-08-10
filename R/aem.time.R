@@ -10,10 +10,6 @@
 #'   in the spatial or temporal series.
 #' @param moran Logical. If \code{TRUE}, Moran's I are computed for all AEM. If
 #'   \code{FALSE} (default value), Moran's I are not computed.
-#' @param plot.moran Logical.  If \code{TRUE}, a plot of the Moran's I
-#'   associated to each AEM is drawn, if \code{FALSE} (default value) no plot is
-#'   drawn. Also, if \code{moran} is \code{FALSE}, this argument becomes
-#'   invalid.
 #'
 #' @details
 #'
@@ -43,13 +39,13 @@
 #'
 #' @return
 #'
-#' \item{E}{Nodes-by-edges matrix E. } \item{values}{Eigenvalues of the
-#' principal component analysis of E. } \item{aem}{Matrix of AEM eigenfunctions
-#' normalized to unit length. } \item{Moran}{A three-column table giving:
-#' \code{Moran} = Moran's I statistics, \code{p.value} = p-values (2-tailed
-#' parametric test), \code{Positive} = 1 for Moran's I larger than the expected
-#' value. Computed using function \code{moran.I.multi} of the AEM package. }
-#' \item{expected_Moran}{The expected value of Moran's I. }
+#' \item{E}{Nodes-by-edges matrix E. }
+#' \item{values}{Eigenvalues of the
+#' principal component analysis of E. }
+#' \item{aem}{Matrix of AEM eigenfunctions
+#' normalized to unit length. }
+#' \item{Moran}{Moran's I statistics tested by a bilateral test with 999 permutations}
+#' \item{listw}{An object of class \code{listw} with the associated spatial weighting matrix}
 #'
 #' @author Pierre Legendre and F. Guillaume Blanchet
 #'
@@ -75,7 +71,7 @@
 #' @examples
 #'
 #' # Time series containing 20 equispaced observations
-#' out <- aem.time(20, moran=TRUE, plot.moran=TRUE)
+#' out <- aem.time(20, moran = TRUE)
 #'
 #' # Time series containing 20 observations with unequal spacing
 #' # Generate (n-1) random interpoint distances
@@ -85,7 +81,7 @@
 #' w <- 1/(distances/max(distances))
 #'
 #' # Compute the AEM eigenfunctions
-#' out <- aem.time(20, w=w, moran=TRUE, plot.moran=TRUE)
+#' out <- aem.time(20, w = w, moran = TRUE)
 #'
 #' @keywords multivariate
 #' @keywords spatial
@@ -93,8 +89,7 @@
 
 aem.time <- function(n,
     w = NULL,
-    moran = FALSE,
-    plot.moran = FALSE) {
+    moran = FALSE) {
     #
     # Construct AEM eigenfunctions for a regular time series
     # n = number of points
@@ -133,22 +128,17 @@ aem.time <- function(n,
     # Normalize the AEM eigenfunctions
     E.svd$u[, 1:k] <- apply(E.svd$u[, 1:k], 2, normalize)
     
-    xy <- 1:n
-    if (moran) {
-        #		nb <- cell2nb(n,1)
-        #		fr.to.aem <- rm.double.link(listw2sn(nb2listw(nb))[,1:2])
-        #		res <- moran.I.multi(E.svd$u[,1:k], link=fr.to.aem, weight=w,plot.res=plot.moran)
-        #		Moran <- res$res.mat[,1:2]
-        #		positive <- rep(FALSE,k)
-        #		positive[which(Moran[,1] > res$expected)] <- TRUE
-        #		Moran <- cbind(as.data.frame(Moran), positive)
-        #		colnames(Moran) <- c("Moran","p.value","Positive")
-        #		out <- list(E=E, values=E.svd$d[1:k]^2/(n-1), aem=E.svd$u[,1:k],
-        #			Moran=Moran, expected_Moran=res$expected)
-        #		} else {
-        out <- list(E = E,
-            values = E.svd$d[1:k] ^ 2 / (n - 1),
-            aem = E.svd$u[, 1:k])
-    }
+    mat01 <- matrix(0, n, n)
+    for (i in 1:(n - 1))
+        mat01[i, i + 1] <- w[i]
+    lw <- mat2listw(mat01)
+    
+    out <- list(E = E,
+        values = E.svd$d[1:k] ^ 2 / (n - 1),
+        aem = E.svd$u[, 1:k], listw = lw)
+    
+    if (moran) 
+        out$Moran <- moran.randtest(E.svd$u[,1:k], alter = "two-sided", listw = lw)
+  
     out
 }
