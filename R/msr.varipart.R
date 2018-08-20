@@ -92,16 +92,16 @@ msr.varipart <-
        
         WXmsr <- lapply(Xmsr, cbind, W)
         
-        
+        # 
         # fast computation of R2/adjusted using MSR procedure
         
         R2msrtest.QR <- function(df) {
+            response.generic <- response.generic * wt
             isim <- c()
             for (i in 1:nrepet) {
                 df[[i]] <- data.frame(df[[i]])
                 mf <- model.matrix(~., df[[i]])
                 x.expl <- scalewt(mf[, -1, drop = FALSE], scale = FALSE, wt = lw) * sqrt(lw)
-                response.generic = response.generic * wt
                 Q <- qr(x.expl, tol = 1e-06)
                 Yfit.X <- qr.fitted(Q, response.generic)
                 isim[i] <- sum(Yfit.X^2) / inertot
