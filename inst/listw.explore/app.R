@@ -1,7 +1,7 @@
 xychoices <- function() {
     objects <- ls(envir = globalenv())
     if (length(objects) == 0)
-        stop("No suitable objects found", call. = FALSE)
+        stop("No suitable object with spatial coordinates found", call. = FALSE)
     dataChoices <-
         objects[sapply(objects, function(x) {
             is.matrix(get(x)) | (substr(class(get(x))[1], 1, 7) == "Spatial")
@@ -16,6 +16,7 @@ ui <- shinyUI(fluidPage(
     fluidRow(
         column(
             3,
+            style = "background-color:#eaeaea;",
             # Sidebar with a slider input for number of bins
             h4("nb options"),
             selectInput("xy", "Sp object or coordinates:",
@@ -55,7 +56,7 @@ ui <- shinyUI(fluidPage(
         
         column(
             3,
-            # Sidebar with a slider input for number of bins
+            style = "background-color:#eaeaea;",
             h4("listw options"),
             selectInput(
                 "style",
@@ -64,39 +65,48 @@ ui <- shinyUI(fluidPage(
             ),
             selectInput("glist",
                         "General weights:",
-                        c("NULL", "1 - d/max(d)" = 1, "1 - d/max(d)^a" = 2, "1 / d^a" = 3)),
+                        c("NULL", "1 - d/max(d)" = 1, "1 - (d/max(d))^a" = 2, "1 / d^a" = 3)),
             conditionalPanel(
                 "input.glist > 1",
                 sliderInput(
                     "a",
                     "Coefficient 'a':",
-                    min = 1,
-                    max = 5,
+                    min = 0.1,
+                    max = 3,
                     value = 1
                 )
             )    
             
         ), 
-        column(
-            6,
-            h4("R code (copy & paste in the R  console):"), 
-            uiOutput("getcode"), 
-            br(),
-            tags$style(type='text/css', '#summarybutton {white-space:nowrap;}'),
-            radioButtons("summarybutton", "Display summary", c("no", "yes"), inline = TRUE), 
-            conditionalPanel("input.summarybutton == 'yes'", verbatimTextOutput("summary"))
+        column(6, align = "center",
+            h4("Spatial weights"),
+            plotOutput("DistPlot", height = "200px")
+            
         )
         
     ),
-    plotOutput(
+    fluidRow(
+        column(6,
+            h4("R code (copy & paste in the R  console):"), 
+            tags$style(type = 'text/css', '#getcode {background-color: #999999; color: white;}'),
+            verbatimTextOutput("getcode"), 
+            br(),
+            tags$style(type = 'text/css', '#summarybutton {white-space:nowrap;}'),
+            checkboxInput("summarybutton", "Display summary", FALSE), 
+            conditionalPanel("input.summarybutton == true", verbatimTextOutput("summary"))
+            ),
+        column(6, align = "center",
+            h4("Connectivity"),
+        plotOutput(
         "Plot",
-        height = "500px",
+        #height = "500px",
         dblclick = "plot_dblclick",
         brush = brushOpts(id = "plot_brush",
                           resetOnNew = TRUE)
     )
     
-))
+))))
+
 
 # Define server logic required to draw a histogram
 server <- shinyServer(function(input, output) {
@@ -115,45 +125,69 @@ server <- shinyServer(function(input, output) {
         }
     })
     
-    tmp <- reactiveValues(nb = NULL, d1 = 0, d2 = NA)
+    tmp <- reactiveValues(nb = NULL, lw = NULL, d1 = 0, d2 = NA)
 
     printRcode <- function(input){
         ## nb code
         mycode <- list()
-        mycode[[1]] <- code("library(adespatial);library(sp);library(spdep);")
-        mycode[[2]] <- br()
-        mycode[[3]] <- "nb <- chooseCN(coordinates("
-        mycode[[3]] <- paste0(mycode[[3]], input$xy)
-        mycode[[3]] <- paste0(mycode[[3]], "), type = ", input$nb)
+        mycode[[1]] <- "library(adespatial);library(sp);library(spdep)"
+        mycode[[2]] <- "nb <- chooseCN(coordinates("
+        mycode[[2]] <- paste0(mycode[[2]], input$xy)
+        mycode[[2]] <- paste0(mycode[[2]], "), type = ", input$nb)
         if (input$nb == 5)
-            mycode[[3]] <- paste0(mycode[[3]], ", d1 = ", signif(tmp$d1, 5), ", d2 = ", signif(tmp$d2, 5))
+            mycode[[2]] <- paste0(mycode[[2]], ", d1 = ", signif(tmp$d1, 5), ", d2 = ", signif(tmp$d2, 5))
         if (input$nb == 6)
-            mycode[[3]] <- paste0(mycode[[3]], ", k = ", input$knn)
-        mycode[[3]] <- code(paste0(mycode[[3]], ", plot.nb = FALSE)\n"))
-        mycode[[length(mycode) + 1]] <- br()
+            mycode[[2]] <- paste0(mycode[[2]], ", k = ", input$knn)
+        mycode[[2]] <- paste0(mycode[[2]], ", plot.nb = FALSE)")
 
         ## listw code
-        if(input$glist != "NULL"){
-            mycode[[length(mycode) + 1]] <-  code(paste0("distnb <- nbdists(nb, ", input$xy, ")"))
-            mycode[[length(mycode) + 1]] <- br()
-            if(input$glist == 1)
-                mycode[[length(mycode) + 1]] <- code(paste0("fdist <- lapply(distnb, function(x) 1 - x/max(dist(", input$xy, ")))"))
-            if(input$glist == 2)
-                mycode[[length(mycode) + 1]] <- code(paste0("fdist <- lapply(distnb, function(x) 1 - x/max(dist(", input$xy, "))^", input$a, ")"))
-            if(input$glist == 3)
-                mycode[[length(mycode) + 1]] <- code(paste0("fdist <- lapply(distnb, function(x) 1 / dist(", input$xy, ")^", input$a, ")"))
-            mycode[[length(mycode) + 1]] <- br()
+        if (input$glist != "NULL") {
+            mycode[[length(mycode) + 1]] <-  paste0("distnb <- nbdists(nb, ", input$xy, ")")
+
+            if (input$glist == 1)
+                mycode[[length(mycode) + 1]] <- paste0("fdist <- lapply(distnb, function(x) 1 - x/max(dist(", input$xy, ")))")
+            if (input$glist == 2)
+                mycode[[length(mycode) + 1]] <- paste0("fdist <- lapply(distnb, function(x) 1 - (x/max(dist(", input$xy, ")))^", input$a, ")")
+            if (input$glist == 3)
+                mycode[[length(mycode) + 1]] <- paste0("fdist <- lapply(distnb, function(x) 1 / x^", input$a, ")")
             }
         mycode[[length(mycode) + 1]] <-  paste0("lw <- nb2listw(nb, style = '", input$style, "'")
-        if(input$glist != "NULL")
+        if (input$glist != "NULL")
             mycode[[length(mycode)]] <- paste0(mycode[[length(mycode)]], ", glist = fdist")
         mycode[[length(mycode)]] <- paste0(mycode[[length(mycode)]], ", zero.policy = TRUE)")
-        mycode[[length(mycode)]] <- code(mycode[[length(mycode)]])
+        
         return(mycode)
     }  
     
-    output$getcode <- renderUI(tagList(printRcode(input)))
+    output$getcode <- renderPrint({
+        mycode <- printRcode(input)
+        cat(paste(mycode, collapse = "\n"))
+        })
+    
     output$summary <- renderPrint(summary(tmp$nb))
+    
+    output$DistPlot <- renderPlot({
+    par(mar = c(5, 4, 0, 0))
+        Spobj <- sp::coordinates(get(input$xy))
+        dxy <- dist(Spobj)
+        fdist <- NULL
+        if (input$glist != "NULL") {
+            distnb <- spdep::nbdists(tmp$nb, Spobj)
+            
+            if (input$glist == 1)
+                fdist <- lapply(distnb, function(x) 1 - x/max(dxy))
+            if (input$glist == 2)
+                fdist <- lapply(distnb, function(x) 1 - (x/max(dxy))^input$a)
+            if (input$glist == 3)
+                fdist <- lapply(distnb, function(x) 1 / x^input$a)
+        }
+        tmp$lw <- spdep::nb2listw(tmp$nb, style = input$style, glist = fdist, zero.policy = TRUE)
+        m1 <- as.matrix(dxy)
+        m2 <- spdep::listw2mat(tmp$lw)
+
+        plot(m1[!diag(ncol(m1))], m2[!diag(ncol(m2))], pch = 20, xlab = "distance", ylab = "spatial weights")
+    })
+    
     output$Plot <- renderPlot({
         Spobj <- sp::coordinates(get(input$xy))
         if (input$nb == 5) {
@@ -163,7 +197,7 @@ server <- shinyServer(function(input, output) {
                 tmp$d1 <- 0
             else
                 tmp$d1 <- input$dmin
-            if (is.na(input$dmax)){
+            if (is.na(input$dmax)) {
                 tmp$d2 <- dthresh
             }else
                 tmp$d2 <- input$dmax
@@ -178,7 +212,7 @@ server <- shinyServer(function(input, output) {
         } else {
             tmp$nb <- adespatial::chooseCN(Spobj, type = input$nb, plot.nb = FALSE)
         }
-        
+        par(mar = c(0, 4, 0, 0))
         spdep::plot.nb(
             tmp$nb,
             Spobj,
@@ -187,7 +221,9 @@ server <- shinyServer(function(input, output) {
             pch = 20,
             cex = 2
         )
+        
         maptools::pointLabel(Spobj, attr(tmp$nb, "region.id"))
+        box()
     })
 })
 
