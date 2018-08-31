@@ -3,7 +3,6 @@
 \name{scalogram}
 \alias{scalogram}
 \alias{plot.scalogram}
-\alias{plot.scalogram}
 \title{Function to compute a scalogram}
 \usage{
 scalogram(x, orthobasisSp, nblocks = ncol(orthobasisSp), nrepet = 999,

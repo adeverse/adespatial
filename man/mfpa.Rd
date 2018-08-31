@@ -4,8 +4,6 @@
 \alias{mfpa}
 \alias{plot.mfpa}
 \alias{print.mfpa}
-\alias{plot.mfpa}
-\alias{print.mfpa}
 \title{Multi-frequential periodogram analysis}
 \usage{
 mfpa(y, MaxNFreq = 2, MinFreq = 3, MaxFreq = NA, ntrend = 0,

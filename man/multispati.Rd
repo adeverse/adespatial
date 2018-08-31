@@ -5,9 +5,6 @@
 \alias{plot.multispati}
 \alias{summary.multispati}
 \alias{print.multispati}
-\alias{summary.multispati}
-\alias{print.multispati}
-\alias{plot.multispati}
 \title{Multivariate spatial analysis}
 \usage{
 multispati(dudi, listw, scannf = TRUE, nfposi = 2, nfnega = 0)

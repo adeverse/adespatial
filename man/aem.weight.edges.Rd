@@ -3,7 +3,6 @@
 \name{aem.weight.edges}
 \alias{aem.weight.edges}
 \alias{aem.weight.time}
-\alias{aem.weight.time}
 \title{Weight edges when constructing AEM variables}
 \usage{
 aem.weight.edges(nb.object, coords, distmat = NULL, alpha = 2,
@@ -11,8 +10,8 @@ aem.weight.edges(nb.object, coords, distmat = NULL, alpha = 2,
   rm.same.y = TRUE, plot.connexions = TRUE)
 
 aem.weight.time(dates, distmat = NULL, alpha = 2, beta = NULL,
-  max.d = NULL, unit.angle = "degrees", rot.angle = 0, rm.same.y = TRUE,
-  plot.connexions = TRUE)
+  max.d = NULL, unit.angle = "degrees", rot.angle = 0,
+  rm.same.y = TRUE, plot.connexions = TRUE)
 }
 \arguments{
 \item{nb.object}{Object with class 'nb', computed by the spdep package,

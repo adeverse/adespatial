@@ -5,9 +5,10 @@
 \title{Function to optimize the selection of a spatial weighting matrix and select
 the best subset of eigenvectors (MEM, Moran's Eigenvector Maps)}
 \usage{
-listw.select(x, candidates, MEM.autocor = c("positive", "negative", "all"),
-  method = c("FWD", "MIR", "global"), MEM.all = FALSE, nperm = 999,
-  nperm.global = 9999, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
+listw.select(x, candidates, MEM.autocor = c("positive", "negative",
+  "all"), method = c("FWD", "MIR", "global"), MEM.all = FALSE,
+  nperm = 999, nperm.global = 9999, alpha = 0.05, p.adjust = TRUE,
+  verbose = FALSE)
 }
 \arguments{
 \item{x}{Vector, matrix, or dataframe of the response variable(s)}

@@ -3,7 +3,6 @@
 \name{stimodels}
 \alias{stimodels}
 \alias{quicksti}
-\alias{quicksti}
 \title{Space-time interaction in ANOVA without replication}
 \usage{
 stimodels(Y, S, Ti, model = "5", nperm = 999, nS = -1, nT = -1,

@@ -5,9 +5,6 @@
 \alias{mem}
 \alias{orthobasis.listw}
 \alias{[.orthobasisSp}
-\alias{mem}
-\alias{orthobasis.listw}
-\alias{[.orthobasisSp}
 \title{Function to compute and manage Moran's Eigenvector Maps (MEM) of a listw
 object}
 \usage{

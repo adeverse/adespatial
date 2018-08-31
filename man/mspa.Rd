@@ -4,8 +4,6 @@
 \alias{mspa}
 \alias{print.mspa}
 \alias{scatter.mspa}
-\alias{scatter.mspa}
-\alias{print.mspa}
 \title{Multi-Scale Pattern Analysis}
 \usage{
 mspa(dudi, lwORorthobasisSp, nblocks, scannf = TRUE, nf = 2,
