@@ -1,7 +1,7 @@
 Package: adespatial
 Title: Multivariate Multiscale Spatial Analysis
-Version: 0.2-0
-Date: 2018-05-23
+Version: 0.3-0
+Date: 2018-08-31
 Author: Stéphane Dray, David Bauman, Guillaume Blanchet, Daniel Borcard, Sylvie Clappe, Guillaume Guenard,
     Thibaut Jombart, Guillaume Larocque, Pierre Legendre, Naima Madi, Helene H Wagner
 Description: Tools for the multiscale spatial analysis of multivariate data.
@@ -9,7 +9,7 @@ Description: Tools for the multiscale spatial analysis of multivariate data.
     eigenvector decomposition (Moran's Eigenvectors Maps, MEM).
 Maintainer: Stéphane Dray <stephane.dray@univ-lyon1.fr>
 Imports:
-    ade4 (>= 1.7-10),
+    ade4 (>= 1.7-13),
     adegraphics,
     adephylo,
     sp,
@@ -27,5 +27,5 @@ Suggests: knitr, RANN, rgeos, maptools, ape, rmarkdown
 License: GPL (>= 2)
 Encoding: UTF-8
 NeedsCompilation: yes
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 VignetteBuilder: knitr, rmarkdown, RANN, rgeos, maptools
