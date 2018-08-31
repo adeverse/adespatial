@@ -32,16 +32,16 @@
 #'  accuracy and the power loss. 
 #'
 #'  The optimization criterion of the SWM performed by \code{listw.select} is
-#'  either based on the maximization of the adjusted R2 of all the generated
+#'  either based on the maximization of the significant adjusted R2 of all the generated
 #'  spatial eigenvectors (also referred to as spatial predictors or MEM
 #'  variables) (\code{method = "global"}), or is based on an optimized subset of
 #'  eigenvectors (\code{method = "FWD"} and \code{"MIR"}). 
 #'  
 #'  If the objective is only to optimize the selection of the SWM, without the 
 #'  intervention of the selection of a subset of predictors within each SWM 
-#'  (\code{method = "global"}), then the best SWM is the one maximizing the adjusted 
+#'  (\code{method = "global"}), then the best SWM is the one maximizing the significant adjusted 
 #'  global R2, that is, the R2 of the model of \code{x} against the whole set of
-#'  generated MEM variables (\code{method = "global"}). 
+#'  generated MEM variables which must be significant for the global test (\code{method = "global"}). 
 #'
 #'  The optimization of the SWM depends on the choosen \code{method}. See 
 #'  \code{\link{mem.select}} for a description of the situations in which 
@@ -69,7 +69,7 @@
 #'  \code{method = "global"} or \code{method = "FWD"}, the adjusted R2 is computed 
 #'  separately on the MEM associated to positive and negative eigenvalues (hereafter 
 #'  positive and negative MEM variables, respectively), and the SWM yielding the 
-#'  highest sum of the the two R2 values is selected. If \code{method = "MIR"}, the
+#'  highest sum of the the two significant R2 values is selected. If \code{method = "MIR"}, the
 #'  MIR selection is performed separately on the positive and negative MEM variables,
 #'  and the SWM is selected based on the sum of the number of positive and
 #'  negative spatial predictors.
@@ -93,7 +93,8 @@
 #' @param p.adjust A logical indicating wheter the p-value of the global test performed on each SWM
 #'  should be corrected for multiple tests (TRUE) or not (FALSE); default is
 #'  \code{TRUE}
-#'
+#' @param verbose If 'TRUE' more diagnostics are printed. The default setting is
+#'   FALSE
 #'@return \code{listw.select} returns a list that contains:
 #'  \describe{ \item{candidates}{A data.frame that summarizes the results on all SWMs}
 #'  \item{best.id}{The index and name of the best SWM} \item{best}{The results 
@@ -184,7 +185,7 @@
     MEM.autocor = c("positive", "negative", "all"), 
     method = c("FWD", "MIR", "global"),
     MEM.all = FALSE, nperm = 999, nperm.global = 9999, 
-    alpha = 0.05, p.adjust = TRUE) {
+    alpha = 0.05, p.adjust = TRUE, verbose = FALSE) {
     
     
     method <- match.arg(method)
@@ -192,7 +193,7 @@
     
     ntest <- ifelse(p.adjust, length(candidates), 1)
     res.tmp <- lapply(candidates, mem.select, x = x, MEM.autocor = MEM.autocor, 
-        method = method, MEM.all = MEM.all, nperm = nperm, nperm.global = nperm.global, alpha = alpha, ntest = ntest)
+        method = method, MEM.all = MEM.all, nperm = nperm, nperm.global = nperm.global, alpha = alpha, ntest = ntest, verbose = verbose)
     
     res <- data.frame(row.names = names(candidates))
     
@@ -200,11 +201,11 @@
         ## get the statistic of the global test
         df <- data.frame(row.names = names(list.res))
         prefix <- ifelse(method == "MIR", "I", "R2Adj")
-        if(MEM.autocor == "all")
+        if (MEM.autocor == "all")
             suffix <- c(".pos", ".neg") 
         else 
             suffix <- NULL
-        if(MEM.autocor == "all"){
+        if (MEM.autocor == "all") {
             df[,1] <- sapply(list.res, function(x) x$global.test$positive$obs)
             df[,2] <- sapply(list.res, function(x) x$global.test$negative$obs)
         } else {
@@ -219,11 +220,11 @@
     .getpvalue <- function(list.res, MEM.autocor){
         ## get the pvalue of the global test
         df <- data.frame(row.names = names(list.res))
-        if(MEM.autocor == "all")
+        if (MEM.autocor == "all")
             suffix <- c(".pos", ".neg") 
         else 
             suffix <- NULL
-        if(MEM.autocor == "all"){
+        if (MEM.autocor == "all") {
             df[,1] <- sapply(list.res, function(x) x$global.test$positive$pvalue)
             df[,2] <- sapply(list.res, function(x) x$global.test$negative$pvalue)
         } else {
@@ -238,10 +239,10 @@
         df <- data.frame(row.names = names(list.res))
         df[,1] <- sapply(list.res, function(x) ifelse(is.null(x$MEM.select), NA, ncol(x$MEM.select)))
         names(df) <- c("N.var")
-        if(method == "MIR"){
+        if (method == "MIR") {
             df[,2] <- sapply(list.res, function(x) ifelse(is.null(x$summary), NA, x$summary[nrow(x$summary), "Iresid"]))
             names(df) <- c("N.var", "I.select")
-        } else {
+        } else if (method == "FWD") {
             df[,2] <- sapply(list.res, function(x) ifelse(is.null(x$summary), NA, x$summary[nrow(x$summary), "AdjR2Cum"]))
             names(df) <- c("N.var", "R2Adj.select")
         }
@@ -255,13 +256,16 @@
     
     ## Select the best model among candidates
     if (length(res$N.var) > sum(is.na(res$N.var))) {
-        if(method == "FWD") {
+        if (method == "FWD") {
             best <- which.max(res$R2Adj.select) 
-        } else if(method == "global") {
-            best <- which.max(ifelse(MEM.autocor == "all", res$R2Adj.pos + res$R2Adj.neg, res$R2Adj))
-        } else if(method == "MIR") {
+        } else if (method == "global") {
+            R2 <- ifelse(res$Pvalue < alpha, res$R2Adj, NA)
+            if (MEM.autocor == "all") 
+                R2 <- ifelse(res$Pvalue.pos < alpha, res$R2Adj.pos, 0) + ifelse(res$Pvalue.neg < alpha, res$R2Adj.neg, 0)
+            best <- which.max(R2)
+        } else if (method == "MIR") {
             best <- which(res$N.var == min(na.omit(res$N.var)))
-            if(length(best) > 1)
+            if (length(best) > 1)
                 ## if different models have the same number of variables
                 ## minimizes residual autocorrelation
                 best <- best[which.min(abs(res$I.select[best]))] 

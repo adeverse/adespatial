@@ -239,18 +239,18 @@ mem.select <- function(x, listw, MEM.autocor = c("positive", "negative", "all"),
     MEM.autocor <- match.arg(MEM.autocor)
     
     if (any(is.na(x))) 
-        stop ("NA entries in x")
+        stop("NA entries in x")
     nsites <- NROW(x)
     
     MEM <- scores.listw(listw, MEM.autocor = MEM.autocor)
     
     ## alpha.global is hidden as only used internally
-    if(hasArg(ntest))
+    if (hasArg(ntest))
         ntest <- list(...)$ntest
     else
         ntest <- 1
     
-    if(MEM.autocor == "all"){
+    if (MEM.autocor == "all") {
         ntest <- ntest * 2
         res.pos <- mem.select(x = x, listw = listw, MEM.autocor = "positive", 
             method = method, MEM.all = MEM.all, nperm = nperm, nperm.global = nperm.global, alpha = alpha, ntest = ntest)
@@ -258,10 +258,10 @@ mem.select <- function(x, listw, MEM.autocor = c("positive", "negative", "all"),
             method = method, MEM.all = MEM.all, nperm = nperm, nperm.global = nperm.global, alpha = alpha, ntest = ntest)
         # combine results for positive and negative autocorrelations
         res <- list(global.test =  list(positive = res.pos$global.test, negative = res.neg$global.test))
-        if(MEM.all)
+        if (MEM.all)
             res$MEM.all <- MEM
-        if(is.null(res.neg$MEM.select)){
-            if(!is.null(res.pos$MEM.select)){
+        if (is.null(res.neg$MEM.select)) {
+            if (!is.null(res.pos$MEM.select)) {
                 res$MEM.select <- res.pos$MEM.select
                 res$summary <- res.pos$summary
             }
@@ -275,17 +275,17 @@ mem.select <- function(x, listw, MEM.autocor = c("positive", "negative", "all"),
             names(res.neg$MEM.select) <- names(MEM)[new.order]
             res.neg$summary$order <- new.order
             res.neg$summary$variables <- names(MEM)[new.order]
-            if(!is.null(res.pos$MEM.select)){
+            if (!is.null(res.pos$MEM.select)) {
                 res$MEM.select <- cbind(res.pos$MEM.select, res.neg$MEM.select)
                 res$summary <- rbind(res.pos$summary, res.neg$summary)
                 ## udpate summary in this case for the values of statistics
-                if(method == "FWD"){
+                if (method == "FWD") {
                     res$summary$R2Cum <- cumsum(res$summary$R2) 
                     res$summary$AdjR2Cum <- sapply(1:nrow(res$summary), function(x) 1 - (nsites - 1) / (nsites - x - 1) * (1 - sum(res$summary$R2[1:x])))
                 }
-                if(method == "MIR"){
+                if (method == "MIR") {
                     x2 <- x
-                    for(j in 1:ncol(res$MEM.select)){
+                    for (j in 1:ncol(res$MEM.select)) {
                         x2 <- residuals(lm(x2 ~ res$MEM.select[,j]))
                         res$summary$Iresid[j] <- moran(x2, listw, nsites, Szero(listw))$I
                     }
@@ -300,26 +300,28 @@ mem.select <- function(x, listw, MEM.autocor = c("positive", "negative", "all"),
         return(res)
     }
     
-    if(method == "MIR"){
-        if(NCOL(x) > 1) 
-            stop ("MIR can only be used for a univariate x")
+    if (method == "MIR") {
+        if (NCOL(x) > 1) 
+            stop("MIR can only be used for a univariate x")
         if (MEM.autocor == "positive")
             alter <- "greater"
         else if (MEM.autocor == "negative")
             alter <- "less"
         testI <- moran.randtest(x, listw, nperm.global, alter = alter)
         ##pvalue correction
-        testI$pvalue <- 1-(1-testI$pvalue)^ntest
+        testI$pvalue <- 1 - (1 - testI$pvalue)^ntest
         
-        if(MEM.all)
+        if (MEM.all)
             res <- list(global.test = testI, MEM.all = MEM)
         else
             res <- list(global.test = testI)
         
-        if(testI$pvalue >= alpha){
-            message(paste("No significant", MEM.autocor,  "spatial structure"))
+        if (testI$pvalue >= alpha) {
+            if (verbose) 
+                message(paste("No significant", MEM.autocor,  "spatial structure"))
             return(res)
         }       
+        
         p <- testI$pvalue
         MEM.sel <- idx.min <- min.moran <- p.vector <- c()
         while (p < alpha) {
@@ -327,7 +329,7 @@ mem.select <- function(x, listw, MEM.autocor = c("positive", "negative", "all"),
             I.vector <- apply(MEM, 2, function(z) moran(residuals(lm(x ~ z)), listw, nsites, Szero(listw))$I)
             I.vector[MEM.sel] <- NA ## MEM cannot be selected two times
             idx.min <- which.min(abs(I.vector))
-            if(verbose)
+            if (verbose)
                 message(paste("Testing variable", length(MEM.sel) + 1))
             x <- residuals(lm(x ~ MEM[, idx.min]))
             testI <- moran.randtest(x, listw, nperm, alter = alter)
@@ -338,8 +340,8 @@ mem.select <- function(x, listw, MEM.autocor = c("positive", "negative", "all"),
             p.vector <- c(p.vector, p)
         
         }
-        
-        message(paste("Procedure stopped (alpha criteria): pvalue for variable", length(MEM.sel) + 1, "is", p, "(>", alpha, ")"))
+        if (verbose)
+            message(paste("Procedure stopped (alpha criteria): pvalue for variable", length(MEM.sel) + 1, "is", p, "(>", alpha, ")"))
 
        
         res <- c(res, list(MEM.select = MEM[, MEM.sel, drop = FALSE], 
@@ -353,26 +355,30 @@ mem.select <- function(x, listw, MEM.autocor = c("positive", "negative", "all"),
         x <- as.data.frame(x)
         testF <- .testglobal(x, as.matrix(MEM), nperm.global)
         ##pvalue correction
-        testF$pvalue <- 1-(1-testF$pvalue)^ntest
+        testF$pvalue <- 1 - (1 - testF$pvalue)^ntest
         
-        if(MEM.all)
+        if (MEM.all)
             res <- list(global.test = testF, MEM.all = MEM)
         else
             res <- list(global.test = testF)
         
-        if(testF$pvalue >= alpha){
-            message(paste("No significant", MEM.autocor,  "spatial structure"))
+        if (testF$pvalue >= alpha) {
+            if (verbose)
+                message(paste("No significant", MEM.autocor,  "spatial structure"))
             return(res)
         }  
         
-        if (method == "global"){
+        if (method == "global") {
             res <- c(res, list(MEM.select = MEM))
-        } else if (method == "FWD"){
+        } else if (method == "FWD") {
             class <- class(try(fsel <- forward.sel(x, MEM, adjR2thresh = testF$obs, nperm = nperm, verbose = verbose), 
                 TRUE))
             if (class != "try-error") { 
                 res <- c(res, list(MEM.select = MEM[, fsel$order, drop = FALSE], summary = as.data.frame(fsel[, -6])))
-            } else message("No MEM variable was selected by the forward selection. See help document of mem.select.")
+            } else {
+                if (verbose)
+                message("No MEM variable was selected by the forward selection. See help document of mem.select.")
+            }
         }
         return(res)
     }

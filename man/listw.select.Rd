@@ -7,7 +7,7 @@ the best subset of eigenvectors (MEM, Moran's Eigenvector Maps)}
 \usage{
 listw.select(x, candidates, MEM.autocor = c("positive", "negative", "all"),
   method = c("FWD", "MIR", "global"), MEM.all = FALSE, nperm = 999,
-  nperm.global = 9999, alpha = 0.05, p.adjust = TRUE)
+  nperm.global = 9999, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
 }
 \arguments{
 \item{x}{Vector, matrix, or dataframe of the response variable(s)}
@@ -37,6 +37,9 @@ Default is 9999}
 \item{p.adjust}{A logical indicating wheter the p-value of the global test performed on each SWM
 should be corrected for multiple tests (TRUE) or not (FALSE); default is
 \code{TRUE}}
+
+\item{verbose}{If 'TRUE' more diagnostics are printed. The default setting is
+FALSE}
 }
 \value{
 \code{listw.select} returns a list that contains:
@@ -76,16 +79,16 @@ While the selection of the SWM is the most critical step of the
  accuracy and the power loss. 
 
  The optimization criterion of the SWM performed by \code{listw.select} is
- either based on the maximization of the adjusted R2 of all the generated
+ either based on the maximization of the significant adjusted R2 of all the generated
  spatial eigenvectors (also referred to as spatial predictors or MEM
  variables) (\code{method = "global"}), or is based on an optimized subset of
  eigenvectors (\code{method = "FWD"} and \code{"MIR"}). 
  
  If the objective is only to optimize the selection of the SWM, without the 
  intervention of the selection of a subset of predictors within each SWM 
- (\code{method = "global"}), then the best SWM is the one maximizing the adjusted 
+ (\code{method = "global"}), then the best SWM is the one maximizing the significant adjusted 
  global R2, that is, the R2 of the model of \code{x} against the whole set of
- generated MEM variables (\code{method = "global"}). 
+ generated MEM variables which must be significant for the global test (\code{method = "global"}). 
 
  The optimization of the SWM depends on the choosen \code{method}. See 
  \code{\link{mem.select}} for a description of the situations in which 
@@ -113,7 +116,7 @@ While the selection of the SWM is the most critical step of the
  \code{method = "global"} or \code{method = "FWD"}, the adjusted R2 is computed 
  separately on the MEM associated to positive and negative eigenvalues (hereafter 
  positive and negative MEM variables, respectively), and the SWM yielding the 
- highest sum of the the two R2 values is selected. If \code{method = "MIR"}, the
+ highest sum of the the two significant R2 values is selected. If \code{method = "MIR"}, the
  MIR selection is performed separately on the positive and negative MEM variables,
  and the SWM is selected based on the sum of the number of positive and
  negative spatial predictors.
