@@ -148,7 +148,7 @@
     weights <- match.arg(weights, several.ok = TRUE)
     
     
-    if(length(nb) == 0) 
+    if (length(nb) == 0) 
         stop("No connectivity matrix selected")
     if (length(weights) == 0) 
         stop("No weighting matrix selected")
@@ -161,15 +161,15 @@
     res <- list()
     ## Manage the case of pcnm separately (as it is not concerned by weights)
     if ("pcnm" %in% nb) {
-        f <- function (D, t) { 1-(D/(4*t))^2 }           # PCNM criterion
+        f <- function(D, t) { 1 - (D / (4 * t))^2 }           # PCNM criterion
         lowlim <- give.thresh(xy.d1)
-        matB <- dnearneigh(x = coord.mat, d1 = 0, d2 = lowlim)
+        matB <- dnearneigh(x = coord.mat, d1 = 0, d2 = (1 + sqrt(.Machine$double.eps)) * lowlim) ## add espsilon to ensure that all sites have neighbors
         res[[1]] <- nb2listw(matB, style = style, 
                     glist = lapply(nbdists(matB, coord.mat),
                         f, t = lowlim))
         names(res) <- "DBEM_PCNM"
         nb <- nb[-match("pcnm", nb)]
-        if(length(nb) == 0)
+        if (length(nb) == 0)
             return(res)
     }
     
@@ -180,9 +180,9 @@
         ## using a single nb.object and several weights
         res <- list()
         res.names <- c()
-        f1 <- function (D, dmax)     { 1 - (D/dmax) }       # Linear function
-        f2 <- function (D, dmax, y)  { 1 - (D/dmax)^y }     # Concave-down function
-        f3 <- function (D, y)        { 1 / D^y }            # Concave-up function
+        f1 <- function(D, dmax)     { 1 - (D/dmax) }       # Linear function
+        f2 <- function(D, dmax, y)  { 1 - (D/dmax)^y }     # Concave-down function
+        f3 <- function(D, y)        { 1 / D^y }            # Concave-up function
         
         if ("binary" %in% weights) {
             res <- c(res, list(nb2listw(nb.object, style = style)))
@@ -259,10 +259,10 @@
         # If "dnear" and no value specified for d2, then d2 is set to be the
         # largest edge of the minimum spanning tree (minimum distance keeping all points connected)
         if (missing(d2))
-            d2 <- give.thresh(xy.d1)
+            d2 <- (1 + sqrt(.Machine$double.eps)) * give.thresh(xy.d1)
     
         nb.dnear <- lapply(d2, dnearneigh, x = coord.mat, d1 = d1)
-        for(nb.i in 1:length(nb.dnear)){
+        for (nb.i in 1:length(nb.dnear)) {
             nb.object <- nb.dnear[[nb.i]]
             nb.dist <- nbdists(nb.object, coord.mat)
             res <- c(res, .addweights(nb.object, nb.dist, coord.mat, weights, style, 
