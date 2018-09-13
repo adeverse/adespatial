@@ -4,8 +4,8 @@
 \alias{test.W}
 \title{Function to compute and test eigenvectors of spatial weighting matrices}
 \usage{
-test.W(Y, nb, xy, MEM.autocor = c("all", "positive", "negative"), f = NULL,
-  ...)
+test.W(Y, nb, xy, MEM.autocor = c("all", "positive", "negative"),
+  f = NULL, ...)
 }
 \arguments{
 \item{Y}{A matrix with response variables (univariate or multivariate 
@@ -35,13 +35,16 @@ A list with the following elements: \item{all }{A data.frame where
   to corrected AIC.}
 }
 \description{
+This function is now deprecated. Please try the new \code{\link{listw.candidates}} and 
+\code{\link{listw.select}} functions.
+}
+\details{
 This function is a user-friendly way to compute and test eigenvectors for
 various definitions of spatial weighting matrices. It combines calls to the 
 functions \code{scores.listw} and \code{ortho.AIC}. It allows to test various
 definitions of the spatial weighting matrix and return results of 
 \code{scores.listw} for the best one.
-}
-\details{
+
 This functions allows to test one binary spatial weighting matrix 
   (if only Y and nb are provided). It allows also to test a weighting 
   function based on distances (if f is provided) and a weighting function 

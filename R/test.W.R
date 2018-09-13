@@ -1,5 +1,8 @@
 #' Function to compute and test eigenvectors of spatial weighting matrices
 #' 
+#' This function is now deprecated. Please try the new \code{\link{listw.candidates}} and 
+#' \code{\link{listw.select}} functions.
+#' 
 #' This function is a user-friendly way to compute and test eigenvectors for
 #' various definitions of spatial weighting matrices. It combines calls to the 
 #' functions \code{scores.listw} and \code{ortho.AIC}. It allows to test various
@@ -71,6 +74,9 @@
         MEM.autocor = c("all", "positive", "negative"),
         f = NULL,
         ...) {
+        .Deprecated(new = "listw.select", package = "adespatial", 
+            msg = "This function is now deprecated. Please try the new 'listw.select' function.")
+        
         mycall <- pairlist(...)
         res <- list()
         MEM.autocor <- match.arg(MEM.autocor)

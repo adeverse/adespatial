@@ -1,5 +1,7 @@
 #' Compute AIC for models with orthonormal explanatory variables
 #' 
+#' This function is now deprecated. Please try the new \code{\link{mem.select}} function.
+#' 
 #' This function compute corrected AIC for models with orthonormal and centered 
 #' explanatory variables such as MEM spatial eigenfunctions. Variables are
 #' sorted by their contribution to R2.
@@ -52,6 +54,9 @@
         # Fast Forward Selection AIC if X is orthonormal (XtX=I)
         # return a vector of AICc
         # if ord.var=TRUE, a list containing also order of variables is returned
+        .Deprecated(new = "mem.select", package = "adespatial", 
+            msg = "This function is now deprecated. Please try the new 'mem.select' function.")
+        
         if (sum(apply(as.matrix(apply(X, 2, mean)), 1, function(x)
             identical(all.equal(x, 0), TRUE))) != ncol(X))
             stop("X variables are not centered")
