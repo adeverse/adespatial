@@ -124,6 +124,7 @@ cycles per second or day, or per meter or km, depending on the study.
 To find the \emph{period} (number of days, hours, etc.) of the process
 generating a periodic signal in the data, divide the length of the series (in
 days, hours, etc.) by the frequency identified by Dutilleul’s periodogram.
+
 Recommendations to users The mfpa code estimates the periodic frequencies to
 be included in the model through a combination of a stepwise procedure and
 non-linear optimisation. Following that, the contributions of the ‘cos’ and
