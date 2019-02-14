@@ -440,8 +440,10 @@ for (R_len_t iperm=0; iperm < asInteger(perm); iperm++)
   } 
 }
 
-UNPROTECT(13);
-return createList1(Rlist,CPTlcbd,Edist,method,perm);
+
+SEXP ans = PROTECT(createList1(Rlist,CPTlcbd,Edist,method,perm));
+UNPROTECT(14);
+return(ans);
 }
 
 /* fin  betadiv1 */
@@ -1300,8 +1302,9 @@ for (iperm=0; iperm < INTEGER(perm)[0]; iperm++)
    
 }
 
-UNPROTECT(18);
-return createList2(SSTOTAL_C,BDTOTAL_C,LCBD_C,CPTlcbd,RD,coef,perm);
 
+SEXP ans =  PROTECT(createList2(SSTOTAL_C,BDTOTAL_C,LCBD_C,CPTlcbd,RD,coef,perm));
+UNPROTECT(19);
+return(ans);
 }  /* fin betadiv2 */
 
