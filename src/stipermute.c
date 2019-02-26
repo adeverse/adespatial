@@ -195,7 +195,7 @@ SEXP sti_loop(SEXP nperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS
 {
     R_len_t nline,ncol,i,iperm;
     
-    SEXP SS_YhatPerm_AxB,SS_YhatPerm_ABAxB,Yperm,YRestricted,YhatPerm_AxB ,Rdim,vect,YhatPerm_ABAxB,nPGE_AxB;
+    SEXP  Rdim,vect,nPGE_AxB;
     double MS_Perm_Res=0.0,MS_Perm_AxB=0.0, Fper_AxB=0.0;
     
     nperm = PROTECT(coerceVector(nperm, INTSXP));
@@ -214,26 +214,10 @@ SEXP sti_loop(SEXP nperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS
     nline = INTEGER(Rdim)[0];
     ncol = INTEGER(Rdim)[1];
     
-    PROTECT(YRestricted = allocVector(INTSXP,nline));
-    memset(INTEGER(YRestricted),0,nline*sizeof(int)); 
-    
-    PROTECT(Yperm = allocMatrix(REALSXP, nline, ncol));
-    memset(REAL(Yperm),0.0,nline*ncol*sizeof(double)); 
-    
-    PROTECT(YhatPerm_AxB = allocMatrix(REALSXP, nline, ncol));
-    memset(REAL(YhatPerm_AxB),0.0,nline*ncol*sizeof(double)); 
-    
-    PROTECT(YhatPerm_ABAxB = allocMatrix(REALSXP, nline, ncol));
-    memset(REAL(YhatPerm_ABAxB),0.0,nline*ncol*sizeof(double)); 
     
     PROTECT(nPGE_AxB = allocVector(INTSXP,1));
     memset(INTEGER(nPGE_AxB),0,sizeof(int)); 
     
-    PROTECT(SS_YhatPerm_AxB = allocVector(REALSXP,1));
-    memset(REAL(SS_YhatPerm_AxB),0.0,sizeof(double)); 
-    
-    PROTECT(SS_YhatPerm_ABAxB = allocVector(REALSXP,1));
-    memset(REAL(SS_YhatPerm_ABAxB),0.0,sizeof(double)); 
     
     PROTECT(vect = allocVector(INTSXP,nline));
     memset(INTEGER(vect),0,nline*sizeof(int)); 
@@ -242,28 +226,32 @@ SEXP sti_loop(SEXP nperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS
     
     INTEGER(nPGE_AxB)[0]=1;
     
+    SEXP SEXP_nline= PROTECT(ScalarInteger(nline));
+    SEXP SEXP_zero=PROTECT(ScalarInteger(0));
     
     for(iperm=1;iperm<=INTEGER(nperm)[0];iperm++)
     { 
+        /* PROTECT ..UNPROTECT added on Feb 15 2019 NM*/
+        SEXP YRestricted=PROTECT(RestrictedPerm(s,tt,SEXP_nline,SEXP_zero)); 
+        SEXP Yperm=PROTECT(reorder_mat(Y,YRestricted));
         
-        YRestricted=RestrictedPerm(s,tt,ScalarInteger(nline),ScalarInteger(0)); 
-        Yperm=reorder_mat(Y,YRestricted);
-        
-        YhatPerm_AxB=produit_dgemm(proj_AxB,Yperm);  
-        SS_YhatPerm_AxB=SS(YhatPerm_AxB);
+        SEXP YhatPerm_AxB=PROTECT(produit_dgemm(proj_AxB,Yperm));  
+        SEXP SS_YhatPerm_AxB=PROTECT(SS(YhatPerm_AxB));
         MS_Perm_AxB=REAL(SS_YhatPerm_AxB)[0]/INTEGER(cc)[0];
         
-        YhatPerm_ABAxB=produit_dgemm(proj_ABAxB,Yperm);
-        SS_YhatPerm_ABAxB = SS(YhatPerm_ABAxB); 
+        SEXP YhatPerm_ABAxB=PROTECT(produit_dgemm(proj_ABAxB,Yperm));
+        SEXP SS_YhatPerm_ABAxB = PROTECT(SS(YhatPerm_ABAxB)); 
         MS_Perm_Res=(REAL(SS_Y)[0]-REAL(SS_YhatPerm_ABAxB)[0])/(nline-(INTEGER(a)[0]+INTEGER(b)[0]+INTEGER(cc)[0])-1);
         
         Fper_AxB=MS_Perm_AxB/MS_Perm_Res;
         
         if(Fper_AxB >= REAL(Fref_AxB)[0])  INTEGER(nPGE_AxB)[0] += 1; 
         
+        UNPROTECT(6);
     }
     
-    UNPROTECT(20);
+    /*UNPROTECT(20);*/
+    UNPROTECT(16);
     return(nPGE_AxB);
 }
 /******* End sti_loop  ****/
@@ -273,9 +261,8 @@ SEXP sti_loop(SEXP nperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS
 SEXP s_loop(SEXP nbperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS_Y, SEXP Fref_A, SEXP projA, SEXP projB, SEXP projAXB, SEXP projABAxB, SEXP T_fixed)
 {
     R_len_t nline,ncol,iperm;
-    SEXP SS_YhatPerm_ABAxB, SS_YhatPerm_AxB, SS_YhatPerm_A, SS_YhatPerm_B;
     
-    SEXP YhatPerm_A, YhatPerm_B, Yperm,YRestricted,YhatPerm_AxB ,Rdim,YhatPerm_ABAxB, nPGE_A;
+    SEXP Rdim, nPGE_A;
     double MS_Perm_Res=0.0,MS_Perm_AxB=0., MS_Perm_A=0.0, MS_Perm_B=0.0, Fper_A=0.0;
     
     nbperm = PROTECT(coerceVector(nbperm, INTSXP));
@@ -297,73 +284,51 @@ SEXP s_loop(SEXP nbperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS_
     ncol = INTEGER(Rdim)[1];
     nline = INTEGER(Rdim)[0];
     
-    PROTECT(YRestricted = allocVector(INTSXP,nline));
-    memset(INTEGER(YRestricted),0,nline*sizeof(int)); 
-    
-    PROTECT(Yperm = allocMatrix(REALSXP, nline, ncol));
-    memset(REAL(Yperm),0.0,nline*ncol*sizeof(double)); 
-    
-    PROTECT(YhatPerm_AxB = allocMatrix(REALSXP, nline, ncol));
-    memset(REAL(YhatPerm_AxB),0.0,nline*ncol*sizeof(double)); 
-    
-    PROTECT(YhatPerm_ABAxB = allocMatrix(REALSXP, nline, ncol));
-    memset(REAL(YhatPerm_ABAxB),0.0,nline*ncol*sizeof(double)); 
-    
-    PROTECT(YhatPerm_A = allocMatrix(REALSXP, nline, ncol));
-    memset(REAL(YhatPerm_A),0.0,nline*ncol*sizeof(double)); 
-    
-    PROTECT(YhatPerm_B = allocMatrix(REALSXP, nline, ncol));
-    memset(REAL(YhatPerm_B),0.0,nline*ncol*sizeof(double)); 
-    
     PROTECT(nPGE_A = allocVector(INTSXP,1));
     memset(INTEGER(nPGE_A),0,sizeof(int)); 
     
-    PROTECT(SS_YhatPerm_AxB = allocVector(REALSXP,1));
-    memset(REAL(SS_YhatPerm_AxB),0.0,sizeof(double)); 
-    
-    PROTECT(SS_YhatPerm_ABAxB = allocVector(REALSXP,1));
-    memset(REAL(SS_YhatPerm_ABAxB),0.0,sizeof(double)); 
-    
-    PROTECT(SS_YhatPerm_A = allocVector(REALSXP,1));
-    memset(REAL(SS_YhatPerm_A),0.0,sizeof(double)); 
-    
-    PROTECT(SS_YhatPerm_B = allocVector(REALSXP,1));
-    memset(REAL(SS_YhatPerm_B),0.0,sizeof(double)); 
-    
     INTEGER(nPGE_A)[0]=1;
     
+    SEXP SEXP_nline= PROTECT(ScalarInteger(nline));
+    SEXP SEXP_un=PROTECT(ScalarInteger(1));
     
     for(iperm=1;iperm<=INTEGER(nbperm)[0];iperm++)
     {
-        YRestricted = RestrictedPerm(s,tt,ScalarInteger(nline),ScalarInteger(1));	    
-        Yperm=reorder_mat(Y,YRestricted);	    
-        YhatPerm_A=produit_dgemm(projA,Yperm);     
-        SS_YhatPerm_A = SS(YhatPerm_A); 
+        /* PROTECT ..UNPROTECT added on Feb 15 2019 NM */
+        SEXP YRestricted = PROTECT(RestrictedPerm(s,tt,SEXP_nline,SEXP_un));	    
+        SEXP Yperm=PROTECT(reorder_mat(Y,YRestricted));	    
+        SEXP YhatPerm_A=PROTECT(produit_dgemm(projA,Yperm));     
+        SEXP SS_YhatPerm_A = PROTECT(SS(YhatPerm_A)); 
         MS_Perm_A=REAL(SS_YhatPerm_A)[0]/INTEGER(a)[0];
         
         if(INTEGER(T_fixed)[0]==1) { // Time random factor in crossed design with interaction
-            YhatPerm_AxB=produit_dgemm(projAXB,Yperm);
-            SS_YhatPerm_AxB=SS(YhatPerm_AxB);
+            SEXP YhatPerm_AxB=PROTECT(produit_dgemm(projAXB,Yperm));
+            SEXP SS_YhatPerm_AxB=PROTECT(SS(YhatPerm_AxB));
             MS_Perm_AxB=REAL(SS_YhatPerm_AxB)[0]/INTEGER(cc)[0];
             Fper_A=MS_Perm_A/MS_Perm_AxB;
+            UNPROTECT(2);
             
         } else if(INTEGER(T_fixed)[0]==2) { // Time random factor in nested design
-            YhatPerm_B=produit_dgemm(projB,Yperm);
-            SS_YhatPerm_B = SS(YhatPerm_B); 	
+            SEXP YhatPerm_B=PROTECT(produit_dgemm(projB,Yperm));
+            SEXP SS_YhatPerm_B = PROTECT(SS(YhatPerm_B)); 	
             MS_Perm_B = REAL(SS_YhatPerm_B)[0]/INTEGER(b)[0];
             Fper_A = MS_Perm_A/MS_Perm_B;
+            UNPROTECT(2);
             
         } else {	
-            YhatPerm_ABAxB=produit_dgemm(projABAxB,Yperm); 
-            SS_YhatPerm_ABAxB =SS(YhatPerm_ABAxB); 
+            SEXP YhatPerm_ABAxB=PROTECT(produit_dgemm(projABAxB,Yperm)); 
+            SEXP SS_YhatPerm_ABAxB =PROTECT(SS(YhatPerm_ABAxB)); 
             MS_Perm_Res= (REAL(SS_Y)[0]-REAL(SS_YhatPerm_ABAxB)[0])/(nline-(INTEGER(a)[0]+INTEGER(b)[0]+INTEGER(cc)[0])-1);
-            Fper_A=MS_Perm_A/MS_Perm_Res;					
+            Fper_A=MS_Perm_A/MS_Perm_Res;
+            UNPROTECT(2);					
         }
         
         if(Fper_A >= REAL(Fref_A)[0])    INTEGER(nPGE_A)[0]+=1;
-        
+        /* added on Feb 15 2019 NM */
+        UNPROTECT(4);
     }
-    UNPROTECT(26);
+    /*UNPROTECT(26);*/
+    UNPROTECT(18);
     return(nPGE_A);
     
 }
@@ -372,10 +337,9 @@ SEXP s_loop(SEXP nbperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS_
 /*** t_loop computes permutation test for time ***/
 SEXP t_loop(SEXP nperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS_Y, SEXP Fref_B, SEXP projA, SEXP projB, SEXP projAXB, SEXP projABAxB, SEXP T_fixed)
 {
-    R_len_t nline,ncol,iperm;
-    SEXP SS_YhatPerm_ABAxB, SS_YhatPerm_AxB, SS_YhatPerm_A, SS_YhatPerm_B; 
+    R_len_t nline,ncol,iperm; 
     
-    SEXP YhatPerm_A, YhatPerm_B, Yperm,YRestricted,YhatPerm_AxB ,Rdim,YhatPerm_ABAxB, nPGE_B;
+    SEXP  Rdim, nPGE_B;
     double MS_Perm_Res=0.0,MS_Perm_AxB=0., MS_Perm_A=0.0, MS_Perm_B=0.0, Fper_B=0.0;
     
     nperm = PROTECT(coerceVector(nperm, INTSXP));
@@ -395,76 +359,52 @@ SEXP t_loop(SEXP nperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS_Y
     
     Rdim = PROTECT(getAttrib(Y, R_DimSymbol)); 
     ncol = INTEGER(Rdim)[1];
-    nline = INTEGER(Rdim)[0];
-    
-    PROTECT(YRestricted = allocVector(INTSXP,nline));
-    memset(INTEGER(YRestricted),0,nline*sizeof(int)); 
-    
-    PROTECT(Yperm = allocMatrix(REALSXP, nline, ncol));
-    memset(REAL(Yperm),0.0,nline*ncol*sizeof(double)); 
-    
-    PROTECT(YhatPerm_AxB = allocMatrix(REALSXP, nline, ncol));
-    memset(REAL(YhatPerm_AxB),0.0,nline*ncol*sizeof(double)); 
-    
-    PROTECT(YhatPerm_ABAxB = allocMatrix(REALSXP, nline, ncol));
-    memset(REAL(YhatPerm_ABAxB),0.0,nline*ncol*sizeof(double)); 
-    
-    PROTECT(YhatPerm_A = allocMatrix(REALSXP, nline, ncol));
-    memset(REAL(YhatPerm_A),0.0,nline*ncol*sizeof(double)); 
-    
-    PROTECT(YhatPerm_B = allocMatrix(REALSXP, nline, ncol));
-    memset(REAL(YhatPerm_B),0.0,nline*ncol*sizeof(double)); 
+    nline = INTEGER(Rdim)[0];   
     
     PROTECT(nPGE_B = allocVector(INTSXP,1));
     memset(INTEGER(nPGE_B),0,sizeof(int)); 
-    
-    PROTECT(SS_YhatPerm_AxB = allocVector(REALSXP,1));
-    memset(REAL(SS_YhatPerm_AxB),0.0,sizeof(double)); 
-    
-    PROTECT(SS_YhatPerm_ABAxB = allocVector(REALSXP,1));
-    memset(REAL(SS_YhatPerm_ABAxB),0.0,sizeof(double)); 
-    
-    PROTECT(SS_YhatPerm_A = allocVector(REALSXP,1));
-    memset(REAL(SS_YhatPerm_A),0.0,sizeof(double)); 
-    
-    PROTECT(SS_YhatPerm_B = allocVector(REALSXP,1));
-    memset(REAL(SS_YhatPerm_B),0.0,sizeof(double));
-    
     INTEGER(nPGE_B)[0]=1;
+    
+    SEXP SEXP_nline= PROTECT(ScalarInteger(nline));
+    SEXP SEXP_deux=PROTECT(ScalarInteger(2));
     
     for(iperm=1;iperm<=INTEGER(nperm)[0];iperm++)
     {
-        YRestricted = RestrictedPerm(s,tt,ScalarInteger(nline),ScalarInteger(2)); 
-        Yperm=reorder_mat(Y,YRestricted);   
-        YhatPerm_B=produit_dgemm(projB,Yperm);
-        SS_YhatPerm_B=SS(YhatPerm_B);
+        /* PROTECT ..UNPROTECT added on Feb 15 2019 NM */ 
+        SEXP YRestricted = PROTECT(RestrictedPerm(s,tt,SEXP_nline,SEXP_deux)); 
+        SEXP Yperm=PROTECT(reorder_mat(Y,YRestricted));   
+        SEXP YhatPerm_B=PROTECT(produit_dgemm(projB,Yperm));
+        SEXP SS_YhatPerm_B=PROTECT(SS(YhatPerm_B));
         MS_Perm_B = REAL(SS_YhatPerm_B)[0]/INTEGER(b)[0];
         
         
         if(INTEGER(T_fixed)[0]==1) { // Time random factor in crossed design with interaction
-            YhatPerm_AxB=produit_dgemm(projAXB,Yperm);
-            SS_YhatPerm_AxB=SS(YhatPerm_AxB);
+            SEXP YhatPerm_AxB=PROTECT(produit_dgemm(projAXB,Yperm));
+            SEXP SS_YhatPerm_AxB=PROTECT(SS(YhatPerm_AxB));
             MS_Perm_AxB=REAL(SS_YhatPerm_AxB)[0]/INTEGER(cc)[0];  
             Fper_B=MS_Perm_B/MS_Perm_AxB;
+            UNPROTECT(2);
             
         } else if(INTEGER(T_fixed)[0]==2) { // Time random factor in nested design
-            YhatPerm_A=produit_dgemm(projA,Yperm);
-            SS_YhatPerm_A=SS(YhatPerm_A);
+            SEXP YhatPerm_A=PROTECT(produit_dgemm(projA,Yperm));
+            SEXP SS_YhatPerm_A=PROTECT(SS(YhatPerm_A));
             MS_Perm_A=REAL(SS_YhatPerm_A)[0]/INTEGER(a)[0];
             Fper_B=MS_Perm_B/MS_Perm_A;
+            UNPROTECT(2);
             
         } else {
-            YhatPerm_ABAxB=produit_dgemm(projABAxB,Yperm); 	
-            SS_YhatPerm_ABAxB=SS(YhatPerm_ABAxB);
+            SEXP YhatPerm_ABAxB=PROTECT(produit_dgemm(projABAxB,Yperm)); 	
+            SEXP SS_YhatPerm_ABAxB=PROTECT(SS(YhatPerm_ABAxB));
             MS_Perm_Res= (REAL(SS_Y)[0]-REAL(SS_YhatPerm_ABAxB)[0])/(nline-(INTEGER(a)[0]+INTEGER(b)[0]+INTEGER(cc)[0])-1);
             Fper_B=MS_Perm_B/MS_Perm_Res;
+            UNPROTECT(2);
         }	
         if(Fper_B >= REAL(Fref_B)[0])    INTEGER(nPGE_B)[0]+=1;
-        
+        UNPROTECT(4);		
     }
     
-    UNPROTECT(26);
-    
+    /*UNPROTECT(26);*/
+    UNPROTECT(18);
     return(nPGE_B);
 }
 

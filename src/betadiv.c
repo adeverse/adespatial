@@ -1035,37 +1035,89 @@ SEXP binary_D(SEXP RinMatrix, SEXP coef) {
 /* fin calcul des différentes distances */
 
 SEXP distCalcul(SEXP RinMatrix, SEXP coeff, SEXP sample_C) {
-    SEXP Rval, Rdim;
+    SEXP  Rdim,Rval;
     R_len_t I,J;
     Rdim = PROTECT(getAttrib(RinMatrix, R_DimSymbol)); 
     I = INTEGER(Rdim)[0];
     J = INTEGER(Rdim)[1];
     
+   
     PROTECT(Rval = allocMatrix(REALSXP, I, I));
     memset(REAL(Rval),0.0,I*I*sizeof(double)); 
     
     PROTECT(coeff = AS_CHARACTER(coeff));
     sample_C = PROTECT(coerceVector(sample_C,LGLSXP));
     
-    if (STRING_ELT(coeff,0) == mkChar("manhattan"))       Rval = manhattan(RinMatrix);
-    else if (STRING_ELT(coeff,0) == mkChar("modmean"))    Rval = modmean(RinMatrix); 
-    else if (STRING_ELT(coeff,0) == mkChar("divergence")) Rval = divergence(RinMatrix); 
-    else if (STRING_ELT(coeff,0) == mkChar("canberra"))   Rval = canberra(RinMatrix); 
-    else if (STRING_ELT(coeff,0) == mkChar("percentdiff")) Rval = percentdiff(RinMatrix); 
-    else if (STRING_ELT(coeff,0) == mkChar("kulczynski"))  Rval = kulczynski(RinMatrix); 
-    else if (STRING_ELT(coeff,0) == mkChar("wishart"))     Rval = wishart(RinMatrix); 
-    else if (STRING_ELT(coeff,0) == mkChar("whittaker"))   Rval = whittaker(RinMatrix); 
-    else if (STRING_ELT(coeff,0) == mkChar("ab.jaccard"))  Rval = chao_C(RinMatrix,mkString("Jaccard"),sample_C); 
-    else if (STRING_ELT(coeff,0) == mkChar("ab.sorensen")) Rval = chao_C(RinMatrix,mkString("Sorensen"),sample_C); 
-    else if (STRING_ELT(coeff,0) == mkChar("ab.ochiai"))   Rval = chao_C(RinMatrix,mkString("Ochiai"),sample_C); 
-    else if (STRING_ELT(coeff,0) == mkChar("ab.simpson"))  Rval = chao_C(RinMatrix,mkString("Simpson"),sample_C); 
-    else if (STRING_ELT(coeff,0) == mkChar("ruzicka"))     Rval = ruzicka(RinMatrix); 
-    else if (STRING_ELT(coeff,0) == mkChar("jaccard"))     Rval = binary_D(RinMatrix,mkString("jaccard"));
-    else if (STRING_ELT(coeff,0) == mkChar("sorensen"))    Rval = binary_D(RinMatrix,mkString("sorensen")); 
-    else if (STRING_ELT(coeff,0) == mkChar("ochiai"))      Rval = binary_D(RinMatrix,mkString("ochiai"));  
-    
-    UNPROTECT(4);
-    return Rval;
+    /* PROTECT ..UNPROTECT added on Feb 15 2019 NM */
+    if (STRING_ELT(coeff,0) == mkChar("manhattan"))        Rval = manhattan(RinMatrix);
+    else if (STRING_ELT(coeff,0) == mkChar("modmean"))     Rval = modmean(RinMatrix);
+    else if (STRING_ELT(coeff,0) == mkChar("divergence"))  Rval = divergence(RinMatrix);       
+    else if (STRING_ELT(coeff,0) == mkChar("canberra"))    Rval = canberra(RinMatrix);
+    else if (STRING_ELT(coeff,0) == mkChar("percentdiff")) Rval = percentdiff(RinMatrix);
+    else if (STRING_ELT(coeff,0) == mkChar("kulczynski"))  Rval = kulczynski(RinMatrix);
+    else if (STRING_ELT(coeff,0) == mkChar("wishart"))     Rval = wishart(RinMatrix);     
+    else if (STRING_ELT(coeff,0) == mkChar("whittaker"))   Rval = whittaker(RinMatrix);
+    else if (STRING_ELT(coeff,0) == mkChar("ab.jaccard"))  
+    {
+        /* added on Feb 25 NM */
+        SEXP const_coeff = PROTECT(allocVector(STRSXP, 1));
+        SET_STRING_ELT(const_coeff,0,mkChar("Jaccard"));
+        Rval = chao_C(RinMatrix,const_coeff,sample_C);
+        UNPROTECT(1);
+    } 
+    else if (STRING_ELT(coeff,0) == mkChar("ab.sorensen")) 
+    {
+        /* added on Feb 25 NM */
+        SEXP const_coeff = PROTECT(allocVector(STRSXP, 1));
+        SET_STRING_ELT(const_coeff,0,mkChar("Sorensen"));
+        Rval = chao_C(RinMatrix,const_coeff,sample_C);
+        UNPROTECT(1);  
+    } 
+    else if (STRING_ELT(coeff,0) == mkChar("ab.ochiai"))   
+    {
+        /* added on Feb 25 NM */
+        SEXP const_coeff = PROTECT(allocVector(STRSXP, 1));
+        SET_STRING_ELT(const_coeff,0,mkChar("Ochiai"));
+        Rval = chao_C(RinMatrix,const_coeff,sample_C);
+        UNPROTECT(1);      
+    } 
+    else if (STRING_ELT(coeff,0) == mkChar("ab.simpson"))  
+    {
+        /* added on Feb 25 NM */
+        SEXP const_coeff = PROTECT(allocVector(STRSXP, 1));
+        SET_STRING_ELT(const_coeff,0,mkChar("Simpson"));
+        Rval = chao_C(RinMatrix,const_coeff,sample_C);
+        UNPROTECT(1);
+    } 
+    else if (STRING_ELT(coeff,0) == mkChar("ruzicka"))  Rval = ruzicka(RinMatrix);
+    else if (STRING_ELT(coeff,0) == mkChar("jaccard"))     
+    {
+        /* added on Feb 25 NM */
+        SEXP const_coeff = PROTECT(allocVector(STRSXP, 1));
+        SET_STRING_ELT(const_coeff,0,mkChar("jaccard"));
+        Rval = binary_D(RinMatrix,const_coeff);
+        UNPROTECT(1);  
+    }
+    else if (STRING_ELT(coeff,0) == mkChar("sorensen"))    
+    {
+        /* added on Feb 25 NM */
+        SEXP const_coeff = PROTECT(allocVector(STRSXP, 1));
+        SET_STRING_ELT(const_coeff,0,mkChar("sorensen"));
+        Rval = binary_D(RinMatrix,const_coeff);
+        UNPROTECT(1);
+      
+    } 
+    else if (STRING_ELT(coeff,0) == mkChar("ochiai"))      
+    {
+         /* added on Feb 25 NM */
+        SEXP const_coeff = PROTECT(allocVector(STRSXP, 1));
+        SET_STRING_ELT(const_coeff,0,mkChar("ochiai"));
+        Rval = binary_D(RinMatrix,const_coeff);
+        UNPROTECT(1);
+        
+    }  
+UNPROTECT(4);
+return Rval;   
 }
 
 ///// produit matriciel pour le centrage de Gower ========
