@@ -286,7 +286,7 @@
   eig <- dudi$eig[1:nf]
   cum <- cumsum (dudi$eig) [1:nf]
   ratio <- cum/sum(dudi$eig)
-  w <- apply(dudi$l1,2,spdep::lag.listw,x=listw)
+  w <- apply(dudi$l1, 2, spdep::lag.listw, x = listw, zero.policy = TRUE)
   moran <- apply(w*as.matrix(dudi$l1)*dudi$lw,2,sum)
   res <- data.frame(var=eig,cum=cum,ratio=ratio, moran=moran)
   cat("\nScores from the initial duality diagram:\n")
