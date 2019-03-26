@@ -55,7 +55,7 @@
 #'   \code{"chord"}, \code{"log.chord"}, \code{"chisquare"}, the algorithm begins with 
 #'   computation of the same-name transformation of the community data (Legendre and 
 #'   Gallagher 2001; Legendre and Legendre 2012, Section 7.7; Legendre and Borcard 
-#'   submitted); SStotal and BDtotal are then computed for the transformed data, followed 
+#'   2018); SStotal and BDtotal are then computed for the transformed data, followed 
 #'   by calculation of the SCBD and LCBD indices.
 #'   \item Calculations of BDtotal can also be conducted from a dissimilarity
 #'   matrix. SStotal is computed by summing the squared dissimilarities in the
@@ -74,7 +74,7 @@
 #'   abundance-based (ab) coefficients.} 
 #'   
 #'   Community composition data can be log-transformed prior to analysis with the 
-#'   chord distance; see Legendre and Borcard (submitted). The log(y+1) transformation
+#'   chord distance; see Legendre and Borcard (2018). The log(y+1) transformation
 #'   (\code{log1p} function of \code{base}) reduces the asymmetry of the species 
 #'   distributions. The chord-log distance, readily available among the methods of the 
 #'   \code{beta.div} function, is the chord distance computed on log(y+1)-transformed 
@@ -157,8 +157,9 @@
 #'   components of beta diversity. Global Ecology and Biogeography 23:
 #'   1324-1334.
 #'   
-#'   Legendre, P. and D. Borcard. (Submitted). Box-Cox-chord transformations for 
-#'   community composition data prior to beta diversity analysis.
+#'   Legendre, P. and D. Borcard. 2018. Box-Cox-chord transformations for
+#'   community composition data prior to beta diversity analysis. Ecography 41:
+#'   1820-1824.
 #'
 #'   Legendre, P. and M. De Cáceres. 2013. Beta diversity as the variance of
 #'   community data: dissimilarity coefficients and partitioning. Ecology

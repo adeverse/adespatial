@@ -12,30 +12,30 @@
 #'  created by the functions of the \pkg{spdep} package or an object of class
 #'  \code{orthobasis}
 #'@param nrepet an \code{integer} indicating the number of replicates
-#'@param method an character specifying which algorithm should be used to 
+#'@param method an character specifying which algorithm should be used to
 #'  produce spatial replicates (see code{\link{msr.default}}).
 #'@param \dots further arguments of the code{\link{msr.default}} function.
 #'@return An object of class \code{varipart} randomized replicates.
-#'  
+#'
 #'@details The function corrects the biases due to spatial autocorrelation by
 #'  using MSR procedure to produce environmental predictors that preserve the
 #'  spatial autocorrelation and the correlation structures of the original
 #'  environmental variables while being generated independently of species
 #'  distribution.
-#'  
-#'  
+#'
+#'
 #'@author(s) Stephane Dray \email{stephane.dray@@univ-lyon1.fr} and Sylvie
 #'Clappe \email{sylvie.clappe@@univ-lyon1.fr}
 #'
 #'@seealso \code{\link{msr.default}}, \code{\link[ade4]{varipart}}
-#'  
+#'
 #'@references
 #'
-#'Sylvie Clappe, Stephane Dray and Pedro R. Peres-Neto (in preparation) Beyond
-#'neutrality: using a null model to disentangle the effects of niche dynamics
-#'and spurious correlations in variation partitioning.
+#'Clappe, S., Dray S. and P.R. Peres-Neto (2018) Beyond
+#'neutrality: disentangling the effects of species sorting and spurious
+#'correlations in community analysis. Ecology 99:1737-1747.
 #'
-#'Wagner, H. H., and S. Dray, 2015. Generating spatially constrained null models
+#'Wagner, H. H., and S. Dray (2015). Generating spatially constrained null models
 #'for irregularly spaced data using Moran spectral randomization methods.
 #'Methods in Ecology and Evolution 6:1169–1178.
 #'
@@ -52,9 +52,9 @@
 #' ## Adjust estimation and compute p-value by msr methods
 #' vprda.msr <- msr(vprda, mafragh.lw, nrepet=99)
 #' vprda.msr
-#' @importFrom ade4 as.krandtest
-#' @importFrom stats as.formula lm.wfit model.frame
-#' @export
+#'@importFrom ade4 as.krandtest
+#'@importFrom stats as.formula lm.wfit model.frame
+#'@export
 msr.varipart <-
     function(x,
         listwORorthobasis,

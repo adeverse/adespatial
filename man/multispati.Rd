@@ -206,10 +206,6 @@ spatial patterns: a unified approach to local and global structures.
 Wartenberg, D. E. (1985) Multivariate spatial correlation: a method for
 exploratory geographical analysis. \emph{Geographical Analysis}, \bold{17},
 263--283.
-
-Jombart, T., Devillard, S., Dufour, A.-B. and Pontier, D. A spatially
-explicit multivariate method to disentangle global and local patterns of
-genetic variability. Submitted to \emph{Genetics}.
 }
 \seealso{
 \code{\link[ade4]{dudi}},\code{\link[spdep]{mat2listw}}

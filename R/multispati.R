@@ -77,9 +77,6 @@
 #' exploratory geographical analysis. \emph{Geographical Analysis}, \bold{17},
 #' 263--283.
 #' 
-#' Jombart, T., Devillard, S., Dufour, A.-B. and Pontier, D. A spatially
-#' explicit multivariate method to disentangle global and local patterns of
-#' genetic variability. Submitted to \emph{Genetics}.
 #' @keywords multivariate spatial
 #' @examples
 #' 

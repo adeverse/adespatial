@@ -39,7 +39,7 @@
 #' 
 #' The site-by-edge matrix created by this function and the list of edges
 #' include the links associated to a fictitious site upstream of all other, see
-#' Blanchet et al. (In press), for details. The decision regarding wether the
+#' Blanchet et al. (2008), for details. The decision regarding wether the
 #' origin and the edges associated with it should be kept or removed is left to
 #' the user. Removal of this site and of its associated edges can be done
 #' manually after the construction of the site-by-edge matrix and of the list

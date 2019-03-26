@@ -16,7 +16,7 @@ created by the functions of the \pkg{spdep} package or an object of class
 
 \item{nrepet}{an \code{integer} indicating the number of replicates}
 
-\item{method}{an character specifying which algorithm should be used to 
+\item{method}{an character specifying which algorithm should be used to
 produce spatial replicates (see code{\link{msr.default}}).}
 
 \item{\dots}{further arguments of the code{\link{msr.default}} function.}
@@ -54,11 +54,11 @@ vprda.msr <- msr(vprda, mafragh.lw, nrepet=99)
 vprda.msr
 }
 \references{
-Sylvie Clappe, Stephane Dray and Pedro R. Peres-Neto (in preparation) Beyond
-neutrality: using a null model to disentangle the effects of niche dynamics
-and spurious correlations in variation partitioning.
+Clappe, S., Dray S. and P.R. Peres-Neto (2018) Beyond
+neutrality: disentangling the effects of species sorting and spurious
+correlations in community analysis. Ecology 99:1737-1747.
 
-Wagner, H. H., and S. Dray, 2015. Generating spatially constrained null models
+Wagner, H. H., and S. Dray (2015). Generating spatially constrained null models
 for irregularly spaced data using Moran spectral randomization methods.
 Methods in Ecology and Evolution 6:1169–1178.
 }
