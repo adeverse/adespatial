@@ -230,6 +230,9 @@ aem.weight.edges <-
         if (is.null(beta)) {
             # First weighting function, Legendre & Legendre (2012, eq. 14.3)
             w <- 1 - (links.length/max.d)^alpha
+            if(max(links.length) > max.d){
+              stop(paste("'max.d' need to be larger than or equal to",max(links.length),"to have non-negative weights"))
+            }
         } else {
             # Second weighting function, Legendre & Legendre (2012, eq. 14.4)
             w <- 1 / links.length^beta
