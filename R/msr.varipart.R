@@ -37,7 +37,7 @@
 #'
 #'Wagner, H. H., and S. Dray (2015). Generating spatially constrained null models
 #'for irregularly spaced data using Moran spectral randomization methods.
-#'Methods in Ecology and Evolution 6:1169–1178.
+#'Methods in Ecology and Evolution 6:1169-1178.
 #'
 #' @examples
 #' library(ade4)

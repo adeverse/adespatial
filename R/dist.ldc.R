@@ -1,7 +1,7 @@
 #' Dissimilarity matrices for community composition data
 #'
 #' Compute dissimilarity indices for ecological data matrices. The dissimilarity
-#' indices computed by this function are those described in Legendre & De
+#' indices computed by this function are those described in Legendre and De
 #' Cáceres (2013). In the name of the function, 'ldc' stands for the author's
 #' names. Twelve of these 21 indices are not readily available in other R
 #' package functions; four of them can, however, be computed in two computation
@@ -79,7 +79,7 @@
 #'   U and V notations, see Chao et al. (2006, section 3). When
 #'   \code{samp=TRUE}, the abundance-based distances (ab.jaccard, ab.sorensen,
 #'   ab.ochiai, ab.simpson) are computed for sample data. If \code{samp=FALSE},
-#'   indices are computed for true population data. – Do not use indices of
+#'   indices are computed for true population data. - Do not use indices of
 #'   group 4 with \code{samp=TRUE} on presence-absence data; the indices are not
 #'   meant to accommodate this type of data. If \code{samp=FALSE} is used with
 #'   presence-absence data, the indices are the regular {Jaccard, Sorensen,
@@ -90,7 +90,7 @@
 #'   1-(2UV/(U+V)) \item abundance-based Ochiai D, D[ik] = 1-sqrt(UV) \item
 #'   abundance-based Simpson D, D[ik] = 1-(UV/(UV+min((U-UV),(V-UV)))) }
 #'
-#'   \item Group 5 – General-purpose dissimilarities that do not have an upper
+#'   \item Group 5 - General-purpose dissimilarities that do not have an upper
 #'   bound (maximum D value). They are inappropriate for beta diversity studies.
 #'   \itemize{\item Euclidean D, D[ik] = sqrt(sum(y[ij]-y[kj])^2) \item
 #'   Manhattan D, D[ik] = sum(abs(y[ij] - y[ik])) \item modified mean character
@@ -145,7 +145,7 @@
 #'
 #' @references Chao, A., R. L. Chazdon, R. K. Colwell and T. J. Shen. 2006.
 #'   Abundance-based similarity indices and their estimation when there are
-#'   unseen species in samples. Biometrics 62: 361–371.
+#'   unseen species in samples. Biometrics 62: 361-371.
 #'
 #'   Legendre, P. and D. Borcard. 2018. Box-Cox-chord transformations for
 #'   community composition data prior to beta diversity analysis. Ecography 41:
@@ -156,7 +156,7 @@
 #'   Letters 16: 951-963.
 #'
 #'   Legendre, P. and E. D. Gallagher, E.D. 2001. Ecologically meaningful
-#'   transformations for ordination of species data. Oecologia 129: 271–280.
+#'   transformations for ordination of species data. Oecologia 129: 271-280.
 #'
 #'   Legendre, P. and Legendre, L. 2012. Numerical Ecology. 3rd English edition.
 #'   Elsevier Science BV, Amsterdam.

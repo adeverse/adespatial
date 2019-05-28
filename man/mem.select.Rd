@@ -201,7 +201,7 @@ summary(mod_complete)$coefficient[, 2]   # Standard errors
 }
 \references{
 Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) Optimizing the choice 
-of a spatial weighting matrix in eigenvector-based methods. Ecology
+of a spatial weighting matrix in eigenvector-based methods. Ecology, 99, 2159-2166
 
 Bauman D., Drouet T., Dray S. and Vleminckx J. (2018b) Disentangling good from
 bad practices in the selection of spatial or phylogenetic eigenvectors.
@@ -230,7 +230,7 @@ flexibility of eigenfunction spatial analyses. Ecology, 87, 2603--2613
 
 Munoz, F. 2009. Distance-based eigenvector maps (DBEM) to analyse
 metapopulation structure with irregular sampling. Ecological Modelling, 220,
-2683–-2689
+2683--2689
 
 Peres-Neto P. and Legendre P. (2010) Estimating and controlling for spatial
 structure in the study of ecological communities. Global Ecology and

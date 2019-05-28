@@ -27,13 +27,13 @@ transformation may be useful for methods \code{"manhattan"},
 \code{"whittaker"}, \code{"divergence"}, \code{"canberra"},
 \code{"percentdiff"}, \code{ "ruzicka"}, \code{"wishart"} since square-root
 transformation of the dissimilarities makes these D matrices Euclidean.
-\itemize{\item Note 1 – Euclideanarity is useful for ordination by
+\itemize{\item Note 1 - Euclideanarity is useful for ordination by
 principal coordinate analysis; lack of this property does not adversely
-affect SStotal, BDtotal and LCBD. \item Note 2 – The logical value given to
+affect SStotal, BDtotal and LCBD. \item Note 2 - The logical value given to
 parameter \code{sqrt.D} has no incidence on calculations through methods
 \code{"euclidean"}, \code{"profiles"}, \code{"hellinger"}, \code{"log.chord"},
 \code{"chord"}, \code{"chisquare"} since no D matrix is computed in those cases. 
-\item Note 3 – For methods \code{"jaccard"}, \code{"sorensen"}, \code{"ochiai"}, 
+\item Note 3 - For methods \code{"jaccard"}, \code{"sorensen"}, \code{"ochiai"}, 
 that function produces the dissimilarity matrix in the form sqrt(D), which is
 Euclidean.}}
 
@@ -75,7 +75,7 @@ A list containing the following results: \itemize{ \item
   maximum values of 1 or sqrt(2) produce BDtotal values that do not have an
   upper bound; hence they cannot be compared across taxonomic groups or among
   study sites. This group includes the chi-square distance.} See Legendre &
-  De Caceres (2013, p. 957–958), Table 2 and section Maximum value of BD. \cr
+  De Caceres (2013, p. 957-958), Table 2 and section Maximum value of BD. \cr
   For two sites only, the LCBD results are not interesting. With all
   coefficients, the two LCBD indices are equal to 0.5. The two associated
   p-values are 1 because LCBD is 0.5 for all columnwise permutations of the
@@ -95,7 +95,7 @@ Calculations may be carried out in two ways, depending on the selected method.
   \itemize{ 
   \item For untransformed or transformed raw data, the total sum of squares (SStotal) 
   is first computed, then the total beta diversity (BDtotal), which is SStotal divided 
-  by (n – 1), is calculated. This algorithm is used for methods \code{"euclidean"}, 
+  by (n - 1), is calculated. This algorithm is used for methods \code{"euclidean"}, 
   \code{"profiles"}, \code{"hellinger"}, \code{"chord"}, \code{"log.chord"}, 
   \code{"chisquare"}. No transformation of the data is computed when the method is 
   \code{"euclidean"}. For methods \code{"profiles"}, \code{"hellinger"}, 
@@ -193,7 +193,7 @@ g2+g1
 \references{
 Chao, A., R. L. Chazdon, R. K. Colwell and T. J. Shen. 2006.
   Abundance-based similarity indices and their estimation when there are
-  unseen species in samples. Biometrics 62: 361–371.
+  unseen species in samples. Biometrics 62: 361-371.
 
   Legendre, P. 2014. Interpreting the replacement and richness difference
   components of beta diversity. Global Ecology and Biogeography 23:
@@ -208,7 +208,7 @@ Chao, A., R. L. Chazdon, R. K. Colwell and T. J. Shen. 2006.
   Letters 16: 951-963.
 
   Legendre, P. and E. D. Gallagher, E.D. 2001. Ecologically meaningful
-  transformations for ordination of species data. Oecologia 129: 271–280.
+  transformations for ordination of species data. Oecologia 129: 271-280.
 
   Legendre, P. and Legendre, L. 2012. Numerical Ecology. 3rd English edition.
   Elsevier Science BV, Amsterdam.

@@ -16,7 +16,7 @@
 #' 
 #' @author Stéphane Dray \email{stephane.dray@@univ-lyon1.fr}
 #' @seealso \code{\link[spdep]{moran.mc}}
-#' @references Moran, P. A. P. (1950). Notes on continuous stochastic phenomena. Biometrika, 37, 17–23.
+#' @references Moran, P. A. P. (1950). Notes on continuous stochastic phenomena. Biometrika, 37, 17-23.
 #' @keywords spatial
 #' @examples
 #' 

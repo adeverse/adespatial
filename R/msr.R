@@ -43,7 +43,7 @@
 #' @seealso \code{\link{scores.listw}}, \code{\link[spdep]{nb2listw}}
 #' @references Wagner, H.H. and Dray S. (2015) Generating spatially-constrained 
 #'   null models for irregularly spaced data using Moran spectral randomization 
-#'   methods. Methods in Ecology and Evolution, 6: 1169–1178.
+#'   methods. Methods in Ecology and Evolution, 6: 1169-1178.
 #'   doi:10.1111/2041-210X.12407
 #' @keywords spatial
 #' @examples

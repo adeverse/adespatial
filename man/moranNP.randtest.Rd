@@ -50,9 +50,9 @@ sum(tests$obs)
 
 }
 \references{
-Dray, S. (2011). A new perspective about Moran’s coefficient:
+Dray, S. (2011). A new perspective about Moran's coefficient:
   spatial autocorrelation as a linear regression problem. Geographical
-  Analysis, 43, 127–141.
+  Analysis, 43, 127-141.
 }
 \seealso{
 \code{\link{moran.randtest}}

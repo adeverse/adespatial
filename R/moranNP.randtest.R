@@ -24,9 +24,9 @@
 #'   \code{krandtest} (for bilateral test)
 #' @author Stéphane Dray \email{stephane.dray@@univ-lyon1.fr}
 #' @seealso \code{\link{moran.randtest}}
-#' @references Dray, S. (2011). A new perspective about Moran’s coefficient:
+#' @references Dray, S. (2011). A new perspective about Moran's coefficient:
 #'   spatial autocorrelation as a linear regression problem. Geographical
-#'   Analysis, 43, 127–141.
+#'   Analysis, 43, 127-141.
 #' @keywords spatial
 #' @examples
 #' if(require("ade4", quietly = TRUE)  & require("spdep", quiet = TRUE)){

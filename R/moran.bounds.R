@@ -9,7 +9,7 @@
 #' @return A vector containing the maximum and minimum of Moran's I for a given spatial weighting matrix value returned
 #' @author Stéphane Dray \email{stephane.dray@@univ-lyon1.fr}
 #' @seealso \code{\link{mem}} \code{\link[spdep]{nb2listw}}
-#' @references de Jong, P., Sprenger, C., & van Veen, F. (1984). On extreme values of Moran’s I and Geary's C. Geographical Analysis, 16(1), 17–24.
+#' @references de Jong, P., Sprenger, C., & van Veen, F. (1984). On extreme values of Moran's I and Geary's C. Geographical Analysis, 16(1), 17-24.
 #' @keywords spatial
 #' @examples
 #' 

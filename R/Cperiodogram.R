@@ -27,7 +27,7 @@
 #'@author Pierre Legendre \email{pierre.legendre@@umontreal.ca}
 #'  
 #'@return A table with the statistics for the selected periods: \itemize{ \item 
-#'  Wilks’ chi-square statistic (Wilks.chisq) \item information in common (B), 
+#'  Wilks' chi-square statistic (Wilks.chisq) \item information in common (B), 
 #'  \item degrees of freedom (df), \item p-value (prob) } Confidence interval 
 #'  limits: \itemize{ \item critical value of B without correction (B.crit), 
 #'  \item critical value of B with Bonferroni correction based on the number of 

@@ -8,7 +8,7 @@
 #'@param mat Community composition data (\code{data.frame} or \code{matrix}).
 #'@param coef Family of coefficients to be computed. \itemize{\item "S" or 
 #'  "Sorensen": Podani family, Sørensen-based indices. \item "J" or "Jaccard": 
-#'  Podani family, Jaccard-based indices. \item "BS" – Baselga family, 
+#'  Podani family, Jaccard-based indices. \item "BS": Baselga family, 
 #'  Sørensen-based indices. \item "BJ": Baselga family, Jaccard-based indices. 
 #'  \item "N": Podani & Schmera (2011) relativized nestedness index.} The 
 #'  quantitative form of the Sørensen dissimilarity is the percentage difference index.
@@ -22,7 +22,7 @@
 #'@details For species presence-absence data, the dissimilarity coefficients are 
 #'  Jaccard = (b+c)/(a+b+c) and Sørensen = (b+c)/(2*a+b+c) with the usual {a,b,c} 
 #'  notation. For species abundance data, the dissimilarity coefficients are the 
-#'  Ruzicka index = (B+C)/(A+B+C) and Odum’s percentage difference = 
+#'  Ruzicka index = (B+C)/(A+B+C) and Odum's percentage difference = 
 #'  (B+C)/(2A+B+C) (aka Bray-Curtis in some packages), where 
 #'  \itemize{\item A = sum of the intersections (or minima) of species 
 #'  abundances at two sites, \item B = sum of abundances at site 1 minus A, 
@@ -68,15 +68,15 @@
 #'
 #'Baselga, A. (2012) The relationship between species replacement, dissimilarity
 #'derived from nestedness, and nestedness. Global Ecology and Biogeography, 21,
-#'1223–1232.
+#'1223-1232.
 #'
 #'Baselga, A. (2013) Separating the two components of abundance-based
 #'dissimilarity: balanced changes in abundance vs. abundance gradients. Methods
-#'in Ecology and Evolution, 4, 552–557.
+#'in Ecology and Evolution, 4, 552-557.
 #'
 #'Carvalho, J.C., Cardoso, P., Borges, P.A.V., Schmera, D. & Podani, J. (2013)
 #'Measuring fractions of beta diversity and their relationships to nestedness: a
-#'theoretical and empirical comparison of novel approaches. Oikos, 122, 825–834.
+#'theoretical and empirical comparison of novel approaches. Oikos, 122, 825-834.
 #'
 #'Legendre, P. 2014. Interpreting the replacement and richness difference
 #'components of beta diversity. Global Ecology and Biogeography, 23, 1324-1334.
@@ -91,7 +91,7 @@
 #'
 #'Podani, J. & Schmera, D. 2011. A new conceptual and methodological framework
 #'for exploring and explaining pattern in presence-absence data. Oikos, 120,
-#'1625–1638.
+#'1625-1638.
 #'
 #'@author Pierre Legendre \email{pierre.legendre@@umontreal.ca}
 #'  

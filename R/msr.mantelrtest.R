@@ -20,7 +20,7 @@
 #' @author Sylvie Clappe, Stephane Dray \email{stephane.dray@@univ-lyon1.fr}
 #' @seealso \code{\link{msr.default}}, \code{\link[ade4]{mantel.randtest}}
 #' @references Crabot, J., Clappe, S., Dray, S. and Datry, T. (2019) Testing the
-#'   Mantel statistic with a spatially‐constrained permutation procedure.
+#'   Mantel statistic with a spatially-constrained permutation procedure.
 #'   Methods in Ecology and Evolution. in press.
 #'
 #' @keywords spatial

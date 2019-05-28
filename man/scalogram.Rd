@@ -27,12 +27,12 @@ see \code{p.adjust.methods} for possible choices.}
 
 \item{pos}{an integer indicating the position of the environment where the 
 data are stored, relative to the environment where the function is called. 
-Useful only if ‘storeData’ is ‘FALSE’}
+Useful only if \code{storeData} is \code{FALSE}}
 
 \item{plot}{a logical indicating if the graphics is displayed}
 
-\item{\dots}{additional graphical parameters (see ‘adegpar’ and 
-‘trellis.par.get’)}
+\item{\dots}{additional graphical parameters (see \code{\link[adegraphics]{adegpar}} and 
+\code{trellis.par.get})}
 }
 \value{
 The function \code{scalogram} returns an object of class 

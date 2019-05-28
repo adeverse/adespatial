@@ -65,7 +65,7 @@ A list containing the following elements:
  vector of probabilities associated with the tests of significance of the
  sample autocorrelation coefficients. \item \code{y}: the original data
  series (one-column matrix). \item \code{X}: the matrix of explanatory
- variables; it contains a column of “1” to estimate the intercept, a column
+ variables; it contains a column of "1" to estimate the intercept, a column
  for each of the trend components (if any), and two columns for each
  frequency component, each frequency being represented by a cosine and a
  sine. \item \code{r.squared.global}: The global R-squared of the model and
@@ -95,16 +95,16 @@ sines are considered jointly in the search for the dominant frequency
 components since they are both required to fully account for a frequency 
 component in a linear model. So, when either the cosine or the sine is 
 significant, this is sufficient indication that a significant frequency 
-component has been found. But see the first paragraph of the ‘Recommendations 
-to users’ below.
+component has been found. But see the first paragraph of the 'Recommendations 
+to users' below.
 
 The periodic phenomenon corresponding to each identified frequency is modelled
-by a cosine and a sine. The first pair (‘cos 1’, ‘sin 1’) corresponds to the
+by a cosine and a sine. The first pair ('cos 1', 'sin 1') corresponds to the
 first frequency, the second pair to the second frequency, and so on. An
 intercept is also computed, as well as a polynomial broad-scale trend if
-argument ntrend > 0. The coefficients shown for each periodic component (‘cos’
-and ‘sin’) are the OLS regression coefficients. The tests of significance
-producing the p-values (called ‘prob’ in the output file) are 2-tailed
+argument ntrend > 0. The coefficients shown for each periodic component ('cos'
+and 'sin') are the OLS regression coefficients. The tests of significance
+producing the p-values (called 'prob' in the output file) are 2-tailed
 parametric t-tests, as in standard OLS regression.
 
 A global R-square statistic for the periodogram is computed as the variance of
@@ -123,35 +123,35 @@ cycles per second or day, or per meter or km, depending on the study.
 
 To find the \emph{period} (number of days, hours, etc.) of the process
 generating a periodic signal in the data, divide the length of the series (in
-days, hours, etc.) by the frequency identified by Dutilleul’s periodogram.
+days, hours, etc.) by the frequency identified by Dutilleul's periodogram.
 
 Recommendations to users The mfpa code estimates the periodic frequencies to
 be included in the model through a combination of a stepwise procedure and
-non-linear optimisation. Following that, the contributions of the ‘cos’ and
-‘sin’ components of all frequencies in the model are estimated by multiple
+non-linear optimisation. Following that, the contributions of the 'cos' and
+'sin' components of all frequencies in the model are estimated by multiple
 linear regression in the presence of the intercept and trends (if any).
 Because the mfpa method estimates fractional frequencies, the cos-sin
 combinations are not orthogonal among the identified frequencies, and
-unnecessary frequencies may be selected as ‘significant’.
+unnecessary frequencies may be selected as 'significant'.
 
 1. It is important that users of this periodogram have hypotheses in mind
 about the frequencies of the processes that may be operating on the system
 under study and the number of periodic components they are expecting to find.
 If one asks for more components than the number of periodic phenomena at work
-on the system, the ‘real’ frequency usually has a strong or fairly strong
+on the system, the 'real' frequency usually has a strong or fairly strong
 R-squared and it is followed by other components with very small R-squared.
 Selection of frequencies of interest should thus be based more upon
 examination of the R-squares of the components rather than on the p-values.
 For short series in particular, the adjusted R-squared is an unbiased estimate
 of the variance of the data explained by the model. Even series of random
-numbers can produce ‘significant’ frequencies for periodic components; the
+numbers can produce 'significant' frequencies for periodic components; the
 associated (adjusted) R-squares will, however, be very small.
 
 2. Function mfpa cannot detect frequencies < 1 (smaller than one cycle in the 
-series) or larger than (\emph{n}–1) where \emph{n} is the number of
+series) or larger than (\emph{n}-1) where \emph{n} is the number of
 observations in the series, the latter case corresponding to periods smaller
 than the interval between successive observations. When a periodic component
-with such a period is present in the data, Dutilleul’s periodogram can detect
+with such a period is present in the data, Dutilleul's periodogram can detect
 harmonics of that frequency. Recommendation: when a frequency is detected that
 does not seem to correspond to a hypothesized process, one could check, using
 simulated data, if it could be produced by a process operating at a temporal
@@ -206,7 +206,7 @@ tide.h <- periodic.component(1:8760, 12.42, 0)
 
 # Sample the hourly data series once a day at 12:00 noon every day. The
 # periodic signal to be detected has a period smaller then the interval between
-# consecutive observations and its frequency is larger than (n–1). The sequence
+# consecutive observations and its frequency is larger than (n-1). The sequence
 # of sampling hours for the tide.h data is:
 
 h.noon <- seq(12, 8760, 24) 
@@ -215,7 +215,7 @@ length(tide.data)
 
 # The series contains 365 sampling units
 
-# Compute Dutilleul’s multi-frequential periodogram
+# Compute Dutilleul's multi-frequential periodogram
 
 res.noon <- mfpa(tide.data, MaxNFreq = 1, MinFreq = 2, ntrend = 1, nlags = 2)
 
@@ -241,20 +241,20 @@ plot(res.noise)
 
 }
 \references{
-Dutilleul, P. 1990. Apport en analyse spectrale d’un périodogramme modifié et 
+Dutilleul, P. 1990. Apport en analyse spectrale d'un périodogramme modifié et 
 modélisation des séries chronologiques avec répétitions en vue de leur 
 comparaison en fréquence. Doctoral Dissertation, Université Catholique de 
 Louvain, Louvain-la-Neuve, Belgium.
 
 Dutilleul, P. 1998. Incorporating scale in ecological experiments: data
 analysis. Pp. 387-425 in: D. L. Peterson & V. T. Parker [eds.] Ecological
-scale – Theory and applications. Columbia University Press, New York.
+scale - Theory and applications. Columbia University Press, New York.
 
 Dutilleul, P. 2001. Multi-frequential periodogram analysis and the detection
 of periodic components in time series. Commun. Stat. - Theory Methods 30,
-1063–1098.
+1063-1098.
 
-Dutilleul, P. R. L. 2011. Spatio-temporal heterogeneity — Concepts and
+Dutilleul, P. R. L. 2011. Spatio-temporal heterogeneity - Concepts and
 analyses. Cambridge University Press, Cambridge.
 
 Dutilleul, P. and C. Till. 1992. Evidence of periodicities related to climate 

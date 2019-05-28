@@ -59,8 +59,8 @@ stored}
 data are stored, relative to the environment where the function is called.
 Useful only if \code{storeData} is \code{FALSE}}
 
-\item{\dots}{additional graphical parameters (see ‘adegpar’ and 
-‘trellis.par.get’)}
+\item{\dots}{additional graphical parameters (see \code{\link[adegraphics]{adegpar}} and 
+\code{trellis.par.get})}
 }
 \value{
 An object having the classes \code{mspa} and 

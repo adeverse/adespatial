@@ -42,8 +42,8 @@
 #' @param pos an integer indicating the position of the environment where the
 #'   data are stored, relative to the environment where the function is called.
 #'   Useful only if \code{storeData} is \code{FALSE}
-#' @param \dots additional graphical parameters (see ‘adegpar’ and 
-#'   ‘trellis.par.get’)
+#' @param \dots additional graphical parameters (see \code{\link[adegraphics]{adegpar}} and 
+#'   \code{trellis.par.get})
 #' @return An object having the classes \code{mspa} and 
 #'   \code{\link[ade4]{dudi}}: \code{mspa} objects are \code{\link[ade4]{dudi}}
 #'   objects with the following extra slots:\cr - ls: principal components of

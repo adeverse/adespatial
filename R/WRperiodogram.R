@@ -102,7 +102,7 @@
 #' monitored by the EMSO-Açores MoMAR observatory. Deep-Sea Research I 90: 
 #' 62-75. (Recent application in oceanography)
 #' 
-#' Whittaker, E. T. and G. Robinson. 1924. The calculus of observations – A 
+#' Whittaker, E. T. and G. Robinson. 1924. The calculus of observations - A 
 #' treatise on numerical mathematics. Blackie & Son, London.
 #' @keywords multivariate
 #' @examples
