@@ -12,6 +12,10 @@ r_check_args: "--as-cran"
 r_packages:
 - devtools
 
+addons:
+  apt:
+    packages:
+      - libudunits2-dev
 env:
  global:
    - CRAN: http://cran.rstudio.com
