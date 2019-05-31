@@ -6,7 +6,7 @@
 
 /* .C calls */
 extern void buildbinary(void *, void *, void *, void *, void *, void *);
-extern void forwardsel(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
+extern void forwardsel(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void testglobal(void *, void *, void *, void *, void *, void *, void *);
 extern void C_WRperiodogram(void *, void *, void *, void *, void *, void *, void *, void *, void *);
 
