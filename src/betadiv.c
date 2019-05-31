@@ -1036,10 +1036,9 @@ SEXP binary_D(SEXP RinMatrix, SEXP coef) {
 
 SEXP distCalcul(SEXP RinMatrix, SEXP coeff, SEXP sample_C) {
     SEXP  Rdim,Rval;
-    R_len_t I,J;
+    R_len_t I;
     Rdim = PROTECT(getAttrib(RinMatrix, R_DimSymbol)); 
     I = INTEGER(Rdim)[0];
-    J = INTEGER(Rdim)[1];
     
    
     PROTECT(Rval = allocMatrix(REALSXP, I, I));

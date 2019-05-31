@@ -193,7 +193,7 @@ SEXP SS(SEXP x)
 /*** sti_loop computes permutation test for space-time interaction ***/
 SEXP sti_loop(SEXP nperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS_Y, SEXP Fref_AxB, SEXP proj_AxB, SEXP proj_ABAxB)
 {
-    R_len_t nline,ncol,i,iperm;
+    R_len_t nline,i,iperm;
     
     SEXP  Rdim,vect,nPGE_AxB;
     double MS_Perm_Res=0.0,MS_Perm_AxB=0.0, Fper_AxB=0.0;
@@ -212,7 +212,6 @@ SEXP sti_loop(SEXP nperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS
     
     Rdim = PROTECT(getAttrib(Y, R_DimSymbol)); 
     nline = INTEGER(Rdim)[0];
-    ncol = INTEGER(Rdim)[1];
     
     
     PROTECT(nPGE_AxB = allocVector(INTSXP,1));
@@ -260,7 +259,7 @@ SEXP sti_loop(SEXP nperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS
 /*** s_loop computes permutation test for space ***/
 SEXP s_loop(SEXP nbperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS_Y, SEXP Fref_A, SEXP projA, SEXP projB, SEXP projAXB, SEXP projABAxB, SEXP T_fixed)
 {
-    R_len_t nline,ncol,iperm;
+    R_len_t nline,iperm;
     
     SEXP Rdim, nPGE_A;
     double MS_Perm_Res=0.0,MS_Perm_AxB=0., MS_Perm_A=0.0, MS_Perm_B=0.0, Fper_A=0.0;
@@ -281,7 +280,6 @@ SEXP s_loop(SEXP nbperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS_
     Y = PROTECT(coerceVector(Y, REALSXP)); 
     
     Rdim = PROTECT(getAttrib(Y, R_DimSymbol)); 
-    ncol = INTEGER(Rdim)[1];
     nline = INTEGER(Rdim)[0];
     
     PROTECT(nPGE_A = allocVector(INTSXP,1));
@@ -337,7 +335,7 @@ SEXP s_loop(SEXP nbperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS_
 /*** t_loop computes permutation test for time ***/
 SEXP t_loop(SEXP nperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS_Y, SEXP Fref_B, SEXP projA, SEXP projB, SEXP projAXB, SEXP projABAxB, SEXP T_fixed)
 {
-    R_len_t nline,ncol,iperm; 
+    R_len_t nline,iperm; 
     
     SEXP  Rdim, nPGE_B;
     double MS_Perm_Res=0.0,MS_Perm_AxB=0., MS_Perm_A=0.0, MS_Perm_B=0.0, Fper_B=0.0;
@@ -358,7 +356,6 @@ SEXP t_loop(SEXP nperm,SEXP Y,SEXP s,SEXP tt, SEXP a, SEXP b, SEXP cc, SEXP SS_Y
     Y = PROTECT(coerceVector(Y, REALSXP)); 
     
     Rdim = PROTECT(getAttrib(Y, R_DimSymbol)); 
-    ncol = INTEGER(Rdim)[1];
     nline = INTEGER(Rdim)[0];   
     
     PROTECT(nPGE_B = allocVector(INTSXP,1));
