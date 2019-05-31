@@ -30,10 +30,58 @@ void buildbinary (unsigned int *nrowlinkR, unsigned int *linkR,
 /* ====================================
 	Declaration of function from adesub
 ======================================= */
-void taballoc (unsigned int ***tab, int l1, int c1);
+void tabintalloc (int ***tab, int l1, int c1);
 void vecintalloc (unsigned int **vec, int n);
 void freeintvec (unsigned int *vec);
-void freetab (unsigned int **tab);
+void freeinttab (int **tab);
+
+void tabintalloc (int ***tab, int l1, int c1)
+    /*--------------------------------------------------
+     * Allocation de memoire dynamique pour un tableau
+     * d'entiers (l1, c1)
+     --------------------------------------------------*/
+{
+    int     i, j;
+    
+    *tab = (int **) calloc(l1+1, sizeof(int *));
+    
+    if ( *tab != NULL) {
+        for (i=0;i<=l1;i++) {
+            
+            *(*tab+i)=(int *) calloc(c1+1, sizeof(int));        
+            if ( *(*tab+i) == NULL ) {
+                for (j=0;j<i;j++) {
+                    free(*(*tab+j));
+                }
+                return;
+            }
+        }
+    } else return;
+    **(*tab) = l1;
+    **(*tab+1) = c1;
+    for (i=1;i<=l1;i++) {
+        for (j=1;j<=c1;j++) {
+            (*tab)[i][j] = 0;
+        }
+    }
+}
+
+/***********************************************************************/
+void freeinttab (int **tab)
+    /*--------------------------------------------------
+     * Allocation de memoire dynamique pour un tableau
+     --------------------------------------------------*/
+{
+    int     i, n;
+    
+    n = *(*(tab));
+    
+    for (i=0;i<=n;i++) {
+        free((char *) *(tab+i) );
+    }
+    
+    free((char *) tab);
+}
 
 
 /*======================================
@@ -67,8 +115,8 @@ unsigned int a,b,c,d,e,f,g,h,i,sizetokeep,*tmp,sizetmp,sizetmpold,*tmp2,sizetmp2
 		Assign linkC to linktmp
 	---------------------------*/
 
-	taballoc(&linkC, nrowlinkC, 4);
-	taballoc(&linktmp, nrowlinkC, 4);
+	tabintalloc(&linkC, nrowlinkC, 4);
+	tabintalloc(&linktmp, nrowlinkC, 4);
 
 	a = 0;
 	for (b = 1; b <= 4; b++) {
@@ -103,7 +151,7 @@ unsigned int a,b,c,d,e,f,g,h,i,sizetokeep,*tmp,sizetmp,sizetmpold,*tmp2,sizetmp2
 	/*------------
 		build matC
 	--------------*/
-	taballoc(&matC, nsiteC,nrowlinkC);
+	tabintalloc(&matC, nsiteC,nrowlinkC);
 
 	/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 		Building the binary matrix (actual start of the real procedure)
@@ -185,7 +233,7 @@ unsigned int a,b,c,d,e,f,g,h,i,sizetokeep,*tmp,sizetmp,sizetmpold,*tmp2,sizetmp2
 				}
 				
 				/* Copy linktmp in linktmptmp while removing object used in tmp */
-				taballoc(&linktmptmp, sizetokeep-sizetmp, 4);
+				tabintalloc(&linktmptmp, sizetokeep-sizetmp, 4);
 				
 				for(e = 1; e <= 4; e++){
 					g = 1;
@@ -221,8 +269,8 @@ unsigned int a,b,c,d,e,f,g,h,i,sizetokeep,*tmp,sizetmp,sizetmpold,*tmp2,sizetmp2
 				freeintvec(linetmp);
 				
 				/* Reconstruct linktmp with a proper size */
-				freetab(linktmp);
-				taballoc(&linktmp, sizetokeep-sizetmp, 4);
+				freeinttab(linktmp);
+				tabintalloc(&linktmp, sizetokeep-sizetmp, 4);
 				
 				for(d = 1; d <= sizetokeep-sizetmp; d++){
 					for(e = 1; e <= 4; e++){
@@ -230,7 +278,7 @@ unsigned int a,b,c,d,e,f,g,h,i,sizetokeep,*tmp,sizetmp,sizetmpold,*tmp2,sizetmp2
 					}
 				}
 				
-				freetab(linktmptmp);
+				freeinttab(linktmptmp);
 				
 				/* Reconstruct tmp */
 				freeintvec(tmp);
@@ -257,8 +305,8 @@ unsigned int a,b,c,d,e,f,g,h,i,sizetokeep,*tmp,sizetmp,sizetmpold,*tmp2,sizetmp2
 			}
 
 			/* Reconstruct linktmp from scratch... ok well... from linkR  */
-			freetab(linktmp);
-			taballoc(&linktmp, nrowlinkC, 4);
+			freeinttab(linktmp);
+			tabintalloc(&linktmp, nrowlinkC, 4);
 
 			d = 0;
 			for(e = 1; e <= 4; e++) {
@@ -289,8 +337,8 @@ unsigned int a,b,c,d,e,f,g,h,i,sizetokeep,*tmp,sizetmp,sizetmpold,*tmp2,sizetmp2
 	}
 
 	/* Free memory taken by object matC */
-	freetab(matC);
-	freetab(linkC);
-	freetab(linktmp);
+	freeinttab(matC);
+	freeinttab(linkC);
+	freeinttab(linktmp);
 	freeintvec(tmp);
 }
