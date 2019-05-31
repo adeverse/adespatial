@@ -23,16 +23,14 @@
 	Term declaration - object created in R
 ==========================================*/
 
-void buildbinary (unsigned int *nrowlinkR, unsigned int *linkR,
-				  unsigned int *pointsorderR, unsigned int *lengthpoR,
-				  unsigned int *nsiteR, unsigned int *matR);
+void buildbinary ( int *nrowlinkR,  int *linkR,
+				   int *pointsorderR,  int *lengthpoR,
+				   int *nsiteR,  int *matR);
 
 /* ====================================
 	Declaration of function from adesub
 ======================================= */
 void tabintalloc (int ***tab, int l1, int c1);
-void vecintalloc (unsigned int **vec, int n);
-void freeintvec (unsigned int *vec);
 void freeinttab (int **tab);
 
 void tabintalloc (int ***tab, int l1, int c1)
@@ -87,9 +85,9 @@ void freeinttab (int **tab)
 /*======================================
 	Term definition - object created in R
 ========================================*/
-void buildbinary (unsigned int *nrowlinkR, unsigned int *linkR,
-				  unsigned int *pointsorderR, unsigned int *lengthpoR,
-				  unsigned int *nsiteR, unsigned int *matR)
+void buildbinary ( int *nrowlinkR,  int *linkR,
+				   int *pointsorderR,  int *lengthpoR,
+				   int *nsiteR,  int *matR)
 
 {
 
@@ -97,7 +95,7 @@ void buildbinary (unsigned int *nrowlinkR, unsigned int *linkR,
 	Term definition - object created in C
 =========================================*/
 
-unsigned int a,b,c,d,e,f,g,h,i,sizetokeep,*tmp,sizetmp,sizetmpold,*tmp2,sizetmp2,**linktmptmp,*line,*linetmp,
+ int a,b,c,d,e,f,g,h,i,sizetokeep,*tmp,sizetmp,sizetmpold,*tmp2,sizetmp2,**linktmptmp,*line,*linetmp,
 			 **linktmp,nsiteC,**linkC,nrowlinkC,*pointsorderC,lengthpoC,**matC;
 
 
