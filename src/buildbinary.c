@@ -17,6 +17,7 @@
 # include <Rmath.h>
 # include <R.h>
 # include <R_ext/Utils.h>
+# include "adesub.h"
 
 
 /*========================================
@@ -27,59 +28,7 @@ void buildbinary ( int *nrowlinkR,  int *linkR,
 				   int *pointsorderR,  int *lengthpoR,
 				   int *nsiteR,  int *matR);
 
-/* ====================================
-	Declaration of function from adesub
-======================================= */
-void tabintalloc (int ***tab, int l1, int c1);
-void freeinttab (int **tab);
 
-void tabintalloc (int ***tab, int l1, int c1)
-    /*--------------------------------------------------
-     * Allocation de memoire dynamique pour un tableau
-     * d'entiers (l1, c1)
-     --------------------------------------------------*/
-{
-    int     i, j;
-    
-    *tab = (int **) calloc(l1+1, sizeof(int *));
-    
-    if ( *tab != NULL) {
-        for (i=0;i<=l1;i++) {
-            
-            *(*tab+i)=(int *) calloc(c1+1, sizeof(int));        
-            if ( *(*tab+i) == NULL ) {
-                for (j=0;j<i;j++) {
-                    free(*(*tab+j));
-                }
-                return;
-            }
-        }
-    } else return;
-    **(*tab) = l1;
-    **(*tab+1) = c1;
-    for (i=1;i<=l1;i++) {
-        for (j=1;j<=c1;j++) {
-            (*tab)[i][j] = 0;
-        }
-    }
-}
-
-/***********************************************************************/
-void freeinttab (int **tab)
-    /*--------------------------------------------------
-     * Allocation de memoire dynamique pour un tableau
-     --------------------------------------------------*/
-{
-    int     i, n;
-    
-    n = *(*(tab));
-    
-    for (i=0;i<=n;i++) {
-        free((char *) *(tab+i) );
-    }
-    
-    free((char *) tab);
-}
 
 
 /*======================================
