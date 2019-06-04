@@ -123,6 +123,7 @@ trich.log <- log1p(trichoptera[,-c(1,2)])
 # Run space-time interaction test using model "5"
 stimodels(trich.log, S=22, Ti=10, nperm=99, model="5")
 
+\dontrun{
 # Run space-time analysis with tests for main effects after testing 
 # interaction (which is significant)
 quicksti(trich.log, S=22, Ti=10, nperm=99)
@@ -131,6 +132,7 @@ quicksti(trich.log, S=22, Ti=10, nperm=99)
 # Interaction is then not significant and tests of main effects are done 
 # following model 5
 quicksti(trich.log[111:154,], S=22, Ti=2, nperm=99)
+}
 
 }
 \references{

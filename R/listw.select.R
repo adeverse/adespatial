@@ -125,6 +125,7 @@
 #'@keywords spatial
 #'
 #' @examples
+#' \dontrun{
 #' if(require(spdep)) {
 #' ### Create a grid of 15 x 15:
 #' grid <- expand.grid(x = seq(1, 15, 1), y = seq(1, 15, 1))
@@ -175,6 +176,7 @@
 #' W_sel$candidates$R2Adj.select
 #'
 #' # See Appendix S3 of Bauman et al. 2018 for more extensive examples and illustrations.
+#' }
 #' }
 #'
 #'@export listw.select
