@@ -133,7 +133,7 @@
 #'   \email{davbauman@@gmail.com}) and Stéphane Dray
 #'
 #' @seealso \code{\link{listw.candidates}}, \code{\link{listw.select}},
-#'   \code{link{scores.listw}}
+#'   \code{\link{scores.listw}}
 #'
 #' @references Bauman D., Fortin M-J, Drouet T. and Dray S. (2018a) Optimizing the choice 
 #' of a spatial weighting matrix in eigenvector-based methods. Ecology, 99, 2159-2166
