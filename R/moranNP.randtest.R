@@ -50,16 +50,16 @@ moranNP.randtest <- function(x, listw, nrepet = 999, alter = c("greater", "less"
     scores <- mem(listw)
     res <- .C("testglobal", as.double(t(scores)), as.double(attr(scores, "values")), 
               as.integer(nrow(scores)), as.integer(ncol(scores)), as.double(z), 
-              as.integer(nrepet), sim = as.double(rep(0,3*(nrepet+1))), PACKAGE = "adespatial")$sim
+              as.integer(nrepet), sim = as.double(rep(0,3*(nrepet + 1))), PACKAGE = "adespatial")$sim
     
     res <- matrix(res, (nrepet + 1), 3, byrow = TRUE)
     colnames(res) <- c("I", "I+", "I-")
-    res <- res / Szero(listw) / length(z)
-    if(alter == "greater"){
+    res <- res / Szero(listw) # length(z) cancels as res contains the inner product not the correlation
+    if (alter == "greater") {
         res <-  as.randtest(obs = res[1, 2], sim = res[-1, 2], alter = "greater", call = match.call())
-    } else if(alter == "less"){
+    } else if (alter == "less") {
         res <-  as.randtest(obs = res[1, 3], sim = res[-1, 3], alter = "less", call = match.call())
-    } else if(alter == "two-sided"){
+    } else if (alter == "two-sided") {
         res <- as.krandtest(obs = res[1, 2:3], sim = res[-1, 2:3], alter = c("greater", "less"), call = match.call(), ...)
     }
     
