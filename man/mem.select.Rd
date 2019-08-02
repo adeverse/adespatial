@@ -26,7 +26,7 @@ performed in this case (see \code{Example})}
 eigenvectors, or both, respectively; default is "positive"}
 
 \item{method}{Criterion to select the best subset of MEM variables. Either
-\code{forward} (default option), \code{"MIR"} (for univariate \code{x}
+\code{"FWD"} (default option), \code{"MIR"} (for univariate \code{x}
 only), or \code{"global"} (see \code{Details})}
 
 \item{MEM.all}{A logical indicating if the complete set of MEM variables

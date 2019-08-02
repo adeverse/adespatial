@@ -22,7 +22,7 @@
 #'   "negative", or "all", for positively, negatively autocorrelated
 #'   eigenvectors, or both, respectively; default is "positive"
 #' @param method Criterion to select the best subset of MEM variables. Either
-#'   \code{forward} (default option), \code{"MIR"} (for univariate \code{x}
+#'   \code{"FWD"} (default option), \code{"MIR"} (for univariate \code{x}
 #'   only), or \code{"global"} (see \code{Details})
 #' @param MEM.all A logical indicating if the complete set of MEM variables
 #'   should be returned
