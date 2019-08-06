@@ -69,7 +69,10 @@ msr.varipart <-
         W <- data.frame(eval.parent(appel$W))
         
         if (!inherits(Y, "dudi")) {
-            response.generic <- as.matrix(scalewt(Y, scale = eval.parent(appel$scale)))
+            scale <- FALSE ## default in varipart (appel$scale is NULL if not specified in the call)
+            if (!is.null(appel$scale))
+                scale <-  eval.parent(appel$scale)
+            response.generic <- as.matrix(scalewt(Y, scale = scale))
             lw <- rep(1/NROW(Y), NROW(Y))
             sqlw <- sqrt(lw)
             sqcw <- sqrt(rep(1, NCOL(Y)))
