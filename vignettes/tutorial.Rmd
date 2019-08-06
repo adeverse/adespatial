@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: 
   html_vignette:
     number_sections: yes
-    toc: yes  
+    toc: yes
 bibliography: adespatial.bib
 link-citations: true
 vignette: |
@@ -19,7 +19,7 @@ vignette: |
 knitr::opts_chunk$set(fig.align = "center")
 ```
 
-The package `adespatial` contains functions for the multiscale analysis of spatial multivariate data. It implements some new functions and reimplements existing functions that were available in packages of the sedaR project hosted on R-Forge (`spacemakeR`, `packfor`, `AEM`, etc.). It can be seen as a bridge between packages dealing with mutltivariate data (e.g., `ade4`, @Dray2007) and packages that deals with spatial data (`sp`, `spdep`). In `adespatial`, many methods consider the spatial information as a spatial weighting matrix (SWM), object of class `listw` provided by the `spdep` package ([Figure 1](#diagram)). The SWM is defined as the Hadamard product (element-wise product) of a connectivity matrix by a weighting matrix. The binary connectivity matrix (spatial neighborhood, object of class `nb`) defines the pairs of connected and unconnected samples, while the weighting matrix allows weighting the connections, for instance to define that the strength of the connection between two samples decreases with the geographic distance.  
+The package `adespatial` contains functions for the multiscale analysis of spatial multivariate data. It implements some new functions and reimplements existing functions that were available in packages of the sedaR project hosted on R-Forge (`spacemakeR`, `packfor`, `AEM`, etc.). It can be seen as a bridge between packages dealing with multivariate data (e.g., `ade4`, @Dray2007) and packages that deals with spatial data (`sp`, `spdep`). In `adespatial`, many methods consider the spatial information as a spatial weighting matrix (SWM), object of class `listw` provided by the `spdep` package ([Figure 1](#diagram)). The SWM is defined as the Hadamard product (element-wise product) of a connectivity matrix by a weighting matrix. The binary connectivity matrix (spatial neighborhood, object of class `nb`) defines the pairs of connected and unconnected samples, while the weighting matrix allows weighting the connections, for instance to define that the strength of the connection between two samples decreases with the geographic distance.  
 
 Once SWM is defined, it can be used to build Moran's Eigenvector Maps (MEM, @Dray2006) that are orthogonal vectors maximizing the spatial autocorrelation (measured by Moran's coefficient). These spatial predictors can be used in multivariate statistical methods to provide spatially-explicit multiscale tools [@Dray2012]. This document provides a description of the main functionalities of the package. 
 
@@ -34,11 +34,51 @@ Once SWM is defined, it can be used to build Moran's Eigenvector Maps (MEM, @Dra
 To run the different analysis described, several packages are required and are loaded:
 
 ```{r}
-library(adespatial)
 library(ade4)
+library(adespatial)
 library(adegraphics)
 library(spdep)
 library(maptools)
+```
+
+# The Mafragh data set
+
+The Mafragh data set is used to illustrate several methods. It is available in the `ade4` package and stored as a `list`: 
+
+```{r}
+data("mafragh")
+class(mafragh)
+names(mafragh)
+dim(mafragh$flo)
+```
+
+The `data.frame` `mafragh$flo` is a floristic table that contains the abundance of 56 plant species in 97 sites in Algeria. Names of species are listed in `mafragh$spenames`. The geographic coordinates of the sites are given in `mafragh$xy`.
+
+```{r}
+str(mafragh$env)
+```
+
+The `data.frame` `mafragh$env` contains 11 quantitative environmental variables. 
+A map of the study area is also available (`mafragh$Spatial.contour`) that can be used as a background to display the sampling design: 
+
+```{r, fig.height = 4, fig.width = 4}
+mxy <- as.matrix(mafragh$xy)
+rownames(mxy) <- NULL
+s.label(mxy, ppoint.pch = 15, ppoint.col = "darkseagreen4", Sp = mafragh$Spatial.contour)
+```
+
+A more detailed description of the data set is available at http://pbil.univ-lyon1.fr/R/pdf/pps053.pdf (in French). 
+
+The functionalities of the `adegraphics` package [@Siberchicot2017] can be used to design simple thematic maps to represent data. For instance, it is possible to represent the spatial distribution of two species using the `s.Spatial` function applied on Voronoi polygons contained in `mafragh$Spatial`: 
+
+```{r}
+mafragh$spenames[c(1, 11), ]
+```
+
+```{r, fig.height=3, fig.width=6}
+fpalette <- colorRampPalette(c("white", "darkseagreen2", "darkseagreen3", "palegreen4"))
+sp.flo <- SpatialPolygonsDataFrame(Sr = mafragh$Spatial, data = mafragh$flo, match.ID = FALSE)
+s.Spatial(sp.flo[,c(1, 11)], col = fpalette(3), nclass = 3)
 ```
 
 # Building spatial neighborhood
@@ -87,22 +127,22 @@ All sites have two neighbors except the first and the last one.
 
 ## Irregular sampling
 
-There are many ways to define the neighborhood in the case of irregular samplings. We consider a random sampling with 20 sites:
+There are many ways to define the neighborhood in the case of irregular samplings. We consider a random subsample of 20 sites of the `mafragh` data set to better illustrate the differences between methods:
 
 ```{r}
 set.seed(3)
-xyir <- matrix(runif(40), 20, 2)
-s.label(xyir, main = "Irregular sampling with 10 sites")
+xyir <- mxy[sample(1:nrow(mafragh$xy), 20),]
+s.label(xyir, main = "Irregular sampling with 20 sites")
 ```
 
 The most intuitive way is to consider that sites are neighbors (or not) according to the distances between them. This definition is provided by the `dnearneigh` function:
 
 ```{r, fig.width = 5}
-nbnear1 <- dnearneigh(xyir, 0, 0.2)
-nbnear2 <- dnearneigh(xyir, 0, 1.5)
+nbnear1 <- dnearneigh(xyir, 0, 50)
+nbnear2 <- dnearneigh(xyir, 0, 305)
 
-g1 <- s.label(xyir, nb = nbnear1, pnb.edge.col = "red", main = "neighbors if 0<d<0.2", plot = FALSE)
-g2 <- s.label(xyir, nb = nbnear2, pnb.edge.col = "red", main = "neighbors if 0<d<1.5", plot = FALSE)
+g1 <- s.label(xyir, nb = nbnear1, pnb.edge.col = "red", main = "neighbors if 0<d<50", plot = FALSE)
+g2 <- s.label(xyir, nb = nbnear2, pnb.edge.col = "red", main = "neighbors if 0<d<305", plot = FALSE)
 cbindADEg(g1, g2, plot = TRUE)
 ```
 
@@ -185,7 +225,13 @@ nblag(neighbours, maxlag)
 
 # Defining spatial weighting matrices {#swm}
 
-A spatial weighting matrices (SWM) is computed by a transformation of a spatial neighborhood. In R, they are not stored as matrices but as objects of the class `listw`. This format is more efficient than a matrix representation to manage large data sets. An object of class `listw` can be easily created from an object of class `nb` with the function `nb2listw`.
+A spatial weighting matrices (SWM) is computed by a transformation of a spatial neighborhood. We consider the Gabriel graph for the full data set:
+
+```{r}
+nbgab <- graph2nb(gabrielneigh(mxy), sym = TRUE)
+```
+
+In R, SWM are not stored as matrices but as objects of the class `listw`. This format is more efficient than a matrix representation to manage large data sets. An object of class `listw` can be easily created from an object of class `nb` with the function `nb2listw`.
 
 Different objects `listw` can be obtained from a `nb` object. The argument `style` allows to define a transformation of the matrix such as standardization by row sum, by total sum or binary coding, etc. General spatial weights can be introduced by the argument `glist`. This allows to introduce, for instance, a weighting relative to the distances between the points. For this task, the function `nbdists` is very useful as it computes Euclidean distance between neighbor sites defined by an `nb` object.
 
@@ -198,8 +244,9 @@ nb2listw(nbgab)
 
 More sophisticated forms of spatial weighting matrices can be defined. For instance, it is possible to weight edges between neighbors as functions of geographic distances. In a fist step, distances between neighbors are obtained by the function \texttt{nbdists}:
 
+
 ```{r}
-distgab <- nbdists(nbgab, xyir)
+distgab <- nbdists(nbgab, mxy)
 nbgab[[1]]
 distgab[[1]]
 ```
@@ -207,13 +254,13 @@ distgab[[1]]
 Then, spatial weights are defined as a function of distance (e.g. $1-d_{ij}/max(d_{ij})$):
 
 ```{r}
-fdist <- lapply(distgab, function(x) 1 - x/max(dist(xyir)))
+fdist <- lapply(distgab, function(x) 1 - x/max(dist(mxy)))
 ```
 
 And the spatial weighting matrix is then created:
 
 ```{r}
-listwgab <- nb2listw(nbgab, glist = fdist, style = "B")
+listwgab <- nb2listw(nbgab, glist = fdist)
 listwgab
 names(listwgab)
 listwgab$neighbours[[1]]
@@ -259,7 +306,8 @@ mem.gab
 
 This object contains MEMs, stored as a `data.frame` and other attributes:
 ```{r}
-str(mem.gab)
+class(mem.gab)
+names(attributes(mem.gab))
 ```
 
 The eigenvalues associated to MEMs are stored in the attribute called `values`:
@@ -269,89 +317,35 @@ par(mar = c(0, 2, 3, 0))
         main = "Eigenvalues of the spatial weighting matrix", cex.main = 0.7)
 ```
 
-A `plot` method is provided to represent MEMs. By default, eigenvectors are represented as a table (sites as rows, MEMs as columns):
-
-```{r}
-plot(mem.gab)
+A `plot` method is provided to represent MEMs. By default, eigenvectors are represented as a table (sites as rows, MEMs as columns). This representation is usually not informative and it is better to map MEMs in the geographical space by documenting the argument `SpORcoords`:
+```{r, eval = FALSE}
+plot(mem.gab[,c(1, 5, 10, 20, 30, 40, 50, 60, 70)], SpORcoords = mxy)
 ```
-
-The previous representation is not really informative and MEMs can be represented in the geographical space as maps if the argument `SpORcoords` is documented:
+or using the more flexible `s.value` function:
 ```{r, fig.width = 5, fig.height = 5}
-plot(mem.gab, SpORcoords = xyir, nb = nbgab)
+s.value(mxy, mem.gab[,c(1, 5, 10, 20, 30, 40, 50, 60, 70)], symbol = "circle", ppoint.cex = 0.6)
 ```
 
 Moran's I can be computed and tested for each eigenvector with the `moran.randtest` function:
 
 ```{r}
 moranI <- moran.randtest(mem.gab, listwgab, 99)
-moranI
 ```
-By default, the function `moran.randtest` tests against the alternative hypothesis of positive autocorrelation (`alter = "greater"`) but this can be modified by setting the argument `alter` to `"less"` or `"two-sided"`. The function is not only devoted to MEMs and can be used to compute spatial autocorrelations for all kind of variables (see this [section](#mc)). 
 
 As demonstrated in @Dray2006, eigenvalues and Moran's I are equal (post-multiply by a constant):
 
 ```{r}
-attr(mem.gab, "values") / moranI$obs
+head(attr(mem.gab, "values") / moranI$obs)
 ```
 
-Then, it is possible to map only positive significant eigenvectors (i.e., MEMs with significant positive spatial autocorrelation):
-
-```{r, fig.width = 6, fig.height = 4}
-signi <- which(moranI$pvalue < 0.05)
-signi
-plot(mem.gab[,signi], SpORcoords = xyir, nb = nbgab)
-```
 
 # Describing spatial patterns
-In the previous sections, we considered only the spatial information as a geographic map, a spatial weighting matrix (SWM) or a basis of spatial predictors (e.g., MEM). In the next sections, we will show how the spatial information can be integrated to analyze multivariate data to identify multiscale spatial patterns. The dataset `mafragh` available in `ade4` will be used to illustrate the different methods.  
+In the previous sections, we considered only the spatial information as a geographic map, a spatial weighting matrix (SWM) or a basis of spatial predictors (e.g., MEM). In the next sections, we will show how the spatial information can be integrated to analyze multivariate data and identify multiscale spatial patterns. The dataset `mafragh` available in `ade4` will be used to illustrate the different methods.  
 
-## The Mafragh data set
-
-The Mafragh data set is available in the `ade4` package and stored as a `list`: 
-
-```{r}
-data("mafragh")
-class(mafragh)
-names(mafragh)
-dim(mafragh$flo)
-```
-
-The `data.frame` `mafragh$flo` is a floristic table that contains the abundance of 56 plant species in 97 sites in Algeria. Names of species are listed in `mafragh$spenames`. The geographic coordinates of the sites are given in `mafragh$xy`.
-
-```{r}
-str(mafragh$env)
-```
-
-The `data.frame` `mafragh$env` contains 11 quantitative environmental variables. 
-A map of the study area is also available (`mafragh$Spatial`) that can be used as a background to display the sampling design: 
-
-```{r, fig.height = 4, fig.width = 4}
-s.label(mafragh$xy, plabel.cex = 0, ppoint.pch = 15, ppoint.col = "darkseagreen4", Sp = mafragh$Spatial)
-```
-
-A more detailed description of the data set is available at http://pbil.univ-lyon1.fr/R/pdf/pps053.pdf (in French). 
-
-The functionalities of the `adegraphics` package [@Siberchicot2017] can be used to design simple thematic maps to represent data. For instance, it is possible to represent the spatial distribution of two species using the `s.Spatial` function: 
-
-```{r}
-mafragh$spenames[c(1, 11), ]
-```
-
-```{r, fig.height=3, fig.width=6}
-fpalette <- colorRampPalette(c("white", "darkseagreen2", "darkseagreen3", "palegreen4"))
-sp.flo <- SpatialPolygonsDataFrame(Sr = mafragh$Spatial, data = mafragh$flo, match.ID = FALSE)
-s.Spatial(sp.flo[,c(1, 11)], col = fpalette(3), nclass = 3)
-```
 
 ## Moran's coefficient of spatial autocorrelation {#mc}
 
-The element `mafragh$nb` contains a spatial neighborhood object that can be transformed in a spatial weighting matrix as described in this [section](#swm):
-
-```{r}
-lw <- nb2listw(mafragh$nb)
-```
-
-This SWM can be used to compute the level of spatial autocorrelation of a quantitative variable using the Moran's coefficient. If we consider the $n \times 1$ vector $\mathbf{x} = \left ( {x_1 \cdots x_n } \right )\tr$ containing measurements of a quantitative variable for $n$ sites and $\mathbf{W} = [w_{ij}]$ the SWM. The usual formulation for Moran's coefficient (MC) of spatial autocorrelation is:
+The SWM can be used to compute the level of spatial autocorrelation of a quantitative variable using the Moran's coefficient. If we consider the $n \times 1$ vector $\mathbf{x} = \left ( {x_1 \cdots x_n } \right )\tr$ containing measurements of a quantitative variable for $n$ sites and $\mathbf{W} = [w_{ij}]$ the SWM. The usual formulation for Moran's coefficient (MC) of spatial autocorrelation is:
 $$
 MC(\mathbf{x}) = \frac{n\sum\nolimits_{\left( 2 \right)} {w_{ij} (x_i -\bar 
 {x})(x_j -\bar {x})} }{\sum\nolimits_{\left( 2 \right)} {w_{ij} } 
@@ -371,34 +365,253 @@ The function `moran.mc` of the `spdep` package allows to compute and test, by pe
 
 ```{r, fig.height=6, fig.width=8, out.width="80%"}
 sp.env <- SpatialPolygonsDataFrame(Sr = mafragh$Spatial, data = mafragh$env, match.ID = FALSE)
-maps.env <- s.Spatial(sp.env, col = fpalette(4), nclass = 4)
-MC.env <- moran.randtest(mafragh$env, lw, nrepet = 999)
+maps.env <- s.Spatial(sp.env, col = fpalette(6), nclass = 6)
+MC.env <- moran.randtest(mafragh$env, listwgab, nrepet = 999)
 MC.env
 ```
 
 For a given SWM, the upper and lower bounds of MC \citep{Jong1984} are equal to  $\lambda_{max} (n/\mathbf{1}\tr\mathbf{W1})$ and $\lambda_{min} (n/\mathbf{1}\tr\mathbf{W1})$ where $\lambda_{max}$ and $\lambda_{min}$ are the extreme eigenvalues of $\mathbf{\Omega}$. These extreme values are returned by the `moran.bounds` function:
 
 ```{r}
-mc.bounds <- moran.bounds(lw)
+mc.bounds <- moran.bounds(listwgab)
 mc.bounds
 ```
 
 Hence, it is possible to display Moran's coefficients computed on environmental variables and the minimum and maximum values for the given SWM:
 
 ```{r, fig = TRUE}
-env.maps <- s1d.barchart(MC.env$obs, labels = MC.env$names, plot = FALSE, ylim = 1.1 * mc.bounds, p1d.hori = FALSE)
-addline(env.maps, h = mc.bounds, plot = TRUE, pline.col = 'red', pline.lty = 3)
+env.maps <- s1d.barchart(MC.env$obs, labels = MC.env$names, plot = FALSE, xlim = 1.1 * mc.bounds, paxes.draw = TRUE, pgrid.draw = FALSE)
+addline(env.maps, v = mc.bounds, plot = TRUE, pline.col = 'red', pline.lty = 3)
 ```
 
 ## Decomposing Moran's coefficient
+The standard test based on MC is not able to detect the coexistence of positive and negative autocorrelation structures (i.e., it leads to a non-significant test). 
+The `moranNP.randtest` function allows to decompose the standard MC statistic into two additive parts and thus to test for positive and negative autocorrelation separately [@Dray2011]. For instance, we can test the spatial distribution of Magnesium. Only positive autocorrelation is detected:
+
+```{r}
+NP.Mg <- moranNP.randtest(mafragh$env[,5], listwgab, nrepet = 999, alter = "two-sided") 
+NP.Mg
+plot(NP.Mg)
+sum(NP.Mg$obs)
+MC.env$obs[5]
+```
 
 ## MULTISPATI analysis
 
+When multivariate data are considered, it is possible to search for spatial structures by computing univariate statistics (e.g., [Moran's Coefficient](#mc)) on each variable separately. Another alternative is to summarize data by multivariate methods and then detect spatial structures using the output of the analysis. For instance, we applied a centred principal component analysis on the abundance data:
+```{r}
+pca.hell <- dudi.pca(mafragh$flo, scale = FALSE, scannf = FALSE, nf = 2)
+```
+
+MC can be computed for PCA scores and the associated spatial structures can be visualized on a map:
+
+```{r, fig.height=3, fig.width=6}
+moran.randtest(pca.hell$li, listw = listwgab)
+s.value(mxy, pca.hell$li, Sp = mafragh$Spatial.contour, symbol = "circle", col = c("white", "palegreen4"), ppoint.cex = 0.6)
+```
+
+PCA results are highly spatially structured. Results can be optimized, compared to this two-step procedure, by searching directly for multivariate spatial structures. The `multispati` function implements a method [@Dray2008] that search for axes maximizing the product of variance (multivariate aspect) by MC (spatial aspect):
+
+```{r}
+ms.hell <- multispati(pca.hell, listw = listwgab, scannf = F)
+```
+
+The `summary` method can be applied on the resulting object to compare the results of initial analysis (axis 1 (RS1) and axis 2 (RS2)) and those of the multispati method (CS1 and CS2):
+
+```{r}
+summary(ms.hell)
+```
+
+The MULTISPATI analysis allows to better identify spatial structures (higher MC values).
+
+Scores of the analysis can be mapped and highlight some spatial patterns of community composition: 
+
+```{r, fig.height=3, fig.width= 6}
+g.ms.maps <- s.value(mafragh$xy, ms.hell$li, Sp = mafragh$Spatial.contour, symbol = "circle", col = c("white", "palegreen4"), ppoint.cex = 0.6)
+```
+
+The spatial distribution of several species can be inserted to facilitate the interpretation of the outputs of the analysis:
+
+```{r, fig.width = 5, fig.height = 5}
+g.ms.spe <- s.arrow(ms.hell$c1, plot = FALSE)
+g.abund <- s.value(mxy, mafragh$flo[, c(12,11,31,16)],
+    Sp = mafragh$Spatial.contour, symbol = "circle", col = c("black", "palegreen4"), plegend.drawKey = FALSE, ppoint.cex = 0.4, plot = FALSE)
+p1 <- list(c(0.05, 0.65), c(0.01, 0.25), c(0.74, 0.58), c(0.55, 0.05))
+for (i in 1:4)
+g.ms.spe <- insert(g.abund[[i]], g.ms.spe, posi = p1[[i]], ratio = 0.25, plot = FALSE)
+g.ms.spe
+```
+
 # Multiscale analysis with MEM
+All the methods presented in the previous section consider the whole SWM to integrate the spatial information. In this section, we present alternatives that use MEM to introduce the notion of space at multiple scales.
+
 ## Scalogram and MSPA
+
+The full set of MEMs provide a basis of orthogonal vectors that can be used to decompose the total variance of a given variable at multiple scales. This approach consists simply in computing $R^2$ values associated to each MEM to build a scalogram indicating the part of variance explained by each MEM. These values can be tested by a permutation procedure. Here, we illustrate the procedure with the abundance of *Bolboschoenus maritimus* (Sp11) which is mainly located in the central part of the study area:
+
+```{r}
+scalo <- scalogram(mafragh$flo[,11], mem.gab)
+plot(scalo)
+```
+As the number of MEMs is equal to the number of sites minus one and as MEMs are othogonal, the variance is fully decomposed:
+
+```{r}
+sum(scalo$obs)
+```
+
+When the number of MEMs is high, the results provided by this approach can be difficult to interpret. In this case it can be advantageous to use smoothed scalograms (using the `nblocks` argument) where spatial components are formed by groups of successive MEMs:
+
+```{r}
+plot(scalogram(mafragh$flo[,11], mem(listwgab), nblocks = 20))
+```
+
+It is possible to compute scalograms for all the species of the data table. These scalograms can be stored in a table and analysing this table with a PCA allows to identify the important scales of the data set and the similarities between species based on their spatial distributions [@Jombart2009]. This analysis named Multiscale Patterns Analysis (MSPA) is available in the `mspa` function that takes the results of a multivariate analysis (an object of class `dudi`) as argument:
+
+```{r, fig.height=5, fig.width=5}
+mspa.hell <- mspa(pca.hell, listwgab, scannf = FALSE, nf = 2)
+
+g.mspa <- scatter(mspa.hell, posieig = "topright", plot = FALSE)
+g.mem <- s.value(mafragh$xy, mem.gab[, c(1, 2, 6, 3)], Sp = mafragh$Spatial.contour, ppoints.cex = 0.4, plegend.drawKey = FALSE, plot = FALSE)
+g.abund <- s.value(mafragh$xy, mafragh$flo[, c(31,54,25)], Sp = mafragh$Spatial.contour, symbol = "circle", col = c("black", "palegreen4"), plegend.drawKey = FALSE, ppoint.cex = 0.4, plot = FALSE)
+
+p1 <- list(c(0.01, 0.44), c(0.64, 0.15), c(0.35, 0.01), c(0.15, 0.78))
+for (i in 1:4)
+g.mspa <- insert(g.mem[[i]], g.mspa, posi = p1[[i]], plot = FALSE)
+
+p2 <- list(c(0.27, 0.54), c(0.35, 0.35), c(0.75, 0.31))
+for (i in 1:3)
+g.mspa <- insert(g.abund[[i]], g.mspa, posi = p2[[i]], plot = FALSE)
+
+g.mspa
+```
+
 ## Selection of SWM and MEM
-## Redundancy Analysis
-## Variation partitioning
-## Testing with Moran's Spectral Randomization
+Scalograms and MSPA require the full set of MEMs to decompose the total variation. However, regression-based methods (described in next sections) could suffer from overfitting if the number of explanatory variables is too high and thus require a procedure to reduce the number of MEMs. The function `mem.select` proposes different alternatives to perform this selection using the argument `method` [@Bauman2018]. By default, only MEMs associated to positive eigenvalues are considered (argument `MEM.autocor = "positive"`) and a forward selection (based on $R^2$ statistic) is performed after a global test (`method = "FWD"`):    
+
+```{r}
+mem.gab.sel <- mem.select(pca.hell$tab, listw = listwgab)
+mem.gab.sel$global.test
+mem.gab.sel$summary
+```
+Results of the global test and of the forward selection are returned in elements `global.test` and `summary`. The subset of selected MEMs are in `MEM.select` and can be used in subsequent analysis (see sections on [Redundancy Analysis](#rda) and [Variation Partitioning](#varpart)).
+
+```{r}
+class(mem.gab.sel$MEM.select)
+dim(mem.gab.sel$MEM.select)
+```
+
+Different SWMs can be defined for a given data set. An important issue concerns the selection of a SWM. This choice can be driven by biological hypotheses but a data-driven procedure is provided by the `listw.select` function. A list of potential candidates can be built using the `listw.candidates` function. Here, we create four candidates using two definitions for neighborhood (Gabriel and Relative graphs using `c("gab", "rel")`) and two weighting functions (binary and linear using `c("bin", "flin")`):     
+
+```{r}
+cand.lw <- listw.candidates(mxy, nb = c("gab", "rel"), weights = c("bin", "flin"))
+```
+
+The function `listw.select` proposes different methods for selecting a SWM [@Bauman2018a]. The procedure is very similar to the one proposed by `mem.select` except that p-value corrections are applied on global tests taking into account the fact that several candidates are used. By default (`method = "FWD"`), it applies forward selection on the significant SWMs and selects among these the SWM for which the subset of MEMs yields the highest adjusted R.
+
+```{r}
+sel.lw <- listw.select(pca.hell$tab, candidates = cand.lw, nperm = 99)
+```
+
+A summary of the procedure is available:
+
+```{r}
+sel.lw$candidates
+sel.lw$best.id
+```
+The corresponding SWM can be obtained by
+
+```{r}
+lw.best <- cand.lw[[sel.lw$best.id]]
+```
+
+The subset of MEMs corresponding to the best SWM is also returned by the function:
+
+```{r}
+sel.lw$best
+```
+
+## Canonical Analysis {#rda}
+Canonical methods are widely used to explain the structure of an abundance table by environmental and/or spatial variables. For instance, Redundancy Analysis (RDA) is available in functions `pcaiv` (package `ade4`) or `rda` (package `vegan`). RDA can be applied using selected MEMs as explanatory variables to study the spatial patterns in plant communities, :
+
+```{r}
+rda.hell <- pcaiv(pca.hell, sel.lw$best$MEM.select, scannf = FALSE)
+```
+
+The permutation test based on the percentage of variation explained by the spatial predictors ($R^2$) is highly significant:
+
+```{r}
+test.rda <- randtest(rda.hell)
+test.rda
+plot(test.rda)
+```
+
+Associated spatial structures can be mapped:
+```{r, fig.height=3, fig.width= 6}
+s.value(mxy, rda.hell$li, Sp = mafragh$Spatial.contour, symbol = "circle", col = c("white", "palegreen4"), ppoint.cex = 0.6)
+```
+
+## Variation partitioning {#varpart}
+Spatial structures identified by Redundancy Analysis in the [previous section](#rda) can be due to niche filtering or other processes (e.g., neutral dynamics). Variation partitioning [@Borcard1992] based on adjusted $R^2$ [@Peres-Neto2006a] can be used to identify the part of spatial structures that can be explained or not by environmental predictors. This method is implemented in the function `varpart` of package `vegan` that is able to deal with up to four tables of predictors:  
+
+```{r, fig.height = 5, fig.width = 5}
+library(vegan)
+vp1 <- varpart(pca.hell$tab, mafragh$env, sel.lw$best$MEM.select)
+vp1
+plot(vp1, bg = c(3, 5), Xnames = c("environment", "spatial"))
+```
+
+A simpler function `varipart` is available in `ade4` that is able to deal only with two tables of explanatory variables: 
+
+```{r}
+vp2 <- varipart(pca.hell$tab, mafragh$env, sel.lw$best$MEM.select)
+vp2
+```
+
+Estimates and testing procedures associated to standard variation partitioning can be biased in the presence of spatial autocorrelation in both response and explanatory variables. To solve this issue, `adespatial` provides functions to perform spatially-constrained randomization using Moran's Spectral Randomization.
+
+## Testing with Moran's Spectral Randomization {#msr}
+
+Moran's Spectral Randomization (MSR) allows to generate random replicates that preserve the spatial structure of the original data [@Wagner2015]. These replicates can be used to create spatially-constrained null distribution. For instance, we consider the case of bivariate correlation between Elevation and Sodium:
+
+```{r}
+cor(mafragh$env[,10], mafragh$env[,11])
+```
+
+This correlation can be tested by a standard t-test:
+
+```{r}
+cor.test(mafragh$env[,10], mafragh$env[,11])
+```
+  
+However this test assumes independence between observations. This condition is not observed in our data as suggested by the computation of MC:
+
+```{r}
+moran.randtest(mafragh$env[,10], lw.best)
+```
+
+An alternative is to generate random replicates for the two variables with same level of spatial autocorrelation: 
+
+```{r}
+msr1 <- msr(mafragh$env[,10], lw.best)
+summary(moran.randtest(msr1, lw.best, nrepet = 2)$obs)
+
+msr2 <- msr(mafragh$env[,11], lw.best)
+```
+
+Then, the statistic is computed on observed and simulated data to build a randomization test:
+
+```{r}
+obs <- cor(mafragh$env[,10], mafragh$env[,11])
+sim <- sapply(1:ncol(msr1), function(i) cor(msr1[,i], msr2[,i]))
+testmsr <- as.randtest(obs = obs, sim = sim, alter = "two-sided")
+testmsr
+```
+
+The function `msr` is generic and several methods are implemented in `adespatial`. For instance, it can be used to correct estimates and significance of the environmental fraction in the case of a variation partitioning [@Clappe2018] computed with the `varipart` function:
+
+```{r}
+msr(vp2, listwORorthobasis = lw.best)
+```
+
 
 # References
