@@ -205,7 +205,7 @@
 				          cat(" The", ncol(SS), "available spatial dbMEM will be used\n\n")
 				          nS <- ncol(SS)
 				      }
-				    else dbMEM.S <- dbMEM.S[,1:nS]
+				    else dbMEM.S <- dbMEM.S[, 1:nS, drop = FALSE]
 				    }
 			    }
 			} else {
@@ -244,7 +244,7 @@
 				      cat(" The", ncol(TT), "available temporal dbMEM will be used\n\n")
 				      nT <- ncol(TT)
 				      }
-				    else dbMEM.T <- dbMEM.T[,1:nT]
+				    else dbMEM.T <- dbMEM.T[, 1:nT, drop = FALSE]
 				      }
 				if(nT) {
 				   if(nT > ncol(TT)) {
@@ -252,7 +252,7 @@
 				      cat("The", ncol(TT), "available temporal dbMEM will be used\n\n")
 				      nT <- ncol(TT)
 				      }
-				    else dbMEM.T <- dbMEM.T[,1:nT]
+				    else dbMEM.T <- dbMEM.T[, 1:nT, drop = FALSE]
 				      }
 				else  nT <- ncol(TT)
     }
@@ -274,8 +274,8 @@
 		        	cat(" Number of space coding functions =", nS,'\n\n')
 			}
 			if(model!="2" && model!="3a" && model!="6a") {
-			    if(s==2)  #DB To avoid number = -1
-			        cat("Number of space coding functions = 1 \n")
+			    if(tt==2)  #DB To avoid number = -1
+			        cat("Number of time coding functions = 1 \n")
 			    else
             		cat(" Number of time coding functions =", nT, "\n\n")}            		
 		}
