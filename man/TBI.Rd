@@ -314,7 +314,7 @@ Legendre, P. 2019. A temporal beta-diversity index to identify
   to stress. \emph{Environmental Toxicology and Chemistry} 18: 138-148.
 }
 \seealso{
-\code{draw.BC}
+\code{\link{plot.TBI}}
 }
 \author{
 Pierre Legendre \email{pierre.legendre@umontreal.ca}

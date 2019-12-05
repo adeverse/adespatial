@@ -247,7 +247,7 @@
 #'   analysis of time-dependent multivariate responses of biological community
 #'   to stress. \emph{Environmental Toxicology and Chemistry} 18: 138-148.
 #'
-#' @seealso \code{draw.BC}
+#' @seealso \code{\link{plot.TBI}}
 #'
 #' @examples
 #' if(require("vegan", quietly = TRUE)) {

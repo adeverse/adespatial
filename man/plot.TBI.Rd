@@ -173,7 +173,7 @@ time-dependent multivariate responses of biological community to stress.
 \emph{Environmental Toxicology and Chemistry} 18: 138-148.
 }
 \seealso{
-\code{TBI}
+\code{\link{TBI}}
 }
 \author{
 Pierre Legendre \email{pierre.legendre@umontreal.ca}
