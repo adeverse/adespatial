@@ -67,7 +67,7 @@
 #' time-dependent multivariate responses of biological community to stress. 
 #' \emph{Environmental Toxicology and Chemistry} 18: 138-148.
 #'
-#' @seealso \code{TBI}
+#' @seealso \code{\link{TBI}}
 #' 
 #' @examples
 #'
