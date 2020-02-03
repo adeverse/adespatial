@@ -9,6 +9,7 @@ extern void buildbinary(void *, void *, void *, void *, void *, void *);
 extern void forwardsel(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void testglobal(void *, void *, void *, void *, void *, void *, void *);
 extern void C_WRperiodogram(void *, void *, void *, void *, void *, void *, void *, void *, void *);
+extern void cclust(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 
 /* .Call calls */
 extern SEXP betadiv1(SEXP, SEXP, SEXP);
@@ -35,6 +36,7 @@ static const R_CMethodDef CEntries[] = {
     {"forwardsel",    (DL_FUNC) &forwardsel,    18},
     {"testglobal",    (DL_FUNC) &testglobal,     7},
     {"C_WRperiodogram", (DL_FUNC) &C_WRperiodogram,  9},
+    {"cclust",          (DL_FUNC) &cclust,          10},
     {NULL, NULL, 0}
 };
 

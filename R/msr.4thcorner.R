@@ -94,13 +94,13 @@ msr.4thcorner <- function(x, listwORorthobasis, phyloORorthobasis, nrepet = x$np
     
     res.R <- vector(mode = "list", length = length(elems))
     for(i in 1:length(elems))
-        res.R[[i]] <- matrix(NA, nrepet, length(test.Rrand[[1]][[elems[i]]][["obs"]]))
+        res.R[[i]] <- matrix(NA, nrepet, length(test.Rrand[[1]][[elems[i]]]$obs))
     names(res.R) <- elems
     res.Q <- res.R 
     for(i in 1:nrepet){
         for(j in elems){
-            res.R[[j]][i,] <- test.Rrand[[i]][[j]][["obs"]]   
-            res.Q[[j]][i,] <- test.Qrand[[i]][[j]][["obs"]]  
+            res.R[[j]][i,] <- test.Rrand[[i]][[j]]$obs   
+            res.Q[[j]][i,] <- test.Qrand[[i]][[j]]$obs  
         }
     }
     
@@ -109,12 +109,12 @@ msr.4thcorner <- function(x, listwORorthobasis, phyloORorthobasis, nrepet = x$np
     for(j in elems){
         if(inherits(x[[j]], "krandtest")){
             output <- ifelse(inherits(x[[j]], "lightkrandtest"), "light", "full")
-            fc.R[[j]] <- as.krandtest(sim = res.R[[j]], obs = x[[j]][["obs"]], 
-                alter = x[[j]][["alter"]], call = match.call(), names = x[[j]][["names"]],
-                p.adjust.method = x[[j]][["adj.method"]], output = output)
-            fc.Q[[j]] <- as.krandtest(sim = res.Q[[j]], obs = x[[j]][["obs"]], 
-                alter = x[[j]][["alter"]], call = match.call(), names = x[[j]][["names"]],
-                p.adjust.method = x[[j]][["adj.method"]], output = output)
+            fc.R[[j]] <- as.krandtest(sim = res.R[[j]], obs = x[[j]]$obs, 
+                alter = x[[j]]$alter, call = match.call(), names = x[[j]]$names,
+                p.adjust.method = x[[j]]$adj.method, output = output)
+            fc.Q[[j]] <- as.krandtest(sim = res.Q[[j]], obs = x[[j]]$obs, 
+                alter = x[[j]]$alter, call = match.call(), names = x[[j]]$names,
+                p.adjust.method = x[[j]]$adj.method, output = output)
             fc.Q[[j]]$statnames <- fc.R[[j]]$statnames <- x[[j]]$statnames
         }
     }
