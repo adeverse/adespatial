@@ -9,7 +9,7 @@
 ## |  contiguity constraint.                                    |
 ## |                                                            |
 ## |  Guillaume Guénard, Université de Montréal, Québec, Canada |
-## |  August 2018 - September 2019                              |
+## |  August 2018 - February 2020                               |
 ## |                                                            |
 ## \-----------------------------------------------------------*/
 ##
@@ -22,8 +22,8 @@
 #' @param d A \code{\link{dist}-class} dissimilarity (distance) matrix
 #' @param method The agglomeration method to be used (default: "ward.D2"; see
 #' details)
-#' @param links A list of edges (or links) connecting the points. May be omitted in some
-#' cases; see details and examples
+#' @param links A list of edges (or links) connecting the points. May be omitted
+#' in some cases; see details and examples
 #' @param coords Coordinates of the observations (data rows) in \code{d} (for
 #' data plotting purposes; may be omitted: see details and examples)
 #' @param beta The beta parameter for beta-flexible clustering (default:
@@ -54,18 +54,24 @@
 #' step. All objects that are neighbours of one of the components that have
 #' fused are now neighbours of the newly formed cluster.
 #'
-#' The edges (links) are specified using argument \code{links}, which is a two-column
-#' matrix with each row representing an edge and the columns representing the two
-#' ends of the edges. The edges are interpreted as being non directional; there
-#' is no need to specify an edge going from point a to point b and one
-#' going from point b to point a. While doing so is generally inconsequential
-#' for the analysis, it carries some penality in terms of computation time. It
-#' is a good practice to place the nodes in increasing order of numbers from the
-#' top to the bottom and from the left to the right of the list but this is not
-#' mandatory. A word of caution: in cases where clusters with identical minimum
-#' distances occur, the order of the edges in the list may have an influence on
-#' the result. Alternative results would be statistically equivalent.
-#'
+#' The edges (links) are specified using argument \code{links}, which can be an
+#' object of class \code{nb} (see, e.g., \code{\link{tri2nb}}), an object of
+#' class \code{listw} (see, e.g., \code{\link{nb2listw}}), a two-element
+#' \code{list} or an object coercible as a such (e.g., a two-column
+#' \code{dataframe}), or a two-column matrix with each row representing an edge
+#' and the columns representing the two ends of the edges. For lists with more
+#' than two elements, as well as dataframes or matrices with more than
+#' two-columns only the first two elements or columns are used for the analysis.
+#' The edges are interpreted as being non directional; there is no need to
+#' specify an edge going from point a to point b and one going from point b to
+#' point a. While doing so is generally inconsequential for the analysis, it
+#' carries some penality in terms of computation time. It is a good practice to
+#' place the nodes in increasing order of numbers from the top to the bottom and
+#' from the left to the right of the list but this is not mandatory. A word of
+#' caution: in cases where clusters with identical minimum distances occur, the
+#' order of the edges in the list may have an influence on the result.
+#' Alternative results would be statistically equivalent.
+#' 
 #' When argument \code{link} is omitted, regular (unconstrained) clustering is
 #' performed and a \code{\link{hclust}-class} object is returned unless
 #' argument \code{chron = TRUE}. When argument \code{chron = TRUE},
@@ -80,7 +86,7 @@
 #' Memory storage and time to compute constrained clustering for N objects. ---
 #' The Lance and Williams algorithm for agglomerative clustering uses
 #' dissimilarity matrices. The amount of memory needed to store the distances
-#' among N observations as 8-bit double precision floating point variables
+#' among N observations as 64-bit double precision floating point variables
 #' (IEEE 754) is 8*N*(N-1)/2 bytes. For example, a dissimilarity matrix among
 #' 22500 observations would require 2 024 910 000 bytes (1.89 GiB) of storage
 #' whereas one among 100 000 observations would take up 39 999 600 000 bytes
@@ -120,7 +126,6 @@
 #' Ward, J. H. 1963. Hierarchical grouping to optimize an objective function.
 #' Journal of the American Statistical Association 58: 236-244.
 #'
-#' 
 #' @examples
 #' ##
 #' ### First example: Artificial map data from Legendre & Legendre
@@ -335,7 +340,7 @@
 #' 
 #' @export constr.hclust
 constr.hclust <- function(d, method = "ward.D2", links, coords, beta = -0.25,
-                          chron=FALSE) {
+                          chron = FALSE) {
     METHODS <- c("ward.D", "ward.D2", "single", "complete", "average",
                  "mcquitty", "centroid", "median", "flexible")
     i.meth <- pmatch(method, METHODS)
@@ -353,20 +358,36 @@ constr.hclust <- function(d, method = "ward.D2", links, coords, beta = -0.25,
         (if (length(d) < len)
              stop
          else warning)("dissimilarities of improper length")
-    if ((beta < -1) | (beta >= 1)) stop("Flexible clustering: (-1<= beta < 1)")
+    if ((beta < -1) | (beta >= 1)) stop("Flexible clustering: (-1 <= beta < 1)")
     storage.mode(d) <- "double"
     if (missing(links)) {
         nl <- 0L
         links <- integer(0L)
         type <- if (chron) 2L else 0L
     } else {
-        if (is.list(links)) {
+        if(class(links)[1L]=="nb")
+            links <- nb2listw(links, style="B")
+        if(class(links)[1L]=="listW")
+            links <- listw2sn(links)[1L:2L]
+        if(is.list(links)||is.data.frame(links)) {
             nl <- length(links[[1L]])
             links <- unlist(links)
-        }
-        storage.mode(links) <- "integer"
+            storage.mode(links) <- "integer"
+        } else if(is.matrix(links)) {
+            if(ncol(links) < 2L)
+                stop("When 'links' is a matrix, it must have 2 or more columns")
+            nl <- nrow(links)
+            links <- as.integer(links)
+        } else
+            stop("'links' must be a list, dataframe, or matrix")
         type <- 1L
     }
+    ## This handling of the parameters is only valid for the flexible
+    ## clustering. To implement other methods involving (a) parameter value(s),
+    ## replace the next statement with one suitable for every cases where (a)
+    ## parameter(s) (is/)are involved.
+    pars <- as.double(c((1-beta)/2,beta))
+    ##
     hcl <- .C("cclust",
               as.integer(n),             ## n
               merge = integer(2*(n-1L)),
@@ -375,9 +396,9 @@ constr.hclust <- function(d, method = "ward.D2", links, coords, beta = -0.25,
               d,                         ## diss0
               as.integer(nl),            ## nl
               links,                     ## linkl
-              as.integer(i.meth),             ## method
-              as.double(c((1-beta)/2,beta)),  ## alpha and beta
-              as.integer(type)                ## type
+              as.integer(i.meth),        ## method
+              pars,                      ## alpha and beta
+              as.integer(type)           ## type
               )[2L:4L]
     dim(hcl$merge) <- c((n-1L),2L)
     if(missing(coords)) {
@@ -385,7 +406,7 @@ constr.hclust <- function(d, method = "ward.D2", links, coords, beta = -0.25,
             coords <- cbind(x=0:(n-1),y=0)
         } else coords <- NULL
     } else {
-        if(NCOL(coords)<2L) {
+        if(NCOL(coords) < 2L) {
             coords <- cbind(x=coords,y=0)
         } else coords <- as.matrix(coords)
     }
