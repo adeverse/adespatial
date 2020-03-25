@@ -9,7 +9,7 @@
 \usage{
 multispati(dudi, listw, scannf = TRUE, nfposi = 2, nfnega = 0)
 
-\method{summary}{multispati}(object, ...)
+summary.multispati(object, ...)
 
 \method{print}{multispati}(x, ...)
 

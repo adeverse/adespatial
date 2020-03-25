@@ -9,7 +9,7 @@
 ## |  contiguity constraint.                                    |
 ## |                                                            |
 ## |  Guillaume Guénard, Université de Montréal, Québec, Canada |
-## |  August 2018 - February 2020                               |
+## |  August 2018 - March 2020                                  |
 ## |                                                            |
 ## \-----------------------------------------------------------*/
 ##
@@ -31,6 +31,8 @@
 #' @param chron Logical (TRUE or FALSE) indicating whether a chronological (i.e.
 #' time-constrained) clustering should be calculated (default:
 #' \code{chron = FALSE})
+#' @param member NULL or a vector with length size of \code{d} (default: NULL;
+#' See details)
 #'
 #' @return A \code{\link{constr.hclust-class}} object.
 #' 
@@ -83,22 +85,30 @@
 #' restrictively: the method remains applicable to other sequential data sets
 #' such as spatial series made of observations along a transect.
 #' 
-#' Memory storage and time to compute constrained clustering for N objects. ---
-#' The Lance and Williams algorithm for agglomerative clustering uses
-#' dissimilarity matrices. The amount of memory needed to store the distances
-#' among N observations as 64-bit double precision floating point variables
-#' (IEEE 754) is 8*N*(N-1)/2 bytes. For example, a dissimilarity matrix among
-#' 22500 observations would require 2 024 910 000 bytes (1.89 GiB) of storage
-#' whereas one among 100 000 observations would take up 39 999 600 000 bytes
+#' If \code{members != NULL}, then \code{d} is taken to be a dissimilarity
+#' matrix between clusters instead of dissimilarities between singletons and
+#' members gives the number of observations per cluster. This way the
+#' hierarchical cluster algorithm can be ‘started in the middle of the
+#' dendrogram’, e.g., in order to reconstruct the part of the tree above a cut
+#' (see examples in \code{\link{hclust}} for further details on that
+#' functionality).
+#' 
+#' Memory storage and time to compute constrained clustering for N objects. The
+#' Lance and Williams algorithm for agglomerative clustering uses dissimilarity
+#' matrices. The amount of memory needed to store the distances among N
+#' observations as 64-bit double precision floating point variables (IEEE 754)
+#' is 8*N*(N-1)/2 bytes. For example, a dissimilarity matrix among 22 500
+#' observations would require 2 024 910 000 bytes (1.89 GiB) of storage whereas
+#' one among 100 000 observations would take up 39 999 600 000 bytes
 #' (37.25 GiB). The implementation in this function needs to cache a copy of the
 #' dissimilarity matrix as its elements are modified following each merging of
-#' the closest clusters or singletons, thereby doubling the amounts of required memory
-#' shown above. Memory needed to store the other informations associated with
-#' the clustering is much smaller. Users should make sure to have
-#' the necessary memory space (and system stability) before attempting to
-#' analyze large data sets. What is considered a large amount of memory has
-#' increased over time as computer hardware evolved with time. We let users
-#' apply contemporary common sense as to what sample sizes represent manageable
+#' the closest clusters or singletons, thereby doubling the amounts of required
+#' memory shown above. Memory needed to store the other informations associated
+#' with the clustering is much smaller. Users should make sure to have the
+#' necessary memory space (and system stability) before attempting to analyze
+#' large data sets. What is considered a large amount of memory has increased
+#' over time as computer hardware evolved with time. We let users apply
+#' contemporary common sense as to what sample sizes represent manageable
 #' clustering problems. Computation time grows with N at roughly the same speed
 #' as memory storage requirement to store the dissimilarity matrices increases. 
 #' See the Benchmarking example below.
@@ -123,9 +133,16 @@
 #' clustering method: which algorithms implement Ward’s criterion? Journal of
 #' Classification 31: 274-295. doi: 10.1007/s00357-014-9161-z
 #' 
+#' Langfelder, P. and Horvath, S. 2012. Fast R Functions for Robust
+#' Correlations and Hierarchical Clustering. Journal of Statistical Software 46:
+#' 1-17. \url{http://www.jstatsoft.org/v46/i11/}
+#' 
 #' Ward, J. H. 1963. Hierarchical grouping to optimize an objective function.
 #' Journal of the American Statistical Association 58: 236-244.
 #'
+#' @import sp
+#' @import spdep
+#' 
 #' @examples
 #' ##
 #' ### First example: Artificial map data from Legendre & Legendre
@@ -174,7 +191,7 @@
 #' ##
 #' ### Plot the results on a map with k=3 clusters:
 #' plot(grpWD2cst_constr_hclust, k=3, links=TRUE, las=1, xlab="Eastings",
-#'      ylab="Northings", pch=21L, cex=3, lwd=3)
+#'      ylab="Northings", cex=3, lwd=3)
 #' ##
 #' ### Generic functions from hclust can be used, for instance to obtain
 #' ### a list of members of each cluster:
@@ -182,7 +199,7 @@
 #' ##
 #' ### Now with k=5 clusters:
 #' plot(grpWD2cst_constr_hclust, k=5, links=TRUE, las=1, xlab="Eastings",
-#'      ylab="Northings", pch=21L, cex=3, lwd=3)
+#'      ylab="Northings", cex=3, lwd=3)
 #' cutree(grpWD2cst_constr_hclust, k=5)
 #' ##
 #' ## End of the artificial map example
@@ -193,11 +210,12 @@
 #' ### clustering, substituting space for time.
 #' ##
 #' data(doubs, package="ade4")
+#' library(adespatial)
 #' Doubs.D <- dist.ldc(doubs$fish, method="hellinger")
 #' grpWD2cst_fish <- constr.hclust(Doubs.D, method="ward.D2", chron=TRUE,
 #'                                 coords=as.matrix(doubs$xy))
 #' plot(grpWD2cst_fish, k=5, las=1, xlab="Eastings (km)",
-#'      ylab="Northings (km)", pch=21L, cex=3, lwd=3)
+#'      ylab="Northings (km)", cex=3, lwd=3)
 #' ##
 #' ### Repeat the plot with other values of k (number of groups)
 #' ##
@@ -340,7 +358,7 @@
 #' 
 #' @export constr.hclust
 constr.hclust <- function(d, method = "ward.D2", links, coords, beta = -0.25,
-                          chron = FALSE) {
+                          chron = FALSE, member = NULL) {
     METHODS <- c("ward.D", "ward.D2", "single", "complete", "average",
                  "mcquitty", "centroid", "median", "flexible")
     i.meth <- pmatch(method, METHODS)
@@ -353,10 +371,17 @@ constr.hclust <- function(d, method = "ward.D2", links, coords, beta = -0.25,
         stop("invalid dissimilarities")
     if (n < 2)
         stop("must have n >= 2 objects to cluster")
+    if(is.null(member)) {
+        member <- rep(1L,n)
+    } else {
+        if(length(member) != n)
+            stop("invalid length of members")
+        storage.mode(member) <- "integer"
+    }
     len <- as.integer(n*(n - 1)/2)
     if (length(d) != len)
         (if (length(d) < len)
-             stop
+            stop
          else warning)("dissimilarities of improper length")
     if ((beta < -1) | (beta >= 1)) stop("Flexible clustering: (-1 <= beta < 1)")
     storage.mode(d) <- "double"
@@ -398,8 +423,9 @@ constr.hclust <- function(d, method = "ward.D2", links, coords, beta = -0.25,
               links,                     ## linkl
               as.integer(i.meth),        ## method
               pars,                      ## alpha and beta
-              as.integer(type)           ## type
-              )[2L:4L]
+              as.integer(type),          ## type
+              member
+    )[2L:4L]
     dim(hcl$merge) <- c((n-1L),2L)
     if(missing(coords)) {
         if(chron) {
@@ -420,4 +446,3 @@ constr.hclust <- function(d, method = "ward.D2", links, coords, beta = -0.25,
                    coords = coords)),
             class = c("constr.hclust","hclust")))
 }
-##

@@ -36,7 +36,7 @@ static const R_CMethodDef CEntries[] = {
     {"forwardsel",    (DL_FUNC) &forwardsel,    18},
     {"testglobal",    (DL_FUNC) &testglobal,     7},
     {"C_WRperiodogram", (DL_FUNC) &C_WRperiodogram,  9},
-    {"cclust",          (DL_FUNC) &cclust,          10},
+    {"cclust",          (DL_FUNC) &cclust,          11},
     {NULL, NULL, 0}
 };
 
