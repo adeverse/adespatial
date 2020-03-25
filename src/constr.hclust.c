@@ -8,13 +8,18 @@
 |  contiguity constraint.                                    |
 |                                                            |
 |  Guillaume Guénard, Université de Montréal, Québec, Canada |
-|  August 2018 - September 2019                              |
+|  August 2018 - February 2020                               |
 |                                                            |
 |  The present implementation has been vastly inspirered by  |
 |  the original HCLUST Fortran code by                       |
 |  F. Murtagh, ESA/ESO/STECF, Garching, February 1986.       |
 |  with modifications for R: Ross Ihaka, Dec 1996            |
 |                            Fritz Leisch, Jun 2000          |
+|                                                            |
+|  Also contains:                                            |
+|  Least squares (non distance-based) agglomerative          |
+|  clustering with or without the spatial contiguity         |
+|  constraint.                                               |
 |                                                            |
 \+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
@@ -25,7 +30,7 @@
 |     the distance data vector is calculated as follows:     |
 |     k = j + i*n - (i+1)*(i+2)/2                            |
 |     and where i > j, as follows:                           |
-|     k = i + j+n - (j+1)((j+2)/2                            |
+|     k = i + j+n - (j+1)*(j+2)/2                            |
 |                                                            |
 \+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
@@ -139,9 +144,100 @@ void mergelink(unsigned int nl, int* linkl, unsigned int i2, unsigned int j2) {
   return;
 }
 
-/* 
- * A suite of update functions to recalculate the distances from the newly
- * aggregated clusters to the other elements */
+#ifdef with_LS
+void getminLS(unsigned int n, int* membr, int* flag, unsigned int m, double* x,
+              double* xx, unsigned int* nn_i, unsigned int* nn_j,
+              double* nn_dist) {
+  unsigned int i, j, k, ind_i, ind_j;
+  double acc, tmp;
+  for(i = 0; i < (n - 1); i++) {
+    if(flag[i]) {
+      for(j = (i + 1); j < n; j++) {
+        if(flag[j]) {
+          ind_i = i;
+          ind_j = j;
+          acc = 0.0;
+          for(k = 0; k < m; k++, ind_i += n, ind_j += n) {
+            tmp = x[ind_i] + x[ind_j];
+            tmp *= tmp;
+            acc += (xx[ind_i] + xx[ind_j]) - tmp/(membr[ind_i] + membr[ind_j]);
+          }
+          if(acc < *nn_dist) {
+            *nn_dist = acc;
+            *nn_i = i;
+            *nn_j = j;
+          }
+        }
+      }
+    }
+  }
+  return;
+}
+
+void getminLSlink(unsigned int n, int* membr, unsigned int m, double* x,
+                  double* xx, unsigned int nl, int* linkl, unsigned int* nn_i,
+                  unsigned int* nn_j, double* nn_dist) {
+  unsigned int i, ii, j, jj, k, ind_i, ind_j;
+  double acc, tmp;
+  for(i = 0, j = nl; i < nl; i++, j++) {
+    if(linkl[i]!=linkl[j]) {
+      ii = linkl[i];
+      jj = linkl[j];
+      ind_i = ii;
+      ind_j = jj;
+      acc = 0.0;
+      for(k = 0; k < m; k++, ind_i += n, ind_j += n) {
+        tmp = x[ind_i] + x[ind_j];
+        tmp *= tmp;
+        acc += (xx[ind_i] + xx[ind_j]) - tmp/(membr[ii] + membr[jj]);
+      }
+      if(acc < *nn_dist) {
+        *nn_dist = acc;
+        if(ii<jj) {
+          *nn_i = ii;
+          *nn_j = jj;
+        } else {
+          *nn_i = jj;
+          *nn_j = ii;
+        }
+      }
+    }
+  }
+  return;
+}
+
+void updateLS(unsigned int n, int* membr, unsigned int m, double* x, double* xx,
+             unsigned int i2, unsigned int j2) {
+  unsigned int k;
+  for(k = 0; k < m; k++, i2 += n, j2 += n) {
+    x[i2] += x[j2];
+    xx[i2] += xx[j2];
+  }
+  return;
+}
+
+double  getdistLS(unsigned int n, int* membr, unsigned int m, double* x,
+                  unsigned int i2, unsigned int j2, unsigned int squared) {
+  unsigned int k, ii2 = i2, jj2 = j2;
+  double tmp, acc = 0.0;
+  for(k = 0; k < m; k++, ii2 += n, jj2 += n) {
+    tmp = x[ii2]/membr[i2] - x[jj2]/membr[j2];
+    tmp *= tmp;
+    acc += tmp;
+  }
+  return(squared ? acc : sqrt(acc));
+}
+#endif
+
+/* A suite of update functions to recalculate the distances from the newly
+ * aggregated clusters to the other elements.
+ * New methods can be implemented by adding new functions in the C code, adding
+ * the necessary code to dispatch them in setLWUpdate(), and update the R
+ * language header to handle the new method properly. Notably, function's
+ * argument beta may then need to pass >1 value. One may need to update the
+ * function's formal arguments while making sure that it doesn't break backward
+ * compatibility with the methods that are already implemented.
+ */
 void lw_Ward(int n, int* flag, int* membr, double* diss0, double* par,
              unsigned int i2, unsigned int j2) {
   unsigned int i, ind1, ind2, ind3;
@@ -308,8 +404,7 @@ void lw_flexible(int n, int* flag, int* membr, double* diss0, double* par,
   return;
 }
 
-/* 
- * Plain Lance and Williams clustering function (without spatial contiguity
+/* Plain Lance and Williams clustering function (without spatial contiguity
  * constraints) */
 void clust(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
            double* diss0, int* method, double* par) {
@@ -346,7 +441,8 @@ void clust(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
   return;
 }
 
-// Lance and Williams clustering function with the spatial contiguity constraint
+/* Lance and Williams clustering function with the spatial contiguity
+ * constraint */
 void constClust(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
                 double* diss0, int* nl, int* linkl, int* method, double* par) {
   void (*update)(int,int*,int*,double*,double*,unsigned int,unsigned int);
@@ -385,6 +481,110 @@ void constClust(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
       crit[i] = sqrt(crit[i]);
   return;
 }
+
+#ifdef with_LS
+/* Main routine for plain least squares agglomerative clustering without a
+ * contiguity constraint. */
+void clustLS(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
+             int* m, double* x, double* xx, int* out) {
+  unsigned int i, j, nn_i, nn_j, i2, j2, ncl;
+  double nn_dist;
+  for(i = 0; i < *n; i++) {
+    membr[i] = 1;
+    flag[i] = 1;
+  }
+  for(ncl = *n; ncl > 1;) {
+    if(!(ncl%INTMOD))
+      R_CheckUserInterrupt();
+    nn_dist = R_PosInf;
+    getminLS((unsigned int)(*n),membr,flag,(unsigned int)(*m),x,xx,
+             &nn_i,&nn_j,&nn_dist);
+#ifdef testing
+    printf("%d -> %d: %f\n",nn_i,nn_j,nn_dist);
+#endif
+    ncl--;
+    i2 = (nn_i<nn_j) ? nn_i : nn_j;
+    j2 = (nn_i>nn_j) ? nn_i : nn_j;
+    ia[*n-ncl-1] = i2;
+    ib[*n-ncl-1] = j2;
+    switch(*out) {
+    case 1:
+      crit[*n-ncl-1] = sqrt(nn_dist);
+      break;
+    case 2:
+      crit[*n-ncl-1] = nn_dist;
+      break;
+    case 3:
+      crit[*n-ncl-1] = getdistLS((unsigned int)(*n),membr,(unsigned int)(*m),x,
+                                 i2,j2,false);
+      break;
+    case 4:
+      crit[*n-ncl-1] = getdistLS((unsigned int)(*n),membr,(unsigned int)(*m),x,
+                                 i2,j2,true);
+      break;
+    default:
+      error("Unknown output type: %d\n",*out);
+    }
+    flag[j2] = false;
+    updateLS((unsigned int)(*n),membr,(unsigned int)(*m),x,xx,i2,j2);
+    membr[i2] += membr[j2];
+  }
+  for(i = 0; i < (*n - 1); i++) {
+    ia[i]++;
+    ib[i]++;
+  }
+  return;
+}
+
+/* Main routine for contiguity-constrained least squares agglomerative
+ * clustering. */
+void constClustLS(int* n, int* membr, int* ia, int* ib, double* crit, int* m,
+                  double* x, double* xx, int* nl, int* linkl, int* out) {
+  unsigned int i, j, nn_i, nn_j, i2, j2, ncl;
+  double nn_dist;
+  for(i = 0; i < *n; i++)
+    membr[i] = 1;
+  for(ncl = *n; ncl > 1;) {
+    if(!(ncl%INTMOD))
+      R_CheckUserInterrupt();
+    nn_dist = R_PosInf;
+    getminLSlink((unsigned int)(*n),membr,(unsigned int)(*m),x,xx,
+                 (unsigned int)(*nl),linkl,&nn_i,&nn_j,&nn_dist);
+    ncl--;
+    i2 = (nn_i<nn_j) ? nn_i : nn_j;
+    j2 = (nn_i>nn_j) ? nn_i : nn_j;
+    ia[*n-ncl-1] = i2;
+    ib[*n-ncl-1] = j2;
+    switch(*out) {
+    case 1:
+      crit[*n-ncl-1] = sqrt(nn_dist);
+      break;
+    case 2:
+      crit[*n-ncl-1] = nn_dist;
+      break;
+    case 3:
+      crit[*n-ncl-1] = getdistLS((unsigned int)(*n),membr,(unsigned int)(*m),x,
+                                 i2,j2,false);
+      break;
+    case 4:
+      crit[*n-ncl-1] = getdistLS((unsigned int)(*n),membr,(unsigned int)(*m),x,
+                                 i2,j2,true);
+      break;
+    default:
+      error("Unknown output type: %d\n",*out);
+    }
+    // This function has no flag (as does all others).
+    updateLS((unsigned int)(*n),membr,(unsigned int)(*m),x,xx,i2,j2);
+    membr[i2] += membr[j2];
+    mergelink((unsigned int)(*nl),linkl,i2,j2);
+  }
+  for(i = 0; i < (*n - 1); i++) {
+    ia[i]++;
+    ib[i]++;
+  }
+  return;
+}
+#endif
 
 // C version of the hcass2 Fortran routine
 void hcass2(int *n, int *ia, int *ib, int *iorder, int *iia, int *iib) {
@@ -447,7 +647,7 @@ void hcass2(int *n, int *ia, int *ib, int *iorder, int *iia, int *iib) {
   return;
 }
 
-// R wrapper function
+// Service function to be called by R wrapper function: constr.hclust
 void cclust(int* n, int* merge, double* height, int* order, double* diss0,
             int* nl, int* linkl, int* method, double* par, int* type) {
   int* flag = (int*)R_alloc(*n,sizeof(int));
@@ -495,12 +695,68 @@ void cclust(int* n, int* merge, double* height, int* order, double* diss0,
     error("Bad method number %d",*type);
   }
   hcass2(n,ia,ib,order,merge,&merge[*n-1]);
-  // Free(ib);
-  // Free(ia);
-  // Free(flag);
-  // Free(membr);
   return;
 }
+
+#ifdef with_LS
+// Service function to be called by R wrapper function: constr.lshclust
+void cclustLS(int* n, int* merge, double* height, int* order, int* m,
+              double* x, int* nl, int* linkl, int* type, int* out) {
+  int* flag;
+  int* membr = (int*)R_alloc(*n,sizeof(int));
+  int* ia = (int*)R_alloc(*n-1,sizeof(int));
+  int* ib = (int*)R_alloc(*n-1,sizeof(int));
+  double* xx = (double*)R_alloc((*n)*(*m),sizeof(double));
+  for(int i = 0; i < (*n)*(*m); i++)
+    xx[i] = x[i]*x[i];
+  int* linkc;
+  switch(*type) {
+  case 0:
+    flag = (int*)R_alloc(*n,sizeof(int));
+#ifdef show_links
+    printf("\nNo links\n");
+#endif
+    clustLS(n,membr,flag,ia,ib,height,m,x,xx,out);
+    break;
+  case 1:
+    for(int i = 0, j = *nl; i < *nl; i++, j++) {
+      linkl[i]--;
+      linkl[j]--;
+    }
+#ifdef show_links
+    printf("\nBefore:\n");
+    R_printlink((unsigned int)(*nl),linkl);
+#endif
+    constClustLS(n,membr,ia,ib,height,m,x,xx,nl,linkl,out);
+#ifdef show_links
+    printf("\nAfter:\n");
+    R_printlink((unsigned int)(*nl),linkl);
+#endif
+    break;
+  case 2:
+    *nl = *n - 1;
+    linkc = (int*)R_alloc(2*(*nl),sizeof(int));
+    for(int i = 0, j = *nl; i < *nl; i++, j++) {
+      linkc[i] = i;
+      linkc[j] = i+1;
+    }
+#ifdef show_links
+    printf("Before:\n");
+    R_printlink((unsigned int)(*nl),linkc);
+#endif
+    constClustLS(n,membr,ia,ib,height,m,x,xx,nl,linkc,out);
+#ifdef show_links
+    printf("After:\n");
+    R_printlink((unsigned int)(*nl),linkc);
+#endif
+    break;
+  default:
+    error("Bad method number %d",*type);
+  }
+  hcass2(n,ia,ib,order,merge,&merge[*n-1]);
+  return;
+}
+#endif
 
 // Testing functions (called from R using the .C() interface during development)
 #ifdef testing

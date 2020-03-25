@@ -9,7 +9,7 @@
 ## |  contiguity constraint.                                    |
 ## |                                                            |
 ## |  Guillaume Guénard, Université de Montréal, Québec, Canada |
-## |  August 2018 - September 2019                              |
+## |  August 2018 - February 2020                               |
 ## |                                                            |
 ## \-----------------------------------------------------------*/
 ##
@@ -48,18 +48,18 @@
 #'
 #' @details The plotting method uses the coordinates provided by the user of
 #' \code{\link{constr.hclust}} to display the observations. It cuts the tree
-#' (see \link{cutree}) into \code{k} clusters and uses the colours provided as
-#' argument \code{col} to display each cluster. When \code{links = TRUE}, each
-#' edge is displayed as a segments with colours corresponding to the clusters at
-#' its two ends. A special treatment is done for hybrids edges: those whose
-#' ends lie in different clusters; it is controlled by argument \code{hybrids}.
-#' When argument \code{hybrids="change"} (the default), hybrid links are
-#' represented as segments whose colours change halfway. When
-#' \code{hybrids="single"}, hybrid edges are shown as single-color lines,
-#' whose color is given as argument \code{col.hyb}, whereas
-#' \code{hybrids="none"} suppresses the drawing of hybrid edges. Whenever hybrid
-#' edges are displayed, their width with respect to the lwd value is controlled
-#' by argument \code{lwd.hyb}.
+#' (see \link{cutree}) into \code{k} clusters and uses the colours provided by
+#' the user as argument \code{col} to display each cluster using the indices
+#' returned by \code{\link{cutree}}. When \code{links = TRUE}, each edge is
+#' displayed as a segments with colours corresponding to the clusters at its two
+#' ends. A special treatment is done for hybrids edges: those whose ends lie in
+#' different clusters; it is controlled by argument \code{hybrids}. When
+#' argument \code{hybrids="change"} (the default), hybrid links are represented
+#' as segments whose colours change halfway. When \code{hybrids="single"},
+#' hybrid edges are shown as single-color lines, whose color is given as
+#' argument \code{col.hyb}, whereas \code{hybrids="none"} suppresses the drawing
+#' of hybrid edges. Whenever hybrid edges are displayed, their width with
+#' respect to the lwd value is controlled by argument \code{lwd.hyb}.
 #' 
 #' When argument \code{plot=FALSE}, no \code{plot} command is issued and the
 #' points (and segments when \code{links = TRUE}) are drawn over an existing
