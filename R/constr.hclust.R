@@ -140,8 +140,6 @@
 #' Ward, J. H. 1963. Hierarchical grouping to optimize an objective function.
 #' Journal of the American Statistical Association 58: 236-244.
 #'
-#' @import sp
-#' @import spdep
 #' 
 #' @examples
 #' ##
@@ -210,7 +208,6 @@
 #' ### clustering, substituting space for time.
 #' ##
 #' data(doubs, package="ade4")
-#' library(adespatial)
 #' Doubs.D <- dist.ldc(doubs$fish, method="hellinger")
 #' grpWD2cst_fish <- constr.hclust(Doubs.D, method="ward.D2", chron=TRUE,
 #'                                 coords=as.matrix(doubs$xy))
