@@ -123,8 +123,7 @@
 #'
 #' @importFrom grDevices dev.cur
 #' @importFrom graphics par
-#'
-#' @evalNamespace "S3method(plot,constr.hclust)" ## Waiting for a better way...
+#' @export
 plot.constr.hclust <- function(x, k, xlim, ylim, xlab, ylab, links=FALSE,
                                points=TRUE, pch=21L,
                                hybrids=c("change","single","none"), lty.hyb=1L,
