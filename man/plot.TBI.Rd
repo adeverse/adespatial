@@ -4,11 +4,25 @@
 \alias{plot.TBI}
 \title{Plots of the outputs of a temporal beta diversity analysis}
 \usage{
-\method{plot}{TBI}(x, type = "BC", s.names = NULL, pch.loss = 21,
-  pch.gain = 22, cex.names = 1, col.rim = "black",
-  col.bg = "gold1", cex.symb = 3, diam = TRUE, main = "B-C plot",
-  cex.main = 1, cex.lab = 1, xlim = NULL, ylim = NULL,
-  silent = TRUE, ...)
+\method{plot}{TBI}(
+  x,
+  type = "BC",
+  s.names = NULL,
+  pch.loss = 21,
+  pch.gain = 22,
+  cex.names = 1,
+  col.rim = "black",
+  col.bg = "gold1",
+  cex.symb = 3,
+  diam = TRUE,
+  main = "B-C plot",
+  cex.main = 1,
+  cex.lab = 1,
+  xlim = NULL,
+  ylim = NULL,
+  silent = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{Output of a temporal beta diversity analysis with function TBI. 

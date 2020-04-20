@@ -36,7 +36,7 @@ obtained. By default, response variables are centered (model with intercept).
 \examples{
 
 y <- matrix(rnorm(50),50,1)
-x <- svd(scale(y \\\%*\\\% c(0.1,0.5,2,0,0.7)+matrix(rnorm(250),50,5)))$u
+x <- svd(scale(y \%*\% c(0.1,0.5,2,0,0.7)+matrix(rnorm(250),50,5)))$u
 res <- ortho.AIC(y,x,ord.var=TRUE)
 minAIC <- which.min(res$AICc)
 nvar <- length(1:minAIC)+1 # number of orthogonal vectors + 1 for intercept

@@ -4,8 +4,16 @@
 \alias{beta.div}
 \title{Beta diversity computed as Var(Y)}
 \usage{
-beta.div(Y, method = "hellinger", sqrt.D = FALSE, samp = TRUE,
-  nperm = 999, adj = TRUE, save.D = FALSE, clock = FALSE)
+beta.div(
+  Y,
+  method = "hellinger",
+  sqrt.D = FALSE,
+  samp = TRUE,
+  nperm = 999,
+  adj = TRUE,
+  save.D = FALSE,
+  clock = FALSE
+)
 }
 \arguments{
 \item{Y}{Community composition data. The object class can be either

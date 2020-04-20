@@ -4,9 +4,20 @@
 \alias{TBI}
 \title{TBI: Difference between multivariate observations at T1 and T2}
 \usage{
-TBI(mat1, mat2, method = "\%difference", pa.tr = FALSE, nperm = 99,
-  BCD = TRUE, replace = FALSE, test.BC = TRUE, test.t.perm = FALSE,
-  save.BC = FALSE, seed. = NULL, clock = FALSE)
+TBI(
+  mat1,
+  mat2,
+  method = "\%difference",
+  pa.tr = FALSE,
+  nperm = 99,
+  BCD = TRUE,
+  replace = FALSE,
+  test.BC = TRUE,
+  test.t.perm = FALSE,
+  save.BC = FALSE,
+  seed. = NULL,
+  clock = FALSE
+)
 }
 \arguments{
 \item{mat1, mat2}{Two multivariate community composition or gene frequency

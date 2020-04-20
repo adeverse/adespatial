@@ -6,8 +6,15 @@
 \alias{print.mfpa}
 \title{Multi-frequential periodogram analysis}
 \usage{
-mfpa(y, MaxNFreq = 2, MinFreq = 3, MaxFreq = NA, ntrend = 0,
-  nlags = 0, alpha = 0.05)
+mfpa(
+  y,
+  MaxNFreq = 2,
+  MinFreq = 3,
+  MaxFreq = NA,
+  ntrend = 0,
+  nlags = 0,
+  alpha = 0.05
+)
 
 \method{plot}{mfpa}(x, xlab = "", ylab = "Values", ...)
 

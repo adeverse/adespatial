@@ -4,8 +4,7 @@
 \alias{orthobasis.poly}
 \title{Function to compute polynomial of geographical coordinates}
 \usage{
-orthobasis.poly(coords, degree = 2, wt = rep(1/nrow(coords),
-  nrow(coords)))
+orthobasis.poly(coords, degree = 2, wt = rep(1/nrow(coords), nrow(coords)))
 }
 \arguments{
 \item{coords}{either a \code{Spatial*} object or a \code{matrix} with 

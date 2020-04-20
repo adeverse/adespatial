@@ -28,5 +28,5 @@ Suggests: knitr, RANN, rgeos, maptools, ape, rmarkdown
 License: GPL (>= 2)
 Encoding: UTF-8
 NeedsCompilation: yes
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 VignetteBuilder: knitr

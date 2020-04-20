@@ -5,9 +5,18 @@
 \title{Perform a test of the shared space-environment fraction of a variation partitioning
 using torus-translation (TT) or Moran Spectral Randomisation (MSR)}
 \usage{
-envspace.test(spe, env, coord, MEM.spe, listw.env,
-  MEM.autocor = c("positive", "negative", "all"), regular = FALSE,
-  nperm = 999, MSR.method = "singleton", alpha = 0.05)
+envspace.test(
+  spe,
+  env,
+  coord,
+  MEM.spe,
+  listw.env,
+  MEM.autocor = c("positive", "negative", "all"),
+  regular = FALSE,
+  nperm = 999,
+  MSR.method = "singleton",
+  alpha = 0.05
+)
 }
 \arguments{
 \item{spe}{Vector, matrix, or dataframe of response variable(s) (e.g. species abundances)}

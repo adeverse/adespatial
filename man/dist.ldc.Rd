@@ -4,8 +4,7 @@
 \alias{dist.ldc}
 \title{Dissimilarity matrices for community composition data}
 \usage{
-dist.ldc(Y, method = "hellinger", binary = FALSE, samp = TRUE,
-  silent = FALSE)
+dist.ldc(Y, method = "hellinger", binary = FALSE, samp = TRUE, silent = FALSE)
 }
 \arguments{
 \item{Y}{Community composition data. The object class can be either

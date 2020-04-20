@@ -4,8 +4,15 @@
 \alias{constr.hclust}
 \title{Space- And Time-Constrained Clustering}
 \usage{
-constr.hclust(d, method = "ward.D2", links, coords, beta = -0.25,
-  chron = FALSE, member = NULL)
+constr.hclust(
+  d,
+  method = "ward.D2",
+  links,
+  coords,
+  beta = -0.25,
+  chron = FALSE,
+  member = NULL
+)
 }
 \arguments{
 \item{d}{A \code{\link{dist}-class} dissimilarity (distance) matrix}
@@ -186,7 +193,6 @@ cutree(grpWD2cst_constr_hclust, k=5)
 ### clustering, substituting space for time.
 ##
 data(doubs, package="ade4")
-library(adespatial)
 Doubs.D <- dist.ldc(doubs$fish, method="hellinger")
 grpWD2cst_fish <- constr.hclust(Doubs.D, method="ward.D2", chron=TRUE,
                                 coords=as.matrix(doubs$xy))
@@ -313,10 +319,10 @@ res <- benchmark(nobj=c(1000,2000,5000,10000,20000,50000,100000))
 ok <- res \%>\% apply(1L, function(x) !x \%>\% is.na \%>\% any)
 par(mar=c(3,6,2,2),mfrow=c(2L,1L))
 barplot(height = res[ok,"Time (sec)"], names.arg= res[ok,"N.objects"],
-        ylab="Time (seconds)\\n",xlab="",las=1L,log="y")
+        ylab="Time (seconds)\n",xlab="",las=1L,log="y")
 par(mar=c(5,6,0,2))
 barplot(height = res[ok,"Storage (MiB)"], names.arg= res[ok,"N.objects"],
-        ylab="Total storage (MB)\\n",xlab="Number of observations",
+        ylab="Total storage (MB)\n",xlab="Number of observations",
         las=1L,log="y")
 ##
 ### Examine the output file

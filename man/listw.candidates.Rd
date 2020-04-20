@@ -4,9 +4,16 @@
 \alias{listw.candidates}
 \title{Function to create a list of spatial weighting matrices}
 \usage{
-listw.candidates(coord, style = "B", nb = c("del", "gab", "rel", "mst",
-  "pcnm", "dnear"), d1 = 0, d2, weights = c("binary", "flin", "fup",
-  "fdown"), y_fdown = 5, y_fup = 0.5)
+listw.candidates(
+  coord,
+  style = "B",
+  nb = c("del", "gab", "rel", "mst", "pcnm", "dnear"),
+  d1 = 0,
+  d2,
+  weights = c("binary", "flin", "fup", "fdown"),
+  y_fdown = 5,
+  y_fup = 0.5
+)
 }
 \arguments{
 \item{coord}{Vector, matrix, or dataframe of point coordinates}

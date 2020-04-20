@@ -8,17 +8,26 @@
 \title{Function to compute and manage Moran's Eigenvector Maps (MEM) of a listw
 object}
 \usage{
-scores.listw(listw, wt = rep(1, length(listw$neighbours)),
+scores.listw(
+  listw,
+  wt = rep(1, length(listw$neighbours)),
   MEM.autocor = c("non-null", "all", "positive", "negative"),
-  store.listw = FALSE)
+  store.listw = FALSE
+)
 
-mem(listw, wt = rep(1, length(listw$neighbours)),
+mem(
+  listw,
+  wt = rep(1, length(listw$neighbours)),
   MEM.autocor = c("non-null", "all", "positive", "negative"),
-  store.listw = FALSE)
+  store.listw = FALSE
+)
 
-orthobasis.listw(listw, wt = rep(1, length(listw$neighbours)),
+orthobasis.listw(
+  listw,
+  wt = rep(1, length(listw$neighbours)),
   MEM.autocor = c("non-null", "all", "positive", "negative"),
-  store.listw = FALSE)
+  store.listw = FALSE
+)
 
 \method{[}{orthobasisSp}(x, i, j, drop = TRUE)
 }

@@ -4,9 +4,17 @@
 \alias{forward.sel.par}
 \title{Parametric forward selection of explanatory variables in regression and RDA}
 \usage{
-forward.sel.par(Y, X, alpha = 0.05, K = nrow(X) - 1, R2thresh = 0.99,
-  R2more = 0.001, adjR2thresh = 0.99, Yscale = FALSE,
-  verbose = TRUE)
+forward.sel.par(
+  Y,
+  X,
+  alpha = 0.05,
+  K = nrow(X) - 1,
+  R2thresh = 0.99,
+  R2more = 0.001,
+  adjR2thresh = 0.99,
+  Yscale = FALSE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{Y}{Response data matrix with n rows and m columns containing 

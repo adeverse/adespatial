@@ -5,8 +5,13 @@
 \title{Function to compute positive and negative parts of Moran's index of spatial
 autocorrelation}
 \usage{
-moranNP.randtest(x, listw, nrepet = 999, alter = c("greater", "less",
-  "two-sided"), ...)
+moranNP.randtest(
+  x,
+  listw,
+  nrepet = 999,
+  alter = c("greater", "less", "two-sided"),
+  ...
+)
 }
 \arguments{
 \item{x}{a \code{vector} with numeric data}

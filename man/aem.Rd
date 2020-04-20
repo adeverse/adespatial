@@ -4,8 +4,13 @@
 \alias{aem}
 \title{Construct asymmetric eigenvector maps (AEM)}
 \usage{
-aem(aem.build.binary, binary.mat, weight, rm.link0 = FALSE,
-  print.binary.mat = FALSE)
+aem(
+  aem.build.binary,
+  binary.mat,
+  weight,
+  rm.link0 = FALSE,
+  print.binary.mat = FALSE
+)
 }
 \arguments{
 \item{aem.build.binary}{Object created by function \code{aem.build.binary}.}

@@ -101,21 +101,21 @@ col = c("white", "brown"), main = "Doubs fish abundance diff. LCBD")
 
 \dontrun{
 ### Example 3
-### This example requires packages \\code{"betapart"} and \\code{"ade4"} for data. 
+### This example requires packages \code{"betapart"} and \code{"ade4"} for data. 
 ### For the Baselga-family indices, the same partitioning results are obtained using
-### (1) beta.div.comp or (2) beta.pair.abund() of \\code{"betapart"} and LCBD.comp()
+### (1) beta.div.comp or (2) beta.pair.abund() of \code{"betapart"} and LCBD.comp()
 
-data(doubs)   # Data available in \\code{"ade4"}
+data(doubs)   # Data available in \code{"ade4"}
 fish.sp = doubs$fish[-8,]   
 # Fish data; site 8 is removed because no fish were caught
 # We use abundance data in this example, not presence-absence data
 
 # Partition into Baselga-family replacement and nestedness components 
-# using \\code{"beta.div.comp"} with the percentage difference index (aka Bray-Curtis)
+# using \code{"beta.div.comp"} with the percentage difference index (aka Bray-Curtis)
 out.comp = beta.div.comp(fish.sp, coef="BS", quant=TRUE)
 out.comp$part
 
-# Compute the D and component matrices using \\code{"beta.pair.abund"}
+# Compute the D and component matrices using \code{"beta.pair.abund"}
 out3 = beta.pair.abund(fish.sp, index.family = "bray")
 summary(out3)
 

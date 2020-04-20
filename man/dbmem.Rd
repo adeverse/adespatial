@@ -4,8 +4,13 @@
 \alias{dbmem}
 \title{dbMEM spatial eigenfunctions}
 \usage{
-dbmem(xyORdist, thresh = NULL, MEM.autocor = c("positive", "non-null",
-  "all", "negative"), store.listw = TRUE, silent = TRUE)
+dbmem(
+  xyORdist,
+  thresh = NULL,
+  MEM.autocor = c("positive", "non-null", "all", "negative"),
+  store.listw = TRUE,
+  silent = TRUE
+)
 }
 \arguments{
 \item{xyORdist}{Either a matrix of spatial coordinates or a distance matrix

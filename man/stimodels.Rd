@@ -5,12 +5,31 @@
 \alias{quicksti}
 \title{Space-time interaction in ANOVA without replication}
 \usage{
-stimodels(Y, S, Ti, model = "5", nperm = 999, nS = -1, nT = -1,
-  Sfixed = TRUE, Tfixed = TRUE, COD.S = NULL, COD.T = NULL,
-  print.res = TRUE)
+stimodels(
+  Y,
+  S,
+  Ti,
+  model = "5",
+  nperm = 999,
+  nS = -1,
+  nT = -1,
+  Sfixed = TRUE,
+  Tfixed = TRUE,
+  COD.S = NULL,
+  COD.T = NULL,
+  print.res = TRUE
+)
 
-quicksti(Y, S, Ti, nperm = 999, alpha = 0.05, COD.S = NULL,
-  COD.T = NULL, print.res = TRUE)
+quicksti(
+  Y,
+  S,
+  Ti,
+  nperm = 999,
+  alpha = 0.05,
+  COD.S = NULL,
+  COD.T = NULL,
+  print.res = TRUE
+)
 }
 \arguments{
 \item{Y}{Site-by-species response data table. Assumes row blocks

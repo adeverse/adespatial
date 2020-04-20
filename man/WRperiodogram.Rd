@@ -5,11 +5,17 @@
 \alias{plot.WRperio}
 \title{Whittaker-Robinson periodogram}
 \usage{
-WRperiodogram(x, T1 = 2, T2, nperm = 499, nopermute,
-  mult = c("sidak", "bonferroni"), print.time = FALSE)
+WRperiodogram(
+  x,
+  T1 = 2,
+  T2,
+  nperm = 499,
+  nopermute,
+  mult = c("sidak", "bonferroni"),
+  print.time = FALSE
+)
 
-\method{plot}{WRperio}(x, prog = 1, alpha = 0.05, line.col = "red",
-  main = NULL, ...)
+\method{plot}{WRperio}(x, prog = 1, alpha = 0.05, line.col = "red", main = NULL, ...)
 }
 \arguments{
 \item{x}{A vector of quantitative values, with class \code{numeric}, for 

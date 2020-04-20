@@ -5,8 +5,7 @@
 \title{Function to display Moran's Eigenvector Maps (MEM) and other spatial 
 orthogonal bases}
 \usage{
-\method{plot}{orthobasisSp}(x, SpORcoords, pos = -1, plot = TRUE,
-  match.ID = FALSE, ...)
+\method{plot}{orthobasisSp}(x, SpORcoords, pos = -1, plot = TRUE, match.ID = FALSE, ...)
 }
 \arguments{
 \item{x}{an object of class \code{orthobasisSp}}

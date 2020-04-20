@@ -4,8 +4,7 @@
 \alias{Cperiodogram}
 \title{Contingency periodogram}
 \usage{
-Cperiodogram(x, T1 = 2, T2 = NULL, nperm = NULL, alpha = 0.05,
-  graph = TRUE)
+Cperiodogram(x, T1 = 2, T2 = NULL, nperm = NULL, alpha = 0.05, graph = TRUE)
 }
 \arguments{
 \item{x}{a qualitative variable (\code{factor})}

@@ -4,8 +4,14 @@
 \alias{test.W}
 \title{Function to compute and test eigenvectors of spatial weighting matrices}
 \usage{
-test.W(Y, nb, xy, MEM.autocor = c("all", "positive", "negative"),
-  f = NULL, ...)
+test.W(
+  Y,
+  nb,
+  xy,
+  MEM.autocor = c("all", "positive", "negative"),
+  f = NULL,
+  ...
+)
 }
 \arguments{
 \item{Y}{A matrix with response variables (univariate or multivariate 

@@ -7,9 +7,16 @@
 \usage{
 msr(x, ...)
 
-\method{msr}{default}(x, listwORorthobasis, nrepet = 99,
-  method = c("pair", "triplet", "singleton"), cor.fixed, nmax = 100,
-  simplify = TRUE, ...)
+\method{msr}{default}(
+  x,
+  listwORorthobasis,
+  nrepet = 99,
+  method = c("pair", "triplet", "singleton"),
+  cor.fixed,
+  nmax = 100,
+  simplify = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{For \code{msr.default}, a \code{vector}, a \code{matrix} or a \code{data.frame} with the 

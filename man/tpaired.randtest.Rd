@@ -4,8 +4,13 @@
 \alias{tpaired.randtest}
 \title{Permutational paired t-test}
 \usage{
-tpaired.randtest(vec1, vec2, nperm = 99, alternative = "two.sided",
-  silent = FALSE)
+tpaired.randtest(
+  vec1,
+  vec2,
+  nperm = 99,
+  alternative = "two.sided",
+  silent = FALSE
+)
 }
 \arguments{
 \item{vec1, vec2}{The two data vectors to be compared.}

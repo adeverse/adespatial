@@ -6,11 +6,27 @@
 \alias{scatter.mspa}
 \title{Multi-Scale Pattern Analysis}
 \usage{
-mspa(dudi, lwORorthobasisSp, nblocks, scannf = TRUE, nf = 2,
-  centring = c("param", "sim"), nperm = 999)
+mspa(
+  dudi,
+  lwORorthobasisSp,
+  nblocks,
+  scannf = TRUE,
+  nf = 2,
+  centring = c("param", "sim"),
+  nperm = 999
+)
 
-\method{scatter}{mspa}(x, xax = 1, yax = 2, posieig = "topleft",
-  bary = TRUE, plot = TRUE, storeData = TRUE, pos = -1, ...)
+\method{scatter}{mspa}(
+  x,
+  xax = 1,
+  yax = 2,
+  posieig = "topleft",
+  bary = TRUE,
+  plot = TRUE,
+  storeData = TRUE,
+  pos = -1,
+  ...
+)
 
 \method{print}{mspa}(x, ...)
 }

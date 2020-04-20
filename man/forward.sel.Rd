@@ -4,9 +4,20 @@
 \alias{forward.sel}
 \title{Forward selection with multivariate Y using permutation under reducel model}
 \usage{
-forward.sel(Y, X, K = nrow(X) - 1, R2thresh = 0.99,
-  adjR2thresh = 0.99, nperm = 999, R2more = 0.001, alpha = 0.05,
-  Xscale = TRUE, Ycenter = TRUE, Yscale = FALSE, verbose = TRUE)
+forward.sel(
+  Y,
+  X,
+  K = nrow(X) - 1,
+  R2thresh = 0.99,
+  adjR2thresh = 0.99,
+  nperm = 999,
+  R2more = 0.001,
+  alpha = 0.05,
+  Xscale = TRUE,
+  Ycenter = TRUE,
+  Yscale = FALSE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{Y}{Response data matrix with n rows and m columns containing 

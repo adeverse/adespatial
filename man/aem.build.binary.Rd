@@ -4,9 +4,15 @@
 \alias{aem.build.binary}
 \title{Construct a site-by-edge binary matrix}
 \usage{
-aem.build.binary(nb.object = NULL, coords, link = NULL,
-  unit.angle = "degrees", rot.angle = 0, rm.same.y = TRUE,
-  plot.connexions = TRUE)
+aem.build.binary(
+  nb.object = NULL,
+  coords,
+  link = NULL,
+  unit.angle = "degrees",
+  rot.angle = 0,
+  rm.same.y = TRUE,
+  plot.connexions = TRUE
+)
 }
 \arguments{
 \item{nb.object}{Object of class \code{nb} from library spdep.}

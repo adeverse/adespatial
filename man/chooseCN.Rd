@@ -4,9 +4,19 @@
 \alias{chooseCN}
 \title{Function to choose a connection network}
 \usage{
-chooseCN(xy, ask = TRUE, type = NULL, result.type = "nb",
-  d1 = NULL, d2 = NULL, k = NULL, a = NULL, dmin = NULL,
-  plot.nb = TRUE, edit.nb = FALSE)
+chooseCN(
+  xy,
+  ask = TRUE,
+  type = NULL,
+  result.type = "nb",
+  d1 = NULL,
+  d2 = NULL,
+  k = NULL,
+  a = NULL,
+  dmin = NULL,
+  plot.nb = TRUE,
+  edit.nb = FALSE
+)
 }
 \arguments{
 \item{xy}{an matrix or data.frame with two columns for x and y coordinates.}

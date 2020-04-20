@@ -5,9 +5,18 @@
 \title{Selection of the best subset of spatial eigenvectors (MEM, Moran's
 Eigenvector Maps)}
 \usage{
-mem.select(x, listw, MEM.autocor = c("positive", "negative", "all"),
-  method = c("FWD", "MIR", "global"), MEM.all = FALSE, nperm = 999,
-  nperm.global = 9999, alpha = 0.05, verbose = FALSE, ...)
+mem.select(
+  x,
+  listw,
+  MEM.autocor = c("positive", "negative", "all"),
+  method = c("FWD", "MIR", "global"),
+  MEM.all = FALSE,
+  nperm = 999,
+  nperm.global = 9999,
+  alpha = 0.05,
+  verbose = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{A vector, matrix, or dataframe of response variable(s). The

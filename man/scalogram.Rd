@@ -5,8 +5,13 @@
 \alias{plot.scalogram}
 \title{Function to compute a scalogram}
 \usage{
-scalogram(x, orthobasisSp, nblocks = ncol(orthobasisSp), nrepet = 999,
-  p.adjust.method = "none")
+scalogram(
+  x,
+  orthobasisSp,
+  nblocks = ncol(orthobasisSp),
+  nrepet = 999,
+  p.adjust.method = "none"
+)
 
 \method{plot}{scalogram}(x, pos = -1, plot = TRUE, ...)
 }
