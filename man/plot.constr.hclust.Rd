@@ -4,9 +4,10 @@
 \alias{plot.constr.hclust}
 \title{Plotting Method For Space- And Time-Constrained Clustering}
 \usage{
-\method{plot}{constr.hclust}(x, k, xlim, ylim, links, points=TRUE,
-hybrids=c("change","single","none"), lty.hyb=1L, lwd.hyb=1, col.hyb="black",
-plot=TRUE, col, axes, cex=1, lty, lwd, lwd.pt=1, invert.axes=FALSE, ...)
+\method{plot}{constr.hclust}(x, k, xlim, ylim, xlab, ylab, links,
+points=TRUE, pch=21L, hybrids=c("change","single","none"), lty.hyb=1L,
+lwd.hyb=1, col.hyb="black", plot=TRUE, col, axes, cex=1, lty, lwd, lwd.pt=1,
+invert.axes=FALSE, ...)
 }
 \arguments{
 \item{x}{A \code{\link{constr.hclust-class}} object}
@@ -17,10 +18,17 @@ plot=TRUE, col, axes, cex=1, lty, lwd, lwd.pt=1, invert.axes=FALSE, ...)
 
 \item{ylim}{Limits, in ordinate, of the zone to be plotted}
 
+\item{xlab}{Labels for x axis annotation}
+
+\item{ylab}{Labels for y axis annotation}
+
 \item{links}{Should segments be drawn to represent the edges (links)
 (default: FALSE)}
 
 \item{points}{Should observation points be drawn (default: TRUE)}
+
+\item{pch}{Point character to display observations (default: 21, a circle
+with a background color)}
 
 \item{hybrids}{How should hybrid segments be drawn (default: "change")}
 
@@ -58,18 +66,18 @@ dissimilarity matrices.
 \details{
 The plotting method uses the coordinates provided by the user of
 \code{\link{constr.hclust}} to display the observations. It cuts the tree
-(see \link{cutree}) into \code{k} clusters and uses the colours provided as
-argument \code{col} to display each cluster. When \code{links = TRUE}, each
-edge is displayed as a segments with colours corresponding to the clusters at
-its two ends. A special treatment is done for hybrids edges: those whose
-ends lie in different clusters; it is controlled by argument \code{hybrids}.
-When argument \code{hybrids="change"} (the default), hybrid links are
-represented as segments whose colours change halfway. When
-\code{hybrids="single"}, hybrid edges are shown as single-color lines,
-whose color is given as argument \code{col.hyb}, whereas
-\code{hybrids="none"} suppresses the drawing of hybrid edges. Whenever hybrid
-edges are displayed, their width with respect to the lwd value is controlled
-by argument \code{lwd.hyb}.
+(see \link{cutree}) into \code{k} clusters and uses the colours provided by
+the user as argument \code{col} to display each cluster using the indices
+returned by \code{\link{cutree}}. When \code{links = TRUE}, each edge is
+displayed as a segments with colours corresponding to the clusters at its two
+ends. A special treatment is done for hybrids edges: those whose ends lie in
+different clusters; it is controlled by argument \code{hybrids}. When
+argument \code{hybrids="change"} (the default), hybrid links are represented
+as segments whose colours change halfway. When \code{hybrids="single"},
+hybrid edges are shown as single-color lines, whose color is given as
+argument \code{col.hyb}, whereas \code{hybrids="none"} suppresses the drawing
+of hybrid edges. Whenever hybrid edges are displayed, their width with
+respect to the lwd value is controlled by argument \code{lwd.hyb}.
 
 When argument \code{plot=FALSE}, no \code{plot} command is issued and the
 points (and segments when \code{links = TRUE}) are drawn over an existing
@@ -119,7 +127,7 @@ grpWD2cst_constr_hclust <-
 ##
 ### Plot the results with k=5 clusters on a map:
 plot(grpWD2cst_constr_hclust, k=5, links=TRUE, las=1,
-     xlab="Eastings", ylab="Northings", pch=21L, cex=3, lwd=3)
+     xlab="Eastings", ylab="Northings", cex=3, lwd=3)
 ##
 ### Repeat the plot with other values of k (number of groups)
 

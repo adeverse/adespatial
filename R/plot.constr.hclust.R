@@ -9,7 +9,7 @@
 ## |  contiguity constraint.                                    |
 ## |                                                            |
 ## |  Guillaume Guénard, Université de Montréal, Québec, Canada |
-## |  August 2018 - February 2020                               |
+## |  August 2018 - March 2020                                  |
 ## |                                                            |
 ## \-----------------------------------------------------------*/
 ##
@@ -19,17 +19,22 @@
 #' time-constrained agglomerative cluster analyses obtained from multivariate
 #' dissimilarity matrices.
 #'
-#' @usage \method{plot}{constr.hclust}(x, k, xlim, ylim, links, points=TRUE,
-#' hybrids=c("change","single","none"), lty.hyb=1L, lwd.hyb=1, col.hyb="black",
-#' plot=TRUE, col, axes, cex=1, lty, lwd, lwd.pt=1, invert.axes=FALSE, ...)
+#' @usage \method{plot}{constr.hclust}(x, k, xlim, ylim, xlab, ylab, links,
+#' points=TRUE, pch=21L, hybrids=c("change","single","none"), lty.hyb=1L,
+#' lwd.hyb=1, col.hyb="black", plot=TRUE, col, axes, cex=1, lty, lwd, lwd.pt=1,
+#' invert.axes=FALSE, ...)
 #'
 #' @param x A \code{\link{constr.hclust-class}} object
 #' @param k The number of clusters to delineate
 #' @param xlim Limits, in abscissa, of the zone to be plotted
 #' @param ylim Limits, in ordinate, of the zone to be plotted
+#' @param xlab Labels for x axis annotation
+#' @param ylab Labels for y axis annotation
 #' @param links Should segments be drawn to represent the edges (links)
 #' (default: FALSE)
 #' @param points Should observation points be drawn (default: TRUE)
+#' @param pch Point character to display observations (default: 21, a circle
+#' with a background color)
 #' @param hybrids How should hybrid segments be drawn (default: "change")
 #' @param lty.hyb Line type to use for hybrid segments (default: lty)
 #' @param lwd.hyb Width of hybrid segments with respect to lwd (default: 1)
@@ -112,7 +117,7 @@
 #' ##
 #' ### Plot the results with k=5 clusters on a map:
 #' plot(grpWD2cst_constr_hclust, k=5, links=TRUE, las=1,
-#'      xlab="Eastings", ylab="Northings", pch=21L, cex=3, lwd=3)
+#'      xlab="Eastings", ylab="Northings", cex=3, lwd=3)
 #' ##
 #' ### Repeat the plot with other values of k (number of groups)
 #'
@@ -120,12 +125,12 @@
 #' @importFrom graphics par
 #'
 #' @evalNamespace "S3method(plot,constr.hclust)" ## Waiting for a better way...
-plot.constr.hclust <- function(x, k, xlim, ylim, links=FALSE, points=TRUE,
-                               hybrids=c("change","single","none"),
-                               lty.hyb=1L, lwd.hyb=1, col.hyb="black",
-                               plot=TRUE, col=rainbow(1.2*k)[1L:k], axes=TRUE,
-                               cex=1, lty, lwd, lwd.pt=1, invert.axes=FALSE,
-                               ...) {
+plot.constr.hclust <- function(x, k, xlim, ylim, xlab, ylab, links=FALSE,
+                               points=TRUE, pch=21L,
+                               hybrids=c("change","single","none"), lty.hyb=1L,
+                               lwd.hyb=1, col.hyb="black", plot=TRUE,
+                               col=rainbow(1.2*k)[1L:k], axes=TRUE, cex=1, lty,
+                               lwd, lwd.pt=1, invert.axes=FALSE, ...) {
     hybrids <- match.arg(hybrids)
     if(missing(lty)) lty <- par()$lty
     if(missing(lwd)) lwd <- par()$lwd
@@ -150,7 +155,12 @@ plot.constr.hclust <- function(x, k, xlim, ylim, links=FALSE, points=TRUE,
             if((ylim[2L]-ylim[1L])==0)
                 ylim <- ylim + c(-0.5,0.5)
         }
-        plot(NA, asp=1, xlim=xlim, ylim=ylim, axes=axes, type="n", cex=cex, ...)
+        if(missing(xlab))
+            xlab <- if(diff(range(coords[,1L]))==0) "" else "x"
+        if(missing(ylab))
+            ylab <- if(diff(range(coords[,2L]))==0) "" else "y"
+        plot(NA, asp=1, xlim=xlim, ylim=ylim, xlab=xlab, ylab=ylab, axes=axes,
+             type="n", cex=cex, ...)
     }
     if(links) {
         if(is.null(x$links))
@@ -196,7 +206,7 @@ plot.constr.hclust <- function(x, k, xlim, ylim, links=FALSE, points=TRUE,
     }
     if(points)
         points(x=coords[,1L], y=coords[,2L], bg=col[cl], lty=lty,
-               lwd=lwd.pt*lwd, cex=cex, ...)
+               lwd=lwd.pt*lwd, cex=cex, pch=pch, ...)
     return(invisible(NULL))
 }
 ##

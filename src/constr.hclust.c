@@ -21,6 +21,17 @@
 |  clustering with or without the spatial contiguity         |
 |  constraint.                                               |
 |                                                            |
+|  Performance was enhanced by carefully buffering the       |
+|  identity (unconstrained case) and the values of nearest   |
+|  neighbour dissimilarities (both unconstrained and         |
+|  constrained cases) for each observations (unconstrained   |
+|  case) or links (constrained case). This type of           |
+|  performance enhancement is present in recent hclust       |
+|  implementations and has been originally proposed by       |
+|  Langfelder and Horvath (2012, Journal of Statistical      |
+|  Software, 46(11), 1-17) for the unconstrained case in     |
+|  package flashClust.                                       |
+|                                                            |
 \+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\
@@ -41,8 +52,8 @@
 #include"constr.hclust.h"
 
 /*
- * Setup the update function (for ward.D2, method == 2, the distances are
- * squared and the criterion need to be square rooted at the end) */
+ * Set the update function (for ward.D2, method == 2, the distances are squared
+ * and the criterion need to be square rooted at the end) */
 void setLWUpdate(unsigned int n, int method, double* diss0,
                  void (**update)(int,int*,int*,double*,double*,unsigned int,unsigned int)) {
   unsigned int i;
@@ -83,122 +94,271 @@ void setLWUpdate(unsigned int n, int method, double* diss0,
   return;
 }
 
-// Finds the minimum of diss0 for unmasked locations
-void getmin(unsigned int n, int* flag, double* diss0, unsigned int* nn_i,
-            unsigned int* nn_j, double* nn_dist) {
-  unsigned int i, j, k = 0;
-  for(i = 0; i < (n - 1); i++) {
-    if(flag[i]) {
-      for(j = (i + 1); j < n; j++, k++) {
-        if(flag[j]) {
-          if(diss0[k] < *nn_dist) {
-            *nn_dist = diss0[k];
-            *nn_i = i;
-            *nn_j = j;
-          }
-        }
+void initNNlist(unsigned int n, double* diss0, unsigned int* nn_idx,
+                double* nn_diss, unsigned int* min_idx) {
+  unsigned int i, j, k, nn;
+  double min_diss, global_min = R_PosInf;
+  for(i = 0, k = 0; i < (n - 1); i++) {
+    min_diss = R_PosInf;
+    for(j = (i + 1); j < n; j++, k++) {
+      if(diss0[k] < min_diss) {
+        nn = j;
+        min_diss = diss0[k];
       }
-    } else
-      k += (n - i - 1);
-  }
-  return;
-}
-
-/* 
- * Finds the minimum of diss0 for unmasked and connected locations using a link
- * list */
-void getminlink(unsigned int n, double* diss0, unsigned int nl, int* linkl,
-                unsigned int* nn_i, unsigned int* nn_j, double* nn_dist) {
-  unsigned int i, ii, j, jj, k;
-  for(i = 0, j = nl; i < nl; i++, j++) {
-    if(linkl[i]!=linkl[j]) {
-      ii = linkl[i];
-      jj = linkl[j];
-      if(ii<jj) {
-        k = jj+ii*n-(ii+1)*(ii+2)/2;
-        if(diss0[k] < *nn_dist) {
-          *nn_dist = diss0[k];
-          *nn_i = ii;
-          *nn_j = jj;
-        }
-      } else {
-        k = ii+jj*n-(jj+1)*(jj+2)/2;
-        if(diss0[k] < *nn_dist) {
-          *nn_dist = diss0[k];
-          *nn_i = jj;
-          *nn_j = ii;
-        }
-      }
+    }
+    nn_idx[i] = nn;
+    nn_diss[i] = min_diss;
+    if(min_diss < global_min) {
+      *min_idx = i;
+      global_min = min_diss;
     }
   }
   return;
 }
 
-// Merge the links shared between i2 and j2
-void mergelink(unsigned int nl, int* linkl, unsigned int i2, unsigned int j2) {
-  unsigned int i, j;
+void updateNNlist(unsigned int n, int* flag, double* diss0,
+                  unsigned int* nn_idx, double* nn_diss, unsigned int i) {
+  unsigned int j, k, nn;
+  double min_diss = R_PosInf;
+  for(j = (i + 1), k = j + i*n - (i + 1)*(i + 2)/2; j < n; j++, k++) {
+    if(flag[j])
+      if(diss0[k] < min_diss) {
+        nn = j;
+        min_diss = diss0[k];
+      }
+  }
+  nn_idx[i] = nn;
+  nn_diss[i] = min_diss;
+  return;
+}
+
+void fixNNlist(unsigned int n, double* diss0, unsigned int* nn_idx,
+               double* nn_diss, unsigned int i, unsigned int j) {
+  unsigned int k = j + i*n - (i + 1)*(i + 2)/2;
+  double min_diss;
+  min_diss = diss0[k];
+  if(min_diss < nn_diss[i]) {
+    nn_idx[i] = j;
+    nn_diss[i] = min_diss;
+  }
+  return;
+}
+
+void initNNlink(unsigned int n, double* diss0, unsigned int nl, int* linkl,
+                unsigned int* nn_i, unsigned int* nn_j, double* nn_diss,
+                double* min_diss) {
+  unsigned int i, j, ii, jj, k;
+  *min_diss = R_PosInf;
   for(i = 0, j = nl; i < nl; i++, j++) {
-    if(linkl[i]==j2) linkl[i] = i2;
-    if(linkl[j]==j2) linkl[j] = i2;
+    if(linkl[i] > linkl[j]) {
+      jj = linkl[i];
+      ii = linkl[j];
+      linkl[i] = ii;
+      linkl[j] = jj;
+    } else {
+      ii = linkl[i];
+      jj = linkl[j];
+    }
+    k = jj + ii*n - (ii + 1)*(ii + 2)/2;
+    nn_diss[i] = diss0[k];
+    if(nn_diss[i] < *min_diss) {
+      *min_diss = nn_diss[i];
+      *nn_i = ii;
+      *nn_j = jj;
+    }
+  }
+  return;
+}
+
+void updateNNlink(unsigned int n, double* diss0, unsigned int nl, int* linkl,
+                  unsigned int* nn_i, unsigned int* nn_j, double* nn_diss,
+                  double* min_diss, unsigned int i2, unsigned int j2) {
+  unsigned int i, ii, j, jj, k, changed;
+  *min_diss = R_PosInf;
+  for(i = 0, j = nl; i < nl; i++, j++) {
+    if(linkl[i] != linkl[j]) {
+      changed = false;
+      if(linkl[i] == j2) {
+        linkl[i] = i2;
+        changed = true;
+      }
+      if(linkl[j] == j2) {
+        linkl[j] = i2;
+        changed = true;
+      }
+      if(linkl[i] != linkl[j]) {
+        if(changed) {
+          if(linkl[i] > linkl[j]) {
+            ii = linkl[j];
+            linkl[j] = linkl[i];
+            linkl[i] = ii;
+            jj = linkl[j];
+          } else {
+            ii = linkl[i];
+            jj = linkl[j];
+          }
+          k = jj + ii*n - (ii + 1)*(ii + 2)/2;
+          nn_diss[i] = diss0[k];
+        } else if((linkl[i] == i2) || (linkl[j] == i2)) {
+          ii = linkl[i];
+          jj = linkl[j];
+          k = jj + ii*n - (ii + 1)*(ii + 2)/2;
+          nn_diss[i] = diss0[k];
+        }
+        if(nn_diss[i] < *min_diss) {
+          *min_diss = nn_diss[i];
+          *nn_i = linkl[i];
+          *nn_j = linkl[j];
+        }
+      }
+    }
   }
   return;
 }
 
 #ifdef with_LS
-void getminLS(unsigned int n, int* membr, int* flag, unsigned int m, double* x,
-              double* xx, unsigned int* nn_i, unsigned int* nn_j,
-              double* nn_dist) {
+void initNNlistLS(unsigned int n, unsigned int m, double* x, double* xx,
+                  unsigned int* nn_idx, double* nn_diss,
+                  unsigned int* min_idx) {
   unsigned int i, j, k, ind_i, ind_j;
-  double acc, tmp;
+  double acc, tmp, min_diss = R_PosInf;
   for(i = 0; i < (n - 1); i++) {
-    if(flag[i]) {
-      for(j = (i + 1); j < n; j++) {
-        if(flag[j]) {
-          ind_i = i;
-          ind_j = j;
-          acc = 0.0;
-          for(k = 0; k < m; k++, ind_i += n, ind_j += n) {
-            tmp = x[ind_i] + x[ind_j];
-            tmp *= tmp;
-            acc += (xx[ind_i] + xx[ind_j]) - tmp/(membr[ind_i] + membr[ind_j]);
-          }
-          if(acc < *nn_dist) {
-            *nn_dist = acc;
-            *nn_i = i;
-            *nn_j = j;
-          }
-        }
+    nn_diss[i] = R_PosInf;
+    for(j = (i + 1); j < n; j++) {
+      ind_i = i;
+      ind_j = j;
+      acc = 0.0;
+      for(k = 0; k < m; k++, ind_i += n, ind_j += n) {
+        tmp = x[ind_i] + x[ind_j];
+        tmp *= tmp;
+        acc += (xx[ind_i] + xx[ind_j]) - tmp/2.0;
       }
+      if(acc < nn_diss[i]) {
+        nn_idx[i] = j;
+        nn_diss[i] = acc;
+      }
+    }
+    if(nn_diss[i] < min_diss) {
+      *min_idx = i;
+      min_diss = nn_diss[i];
     }
   }
   return;
 }
 
-void getminLSlink(unsigned int n, int* membr, unsigned int m, double* x,
-                  double* xx, unsigned int nl, int* linkl, unsigned int* nn_i,
-                  unsigned int* nn_j, double* nn_dist) {
-  unsigned int i, ii, j, jj, k, ind_i, ind_j;
+void updateNNlistLS(unsigned int n, int* membr, int* flag, unsigned int m,
+                    double* x, double* xx, unsigned int* nn_idx,
+                    double* nn_diss, unsigned int i) {
+  unsigned int j, k, ind_i, ind_j;
   double acc, tmp;
-  for(i = 0, j = nl; i < nl; i++, j++) {
-    if(linkl[i]!=linkl[j]) {
-      ii = linkl[i];
-      jj = linkl[j];
-      ind_i = ii;
-      ind_j = jj;
+  nn_diss[i] = R_PosInf;
+  for(j = (i + 1); j < n; j++)
+    if(flag[j]) {
+      ind_i = i;
+      ind_j = j;
       acc = 0.0;
       for(k = 0; k < m; k++, ind_i += n, ind_j += n) {
         tmp = x[ind_i] + x[ind_j];
         tmp *= tmp;
-        acc += (xx[ind_i] + xx[ind_j]) - tmp/(membr[ii] + membr[jj]);
+        acc += (xx[ind_i] + xx[ind_j]) - tmp/(membr[i] + membr[j]);
       }
-      if(acc < *nn_dist) {
-        *nn_dist = acc;
-        if(ii<jj) {
-          *nn_i = ii;
-          *nn_j = jj;
-        } else {
-          *nn_i = jj;
-          *nn_j = ii;
+      if(acc < nn_diss[i]) {
+        nn_idx[i] = j;
+        nn_diss[i] = acc;
+      }
+    }
+  return;
+}
+
+void initNNlinkLS(unsigned int n, int* membr, unsigned int m, double* x,
+                  double* xx, unsigned int nl, int* linkl, unsigned int* nn_i,
+                  unsigned int* nn_j, double* nn_diss, double* min_diss) {
+  unsigned int i, j, ii, jj, k, ind_i, ind_j;
+  double acc, tmp;
+  *min_diss = R_PosInf;
+  for(i = 0, j = nl; i < nl; i++, j++) {
+    if(linkl[i] > linkl[j]) {
+      jj = linkl[i];
+      ii = linkl[j];
+      linkl[i] = ii;
+      linkl[j] = jj;
+    } else {
+      ii = linkl[i];
+      jj = linkl[j];
+    }
+    ind_i = ii;
+    ind_j = jj;
+    acc = 0.0;
+    for(k = 0; k < m; k++, ind_i += n, ind_j += n) {
+      tmp = x[ind_i] + x[ind_j];
+      tmp *= tmp;
+      acc += (xx[ind_i] + xx[ind_j]) - tmp/(membr[ii] + membr[jj]);
+    }
+    nn_diss[i] = acc;
+    if(nn_diss[i] < *min_diss) {
+      *min_diss = nn_diss[i];
+      *nn_i = ii;
+      *nn_j = jj;
+    }
+  }
+  return;
+}
+
+void updateNNlinkLS(unsigned int n, int* membr, unsigned int m, double* x,
+                    double* xx, unsigned int nl, int* linkl, unsigned int* nn_i,
+                    unsigned int* nn_j, double* nn_diss, double* min_diss,
+                    unsigned int i2, unsigned int j2) {
+  unsigned int i, ii, j, jj, k, changed, ind_i, ind_j;
+  double acc, tmp;
+  *min_diss = R_PosInf;
+  for(i = 0, j = nl; i < nl; i++, j++) {
+    if(linkl[i] != linkl[j]) {
+      changed = false;
+      if(linkl[i] == j2) {
+        linkl[i] = i2;
+        changed = true;
+      }
+      if(linkl[j] == j2) {
+        linkl[j] = i2;
+        changed = true;
+      }
+      if(linkl[i] != linkl[j]) {
+        if(changed) {
+          if(linkl[i] > linkl[j]) {
+            ii = linkl[j];
+            linkl[j] = linkl[i];
+            linkl[i] = ii;
+            jj = linkl[j];
+          } else {
+            ii = linkl[i];
+            jj = linkl[j];
+          }
+          ind_i = ii;
+          ind_j = jj;
+          acc = 0.0;
+          for(k = 0; k < m; k++, ind_i += n, ind_j += n) {
+            tmp = x[ind_i] + x[ind_j];
+            tmp *= tmp;
+            acc += (xx[ind_i] + xx[ind_j]) - tmp/(membr[ii] + membr[jj]);
+          }
+          nn_diss[i] = acc;
+        } else if((linkl[i] == i2) || (linkl[j] == i2)) {
+          ii = linkl[i];
+          jj = linkl[j];
+          ind_i = ii;
+          ind_j = jj;
+          acc = 0.0;
+          for(k = 0; k < m; k++, ind_i += n, ind_j += n) {
+            tmp = x[ind_i] + x[ind_j];
+            tmp *= tmp;
+            acc += (xx[ind_i] + xx[ind_j]) - tmp/(membr[ii] + membr[jj]);
+          }
+          nn_diss[i] = acc;
+        }
+        if(nn_diss[i] < *min_diss) {
+          *min_diss = nn_diss[i];
+          *nn_i = linkl[i];
+          *nn_j = linkl[j];
         }
       }
     }
@@ -216,8 +376,8 @@ void updateLS(unsigned int n, int* membr, unsigned int m, double* x, double* xx,
   return;
 }
 
-double  getdistLS(unsigned int n, int* membr, unsigned int m, double* x,
-                  unsigned int i2, unsigned int j2, unsigned int squared) {
+double getdistLS(unsigned int n, int* membr, unsigned int m, double* x,
+                 unsigned int i2, unsigned int j2, unsigned int squared) {
   unsigned int k, ii2 = i2, jj2 = j2;
   double tmp, acc = 0.0;
   for(k = 0; k < m; k++, ii2 += n, jj2 += n) {
@@ -334,7 +494,7 @@ void lw_WPGMA(int n, int* flag, int* membr, double* diss0, double* par,
         ind2 = i + j2*n - (j2+1)*(j2+2)/2;
       else
         ind2 = j2 + i*n - (i+1)*(i+2)/2;
-      diss0[ind1] = 0.5*diss0[ind1] + 0.5*membr[j2]*diss0[ind2];
+      diss0[ind1] = 0.5*diss0[ind1] + 0.5*diss0[ind2];
     }
   }
   return;
@@ -405,31 +565,62 @@ void lw_flexible(int n, int* flag, int* membr, double* diss0, double* par,
 }
 
 /* Plain Lance and Williams clustering function (without spatial contiguity
- * constraints) */
+ * constraints) flashClust version */
 void clust(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
-           double* diss0, int* method, double* par) {
-  unsigned int i, nn_i, nn_j, i2, j2, ncl;
-  double nn_dist;
+           double* diss0, unsigned int* nn_idx, double* nn_diss, int* method,
+           double* par, int fastUpdate) {
+  unsigned int i, k, nn_i, nn_j, i2, j2, ncl, min_idx;
+  double min_diss;
   void (*update)(int,int*,int*,double*,double*,unsigned int,unsigned int);
   setLWUpdate((unsigned int)(*n),*method,diss0,&update);
-  for(i = 0; i < *n; i++) {
-    membr[i] = 1;
-    flag[i] = 1;
-  }
+  for(i = 0; i < *n; i++)
+    flag[i] = true;
+  initNNlist((unsigned int)(*n),diss0,nn_idx,nn_diss,&nn_i);
+  nn_j = nn_idx[nn_i];
+  min_diss = nn_diss[nn_i];
   for(ncl = *n; ncl > 1;) {
     if(!(ncl%INTMOD))
       R_CheckUserInterrupt();
-    nn_dist = R_PosInf;
-    getmin((unsigned int)(*n),flag,diss0,&nn_i,&nn_j,&nn_dist);
     ncl--;
-    i2 = (nn_i<nn_j) ? nn_i : nn_j;
-    j2 = (nn_i>nn_j) ? nn_i : nn_j;
+    i2 = nn_i;
+    j2 = nn_j;
     ia[*n-ncl-1] = i2;
     ib[*n-ncl-1] = j2;
-    crit[*n-ncl-1] = nn_dist;
+    crit[*n-ncl-1] = min_diss;
     flag[j2] = false;
     update(*n,flag,membr,diss0,par,i2,j2);
     membr[i2] += membr[j2];
+    // 
+    if(ncl > 1) {
+      if(fastUpdate) {
+        min_diss = R_PosInf;
+        for(i = 0; i < (*n - 1); i++)
+          if(flag[i]) {
+            if((nn_idx[i] == i2) || (nn_idx[i] == j2))
+              updateNNlist((unsigned int)(*n),flag,diss0,nn_idx,nn_diss,i);
+            if(nn_diss[i] < min_diss) {
+              nn_i = i;
+              min_diss = nn_diss[i];
+            }
+          }
+        nn_j = nn_idx[nn_i];
+      } else {
+        min_diss = R_PosInf;
+        for(i = 0; i < (*n - 1); i++)
+          if(flag[i]) {
+            if((i == i2) || (nn_idx[i] == i2) || (nn_idx[i] == j2))
+              updateNNlist((unsigned int)(*n),flag,diss0,nn_idx,nn_diss,i);
+            else
+              if(i < i2)
+                fixNNlist((unsigned int)(*n),diss0,nn_idx,nn_diss,i,i2);
+            if(nn_diss[i] < min_diss) {
+              nn_i = i;
+              min_diss = nn_diss[i];
+            }
+          }
+        nn_j = nn_idx[nn_i];
+      }
+    }
   }
   for(i = 0; i < (*n - 1); i++) {
     ia[i]++;
@@ -444,31 +635,31 @@ void clust(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
 /* Lance and Williams clustering function with the spatial contiguity
  * constraint */
 void constClust(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
-                double* diss0, int* nl, int* linkl, int* method, double* par) {
+                double* diss0, double* nn_diss, int* nl, int* linkl,
+                int* method, double* par) {
   void (*update)(int,int*,int*,double*,double*,unsigned int,unsigned int);
-  unsigned int i, ncl, nn_i, nn_j, i2, j2;
-  double nn_dist;
+  unsigned int i, j, ncl, nn_i, nn_j, i2, j2;
+  double min_diss;
   setLWUpdate((unsigned int)(*n),*method,diss0,&update);
-  for(i = 0; i < *n; i++) {
-    membr[i] = 1;
-    flag[i] = 1;
-  }
+  for(i = 0; i < *n; i++)
+    flag[i] = true;
+  initNNlink((unsigned int)(*n),diss0,(unsigned int)(*nl),linkl,&nn_i,&nn_j,
+             nn_diss,&min_diss);
   for(ncl = *n; ncl > 1;) {
     if(!(ncl%INTMOD))
       R_CheckUserInterrupt();
-    nn_dist = R_PosInf;
-    getminlink((unsigned int)(*n),diss0,(unsigned int)(*nl),linkl,&nn_i,&nn_j,
-               &nn_dist);
     ncl--;
-    i2 = (nn_i<nn_j) ? nn_i : nn_j;
-    j2 = (nn_i>nn_j) ? nn_i : nn_j;
+    i2 = nn_i;
+    j2 = nn_j;
     ia[*n-ncl-1] = i2;
     ib[*n-ncl-1] = j2;
-    crit[*n-ncl-1] = nn_dist;
+    crit[*n-ncl-1] = min_diss;
     flag[j2] = false;
     update(*n,flag,membr,diss0,par,i2,j2);
     membr[i2] += membr[j2];
-    mergelink((unsigned int)(*nl),linkl,i2,j2);
+    if(ncl > 1) 
+      updateNNlink((unsigned int)(*n),diss0,(unsigned int)(*nl),linkl,
+                   &nn_i,&nn_j,nn_diss,&min_diss,i2,j2);
   }
   for(i = 0; i < (*n - 1); i++) {
     ia[i]++;
@@ -486,33 +677,34 @@ void constClust(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
 /* Main routine for plain least squares agglomerative clustering without a
  * contiguity constraint. */
 void clustLS(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
-             int* m, double* x, double* xx, int* out) {
-  unsigned int i, j, nn_i, nn_j, i2, j2, ncl;
-  double nn_dist;
+             int* m, double* x, double* xx, unsigned int* nn_idx,
+             double* nn_diss, int* out) {
+  unsigned int i, j, k, nn_i, nn_j, i2, j2, ncl;
+  double min_diss;
   for(i = 0; i < *n; i++) {
     membr[i] = 1;
-    flag[i] = 1;
+    flag[i] = true;
   }
+  initNNlistLS((unsigned int)(*n),(unsigned int)(*m),x,xx,nn_idx,nn_diss,&nn_i);
+  nn_j = nn_idx[nn_i];
+  min_diss = nn_diss[nn_i];
   for(ncl = *n; ncl > 1;) {
     if(!(ncl%INTMOD))
       R_CheckUserInterrupt();
-    nn_dist = R_PosInf;
-    getminLS((unsigned int)(*n),membr,flag,(unsigned int)(*m),x,xx,
-             &nn_i,&nn_j,&nn_dist);
-#ifdef testing
-    printf("%d -> %d: %f\n",nn_i,nn_j,nn_dist);
-#endif
     ncl--;
-    i2 = (nn_i<nn_j) ? nn_i : nn_j;
-    j2 = (nn_i>nn_j) ? nn_i : nn_j;
+#ifdef testing
+    printf("%d -> %d: %f\n",nn_i,nn_j,min_diss);
+#endif
+    i2 = nn_i;
+    j2 = nn_j;
     ia[*n-ncl-1] = i2;
     ib[*n-ncl-1] = j2;
     switch(*out) {
     case 1:
-      crit[*n-ncl-1] = sqrt(nn_dist);
+      crit[*n-ncl-1] = sqrt(min_diss);
       break;
     case 2:
-      crit[*n-ncl-1] = nn_dist;
+      crit[*n-ncl-1] = min_diss;
       break;
     case 3:
       crit[*n-ncl-1] = getdistLS((unsigned int)(*n),membr,(unsigned int)(*m),x,
@@ -528,6 +720,20 @@ void clustLS(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
     flag[j2] = false;
     updateLS((unsigned int)(*n),membr,(unsigned int)(*m),x,xx,i2,j2);
     membr[i2] += membr[j2];
+    if(ncl > 1) {
+      min_diss = R_PosInf;
+      for(i = 0; i < (*n - 1); i++)
+        if(flag[i]) {
+          if((nn_idx[i] == i2) || (nn_idx[i] == j2))
+            updateNNlistLS((unsigned int)(*n),membr,flag,(unsigned int)(*m),x,
+                           xx,nn_idx,nn_diss,i);
+          if(nn_diss[i] < min_diss) {
+            nn_i = i;
+            min_diss = nn_diss[i];
+          }
+        }
+      nn_j = nn_idx[nn_i];
+    }
   }
   for(i = 0; i < (*n - 1); i++) {
     ia[i]++;
@@ -539,28 +745,28 @@ void clustLS(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
 /* Main routine for contiguity-constrained least squares agglomerative
  * clustering. */
 void constClustLS(int* n, int* membr, int* ia, int* ib, double* crit, int* m,
-                  double* x, double* xx, int* nl, int* linkl, int* out) {
+                  double* x, double* xx, int* nl, int* linkl, double* nn_diss,
+                  int* out) {
   unsigned int i, j, nn_i, nn_j, i2, j2, ncl;
-  double nn_dist;
+  double min_diss;
   for(i = 0; i < *n; i++)
     membr[i] = 1;
+  initNNlinkLS((unsigned int)(*n),membr,(unsigned int)(*m),x,xx,
+               (unsigned int)(*nl),linkl,&nn_i,&nn_j,nn_diss,&min_diss);
   for(ncl = *n; ncl > 1;) {
     if(!(ncl%INTMOD))
       R_CheckUserInterrupt();
-    nn_dist = R_PosInf;
-    getminLSlink((unsigned int)(*n),membr,(unsigned int)(*m),x,xx,
-                 (unsigned int)(*nl),linkl,&nn_i,&nn_j,&nn_dist);
     ncl--;
-    i2 = (nn_i<nn_j) ? nn_i : nn_j;
-    j2 = (nn_i>nn_j) ? nn_i : nn_j;
+    i2 = nn_i;
+    j2 = nn_j;
     ia[*n-ncl-1] = i2;
     ib[*n-ncl-1] = j2;
     switch(*out) {
     case 1:
-      crit[*n-ncl-1] = sqrt(nn_dist);
+      crit[*n-ncl-1] = sqrt(min_diss);
       break;
     case 2:
-      crit[*n-ncl-1] = nn_dist;
+      crit[*n-ncl-1] = min_diss;
       break;
     case 3:
       crit[*n-ncl-1] = getdistLS((unsigned int)(*n),membr,(unsigned int)(*m),x,
@@ -576,7 +782,10 @@ void constClustLS(int* n, int* membr, int* ia, int* ib, double* crit, int* m,
     // This function has no flag (as does all others).
     updateLS((unsigned int)(*n),membr,(unsigned int)(*m),x,xx,i2,j2);
     membr[i2] += membr[j2];
-    mergelink((unsigned int)(*nl),linkl,i2,j2);
+    if(ncl > 1)
+      updateNNlinkLS((unsigned int)(*n),membr,(unsigned int)(*m),x,xx,
+                     (unsigned int)(*nl),linkl,&nn_i,&nn_j,nn_diss,&min_diss,
+                     i2,j2);
   }
   for(i = 0; i < (*n - 1); i++) {
     ia[i]++;
@@ -648,16 +857,22 @@ void hcass2(int *n, int *ia, int *ib, int *iorder, int *iia, int *iib) {
 }
 
 // Service function to be called by R wrapper function: constr.hclust
+// (flashClust version)
 void cclust(int* n, int* merge, double* height, int* order, double* diss0,
-            int* nl, int* linkl, int* method, double* par, int* type) {
+            int* nl, int* linkl, int* method, double* par, int* type,
+            int* membr) {
   int* flag = (int*)R_alloc(*n,sizeof(int));
-  int* membr = (int*)R_alloc(*n,sizeof(int));
   int* ia = (int*)R_alloc(*n-1,sizeof(int));
   int* ib = (int*)R_alloc(*n-1,sizeof(int));
+  unsigned int* nn_idx;
+  double* nn_diss;
   int* linkc;
   switch(*type) {
   case 0:
-    clust(n,membr,flag,ia,ib,height,diss0,method,par);
+    nn_idx = (unsigned int*)R_alloc(*n-1,sizeof(unsigned int));
+    nn_diss = (double*)R_alloc(*n-1,sizeof(double));
+    clust(n,membr,flag,ia,ib,height,diss0,nn_idx,nn_diss,method,par,
+          ((*method==7) || (*method==8)) ? false : true);
     break;
   case 1:
     for(int i = 0, j = *nl; i < *nl; i++, j++) {
@@ -668,7 +883,8 @@ void cclust(int* n, int* merge, double* height, int* order, double* diss0,
     printf("\nBefore:\n");
     R_printlink((unsigned int)(*nl), linkl);
 #endif
-    constClust(n,membr,flag,ia,ib,height,diss0,nl,linkl,method,par);
+    nn_diss = (double*)R_alloc(*nl,sizeof(double));
+    constClust(n,membr,flag,ia,ib,height,diss0,nn_diss,nl,linkl,method,par);
 #ifdef show_links
     printf("\nAfter:\n");
     R_printlink((unsigned int)(*nl), linkl);
@@ -681,11 +897,12 @@ void cclust(int* n, int* merge, double* height, int* order, double* diss0,
       linkc[i] = i;
       linkc[j] = i+1;
     }
+    nn_diss = (double*)R_alloc(*nl,sizeof(double));
 #ifdef show_links
     printf("Before:\n");
     R_printlink((unsigned int)(*nl), linkc);
 #endif
-    constClust(n,membr,flag,ia,ib,height,diss0,nl,linkc,method,par);
+    constClust(n,membr,flag,ia,ib,height,diss0,nn_diss,nl,linkc,method,par);
 #ifdef show_links
     printf("After:\n");
     R_printlink((unsigned int)(*nl), linkc);
@@ -707,27 +924,32 @@ void cclustLS(int* n, int* merge, double* height, int* order, int* m,
   int* ia = (int*)R_alloc(*n-1,sizeof(int));
   int* ib = (int*)R_alloc(*n-1,sizeof(int));
   double* xx = (double*)R_alloc((*n)*(*m),sizeof(double));
+  unsigned int* nn_idx;
+  double* nn_diss;
   for(int i = 0; i < (*n)*(*m); i++)
     xx[i] = x[i]*x[i];
   int* linkc;
   switch(*type) {
   case 0:
     flag = (int*)R_alloc(*n,sizeof(int));
+    nn_idx = (unsigned int*)R_alloc(*n-1,sizeof(unsigned int));
+    nn_diss = (double*)R_alloc(*n-1,sizeof(double));
 #ifdef show_links
     printf("\nNo links\n");
 #endif
-    clustLS(n,membr,flag,ia,ib,height,m,x,xx,out);
+    clustLS(n,membr,flag,ia,ib,height,m,x,xx,nn_idx,nn_diss,out);
     break;
   case 1:
     for(int i = 0, j = *nl; i < *nl; i++, j++) {
       linkl[i]--;
       linkl[j]--;
     }
+    nn_diss = (double*)R_alloc(*nl,sizeof(double));
 #ifdef show_links
     printf("\nBefore:\n");
     R_printlink((unsigned int)(*nl),linkl);
 #endif
-    constClustLS(n,membr,ia,ib,height,m,x,xx,nl,linkl,out);
+    constClustLS(n,membr,ia,ib,height,m,x,xx,nl,linkl,nn_diss,out);
 #ifdef show_links
     printf("\nAfter:\n");
     R_printlink((unsigned int)(*nl),linkl);
@@ -740,11 +962,12 @@ void cclustLS(int* n, int* merge, double* height, int* order, int* m,
       linkc[i] = i;
       linkc[j] = i+1;
     }
+    nn_diss = (double*)R_alloc(*nl,sizeof(double));
 #ifdef show_links
     printf("Before:\n");
     R_printlink((unsigned int)(*nl),linkc);
 #endif
-    constClustLS(n,membr,ia,ib,height,m,x,xx,nl,linkc,out);
+    constClustLS(n,membr,ia,ib,height,m,x,xx,nl,linkc,nn_diss,out);
 #ifdef show_links
     printf("After:\n");
     R_printlink((unsigned int)(*nl),linkc);
@@ -762,26 +985,53 @@ void cclustLS(int* n, int* merge, double* height, int* order, int* m,
 #ifdef testing
 
 void R_getminlink(int* n, double* diss0, int* nl, int* linkl, int* nn_i,
-                  int* nn_j, double* nn_dist) {
-  *nn_dist = R_PosInf;
+                  int* nn_j, double* min_diss) {
+  *min_diss = R_PosInf;
   *nn_i = 0;
   *nn_j = 0;
   getminlink((unsigned int)(*n),diss0,(unsigned int)(*nl),linkl,
-             (unsigned int*)nn_i,(unsigned int*)nn_j,nn_dist);
+             (unsigned int*)nn_i,(unsigned int*)nn_j,min_diss);
   (*nn_i)++;
   (*nn_j)++;
   return;
 }
 
-void R_getmin(int* n, int* flag, double* diss0, int* nn_i, int* nn_j,
-              double* nn_dist) {
-  *nn_dist = R_PosInf;
-  *nn_i = 0;
-  *nn_j = 0;
-  getmin((unsigned int)(*n),flag,diss0,(unsigned int*)nn_i,
-         (unsigned int*)nn_j,nn_dist);
-  (*nn_i)++;
-  (*nn_j)++;
+void R_printnninfo(unsigned int n, int* flag, unsigned int* nn_idx,
+                   double* nn_diss) {
+  unsigned int i, min_idx;
+  double min_diss = R_PosInf;
+  printf("List of the nearest neighbours\n--------\n");
+  for(i = 0; i < n - 1; i++) {
+    if(flag[i]) {
+      printf("(%d,%d): %f\n", i, nn_idx[i], nn_diss[i]);
+      if(nn_diss[i] < min_diss) {
+        min_idx = i;
+        min_diss = nn_diss[i];
+      }
+    }
+  }
+  printf("Minimum: diss(%d and %d) = %f\n", min_idx, nn_idx[min_idx], min_diss);
+  return;
+}
+
+void R_printdiss(unsigned int n, int* flag, double* diss0) {
+  unsigned int i, j, k;
+  printf("Similarity matrix\n----------------\n\t");
+  for(j = 1; j < n; j++)
+    printf("%d\t",j);
+  printf("\n");
+  for(i = 0, k = 0; i < n - 1; i++) {
+    if(flag[i]) {
+      printf("%d\t",i);
+      for(j = 1; j < n; j++, k++)
+        if(flag[j] && (i < j))
+          printf("%0.2f\t",diss0[k]);
+        else
+          printf("----\t");
+      printf("\n");
+    } else
+      k += (n - i - 1);
+  }
   return;
 }
 

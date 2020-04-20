@@ -5,7 +5,7 @@
 \title{Space- And Time-Constrained Clustering}
 \usage{
 constr.hclust(d, method = "ward.D2", links, coords, beta = -0.25,
-  chron = FALSE)
+  chron = FALSE, member = NULL)
 }
 \arguments{
 \item{d}{A \code{\link{dist}-class} dissimilarity (distance) matrix}
@@ -13,8 +13,8 @@ constr.hclust(d, method = "ward.D2", links, coords, beta = -0.25,
 \item{method}{The agglomeration method to be used (default: "ward.D2"; see
 details)}
 
-\item{links}{A list of edges (or links) connecting the points. May be omitted in some
-cases; see details and examples}
+\item{links}{A list of edges (or links) connecting the points. May be omitted
+in some cases; see details and examples}
 
 \item{coords}{Coordinates of the observations (data rows) in \code{d} (for
 data plotting purposes; may be omitted: see details and examples)}
@@ -25,6 +25,9 @@ data plotting purposes; may be omitted: see details and examples)}
 \item{chron}{Logical (TRUE or FALSE) indicating whether a chronological (i.e.
 time-constrained) clustering should be calculated (default:
 \code{chron = FALSE})}
+
+\item{member}{NULL or a vector with length size of \code{d} (default: NULL;
+See details)}
 }
 \value{
 A \code{\link{constr.hclust-class}} object.
@@ -55,17 +58,23 @@ groups of objects: the list of links is updated after each agglomeration
 step. All objects that are neighbours of one of the components that have
 fused are now neighbours of the newly formed cluster.
 
-The edges (links) are specified using argument \code{links}, which is a two-column
-matrix with each row representing an edge and the columns representing the two
-ends of the edges. The edges are interpreted as being non directional; there
-is no need to specify an edge going from point a to point b and one
-going from point b to point a. While doing so is generally inconsequential
-for the analysis, it carries some penality in terms of computation time. It
-is a good practice to place the nodes in increasing order of numbers from the
-top to the bottom and from the left to the right of the list but this is not
-mandatory. A word of caution: in cases where clusters with identical minimum
-distances occur, the order of the edges in the list may have an influence on
-the result. Alternative results would be statistically equivalent.
+The edges (links) are specified using argument \code{links}, which can be an
+object of class \code{nb} (see, e.g., \code{\link{tri2nb}}), an object of
+class \code{listw} (see, e.g., \code{\link{nb2listw}}), a two-element
+\code{list} or an object coercible as a such (e.g., a two-column
+\code{dataframe}), or a two-column matrix with each row representing an edge
+and the columns representing the two ends of the edges. For lists with more
+than two elements, as well as dataframes or matrices with more than
+two-columns only the first two elements or columns are used for the analysis.
+The edges are interpreted as being non directional; there is no need to
+specify an edge going from point a to point b and one going from point b to
+point a. While doing so is generally inconsequential for the analysis, it
+carries some penality in terms of computation time. It is a good practice to
+place the nodes in increasing order of numbers from the top to the bottom and
+from the left to the right of the list but this is not mandatory. A word of
+caution: in cases where clusters with identical minimum distances occur, the
+order of the edges in the list may have an influence on the result.
+Alternative results would be statistically equivalent.
 
 When argument \code{link} is omitted, regular (unconstrained) clustering is
 performed and a \code{\link{hclust}-class} object is returned unless
@@ -78,22 +87,30 @@ chronologically. Here, the term "chronologically" should not be taken
 restrictively: the method remains applicable to other sequential data sets
 such as spatial series made of observations along a transect.
 
-Memory storage and time to compute constrained clustering for N objects. ---
-The Lance and Williams algorithm for agglomerative clustering uses
-dissimilarity matrices. The amount of memory needed to store the distances
-among N observations as 8-bit double precision floating point variables
-(IEEE 754) is 8*N*(N-1)/2 bytes. For example, a dissimilarity matrix among
-22500 observations would require 2 024 910 000 bytes (1.89 GiB) of storage
-whereas one among 100 000 observations would take up 39 999 600 000 bytes
+If \code{members != NULL}, then \code{d} is taken to be a dissimilarity
+matrix between clusters instead of dissimilarities between singletons and
+members gives the number of observations per cluster. This way the
+hierarchical cluster algorithm can be ‘started in the middle of the
+dendrogram’, e.g., in order to reconstruct the part of the tree above a cut
+(see examples in \code{\link{hclust}} for further details on that
+functionality).
+
+Memory storage and time to compute constrained clustering for N objects. The
+Lance and Williams algorithm for agglomerative clustering uses dissimilarity
+matrices. The amount of memory needed to store the distances among N
+observations as 64-bit double precision floating point variables (IEEE 754)
+is 8*N*(N-1)/2 bytes. For example, a dissimilarity matrix among 22 500
+observations would require 2 024 910 000 bytes (1.89 GiB) of storage whereas
+one among 100 000 observations would take up 39 999 600 000 bytes
 (37.25 GiB). The implementation in this function needs to cache a copy of the
 dissimilarity matrix as its elements are modified following each merging of
-the closest clusters or singletons, thereby doubling the amounts of required memory
-shown above. Memory needed to store the other informations associated with
-the clustering is much smaller. Users should make sure to have
-the necessary memory space (and system stability) before attempting to
-analyze large data sets. What is considered a large amount of memory has
-increased over time as computer hardware evolved with time. We let users
-apply contemporary common sense as to what sample sizes represent manageable
+the closest clusters or singletons, thereby doubling the amounts of required
+memory shown above. Memory needed to store the other informations associated
+with the clustering is much smaller. Users should make sure to have the
+necessary memory space (and system stability) before attempting to analyze
+large data sets. What is considered a large amount of memory has increased
+over time as computer hardware evolved with time. We let users apply
+contemporary common sense as to what sample sizes represent manageable
 clustering problems. Computation time grows with N at roughly the same speed
 as memory storage requirement to store the dissimilarity matrices increases. 
 See the Benchmarking example below.
@@ -150,7 +167,7 @@ grpWD2cst_constr_hclust <-
 ##
 ### Plot the results on a map with k=3 clusters:
 plot(grpWD2cst_constr_hclust, k=3, links=TRUE, las=1, xlab="Eastings",
-     ylab="Northings", pch=21L, cex=3, lwd=3)
+     ylab="Northings", cex=3, lwd=3)
 ##
 ### Generic functions from hclust can be used, for instance to obtain
 ### a list of members of each cluster:
@@ -158,7 +175,7 @@ cutree(grpWD2cst_constr_hclust, k=3)
 ##
 ### Now with k=5 clusters:
 plot(grpWD2cst_constr_hclust, k=5, links=TRUE, las=1, xlab="Eastings",
-     ylab="Northings", pch=21L, cex=3, lwd=3)
+     ylab="Northings", cex=3, lwd=3)
 cutree(grpWD2cst_constr_hclust, k=5)
 ##
 ## End of the artificial map example
@@ -169,11 +186,12 @@ cutree(grpWD2cst_constr_hclust, k=5)
 ### clustering, substituting space for time.
 ##
 data(doubs, package="ade4")
+library(adespatial)
 Doubs.D <- dist.ldc(doubs$fish, method="hellinger")
 grpWD2cst_fish <- constr.hclust(Doubs.D, method="ward.D2", chron=TRUE,
                                 coords=as.matrix(doubs$xy))
 plot(grpWD2cst_fish, k=5, las=1, xlab="Eastings (km)",
-     ylab="Northings (km)", pch=21L, cex=3, lwd=3)
+     ylab="Northings (km)", cex=3, lwd=3)
 ##
 ### Repeat the plot with other values of k (number of groups)
 ##
@@ -316,6 +334,10 @@ Elsevier Science BV, Amsterdam.
 Murtagh, F. and P. Legendre. 2014. Ward’s hierarchical agglomerative
 clustering method: which algorithms implement Ward’s criterion? Journal of
 Classification 31: 274-295. doi: 10.1007/s00357-014-9161-z
+
+Langfelder, P. and Horvath, S. 2012. Fast R Functions for Robust
+Correlations and Hierarchical Clustering. Journal of Statistical Software 46:
+1-17. \url{http://www.jstatsoft.org/v46/i11/}
 
 Ward, J. H. 1963. Hierarchical grouping to optimize an objective function.
 Journal of the American Statistical Association 58: 236-244.
