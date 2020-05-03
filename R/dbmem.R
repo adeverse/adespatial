@@ -197,6 +197,8 @@
             
             res <-
                 scores.listw(lw, MEM.autocor = MEM.autocor, store.listw = store.listw)
+            
+            attributes(res)$row.names <- rownames(xy)
         })
         
         eig <- attr(res, "values")
