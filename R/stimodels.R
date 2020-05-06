@@ -192,7 +192,7 @@
 			        cat("\n is useless. They are replaced by a vector of Helmert contrasts\n\n")
 			    } 
 			    else {
-			        dbMEM.S.tmp <- dbmem(sitesX, MEM.autocor="positive")
+			      dbMEM.S.tmp <- dbmem(sitesX, MEM.autocor="positive")
 				    SS <- as.matrix(dbMEM.S.tmp)
 				    dbMEM.S.thresh <- give.thresh(dist(sitesX))
 				    if(print.res) cat(" Truncation level for space dbMEMs =", dbMEM.S.thresh, "\n")
