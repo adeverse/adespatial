@@ -177,12 +177,12 @@
             ## compute spatial weighting matrix and associated MEMs
             nb <-
                 dnearneigh(as.matrix(xy),
-                           0,
-                           ifelse(
-                               !inherits(xyORdist, "dist"),
-                               threshh,
-                               threshh * (1 + epsilon)
-                           ))
+                    0,
+                    ifelse(
+                        !inherits(xyORdist, "dist"),
+                        threshh,
+                        threshh * (1 + epsilon)  ),
+                    row.names = rownames(xy))
             ## we added epsilson to threshh to avoid numerical instability in
             ## the case of regular samplings when users provide a distance
             ## matrix
