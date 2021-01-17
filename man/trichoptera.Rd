@@ -4,7 +4,9 @@
 \name{trichoptera}
 \alias{trichoptera}
 \title{Trichoptera data set}
-\format{A data frame with 220 rows and 58 variables (Site, Date, and 56 species)}
+\format{
+A data frame with 220 rows and 58 variables (Site, Date, and 56 species)
+}
 \usage{
 data(trichoptera)
 }

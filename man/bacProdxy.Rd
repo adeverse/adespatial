@@ -4,7 +4,9 @@
 \name{bacProdxy}
 \alias{bacProdxy}
 \title{Bacterial production data set}
-\format{A data frame with the coordinates of the 25 sampled locations}
+\format{
+A data frame with the coordinates of the 25 sampled locations
+}
 \usage{
 data(bacProdxy)
 }

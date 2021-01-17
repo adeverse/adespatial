@@ -4,7 +4,8 @@
 \name{constr.hclust-class}
 \alias{constr.hclust-class}
 \title{Class For Constrained Hiereachical Clustering}
-\format{A file belonging to this class is a list with elements:
+\format{
+A file belonging to this class is a list with elements:
 \describe{
 \item{merge}{A (n-1) by 2 matrix. Row i of file \code{"merge"} describes
 the merging of clusters at step i of the clustering. If an element j in
@@ -36,7 +37,8 @@ matrix \code{"d"} (only returned if the dissimilarity matrix object has a
 to the function).}
 
 \item{coords}{A copy of the coordinates (if coordinates were provided to the
-function).} }}
+function).} }
+}
 \description{
 Files belonging to this class hold information about the constrained
 agglomerative clustering and allows one to display results graphically.
