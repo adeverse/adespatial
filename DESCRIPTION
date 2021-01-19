@@ -26,7 +26,9 @@ Imports:
     vegan
 Suggests: knitr, RANN, rgeos, maptools, ape, rmarkdown
 License: GPL (>= 2)
+URL: https://github.com/sdray/adespatial
+BugReports: https://github.com/sdray/adespatial/issues
 Encoding: UTF-8
 NeedsCompilation: yes
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr

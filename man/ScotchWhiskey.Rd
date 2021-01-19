@@ -4,7 +4,8 @@
 \name{ScotchWhiskey}
 \alias{ScotchWhiskey}
 \title{Scotch Whiskey Data Set}
-\format{A list with 12 members:
+\format{
+A list with 12 members:
 \describe{
 \item{geo}{A \code{\link{SpatialPointsDataFrame-class}} object containing the
 geographic coordinates and other information about the distilleries.}
@@ -23,7 +24,8 @@ distilleries (contiguity matrix).}
 containing geographic information about the spatial links between the
 distilleries.}
 \item{dist}{A list of distance matrices obtained for each of the four sets of
-boolean features.} }}
+boolean features.} }
+}
 \source{
 Pierre Legendre <pierre.legendre@umontreal.ca> and François-Joseph
 Lapoints <francois-joseph.lapointe@umontreal.ca>, Département de sciences

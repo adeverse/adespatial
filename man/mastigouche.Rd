@@ -4,9 +4,11 @@
 \name{mastigouche}
 \alias{mastigouche}
 \title{Mastigouche Lake network data set}
-\format{A list that includes the centred coordinates of 42 lakes in the
+\format{
+A list that includes the centred coordinates of 42 lakes in the
   Mastigouche reserve and a site-by-edge matrix describing how the 42 lakes
-  are influenced among each other. The influence is defined by 66 edges.}
+  are influenced among each other. The influence is defined by 66 edges.
+}
 \usage{
 data(mastigouche)
 }
