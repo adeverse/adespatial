@@ -9,7 +9,7 @@ WRperiodogram(
   x,
   T1 = 2,
   T2,
-  nperm = 499,
+  nperm = 999,
   nopermute,
   mult = c("sidak", "bonferroni"),
   print.time = FALSE
@@ -122,66 +122,110 @@ be interrupted by issuing an \code{Escape} command. One can also click the
 }
 \examples{
  
-###
-### 1. Numerical example of Subsection 12.4.1 of Legendre and Legendre (2012)
+### 1. Numerical example from Subsection 12.4.1 of Legendre and Legendre (2012)
 
 test.vec <- c(2,2,4,7,10,5,2,5,8,4,1,2,5,9,6,3)
 
 # Periodogram with permutation tests of significance
 res <- WRperiodogram(test.vec)
-plot(res)
+plot(res) # Plot the periodogram
+
+#####
 
 ### 2. Simulated data
 
-periodic.component <- function(x,T,c) cos((2*pi/T)*(x+c))
+# Generate a data series with periodic component using Legand's (1958) equation.
+# Ref. Legendre and Legendre (2012, eq. 12.8, p. 753)
+# x = time points, T = generated period, c = shift of curve, left (+) or right (-)
 
-n <- 500   # corresponding to 125 days, 4 observations per day
+periodic.component <- function(x,T,c){cos((2*pi/T)*(x+c))}
+
+n <- 500   # corresponds to 125 days with 4 observations per day
 # Generate a lunar cycle, 29.5 days (T=118)
 moon <- periodic.component(1:n, 118, 59)
 # Generate a circadian cycle (T=4)
 daily <- periodic.component(1:n, 4, 0)
-# Generate a tidal cycle (T=2)
+# Generate an approximate tidal cycle (T=2)
+# A real tidal signal would have a period of 12.42 h
 tide <- periodic.component(1:n, 2, 0)
 
 # Periodogram of the lunar component only 
-res.moon <- WRperiodogram(moon, nperm=0)
-res.moon <- WRperiodogram(moon, T2=130, nperm=99)
+res.moon.250 <- WRperiodogram(moon, nperm=0)  # T1=2, T2=n/2=250; no test
+res.moon.130 <- WRperiodogram(moon, T2=130, nperm=499)
 par(mfrow=c(1,2))
-plot(moon)
-plot(res.moon, prog=1)
+# Plot 2 moon cycles, n = 118*2 = 236 points
+plot(moon[1:236], xlab="One time unit = 6 hours") 
+plot(res.moon.130, prog=1) # Plot the periodogram
+
+#####
+
+# Add the daily and tidal components, plus a random normal error. With daily (T=4) and 
+# tide (T=2), period 4 and its harmonics should have a higher W statistic than period 2
+var1 <- daily + tide + rnorm(n, 0, 0.5)
+# Plot a portion (40 points) of the data series
+# Two periodic components identifiable. Tide (T=2) reinforces the daily signal (T=4)
+par(mfrow=c(1,2))
+plot(var1[1:40], pch=".", cex=1, xlab="One time unit = 6 hours")
+lines(var1[1:40])
+# Periodogram of 'var'
+res.var1 <- WRperiodogram(var1, T2=40, nperm=499)
+plot(res.var1, prog=3, line.col="blue") # Plot the periodogram
+# The progressive correction for multiple tests (prog=3) was used in the periodogram.
+
+#####
 
 # Add the three components, plus a random normal error term
-var <- 5*moon + daily + tide + rnorm(n, 0, 0.5)
-# Draw a graph of a portion of the data series
+# to show that the WRperiodogram can test several periodic components at the same time.
+# (5*moon) makes the lunar periods stronger than the daily and tidal periods
+var2 <- 5*moon + daily + tide + rnorm(n, 0, 0.5)
+# Plot a portion (150 points) of the data series
+# The three periodic components are identifiable
 par(mfrow=c(1,2))
-plot(var[1:150], pch=".", cex=1)
-lines(var[1:150])
+plot(var2[1:150], pch=".", cex=1, xlab="One time unit = 6 hours")
+lines(var2[1:150])
 
 # Periodogram of 'var'
-res.var <- WRperiodogram(var, T2=130, nperm=99)
-plot(res.var, prog=1, line.col="blue")
-# Find position of the maximum value of this periodogram
-which(res.var[,2] == max(res.var[,2]))
+res.var2 <- WRperiodogram(var2, T2=130, nperm=499)
+plot(res.var2, T2=200, prog=1, line.col="blue") # Plot the periodogram
+# Find the position of the maximum W statistic value in this periodogram
+(which(res.var2[,2] == max(res.var2[,2])) -1)
+# "-1" correction at the end of the previous line: the first computed period is T=2, 
+# so period #118 is on line #117 of file res.var2
 
+#####
+
+# Illustration that the WR periodogram can handle missing values:
 # Replace 10\% of the 500 data by NA
 select <- sort(sample(1:500)[1:50])
-var.na <- var
+var.na <- var2
 var.na[select] <- NA
-res.var.na <- WRperiodogram(var.na, T2=130, nperm=99)
+res.var.na <- WRperiodogram(var.na, T2=130, nperm=499)
+# Plot the periodogram with no correction for multiple tests
 plot(res.var.na, prog=1)
+# Plot periodogram again with progressive correction for multiple tests
+plot(res.var.na, prog=3) 
+
+#####
 
 ### 3. Data used in the examples of the documentation file of function afc() of {stats}
 # Data file "ldeaths"; time series, 6 years x 12 months of deaths in UK hospitals
+# First, examine the data file ldeaths. Then:
 ld.res.perio <- WRperiodogram(ldeaths, nperm=499)
+# Plot the periodogram with two types of corrections for multiple tests
 par(mfrow=c(1,2))
-plot(ld.res.perio, prog=1) # Graph with no correction for multiple testing
-plot(ld.res.perio, prog=3) # Graph with progressive correction
-acf(ldeaths)   # acf() results, for comparison
+plot(ld.res.perio, prog=1) # No correction for multiple testing
+plot(ld.res.perio, prog=3) # Progressive correction for multiple tests
+# The yearly cycle and harmonics are significant
+# Compare the results of afc() to those of WRperiodogram above
+acf(ldeaths)   # lag=1.0 is one year; see ?acf
 
 }
 \references{
 Enright, J. T. 1965. The search for rhythmicity in biological time-series. 
 Journal of Theoretical Biology 8: 426-468.
+
+Legand, M. 1958. Variations diurnes du zooplancton autour de la Nouvelle-Calédonie. 
+O.R.S.T.O.M., Inst. Fr. Océanie Sect. Océanogr. Rapp. Sci. (6): 1-42.
 
 Legendre, P. and L. Legendre. 2012. Numerical ecology, 3rd English edition. 
 Elsevier Science BV, Amsterdam.
