@@ -101,7 +101,7 @@
 #' @examples data(Tiahura)
 #' 
 #' ## Compute dissimilary matrix from Jaccard's similarity coefficient:
-#' tiah.jac <- dist.ldc(t(Tiahura$fish),method = "jaccard")
+#' tiah.jac <- dist.ldc(Tiahura$fish,method = "jaccard")
 #' 
 #' ## Constrained clustering of the fish species:
 #' tiah.chclust <- constr.hclust(tiah.jac, coords=Tiahura$habitat[,"distance"],
@@ -157,6 +157,25 @@
 #' text(x=c(44, 365, 707, 538, 957, 111, 965),
 #'      y=c(0.05, 0.47, 0.37, 0.58, 0.42, 0.80, 0.88),
 #'      labels=colnames(bot)[2:8], xpd=TRUE)
+#' 
+#' ## Species presence graph set:
+#' plot_slice <- function(sl,split) {
+#'   size <- ceiling(length(Tiahura$species)/split)
+#'   sp_slice <- size*(sl - 1L) + (1L:size)
+#'   image(z=t(as.matrix(Tiahura$fish[,sp_slice])),y=1:nrow(Tiahura$fish),
+#'         x=1:length(sp_slice),zlim=c(0,1),col=c("white","black"),axes=FALSE,
+#'         ylab="",xlab="")
+#'   axis(1L,at=1:length(sp_slice),labels=Tiahura$species[sp_slice],las=2L)
+#'   axis(2L,at=1:nrow(Tiahura$fish),label=rownames(Tiahura$fish),las=1L)
+#'   invisible(NULL)
+#' }
+#' ##
+#' par(mar=c(15,5,2,2))
+#' plot_slice(1L,5L)
+#' ## plot_slice(2L,5L)
+#' ## plot_slice(3L,5L)
+#' ## plot_slice(4L,5L)
+#' ## plot_slice(5L,5L)
 #' 
 NULL
 ##
