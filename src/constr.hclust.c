@@ -569,7 +569,7 @@ void lw_flexible(int n, int* flag, int* membr, double* diss0, double* par,
 void clust(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
            double* diss0, unsigned int* nn_idx, double* nn_diss, int* method,
            double* par, int fastUpdate) {
-  unsigned int i, k, nn_i, nn_j, i2, j2, ncl, min_idx;
+  unsigned int i, nn_i, nn_j, i2, j2, ncl;
   double min_diss;
   void (*update)(int,int*,int*,double*,double*,unsigned int,unsigned int);
   setLWUpdate((unsigned int)(*n),*method,diss0,&update);
@@ -638,7 +638,7 @@ void constClust(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
                 double* diss0, double* nn_diss, int* nl, int* linkl,
                 int* method, double* par) {
   void (*update)(int,int*,int*,double*,double*,unsigned int,unsigned int);
-  unsigned int i, j, ncl, nn_i, nn_j, i2, j2;
+  unsigned int i, ncl, nn_i, nn_j, i2, j2;
   double min_diss;
   setLWUpdate((unsigned int)(*n),*method,diss0,&update);
   for(i = 0; i < *n; i++)
