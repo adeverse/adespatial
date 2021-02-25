@@ -9,7 +9,7 @@ extern void buildbinary(void *, void *, void *, void *, void *, void *);
 extern void forwardsel(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void testglobal(void *, void *, void *, void *, void *, void *, void *);
 extern void C_WRperiodogram(void *, void *, void *, void *, void *, void *, void *, void *, void *);
-extern void cclust(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
+extern void cclust(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 
 /* .Call calls */
 extern SEXP betadiv1(SEXP, SEXP, SEXP);
