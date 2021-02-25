@@ -343,7 +343,7 @@ Classification 31: 274-295. doi: 10.1007/s00357-014-9161-z
 
 Langfelder, P. and Horvath, S. 2012. Fast R Functions for Robust
 Correlations and Hierarchical Clustering. Journal of Statistical Software 46:
-1-17. \url{http://www.jstatsoft.org/v46/i11/}
+1-17. \url{https://www.jstatsoft.org/v46/i11/}
 
 Ward, J. H. 1963. Hierarchical grouping to optimize an objective function.
 Journal of the American Statistical Association 58: 236-244.
