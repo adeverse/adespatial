@@ -858,7 +858,7 @@ void hcass2(int *n, int *ia, int *ib, int *iorder, int *iia, int *iib) {
 
 // Service function to be called by R wrapper function: constr.hclust
 // (flashClust version)
-extern void cclust(int* n, int* merge, double* height, int* order,
+void cclust(int* n, int* merge, double* height, int* order,
 		   double* diss0, int* nl, int* linkl, int* method, double* par,
 		   int* type, int* membr) {
   int* flag = (int*)R_alloc(*n,sizeof(int));

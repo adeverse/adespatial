@@ -149,7 +149,7 @@ void constClustLS(int* n, int* membr, int* ia, int* ib, double* crit, int* m,
 void hcass2(int* n, int* ia, int* ib, int* iorder, int* iia, int* iib);
 
 // R wrapper function (called from R using the .C() interface)
-extern void cclust(int* n, int* merge, double* height, int* order,
+void cclust(int* n, int* merge, double* height, int* order,
 		   double* diss0, int* nl, int* linkl, int* method, double* par,
 		   int* type, int* membr);
 
