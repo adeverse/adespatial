@@ -48,10 +48,7 @@ global.rtest <- function(X, listw, k = 1, nperm = 499){
     X <- scalewt(X)
     
     # computation of U+
-    temp <- orthobasis.listw(listw)
-    val <- attr(temp,"values")
-    U <- as.matrix(temp)
-    Upos <-  U[,val > -1/(n-1)]
+    Upos <- as.matrix(scores.listw(listw, MEM.autocor = "positive"))
     
     # test statistic
     calcstat <- function(X, k){
@@ -81,10 +78,7 @@ local.rtest <- function(X, listw, k = 1, nperm = 499){
     X <- scalewt(X)
     
     # computation of U-
-    temp <- orthobasis.listw(listw)
-    val <- attr(temp,"values")
-    U <- as.matrix(temp)
-    Uneg <-  U[,val < -1/(n-1)]
+    Uneg <- as.matrix(scores.listw(listw, MEM.autocor = "negative"))
     
     X <- scalewt(X)
     
