@@ -177,4 +177,5 @@ LCBD.comp <- function(D, sqrt.D = TRUE, save.D = FALSE) {
     } else {
         out <- list(beta = beta, LCBD = LCBD)
     }
+    out
 }
