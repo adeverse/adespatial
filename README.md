@@ -1,4 +1,4 @@
-# adespatial
+# adespatial <img src='man/figures/logo.svg' align="right" height="139" />
 
 [![R-CMD-check](https://github.com/sdray/adespatial/workflows/R-CMD-check/badge.svg)](https://github.com/sdray/adespatial/actions)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/adespatial)](http://cran.r-project.org/package=adespatial)
