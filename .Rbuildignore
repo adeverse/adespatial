@@ -1,7 +1,6 @@
-^\.travis\.yml$
 ^README\.md$
 ^README\.Rmd$
 ^README-.*\.png$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^appveyor\.yml$
+^\.github$
