@@ -184,16 +184,23 @@ More elaborate procedures are available to define neighborhood. For instance, De
 nbtri <- tri2nb(xyir)
 nbgab <- graph2nb(gabrielneigh(xyir), sym = TRUE)
 nbrel <- graph2nb(relativeneigh(xyir), sym = TRUE)
-nbsoi <- graph2nb(soi.graph(nbtri, xyir), sym = TRUE)
+if (require("dbscan"))
+  nbsoi <- graph2nb(soi.graph(nbtri, xyir), sym = TRUE)
 
 g1 <- s.label(xyir, nb = nbtri, pnb.edge.col = "red", main = "Delaunay", plot = FALSE)
 g2 <- s.label(xyir, nb = nbgab, pnb.edge.col = "red", main = "Gabriel", plot = FALSE)
 g3 <- s.label(xyir, nb = nbrel, pnb.edge.col = "red", main = "Relative", plot = FALSE)
-g4 <- s.label(xyir, nb = nbsoi, pnb.edge.col = "red", main = "Sphere of influence", plot = FALSE)
+if (require("dbscan"))
+  g4 <- s.label(xyir, nb = nbsoi, pnb.edge.col = "red", main = "Sphere of influence", plot = FALSE)
 
-ADEgS(list(g1, g2, g3, g4))
+if (require("dbscan")) { 
+    ADEgS(list(g1, g2, g3, g4))
+} else {
+    ADEgS(list(g1, g2, g3))    
+}
+  
 ```
-
+  
 The `adespatial` functions `chooseCN` and `listw.candidates` provides simple ways to build spatial neighborhoods. They are wrappers of many of the `spdep` functions presented above. The function `listw.explore` is an interactive graphical interface that allows to generate R code to build neighborhood objects (see [Figure 2](#listw.explore)). 
 
 ## Manipulating `nb` objects
@@ -207,7 +214,7 @@ nbgab[[1]]
 Various tools are provided by `spdep` to deal with these objects. For instance, it is possible to identify differences between two neighborhoods:
 
 ```{r}
-diffnb(nbsoi, nbrel)
+diffnb(nbgab, nbrel)
 ```
 
 Usually, it can be useful to remove some connections due to edge effects. In this case, the function `edit.nb` provides an interactive tool to add or delete connections.
