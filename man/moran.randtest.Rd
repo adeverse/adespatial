@@ -27,6 +27,9 @@ and its ouputs are objects of class \code{randtest} (one variable) or \code{kran
 }
 \examples{
 
+#===========================================
+# Computing Moran's I for a set of variables
+#===========================================
 if(require("ade4", quietly = TRUE)  & require("spdep", quiet = TRUE)){
 data(mafragh)
 tests <- moran.randtest(mafragh$env, nb2listw(mafragh$nb))
@@ -34,7 +37,39 @@ tests
 plot(tests)
 
 }
-  
+
+#=============================
+# Computing Moran's I for AEMs
+#=============================
+# Building AEMs
+xy <- cbind(1:25,expand.grid(1:5,1:5))
+Wdist <- 1/as.matrix(dist(xy[,2:3]))
+
+nb <- cell2nb(5,5,"queen")
+bin.mat <- aem.build.binary(nb,xy)
+linkBase <- bin.mat[[2]]
+link <- linkBase[-which(linkBase[,1] == 0),]
+weight <- numeric()
+
+for(i in 1:nrow(link)){
+   weight[i] <- Wdist[link[i,1],link[i,2]]
+}
+
+AEM <- aem(bin.mat, weight = weight, rm.link0 = TRUE)
+
+# Constructing asymmetric matrix
+matasym <- matrix(0,ncol=nsite,nrow=nsite)
+
+for(i in 1:nrow(link)){
+    matasym[link[i,1],link[i,2]]<- weight[i]
+}
+
+# Build a listw object from the asymmetric matrix
+listwAsym <- mat2listw(matasym)
+
+# Calculate Moran's I for AEM
+MoranIAEM <- moran.randtest(AEM$vectors, listwAsym)
+
 }
 \references{
 Moran, P. A. P. (1950). Notes on continuous stochastic phenomena. Biometrika, 37, 17-23.
