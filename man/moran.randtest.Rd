@@ -34,7 +34,7 @@ tests
 plot(tests)
 
 }
-  
+
 }
 \references{
 Moran, P. A. P. (1950). Notes on continuous stochastic phenomena. Biometrika, 37, 17-23.
