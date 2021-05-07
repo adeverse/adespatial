@@ -216,21 +216,21 @@ spatial processes in ecological data. <em>Ecological Modelling</em>, 215,
     <p>F. Guillaume Blanchet</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>### Construction of object of class nb (spdep)</span>
+    <pre class="examples"><div class='input'><span class='co'># Construction of object of class nb (spdep)</span>
 <span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/r-spatial/spdep/'>"spdep"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
 <span class='va'>nb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/spdep/man/cell2nb.html'>cell2nb</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>5</span>,<span class='st'>"queen"</span><span class='op'>)</span>
 
-<span class='co'>### Create fictitious geographical coordinates </span>
+<span class='co'># Create fictitious geographical coordinates </span>
 <span class='va'>xy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>25</span>,<span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'>### Build binary site-by-link matrix</span>
+<span class='co'># Build binary site-by-link matrix</span>
 <span class='va'>bin.mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='aem.build.binary.html'>aem.build.binary</a></span><span class='op'>(</span><span class='va'>nb</span>,<span class='va'>xy</span><span class='op'>)</span>
 
-<span class='co'>### Construct AEM eigenfunctions from an object of class aem.build.binary</span>
+<span class='co'># Construct AEM eigenfunctions from an object of class aem.build.binary</span>
 <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>aem</span><span class='op'>(</span>aem.build.binary<span class='op'>=</span><span class='va'>bin.mat</span>,rm.link0<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='va'>res</span><span class='op'>$</span><span class='va'>values</span>
 
-<span class='co'>### Illustrate 4 AEM eigenfunctions using bubble plots</span>
+<span class='co'># Illustrate 4 AEM eigenfunctions using bubble plots</span>
 <span class='va'>opal</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palette.html'>palette</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/grDevices/palette.html'>palette</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"black"</span>,<span class='st'>"white"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
@@ -251,11 +251,11 @@ bg<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/ifel
  bg<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sign.html'>sign</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>$</span><span class='va'>vectors</span><span class='op'>[</span>,<span class='fl'>4</span><span class='op'>]</span><span class='op'>)</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>&gt;</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span><span class='op'>)</span>, xlab<span class='op'>=</span><span class='st'>"x"</span>, ylab<span class='op'>=</span><span class='st'>"y"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/title.html'>title</a></span><span class='op'>(</span><span class='st'>"AEM 4"</span><span class='op'>)</span>
 
-<span class='co'>### Construct AEM eigenfunctions using only a site-by-link matrix</span>
+<span class='co'># Construct AEM eigenfunctions using only a site-by-link matrix</span>
 <span class='va'>res2</span> <span class='op'>&lt;-</span> <span class='fu'>aem</span><span class='op'>(</span>binary.mat<span class='op'>=</span><span class='va'>bin.mat</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
 <span class='va'>res2</span><span class='op'>$</span><span class='va'>values</span>
 
-<span class='co'>### Illustrate 4 AEM eigenfunctions using bubble plots</span>
+<span class='co'># Illustrate 4 AEM eigenfunctions using bubble plots</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/symbols.html'>symbols</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>xy</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, circles<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>res2</span><span class='op'>$</span><span class='va'>vectors</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>, inches<span class='op'>=</span><span class='cn'>FALSE</span>, 
 asp<span class='op'>=</span><span class='fl'>1</span>, fg<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sign.html'>sign</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>res2</span><span class='op'>$</span><span class='va'>vectors</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>&gt;</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span><span class='op'>)</span>, 
@@ -276,156 +276,76 @@ bg<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/ifel
 
 <span class='fu'><a href='https://rdrr.io/r/grDevices/palette.html'>palette</a></span><span class='op'>(</span><span class='va'>opal</span><span class='op'>)</span>
 
-<span class='co'>### Construct AEM eigenfunctions with a function of the distance</span>
-<span class='co'>### as weights to put on the links</span>
+<span class='co'># Construct AEM eigenfunctions with a function of the distance</span>
+<span class='co'># as weights to put on the links</span>
 
-<span class='co'>### Construction of object of class nb (spdep)</span>
+<span class='co'># Construction of object of class nb (spdep)</span>
 <span class='va'>nb</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/pkg/spdep/man/cell2nb.html'>cell2nb</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>5</span>,<span class='st'>"queen"</span><span class='op'>)</span>
 
-<span class='co'>### Create fictitious geographical coordinates</span>
+<span class='co'># Create fictitious geographical coordinates</span>
 <span class='va'>xy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>25</span>,<span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'>### Build binary site-by-link matrix</span>
+<span class='co'># Build binary site-by-link matrix</span>
 <span class='va'>bin.mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='aem.build.binary.html'>aem.build.binary</a></span><span class='op'>(</span><span class='va'>nb</span>,<span class='va'>xy</span><span class='op'>)</span>
 
-<span class='co'>### Construct a matrix of distances</span>
+<span class='co'># Construct a matrix of distances</span>
 <span class='va'>long.lien.mat</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span><span class='op'>(</span><span class='va'>xy</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'>### Extract the edges, remove the ones directly linked to site 0</span>
+<span class='co'># Extract the edges, remove the ones directly linked to site 0</span>
 <span class='va'>lien.b</span><span class='op'>&lt;-</span><span class='va'>bin.mat</span><span class='op'>$</span><span class='va'>edges</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>:</span><span class='op'>-</span><span class='fl'>5</span>,<span class='op'>]</span>
 
-<span class='co'>### Construct a vector giving the length of each edge</span>
+<span class='co'># Construct a vector giving the length of each edge</span>
 <span class='va'>long.lien</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/vector.html'>vector</a></span><span class='op'>(</span>length<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>lien.b</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>lien.b</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
   <span class='va'>long.lien</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>&lt;-</span><span class='va'>long.lien.mat</span><span class='op'>[</span><span class='va'>lien.b</span><span class='op'>[</span><span class='va'>i</span>,<span class='fl'>1</span><span class='op'>]</span>,<span class='va'>lien.b</span><span class='op'>[</span><span class='va'>i</span>,<span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
 <span class='op'>}</span>
 
-<span class='co'>### Construct a vector of weights based on distance</span>
+<span class='co'># Construct a vector of weights based on distance</span>
 <span class='va'>weight.vec</span><span class='op'>&lt;-</span><span class='fl'>1</span><span class='op'>-</span><span class='op'>(</span><span class='va'>long.lien</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>long.lien</span><span class='op'>)</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span>
 
-<span class='co'>### Construct AEM eigenfunctions from an object of class aem.build.binary</span>
+<span class='co'># Construct AEM eigenfunctions from an object of class aem.build.binary</span>
 <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>aem</span><span class='op'>(</span>aem.build.binary<span class='op'>=</span><span class='va'>bin.mat</span>,weight<span class='op'>=</span><span class='va'>weight.vec</span>,rm.link0<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='va'>res</span>
+
+<span class='co'># Computing Moran's I for AEMs</span>
+
+<span class='co'># Building AEMs</span>
+<span class='va'>xy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>25</span>,<span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>Wdist</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span><span class='op'>(</span><span class='va'>xy</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>nb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/spdep/man/cell2nb.html'>cell2nb</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>5</span>,<span class='st'>"queen"</span><span class='op'>)</span>
+<span class='va'>bin.mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='aem.build.binary.html'>aem.build.binary</a></span><span class='op'>(</span><span class='va'>nb</span>,<span class='va'>xy</span><span class='op'>)</span>
+<span class='va'>linkBase</span> <span class='op'>&lt;-</span> <span class='va'>bin.mat</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>link</span> <span class='op'>&lt;-</span> <span class='va'>linkBase</span><span class='op'>[</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>linkBase</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span> <span class='op'>==</span> <span class='fl'>0</span><span class='op'>)</span>,<span class='op'>]</span>
+<span class='va'>weight</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>link</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+   <span class='va'>weight</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>Wdist</span><span class='op'>[</span><span class='va'>link</span><span class='op'>[</span><span class='va'>i</span>,<span class='fl'>1</span><span class='op'>]</span>,<span class='va'>link</span><span class='op'>[</span><span class='va'>i</span>,<span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
+<span class='op'>}</span>
+
+<span class='va'>AEM</span> <span class='op'>&lt;-</span> <span class='fu'>aem</span><span class='op'>(</span><span class='va'>bin.mat</span>, weight <span class='op'>=</span> <span class='va'>weight</span>, rm.link0 <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='co'># Constructing asymmetric matrix</span>
+<span class='va'>matasym</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0</span>,ncol<span class='op'>=</span><span class='fl'>25</span>, nrow<span class='op'>=</span><span class='fl'>25</span><span class='op'>)</span>
+
+<span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>link</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='va'>matasym</span><span class='op'>[</span><span class='va'>link</span><span class='op'>[</span><span class='va'>i</span>,<span class='fl'>1</span><span class='op'>]</span>,<span class='va'>link</span><span class='op'>[</span><span class='va'>i</span>,<span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span><span class='op'>&lt;-</span> <span class='va'>weight</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span>
+<span class='op'>}</span>
+
+<span class='co'># Build a listw object from the asymmetric matrix</span>
+<span class='va'>listwAsym</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/spdep/man/mat2listw.html'>mat2listw</a></span><span class='op'>(</span><span class='va'>matasym</span><span class='op'>)</span>
+
+<span class='co'># Calculate Moran's I for AEM</span>
+<span class='va'>MoranIAEM</span> <span class='op'>&lt;-</span> <span class='fu'><a href='moran.randtest.html'>moran.randtest</a></span><span class='op'>(</span><span class='va'>AEM</span><span class='op'>$</span><span class='va'>vectors</span>, <span class='va'>listwAsym</span><span class='op'>)</span>
+
 <span class='op'>}</span>
 </div><div class='output co'>#&gt; <span class='message'>To access larger datasets in this package, install the spDataLarge</span>
 #&gt; <span class='message'>package with: `install.packages('spDataLarge',</span>
 #&gt; <span class='message'>repos='https://nowosad.github.io/drat/', type='source')`</span></div><div class='output co'>#&gt; <span class='message'>Linking to GEOS 3.8.1, GDAL 3.1.4, PROJ 6.3.1</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘spdep’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:ade4’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    mstree</span></div><div class='img'><img src='aem-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='aem-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='aem-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $values
-#&gt;  [1] 4.851104e-01 2.019111e-01 7.243685e-02 6.274655e-02 5.107794e-02
-#&gt;  [6] 3.568419e-02 2.964173e-02 2.385850e-02 2.245366e-02 1.227957e-02
-#&gt; [11] 1.019506e-02 7.553855e-03 6.502247e-03 4.770235e-03 4.348462e-03
-#&gt; [16] 4.255335e-03 2.027052e-03 9.788437e-04 3.289361e-04 1.774583e-04
-#&gt; [21] 9.640648e-33 3.331092e-33 2.641614e-34 4.832039e-35
-#&gt; 
-#&gt; $vectors
-#&gt;              [,1]         [,2]        [,3]        [,4]        [,5]        [,6]
-#&gt;  [1,] -0.21708258 -0.030243039 -0.02847920 -0.06569714 -0.07543293  0.01139440
-#&gt;  [2,] -0.21708258 -0.030243039 -0.02847920 -0.06569714 -0.07543293  0.01139440
-#&gt;  [3,] -0.21708258 -0.030243039 -0.02847920 -0.06569714 -0.07543293  0.01139440
-#&gt;  [4,] -0.21708258 -0.030243039 -0.02847920 -0.06569714 -0.07543293  0.01139440
-#&gt;  [5,] -0.21708258 -0.030243039 -0.02847920 -0.06569714 -0.07543293  0.01139440
-#&gt;  [6,] -0.16257312 -0.136651556 -0.19792316 -0.12913145 -0.03731440  0.10145806
-#&gt;  [7,] -0.15275563 -0.065551325 -0.11537542  0.22489025 -0.14578679 -0.02356252
-#&gt;  [8,] -0.15323286  0.003503290  0.03864168  0.06848359  0.26368218 -0.12098571
-#&gt;  [9,] -0.16208723  0.064479806  0.19627744 -0.11442539 -0.09652280  0.26111219
-#&gt; [10,] -0.20742313  0.003143381 -0.03563966 -0.12390811 -0.06632168 -0.03114369
-#&gt; [11,] -0.05708114 -0.275710059 -0.19003508  0.10822848 -0.25320955 -0.22308791
-#&gt; [12,]  0.02722054 -0.212563876 -0.30307151  0.23743159  0.35884844  0.07768851
-#&gt; [13,]  0.03335949  0.100469565  0.24126556  0.42385559  0.01407043  0.31130762
-#&gt; [14,] -0.04065394  0.247588001  0.19891136 -0.18395398  0.34558069 -0.13083211
-#&gt; [15,] -0.14590316  0.127428483  0.17535228 -0.17353196 -0.12714890  0.15919059
-#&gt; [16,]  0.09166096 -0.383367433 -0.09137480  0.13727398  0.32589215 -0.40502032
-#&gt; [17,]  0.23069709 -0.236551206  0.23699899  0.13434459 -0.13382867  0.24205957
-#&gt; [18,]  0.24888209  0.085034452 -0.22720260 -0.11621007  0.25010074  0.42801691
-#&gt; [19,]  0.12783072  0.358163233  0.03665855  0.30346367 -0.13333577 -0.20685408
-#&gt; [20,] -0.03069831  0.295891597  0.16777197 -0.17661904  0.32413857 -0.21630403
-#&gt; [21,]  0.26246529 -0.329197270  0.45182160  0.11657860 -0.03066868  0.08737540
-#&gt; [22,]  0.36518523 -0.149937331  0.17906345 -0.44144761  0.07112424 -0.12137284
-#&gt; [23,]  0.37925269  0.040232121 -0.14907748 -0.26774545 -0.45289581 -0.23827452
-#&gt; [24,]  0.29887159  0.229987466 -0.49112450 -0.03289018  0.02598793  0.25589819
-#&gt; [25,]  0.13239573  0.384823855  0.02045734  0.33379861 -0.12522765 -0.26364132
-#&gt;               [,7]        [,8]        [,9]        [,10]        [,11]
-#&gt;  [1,] -0.044166793  0.05112525  0.16723801  0.028744531 -0.011806550
-#&gt;  [2,] -0.044166793  0.05112525  0.16723801  0.028744531 -0.011806550
-#&gt;  [3,] -0.044166793  0.05112525  0.16723801  0.028744531 -0.011806550
-#&gt;  [4,] -0.044166793  0.05112525  0.16723801  0.028744531 -0.011806550
-#&gt;  [5,] -0.044166793  0.05112525  0.16723801  0.028744531 -0.011806550
-#&gt;  [6,]  0.120681569 -0.12719356 -0.10479869  0.564356047  0.152231940
-#&gt;  [7,] -0.311964565  0.07656804 -0.08854974 -0.309186162  0.092679672
-#&gt;  [8,]  0.155942372  0.30940974  0.29220526  0.118112713 -0.228199427
-#&gt;  [9,]  0.064217609 -0.16189141 -0.14872212 -0.217755003 -0.077673074
-#&gt; [10,] -0.070115668  0.01221102  0.11325726 -0.053436662  0.116681034
-#&gt; [11,] -0.079412831 -0.13970237 -0.57983957  0.223812596 -0.094760697
-#&gt; [12,]  0.195986964  0.15381275 -0.02903184 -0.156121365  0.115876406
-#&gt; [13,] -0.170470711  0.23036399 -0.05652684 -0.062925101 -0.179165759
-#&gt; [14,]  0.114169652  0.10520291 -0.21662175  0.085991005  0.124127442
-#&gt; [15,]  0.119551158 -0.30819157 -0.20629411 -0.421424489  0.010417864
-#&gt; [16,]  0.005048139 -0.21696208  0.01252615 -0.338427950 -0.052696839
-#&gt; [17,]  0.312159119  0.20807995 -0.16387907  0.142060322 -0.415496329
-#&gt; [18,] -0.201802534  0.19998399 -0.20734855  0.020972324  0.433054699
-#&gt; [19,] -0.113195460  0.01035568  0.01701568  0.052464934  0.193826827
-#&gt; [20,]  0.222083933 -0.12384457 -0.19932940  0.044790452 -0.106415289
-#&gt; [21,]  0.113759793 -0.36466786  0.32213015  0.135219956  0.430978305
-#&gt; [22,] -0.607215638  0.07576289  0.03841578  0.062636951 -0.259486964
-#&gt; [23,]  0.383509268  0.37980582  0.05702027 -0.227345785  0.163182182
-#&gt; [24,]  0.068578008 -0.43995112  0.26567588 -0.008164452 -0.366342120
-#&gt; [25,] -0.100676213 -0.13477849  0.04650520  0.200647018  0.006212879
-#&gt;              [,12]        [,13]        [,14]        [,15]        [,16]
-#&gt;  [1,] -0.007777145  0.051549211 -0.006930653  0.111344833 -0.089278374
-#&gt;  [2,] -0.007777145  0.051549211 -0.006930653  0.111344833 -0.089278374
-#&gt;  [3,] -0.007777145  0.051549211 -0.006930653  0.111344833 -0.089278374
-#&gt;  [4,] -0.007777145  0.051549211 -0.006930653  0.111344833 -0.089278374
-#&gt;  [5,] -0.007777145  0.051549211 -0.006930653  0.111344833 -0.089278374
-#&gt;  [6,]  0.028377648 -0.364850349 -0.268535237 -0.221578145  0.041286535
-#&gt;  [7,]  0.129816784  0.472936597 -0.189972320 -0.097894668  0.177656923
-#&gt;  [8,] -0.226359064 -0.069121916  0.087083532 -0.304982724  0.104785337
-#&gt;  [9,] -0.199432911 -0.095504696 -0.470176916  0.263954417 -0.125083905
-#&gt; [10,]  0.228539016 -0.075434173  0.590374353 -0.009577094  0.130783688
-#&gt; [11,] -0.250251110  0.181152126  0.174081661 -0.081730210  0.079030797
-#&gt; [12,]  0.444604147 -0.037065956 -0.308354353 -0.085181526  0.189022257
-#&gt; [13,] -0.351788832 -0.127990774  0.026094409 -0.343930195 -0.058342948
-#&gt; [14,] -0.194060440  0.146376340 -0.025517547  0.367789833  0.305555061
-#&gt; [15,]  0.207023388 -0.326059795  0.170311562 -0.294566322  0.090109123
-#&gt; [16,] -0.223612145 -0.304448044  0.090752472  0.201943894 -0.266467151
-#&gt; [17,]  0.333837104  0.029557871  0.193540869  0.349336372 -0.008005651
-#&gt; [18,] -0.092439157  0.006653081  0.245305877  0.082194869 -0.323962564
-#&gt; [19,] -0.012345797 -0.323619942  0.000452435  0.231034806  0.462241056
-#&gt; [20,]  0.128584447  0.352296667  0.006738419 -0.299800060 -0.173407428
-#&gt; [21,] -0.075919505  0.256302083  0.014411184 -0.110112977  0.087140305
-#&gt; [22,]  0.178266022 -0.114231559 -0.174010923 -0.108995796  0.117979647
-#&gt; [23,] -0.162617138  0.003287001 -0.108642617 -0.153736171 -0.071809318
-#&gt; [24,] -0.162847275  0.171157994  0.061951522  0.035632499  0.191179968
-#&gt; [25,]  0.311510544 -0.039138609 -0.081235117  0.023475031 -0.503299863
-#&gt;             [,17]       [,18]       [,19]        [,20]
-#&gt;  [1,]  0.13554377 -0.03402897  0.05938215  0.146028150
-#&gt;  [2,]  0.13554377 -0.03402897  0.05938215  0.146028150
-#&gt;  [3,]  0.13554377 -0.03402897  0.05938215  0.146028150
-#&gt;  [4,]  0.13554377 -0.03402897  0.05938215  0.146028150
-#&gt;  [5,]  0.13554377 -0.03402897  0.05938215  0.146028150
-#&gt;  [6,]  0.01023431  0.36980596 -0.25468558 -0.073517186
-#&gt;  [7,] -0.01096857  0.21836485 -0.47911125 -0.190667438
-#&gt;  [8,] -0.14898279 -0.45997649 -0.30054747 -0.288095874
-#&gt;  [9,] -0.22721651 -0.12216898  0.20557016 -0.480066589
-#&gt; [10,] -0.39316524  0.29044264  0.28594267 -0.340960389
-#&gt; [11,] -0.06661768 -0.32325815  0.21615383  0.059823799
-#&gt; [12,] -0.10949103 -0.14637255  0.37159468  0.147371146
-#&gt; [13,] -0.03843838  0.35166449  0.23291053  0.224798498
-#&gt; [14,] -0.35527366  0.13677300 -0.15538362  0.368551197
-#&gt; [15,]  0.04675721 -0.23648020 -0.26323817  0.300154886
-#&gt; [16,]  0.08811724  0.22663481 -0.13932100 -0.037016719
-#&gt; [17,]  0.12039759  0.07145014 -0.20432222 -0.080373915
-#&gt; [18,]  0.13369672 -0.19543078 -0.12812724 -0.123726029
-#&gt; [19,]  0.42494541 -0.09012971  0.08409210 -0.200364952
-#&gt; [20,]  0.40884772  0.17601011  0.19671550 -0.212400403
-#&gt; [21,] -0.03682561 -0.09243666  0.03691217  0.008401983
-#&gt; [22,] -0.03476906 -0.05198116  0.07055177  0.021216376
-#&gt; [23,] -0.06130688  0.11063406  0.04117619  0.033262304
-#&gt; [24,] -0.05961745  0.05613671 -0.01651394  0.042076249
-#&gt; [25,] -0.36804218 -0.11953725 -0.09727984  0.091392306
-#&gt; </div><div class='img'><img src='aem-4.png' alt='' width='700' height='433' /></div></pre>
+#&gt; <span class='message'>    mstree</span></div><div class='img'><img src='aem-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='aem-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='aem-3.png' alt='' width='700' height='433' /></div><div class='img'><img src='aem-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

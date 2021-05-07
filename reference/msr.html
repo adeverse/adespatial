@@ -248,198 +248,198 @@ strictly the global autocorrelation level.</p>
 <span class='va'>lw1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/spdep/man/nb2listw.html'>nb2listw</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/spdep/man/cell2nb.html'>cell2nb</a></span><span class='op'>(</span><span class='fl'>9</span>, <span class='fl'>9</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/pkg/spdep/man/moran.mc.html'>moran.mc</a></span><span class='op'>(</span><span class='va'>x1</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, <span class='va'>lw1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>$</span><span class='va'>statistic</span>
-</div><div class='output co'>#&gt; statistic 
-#&gt; 0.0924639 </div><div class='input'>
+</div><div class='output co'>#&gt;  statistic 
+#&gt; 0.02572845 </div><div class='input'>
 <span class='co'>## singleton</span>
 <span class='va'>x1.1</span> <span class='op'>&lt;-</span> <span class='fu'>msr</span><span class='op'>(</span><span class='va'>x1</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, <span class='va'>lw1</span>, nrepet <span class='op'>=</span> <span class='fl'>9</span>, method <span class='op'>=</span> <span class='st'>"singleton"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>x1.1</span>, <span class='fl'>2</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/pkg/spdep/man/moran.mc.html'>moran.mc</a></span><span class='op'>(</span><span class='va'>x</span>, listw <span class='op'>=</span> <span class='va'>lw1</span>, nsim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>$</span><span class='va'>statistic</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.0924639 0.0924639 0.0924639 0.0924639 0.0924639 0.0924639 0.0924639
-#&gt; [8] 0.0924639 0.0924639</div><div class='input'>
+</div><div class='output co'>#&gt; [1] 0.02572845 0.02572845 0.02572845 0.02572845 0.02572845 0.02572845 0.02572845
+#&gt; [8] 0.02572845 0.02572845</div><div class='input'>
 <span class='co'>## triplet</span>
 <span class='va'>x1.2</span> <span class='op'>&lt;-</span> <span class='fu'>msr</span><span class='op'>(</span><span class='va'>x1</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, <span class='va'>lw1</span>, nrepet <span class='op'>=</span> <span class='fl'>9</span>, method <span class='op'>=</span> <span class='st'>"triplet"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>x1.2</span>, <span class='fl'>2</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/pkg/spdep/man/moran.mc.html'>moran.mc</a></span><span class='op'>(</span><span class='va'>x</span>, listw <span class='op'>=</span> <span class='va'>lw1</span>, nsim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>$</span><span class='va'>statistic</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.0924639 0.0924639 0.0924639 0.0924639 0.0924639 0.0924639 0.0924639
-#&gt; [8] 0.0924639 0.0924639</div><div class='input'>
+</div><div class='output co'>#&gt; [1] 0.02572845 0.02572845 0.02572845 0.02572845 0.02572845 0.02572845 0.02572845
+#&gt; [8] 0.02572845 0.02572845</div><div class='input'>
 <span class='co'>## pair</span>
 <span class='va'>x1.3</span> <span class='op'>&lt;-</span> <span class='fu'>msr</span><span class='op'>(</span><span class='va'>x1</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, <span class='va'>lw1</span>, nrepet <span class='op'>=</span> <span class='fl'>9</span>, method <span class='op'>=</span> <span class='st'>"pair"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>x1.3</span>, <span class='fl'>2</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/pkg/spdep/man/moran.mc.html'>moran.mc</a></span><span class='op'>(</span><span class='va'>x</span>, listw <span class='op'>=</span> <span class='va'>lw1</span>, nsim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>$</span><span class='va'>statistic</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.09619303 0.10164507 0.09596895 0.10036517 0.09744941 0.09388690 0.09151389
-#&gt; [8] 0.10085718 0.10062203</div><div class='input'>
+</div><div class='output co'>#&gt; [1] 0.02465775 0.02611896 0.02363683 0.02039678 0.02185100 0.02312107 0.02654504
+#&gt; [8] 0.01895817 0.02239724</div><div class='input'>
 <span class='co'>## pair with cor.fixed</span>
 <span class='va'>x1.4</span> <span class='op'>&lt;-</span> <span class='fu'>msr</span><span class='op'>(</span><span class='va'>x1</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, <span class='va'>lw1</span>, nrepet <span class='op'>=</span> <span class='fl'>9</span>, cor.fixed <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>x1.4</span>, <span class='fl'>2</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/pkg/spdep/man/moran.mc.html'>moran.mc</a></span><span class='op'>(</span><span class='va'>x</span>, listw <span class='op'>=</span> <span class='va'>lw1</span>, nsim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>$</span><span class='va'>statistic</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.09686600 0.09443010 0.09753183 0.10126359 0.10062545 0.09804654 0.10169157
-#&gt; [8] 0.09782210 0.09996856</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>x1</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, <span class='va'>x1.4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.02164910 0.01887561 0.02476069 0.02328974 0.02345127 0.02660404 0.02478488
+#&gt; [8] 0.02314750 0.02686560</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>x1</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, <span class='va'>x1.4</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
 #&gt; [1,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5</div><div class='input'>
 <span class='co'>## pair preserving correlations for multivariate data</span>
 <span class='va'>x1.5</span> <span class='op'>&lt;-</span> <span class='fu'>msr</span><span class='op'>(</span><span class='va'>x1</span>, <span class='va'>lw1</span>, nrepet <span class='op'>=</span> <span class='fl'>9</span>, cor.fixed <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>x1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>x1.5</span>, <span class='va'>cor</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>x1.5</span>, <span class='va'>cor</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[2]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[3]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[4]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[5]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[6]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[7]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[8]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[9]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; </div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>x1</span>, <span class='fl'>2</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/pkg/spdep/man/moran.mc.html'>moran.mc</a></span><span class='op'>(</span><span class='va'>x</span>, listw <span class='op'>=</span> <span class='va'>lw1</span>, nsim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>$</span><span class='va'>statistic</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  0.09246390 -0.01605185 -0.03854826 -0.06531383  0.01553684</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>x1.5</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>, <span class='fl'>2</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/pkg/spdep/man/moran.mc.html'>moran.mc</a></span><span class='op'>(</span><span class='va'>x</span>, listw <span class='op'>=</span> <span class='va'>lw1</span>, nsim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>$</span><span class='va'>statistic</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  0.09480693 -0.02173623 -0.03049458 -0.07042049  0.01562083</div><div class='input'>
+</div><div class='output co'>#&gt; [1]  0.025728450  0.031070909 -0.092763026  0.029553778 -0.003940835</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>x1.5</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>, <span class='fl'>2</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/pkg/spdep/man/moran.mc.html'>moran.mc</a></span><span class='op'>(</span><span class='va'>x</span>, listw <span class='op'>=</span> <span class='va'>lw1</span>, nsim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>$</span><span class='va'>statistic</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  0.019958509  0.031419290 -0.098428586  0.037256292 -0.004221447</div><div class='input'>
 <span class='co'>## singleton preserving correlations for multivariate data</span>
 <span class='va'>x1.6</span> <span class='op'>&lt;-</span> <span class='fu'>msr</span><span class='op'>(</span><span class='va'>x1</span>, <span class='va'>lw1</span>, nrepet <span class='op'>=</span> <span class='fl'>9</span>, method <span class='op'>=</span> <span class='st'>"singleton"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>x1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>x1.6</span>, <span class='va'>cor</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>x1.6</span>, <span class='va'>cor</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[2]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[3]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[4]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[5]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[6]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[7]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[8]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; 
 #&gt; [[9]]
-#&gt;             [,1]          [,2]        [,3]        [,4]          [,5]
-#&gt; [1,]  1.00000000 -0.0205218479 -0.11673321  0.06480616  0.0872952274
-#&gt; [2,] -0.02052185  1.0000000000  0.01383488 -0.02103073  0.0006360483
-#&gt; [3,] -0.11673321  0.0138348815  1.00000000 -0.05994423  0.0423280959
-#&gt; [4,]  0.06480616 -0.0210307318 -0.05994423  1.00000000 -0.1849899685
-#&gt; [5,]  0.08729523  0.0006360483  0.04232810 -0.18498997  1.0000000000
+#&gt;             [,1]        [,2]        [,3]        [,4]        [,5]
+#&gt; [1,]  1.00000000 -0.16866344 -0.08561866 -0.24416924 -0.02599102
+#&gt; [2,] -0.16866344  1.00000000 -0.05228470  0.01189344 -0.11899285
+#&gt; [3,] -0.08561866 -0.05228470  1.00000000 -0.03027539 -0.04620149
+#&gt; [4,] -0.24416924  0.01189344 -0.03027539  1.00000000  0.07348143
+#&gt; [5,] -0.02599102 -0.11899285 -0.04620149  0.07348143  1.00000000
 #&gt; </div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>x1</span>, <span class='fl'>2</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/pkg/spdep/man/moran.mc.html'>moran.mc</a></span><span class='op'>(</span><span class='va'>x</span>, listw <span class='op'>=</span> <span class='va'>lw1</span>, nsim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>$</span><span class='va'>statistic</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  0.09246390 -0.01605185 -0.03854826 -0.06531383  0.01553684</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>x1.6</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>, <span class='fl'>2</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/pkg/spdep/man/moran.mc.html'>moran.mc</a></span><span class='op'>(</span><span class='va'>x</span>, listw <span class='op'>=</span> <span class='va'>lw1</span>, nsim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>$</span><span class='va'>statistic</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  0.09246390 -0.01605185 -0.03854826 -0.06531383  0.01553684</div><div class='input'>
+</div><div class='output co'>#&gt; [1]  0.025728450  0.031070909 -0.092763026  0.029553778 -0.003940835</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>x1.6</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>, <span class='fl'>2</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/pkg/spdep/man/moran.mc.html'>moran.mc</a></span><span class='op'>(</span><span class='va'>x</span>, listw <span class='op'>=</span> <span class='va'>lw1</span>, nsim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>$</span><span class='va'>statistic</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  0.025728450  0.031070909 -0.092763026  0.029553778 -0.003940835</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
