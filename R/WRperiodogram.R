@@ -175,7 +175,7 @@
 #' 
 #' # Periodogram of 'var'
 #' res.var2 <- WRperiodogram(var2, T2=130, nperm=499)
-#' plot(res.var2, T2=200, prog=1, line.col="blue") # Plot the periodogram
+#' plot(res.var2 prog=1, line.col="blue") # Plot the periodogram
 #' # Find the position of the maximum W statistic value in this periodogram
 #' (which(res.var2[,2] == max(res.var2[,2])) -1)
 #' # "-1" correction at the end of the previous line: the first computed period is T=2, 
