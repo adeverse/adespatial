@@ -27,7 +27,7 @@
 #' plot(tests)
 #' 
 #' }
-#'   
+#' 
 #' @importFrom spdep moran.mc
 #' @importFrom ade4 as.randtest as.krandtest
 #' @export
