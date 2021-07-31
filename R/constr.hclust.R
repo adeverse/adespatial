@@ -9,7 +9,7 @@
 ## |  contiguity constraint.                                    |
 ## |                                                            |
 ## |  Guillaume Guénard, Université de Montréal, Québec, Canada |
-## |  August 2018 - March 2020                                  |
+## |  August 2018 - July 2021                                   |
 ## |                                                            |
 ## \-----------------------------------------------------------*/
 ##
@@ -31,7 +31,7 @@
 #' @param chron Logical (TRUE or FALSE) indicating whether a chronological (i.e.
 #' time-constrained) clustering should be calculated (default:
 #' \code{chron = FALSE})
-#' @param member NULL or a vector with length size of \code{d} (default: NULL;
+#' @param members NULL or a vector with length size of \code{d} (default: NULL;
 #' See details)
 #'
 #' @return A \code{\link{constr.hclust-class}} object.
@@ -67,7 +67,7 @@
 #' The edges are interpreted as being non directional; there is no need to
 #' specify an edge going from point a to point b and one going from point b to
 #' point a. While doing so is generally inconsequential for the analysis, it
-#' carries some penality in terms of computation time. It is a good practice to
+#' carries some penalty in terms of computation time. It is a good practice to
 #' place the nodes in increasing order of numbers from the top to the bottom and
 #' from the left to the right of the list but this is not mandatory. A word of
 #' caution: in cases where clusters with identical minimum distances occur, the
@@ -77,21 +77,31 @@
 #' When argument \code{link} is omitted, regular (unconstrained) clustering is
 #' performed and a \code{\link{hclust}-class} object is returned unless
 #' argument \code{chron = TRUE}. When argument \code{chron = TRUE},
-#' chronological clustring is performed, taking the order of observations as
+#' chronological clustering is performed, taking the order of observations as
 #' their positions in the sequence. Argument \code{links} is not used when
 #' \code{chron = TRUE}. Argument \code{chron} allows one to perform a
-#' chronological clustring in the case where observations are ordered
+#' chronological clustering in the case where observations are ordered
 #' chronologically. Here, the term "chronologically" should not be taken
 #' restrictively: the method remains applicable to other sequential data sets
 #' such as spatial series made of observations along a transect.
 #' 
+#' When the graph described by \code{link} is not entirely connected, a warning
+#' message is issued to warn the user about the presence and number of disjoint
+#' clusters and a procedure is suggested to identify the disjoint clusters. The
+#' disjoint clusters (or singletons) are merged in the order of their indices
+#' (i.e. the two clusters with smallest indices are merged first) and so on
+#' until all of disjoint clusters have been merged. The dissimilarity at which
+#' these clusters are merged is a missing value (\code{NA}) in vector
+#' \code{height} (i.e., unconnected clusters have indefinite dissimilarities in
+#' constrained clustering).
+#' 
 #' If \code{members != NULL}, then \code{d} is taken to be a dissimilarity
-#' matrix between clusters instead of dissimilarities between singletons and
-#' members gives the number of observations per cluster. This way the
-#' hierarchical cluster algorithm can be ‘started in the middle of the
-#' dendrogram’, e.g., in order to reconstruct the part of the tree above a cut
-#' (see examples in \code{\link{hclust}} for further details on that
-#' functionality).
+#' matrix between clusters instead of dissimilarities between singletons. Then,
+#' \code{members} must be a vector giving the number of observations per
+#' cluster. In this way, the hierarchical clustering algorithm can be ‘started
+#' in the middle of the dendrogram’, e.g., in order to reconstruct the part of
+#' the tree above a cut. See examples in \code{hclust} for details on that
+#' functionality."
 #' 
 #' Memory storage and time to compute constrained clustering for N objects. The
 #' Lance and Williams algorithm for agglomerative clustering uses dissimilarity
@@ -283,8 +293,7 @@
 #' plotWhiskey("norm", 5L)
 #' ##
 #' ## End of the Scotch Whiskey tasting data example
-#'
-#'
+#' 
 #' \dontrun{
 #' ### Benchmarking example
 #' ### Benchmarking can be used to estimate computation time for different
@@ -342,9 +351,58 @@
 #' ##
 #' ### Examine the output file
 #' res
-#' }
+#' ##
 #' ## End of the benchmarking example
 #' ##
+#' ### Disjoint clusters example
+#' ##
+#' var = c(1.5, 0.2, 5.1, 3.0, 2.1, 1.4)
+#' ex.Y = data.frame(var)
+#' ##
+#' ## Site coordinates, matrix xy
+#' x.coo = c(-1, -2, -0.5, 0.5, 2, 1)
+#' y.coo = c(-2, -1, 0, 0, 1, 2)
+#' ex.xy = data.frame(x.coo, y.coo)
+#' ##
+#' ## Matrix of connecting edges E
+#' from = c(1,1,2,3,4,3,4)
+#' to = c(2,3,3,4,5,6,6)
+#' ex.E = data.frame(from, to)
+#' ##
+#' ## Carry out constrained clustering analysis
+#' test.out <-
+#'     constr.hclust(
+#'         dist(ex.Y),       # Response dissimilarity matrix
+#'         method="ward.D2", # Clustering method
+#'         links=ex.E,       # File of link edges (constraint) E
+#'         coords=ex.xy      # File of geographic coordinates
+#'     )
+#' ##
+#' ## Plot the results for k = 3
+#' par(mfrow=c(1,2))
+#' plot(test.out, k=3)
+#' stats:::plot.hclust(test.out, hang=-1)
+#' ##
+#' from = c(1,1,2,4,4)
+#' to = c(2,3,3,5,6)
+#' ex.E2 = data.frame(from, to)
+#' ##
+#' test.out2 <-
+#'     constr.hclust(
+#'         dist(ex.Y),       # Response dissimilarity matrix
+#'         method="ward.D2", # Clustering method
+#'         links=ex.E2,      # File of link edges (constraint) E
+#'         coords=ex.xy      # File of geographic coordinates
+#'     )
+#' ##
+#' par(mfrow=c(1,2))
+#' plot(test.out2, k=3)
+#' stats:::plot.hclust(test.out2, hang=-1)
+#' axis(2,at=0:ceiling(max(test.out2$height,na.rm=TRUE)))
+#' ##
+#' ## End of the disjoint clusters example
+#' ##
+#' }
 #' ### End of examples
 #' 
 #' @useDynLib adespatial, .registration = TRUE
@@ -355,7 +413,7 @@
 #' 
 #' @export constr.hclust
 constr.hclust <- function(d, method = "ward.D2", links, coords, beta = -0.25,
-                          chron = FALSE, member = NULL) {
+                          chron = FALSE, members = NULL) {
     METHODS <- c("ward.D", "ward.D2", "single", "complete", "average",
                  "mcquitty", "centroid", "median", "flexible")
     i.meth <- pmatch(method, METHODS)
@@ -368,12 +426,12 @@ constr.hclust <- function(d, method = "ward.D2", links, coords, beta = -0.25,
         stop("invalid dissimilarities")
     if (n < 2)
         stop("must have n >= 2 objects to cluster")
-    if(is.null(member)) {
-        member <- rep(1L,n)
+    if(is.null(members)) {
+        members <- rep(1L,n)
     } else {
-        if(length(member) != n)
+        if(length(members) != n)
             stop("invalid length of members")
-        storage.mode(member) <- "integer"
+        storage.mode(members) <- "integer"
     }
     len <- as.integer(n*(n - 1)/2)
     if (length(d) != len)
@@ -421,7 +479,7 @@ constr.hclust <- function(d, method = "ward.D2", links, coords, beta = -0.25,
               as.integer(i.meth),        ## method
               pars,                      ## alpha and beta
               as.integer(type),          ## type
-              member
+              members
     )[2L:4L]
     dim(hcl$merge) <- c((n-1L),2L)
     if(missing(coords)) {
@@ -433,6 +491,11 @@ constr.hclust <- function(d, method = "ward.D2", links, coords, beta = -0.25,
             coords <- cbind(x=coords,y=0)
         } else coords <- as.matrix(coords)
     }
+    if(any(nna <- is.na(hcl$height)))
+        warning("Impossible to cluster all the data using the links provided. ",
+                "To identify the ",sum(nna) + 1L," disjoint clusters found, ",
+                "use function cutree with argument k = ",sum(nna) + 1L,
+                " on the present function's output.")
     return(
         structure(
             c(hcl,
