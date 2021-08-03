@@ -9,7 +9,7 @@
 ## |  contiguity constraint.                                    |
 ## |                                                            |
 ## |  Guillaume Guénard, Université de Montréal, Québec, Canada |
-## |  August 2018 - July 2021                                  |
+## |  August 2018 - August 2021                                 |
 ## |                                                            |
 ## \-----------------------------------------------------------*/
 ##
