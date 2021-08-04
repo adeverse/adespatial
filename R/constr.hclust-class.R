@@ -1,12 +1,12 @@
 #' Class For Constrained Hiereachical Clustering
-#'
+#' 
 #' Files belonging to this class hold information about the constrained
 #' agglomerative clustering and allows one to display results graphically.
-#'
+#' 
 #' @docType class
 #' 
 #' @name constr.hclust-class
-#'
+#' 
 #' @format A file belonging to this class is a list with elements:
 #' \describe{
 #' \item{merge}{A (n-1) by 2 matrix. Row i of file \code{"merge"} describes
@@ -20,7 +20,7 @@
 #' \item{height}{A set of (n-1) non-decreasing real values. The clustering
 #' height is the value of the criterion associated with the clustering
 #' method for the particular agglomeration.}
-#'
+#' 
 #' \item{order}{A vector giving the permutation of the original observations
 #' suitable for plotting, in the sense that a cluster plot using this ordering
 #' and matrix merge will not have crossing branches.}
@@ -30,25 +30,25 @@
 #' \item{method}{The agglomerative clustering method that has been used.}
 #' 
 #' \item{call}{The call that produced the result.}
-#'
+#' 
 #' \item{dist.method}{The distance that has been used to create dissimilarity
 #' matrix \code{"d"} (only returned if the dissimilarity matrix object has a
 #' "method" attribute attached to it).}
-#'
+#' 
 #' \item{links}{A copy of the list of edges (if a matrix of edges was provided
 #' to the function).}
-#'
+#' 
 #' \item{coords}{A copy of the coordinates (if coordinates were provided to the
 #' function).} }
 #' 
 #' @details The class inherits from \code{\link{hclust}-class} and describes the
 #' tree produced by the constrained clustering procedure.
-#'
+#' 
 #' All class members except \code{links} and \code{coords} are identical to
 #' those in \code{\link{hclust}-class}. several methods designed to process
 #' these objects are expected to also work with \code{constr.hclust-class}
 #' objects.
-#'
+#' 
 #' @seealso \code{\link{hclust}-class}
-#'
+#' 
 NULL

@@ -569,7 +569,7 @@ void lw_flexible(int n, int* flag, int* membr, double* diss0, double* par,
 void clust(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
            double* diss0, unsigned int* nn_idx, double* nn_diss, int* method,
            double* par, int fastUpdate) {
-  unsigned int i, nn_i, nn_j, i2, j2, ncl;
+  unsigned int i, k, nn_i, nn_j, i2, j2, ncl, min_idx;
   double min_diss;
   void (*update)(int,int*,int*,double*,double*,unsigned int,unsigned int);
   setLWUpdate((unsigned int)(*n),*method,diss0,&update);
@@ -590,7 +590,6 @@ void clust(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
     flag[j2] = false;
     update(*n,flag,membr,diss0,par,i2,j2);
     membr[i2] += membr[j2];
-    // 
     if(ncl > 1) {
       if(fastUpdate) {
         min_diss = R_PosInf;
@@ -649,11 +648,24 @@ void constClust(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
     if(!(ncl%INTMOD))
       R_CheckUserInterrupt();
     ncl--;
+    //
+    /* When all links have been depleted, merge the remaining disjoint clusters,
+     * from that with smallest index > 0 to that with the largest index, to
+     * cluster 0 while inserting NA as the merging dissimilarity.*/
+    if(min_diss == R_PosInf) {
+      for(i = 1; (i < *n) && !flag[i]; i++)
+        ;
+      nn_i = 0;
+      nn_j = i;
+      min_diss = NA_REAL;
+    }
+    //
     i2 = nn_i;
     j2 = nn_j;
     ia[*n-ncl-1] = i2;
     ib[*n-ncl-1] = j2;
     crit[*n-ncl-1] = min_diss;
+    //
     flag[j2] = false;
     update(*n,flag,membr,diss0,par,i2,j2);
     membr[i2] += membr[j2];
@@ -692,9 +704,6 @@ void clustLS(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
     if(!(ncl%INTMOD))
       R_CheckUserInterrupt();
     ncl--;
-#ifdef testing
-    printf("%d -> %d: %f\n",nn_i,nn_j,min_diss);
-#endif
     i2 = nn_i;
     j2 = nn_j;
     ia[*n-ncl-1] = i2;
@@ -757,35 +766,44 @@ void constClustLS(int* n, int* membr, int* ia, int* ib, double* crit, int* m,
     if(!(ncl%INTMOD))
       R_CheckUserInterrupt();
     ncl--;
+    if(min_diss == R_PosInf) {
+      for(i = 1; (i < *n) && !membr[i]; i++)
+        ;
+      nn_i = 0;
+      nn_j = i;
+    }
     i2 = nn_i;
     j2 = nn_j;
     ia[*n-ncl-1] = i2;
     ib[*n-ncl-1] = j2;
-    switch(*out) {
-    case 1:
-      crit[*n-ncl-1] = sqrt(min_diss);
-      break;
-    case 2:
-      crit[*n-ncl-1] = min_diss;
-      break;
-    case 3:
-      crit[*n-ncl-1] = getdistLS((unsigned int)(*n),membr,(unsigned int)(*m),x,
-                                 i2,j2,false);
-      break;
-    case 4:
-      crit[*n-ncl-1] = getdistLS((unsigned int)(*n),membr,(unsigned int)(*m),x,
-                                 i2,j2,true);
-      break;
-    default:
-      error("Unknown output type: %d\n",*out);
-    }
-    // This function has no flag (as does all others).
+    if(min_diss == R_PosInf)
+      crit[*n-ncl-1] = NA_REAL;
+    else
+      switch(*out) {
+      case 1:
+        crit[*n-ncl-1] = sqrt(min_diss);
+        break;
+      case 2:
+        crit[*n-ncl-1] = min_diss;
+        break;
+      case 3:
+        crit[*n-ncl-1] = getdistLS((unsigned int)(*n),membr,(unsigned int)(*m),
+                                   x,i2,j2,false);
+        break;
+      case 4:
+        crit[*n-ncl-1] = getdistLS((unsigned int)(*n),membr,(unsigned int)(*m),
+                                   x,i2,j2,true);
+        break;
+      default:
+        error("Unknown output type: %d\n",*out);
+      }
+    // This function has no flag (unlike all others).
     updateLS((unsigned int)(*n),membr,(unsigned int)(*m),x,xx,i2,j2);
     membr[i2] += membr[j2];
-    if(ncl > 1)
-      updateNNlinkLS((unsigned int)(*n),membr,(unsigned int)(*m),x,xx,
-                     (unsigned int)(*nl),linkl,&nn_i,&nn_j,nn_diss,&min_diss,
-                     i2,j2);
+    membr[j2] = 0;  // Here, membr is used as flag
+    updateNNlinkLS((unsigned int)(*n),membr,(unsigned int)(*m),x,xx,
+                   (unsigned int)(*nl),linkl,&nn_i,&nn_j,nn_diss,&min_diss,
+                   i2,j2);
   }
   for(i = 0; i < (*n - 1); i++) {
     ia[i]++;
@@ -858,9 +876,9 @@ void hcass2(int *n, int *ia, int *ib, int *iorder, int *iia, int *iib) {
 
 // Service function to be called by R wrapper function: constr.hclust
 // (flashClust version)
-void cclust(int* n, int* merge, double* height, int* order,
-		   double* diss0, int* nl, int* linkl, int* method, double* par,
-		   int* type, int* membr) {
+void cclust(int* n, int* merge, double* height, int* order, double* diss0,
+            int* nl, int* linkl, int* method, double* par, int* type,
+            int* membr) {
   int* flag = (int*)R_alloc(*n,sizeof(int));
   int* ia = (int*)R_alloc(*n-1,sizeof(int));
   int* ib = (int*)R_alloc(*n-1,sizeof(int));
@@ -983,18 +1001,6 @@ void cclustLS(int* n, int* merge, double* height, int* order, int* m,
 
 // Testing functions (called from R using the .C() interface during development)
 #ifdef testing
-
-void R_getminlink(int* n, double* diss0, int* nl, int* linkl, int* nn_i,
-                  int* nn_j, double* min_diss) {
-  *min_diss = R_PosInf;
-  *nn_i = 0;
-  *nn_j = 0;
-  getminlink((unsigned int)(*n),diss0,(unsigned int)(*nl),linkl,
-             (unsigned int*)nn_i,(unsigned int*)nn_j,min_diss);
-  (*nn_i)++;
-  (*nn_j)++;
-  return;
-}
 
 void R_printnninfo(unsigned int n, int* flag, unsigned int* nn_idx,
                    double* nn_diss) {

@@ -149,9 +149,9 @@ void constClustLS(int* n, int* membr, int* ia, int* ib, double* crit, int* m,
 void hcass2(int* n, int* ia, int* ib, int* iorder, int* iia, int* iib);
 
 // R wrapper function (called from R using the .C() interface)
-void cclust(int* n, int* merge, double* height, int* order,
-		   double* diss0, int* nl, int* linkl, int* method, double* par,
-		   int* type, int* membr);
+void cclust(int* n, int* merge, double* height, int* order, double* diss0,
+            int* nl, int* linkl, int* method, double* par, int* type,
+            int* membr);
 
 #ifdef with_LS
 void cclustLS(int* n, int* merge, double* height, int* order, int* m,
@@ -161,8 +161,6 @@ void cclustLS(int* n, int* merge, double* height, int* order, int* m,
 // Testing functions (called from R using the .C() interface during development)
 // Not to be compiled for regular execution purposes
 #ifdef testing
-void  R_getminlink(int* n, double* diss0, int* nl, int* linkl, int* nn_i,
-                   int* nn_j, double* nn_dist);
 void   R_printdiss(unsigned int n, int* flag, double* diss0);
 void R_printnninfo(unsigned int n, int* flag, unsigned int* nn_idx,
                    double* nn_diss);
