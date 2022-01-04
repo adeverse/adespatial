@@ -1,3 +1,4 @@
+#define USE_FC_LEN_T
 #include <stddef.h>
 #include <math.h>
 #include <time.h>
@@ -10,7 +11,9 @@
 #include <R_ext/Utils.h>
 #include <R_ext/Lapack.h>
 #include "adesub.h"
-
+#ifndef FCONE
+# define FCONE
+#endif
 /* ============================= */
 /*            Declaration        */
 /* ============================= */
@@ -405,13 +408,13 @@ for (i = 0, j = 1; j <= size; j++) {
         i++;
     }
 }
-F77_CALL(dgesvd)(&jobu, &jobvt,&size, &size,A, &size, D,U,&size,V,&size,&work1, &lwork,&error);
+F77_CALL(dgesvd)(&jobu, &jobvt,&size, &size,A, &size, D,U,&size,V,&size,&work1, &lwork,&error FCONE FCONE);
 
 lwork=(int)floor(work1);
 if (work1-lwork>0.5) lwork++;
 work=(double *)calloc((size_t)lwork,sizeof(double));
 /* actual call */
-F77_NAME(dgesvd)(&jobu, &jobvt,&size, &size,A, &size, D,U,&size,V,&size,work, &lwork,&error);
+F77_NAME(dgesvd)(&jobu, &jobvt,&size, &size,A, &size, D,U,&size,V,&size,work, &lwork,&error FCONE FCONE);
 free(work);
 
 if (error) {

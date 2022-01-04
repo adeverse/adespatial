@@ -2,12 +2,16 @@
 /**************************************************** Naima MADI DESS. BioInformatique UQAM ****************************************************/
 /*****************************************************          27 septembre 2016          *****************************************************/
 
+#define USE_FC_LEN_T
 #include <R.h>
 #include <Rinternals.h>
 #include <Rdefines.h>
 #include <float.h>
 #include <math.h>
 #include <R_ext/Applic.h> /* for dgemm */
+#ifndef FCONE
+# define FCONE
+#endif
 
 #define FOR_RAND 1/RAND_MAX
 
@@ -1147,7 +1151,7 @@ SEXP produit(SEXP X, SEXP Y) {
     char *transa = "N", *transb = "N";
     double one = 1.0, zero = 0.0;
     
-    F77_CALL(dgemm)(transa, transb, &dimX[0], &dimY[1], &dimX[1], &one, xptr, &dimX[0], yptr, &dimY[0], &zero, resptr, &dimX[0]); 
+    F77_CALL(dgemm)(transa, transb, &dimX[0], &dimY[1], &dimX[1], &one, xptr, &dimX[0], yptr, &dimY[0], &zero, resptr, &dimX[0] FCONE FCONE); 
     //F77_CALL(dgemm)(transa, transb, &nrx, &ncy, &ncx, &one,x, &nrx, y, &nry, &zero, z, &nrx);
     
     UNPROTECT(5);
