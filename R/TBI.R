@@ -12,7 +12,10 @@
 #' @param mat1,mat2 Two multivariate community composition or gene frequency
 #'   data matrices (class data.frame or matrix) with the same number of rows and
 #'   columns. The rows must correspond to the same objects (e.g. sites) and the
-#'   columns to the same variables, e.g. species or alleles.
+#'   columns to the same variables, e.g. species or alleles. –  
+#'   The input files are checked for having equal numbers of rows and columns, for  
+#'   rows that are empty in \bold{both} mat1 and mat2, and for the presence of negative  
+#'   values, which cannot be frequencies.
 #'
 #' @param method One of the following dissimilarity coefficients:
 #'   \code{"\%difference"} (aka Bray-Curtis), \code{"ruzicka"}, \code{"chord"},
@@ -310,6 +313,7 @@
 
 TBI <- function(mat1, mat2, method = "%difference", pa.tr = FALSE, nperm = 99, BCD = TRUE, replace = FALSE,
     test.BC = TRUE, test.t.perm = FALSE, save.BC = FALSE, seed. = NULL, clock = FALSE) {
+
     ### Internal functions --
     
     RuzickaD <- function(vec1, vec2, method = "ruzicka", BCD = FALSE, ref = TRUE) {
@@ -390,10 +394,21 @@ TBI <- function(mat1, mat2, method = "%difference", pa.tr = FALSE, nperm = 99, B
             list(vecB = vecB, vecC = vecC, vecD = vecD, v.B = v.B, v.C = v.C)
     }
     
+    empty.rows.T1.T2 <- function(mat1, mat2)
+		# This function identifies data rows containing only zeros in mat1 AND mat22
+		{ 
+		tmp1 <- apply(mat1,1,sum) + apply(mat2,1,sum)
+		tmp2 <- which(tmp1 == 0)
+		if(length(tmp2) > 0) {
+   			# cat("Warning: in mat1 AND mat2, row(s) {", tmp2, "} only contain zeros.\n")
+   			# stop("TBI analysis interrupted. Correct the input files et run again") 
+    		cat("Stop: In mat1 AND mat2, row(s) {", tmp2, "} only contain zeros.\n")
+   			stop("TBI analysis interrupted. Correct the input files et run again.") 
+  			}
+	}
+    
     ### End internal functions --
     
-    A <- system.time({
-        
         # Set "seed." to a specified integer, e.g. 1234, in function call to repeat a calculation
         if (!is.null(seed.)) set.seed(seed.)   
         
@@ -402,6 +417,11 @@ TBI <- function(mat1, mat2, method = "%difference", pa.tr = FALSE, nperm = 99, B
         n = nrow(mat1)
         p = ncol(mat1)
         if ((nrow(mat2) != n) | (ncol(mat2) != p)) stop("The matrices are not of the same size.")
+        if(any(mat1<0)) stop("Stop: Negative value(s) in mat1. They are not frequencies.")
+        if(any(mat2<0)) stop("Stop: Negative value(s) in mat2. They are not frequencies.")
+        empty.rows.T1.T2(mat1, mat2)
+        
+    A <- system.time({
         
         if (method == "hellinger") {
             mat1 <- sqrt(mat1) # sqrt() transformation done only once, before permutations

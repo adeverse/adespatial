@@ -23,7 +23,10 @@ TBI(
 \item{mat1, mat2}{Two multivariate community composition or gene frequency
 data matrices (class data.frame or matrix) with the same number of rows and
 columns. The rows must correspond to the same objects (e.g. sites) and the
-columns to the same variables, e.g. species or alleles.}
+columns to the same variables, e.g. species or alleles. –  
+The input files are checked for having equal numbers of rows and columns, for  
+rows that are empty in \bold{both} mat1 and mat2, and for the presence of negative  
+values, which cannot be frequencies.}
 
 \item{method}{One of the following dissimilarity coefficients:
 \code{"\%difference"} (aka Bray-Curtis), \code{"ruzicka"}, \code{"chord"},
