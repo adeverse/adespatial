@@ -30,6 +30,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -42,23 +44,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3-14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-14</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -72,7 +68,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/sdray/adespatial/">
+  <a href="https://github.com/sdray/adespatial/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -89,28 +85,27 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="adespatial-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#adespatial-" class="anchor"></a>adespatial <img src="reference/figures/logo.svg" align="right" height="139">
+<div class="section level1">
+<div class="page-header"><h1 id="adespatial-">adespatial <img src="reference/figures/logo.svg" align="right" height="139"><a class="anchor" aria-label="anchor" href="#adespatial-"></a>
 </h1></div>
 
 <p>Multivariate Multiscale Spatial Analysis</p>
-<p>This package contains some new functions and many others that were included in development packages hosted in the sedaR project on <a href="https://r-forge.r-project.org/R/?group_id=195">R-Forge</a>.</p>
+<p>This package contains some new functions and many others that were included in development packages hosted in the sedaR project on <a href="https://r-forge.r-project.org/R/?group_id=195" class="external-link">R-Forge</a>.</p>
 <p>For instance, <code>adespatial</code> includes the <code>forward.sel</code> function (formerly in <code>packfor</code>) and all functions of <code>spacemakeR</code>. To have an overview of the package, read the vignette after installing the package by:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span><span class="op">(</span><span class="st">"tutorial"</span>, package <span class="op">=</span> <span class="st">"adespatial"</span><span class="op">)</span></code></pre></div>
-<div id="installing-adespatial" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installing-adespatial" class="anchor"></a>Installing <em>adespatial</em>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"tutorial"</span>, package <span class="op">=</span> <span class="st">"adespatial"</span><span class="op">)</span></code></pre></div>
+<div class="section level2">
+<h2 id="installing-adespatial">Installing <em>adespatial</em>
+<a class="anchor" aria-label="anchor" href="#installing-adespatial"></a>
 </h2>
 <p>To install the development version from github:</p>
-<ol>
-<li><p>Install the release version of <code>devtools</code> from CRAN with <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("devtools")</a></code>.</p></li>
+<ol style="list-style-type: decimal">
+<li><p>Install the release version of <code>devtools</code> from CRAN with <code>install.packages("devtools")</code>.</p></li>
 <li>
 <p>Make sure you have a working development environment.</p>
 <ul>
 <li>
-<strong>Windows</strong>: Install <a href="http://cran.r-project.org/bin/windows/Rtools/">Rtools</a>.</li>
+<strong>Windows</strong>: Install <a href="http://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a>.</li>
 <li>
 <strong>Mac</strong>: Install Xcode from the Mac App Store.</li>
 <li>
@@ -120,61 +115,71 @@
 </ol>
 <p>Then:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">devtools</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span>
 <span class="fu">install_github</span><span class="op">(</span><span class="st">"sdray/adespatial"</span><span class="op">)</span></code></pre></div>
 <p>The stable version can be installed from CRAN using:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"adespatial"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"adespatial"</span><span class="op">)</span></code></pre></div>
 <p>Once installed, the package can be loaded using:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/sdray/adespatial">"adespatial"</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/sdray/adespatial" class="external-link">"adespatial"</a></span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=adespatial">https://​cloud.r-project.org/​package=adespatial</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/sdray/adespatial/">https://​github.com/​sdray/​adespatial/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/sdray/adespatial/issues">https://​github.com/​sdray/​adespatial/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=adespatial" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/sdray/adespatial/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/sdray/adespatial/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>GPL (&gt;= 2)</li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing adespatial</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Stéphane Dray <br><small class="roles"> Maintainer </small>  </li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/sdray/adespatial/actions"><img src="https://github.com/sdray/adespatial/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="http://cran.r-project.org/package=adespatial"><img src="http://www.r-pkg.org/badges/version/adespatial" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://cran.r-project.org/package=adespatial"><img src="https://cranlogs.r-pkg.org/badges/adespatial" alt="CRAN Downloads"></a></li>
+<li><a href="https://github.com/sdray/adespatial/actions" class="external-link"><img src="https://github.com/sdray/adespatial/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="http://cran.r-project.org/package=adespatial" class="external-link"><img src="http://www.r-pkg.org/badges/version/adespatial" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://cran.r-project.org/package=adespatial" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/adespatial" alt="CRAN Downloads"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Stéphane Dray.</p>
+  <p></p>
+<p>Developed by Stéphane Dray.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -182,6 +187,8 @@
 
   
 
+
+  
 
   </body>
 </html>
