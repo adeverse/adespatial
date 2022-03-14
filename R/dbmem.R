@@ -165,7 +165,7 @@
             if (is.null(thresh)) {
                 threshh <- give.thresh(matdist)
                 if (!silent)
-                    cat("Truncation level =", threshh + epsilon, '\n')
+                    cat("Truncation level =", threshh, '\n')
             } else {
                 threshh <- thresh
                 if (!silent)
@@ -177,15 +177,10 @@
             ## compute spatial weighting matrix and associated MEMs
             nb <-
                 dnearneigh(as.matrix(xy),
-                    0,
-                    ifelse(
-                        !inherits(xyORdist, "dist"),
-                        threshh,
-                        threshh * (1 + epsilon)  ),
+                    0, threshh * (1 + epsilon),
                     row.names = rownames(xy))
-            ## we added epsilson to threshh to avoid numerical instability in
-            ## the case of regular samplings when users provide a distance
-            ## matrix
+            ## we added epsilson to threshh to avoid numerical instability
+            ## (e.g., regular samplings or multiple equal distances)
             spwt <-
                 lapply(nbdists(nb, xy), function(x)
                     1 - (x / (4 * threshh)) ^ 2)
