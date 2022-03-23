@@ -17,6 +17,7 @@ stimodels(
   Tfixed = TRUE,
   COD.S = NULL,
   COD.T = NULL,
+  save.X = FALSE,
   print.res = TRUE
 )
 
@@ -28,13 +29,14 @@ quicksti(
   alpha = 0.05,
   COD.S = NULL,
   COD.T = NULL,
+  save.X = FALSE,
   print.res = TRUE
 )
 }
 \arguments{
 \item{Y}{Site-by-species response data table. Assumes row blocks
-corresponding to times, i.e. within each block all sites are provided 
-(in the same order).}
+corresponding to times, i.e. within each block all sites are provided, 
+always in the same order.}
 
 \item{S}{Number of spatial points (when they are aligned on a transect or a
 time series and equispaced) or a matrix of spatial coordinates (when the
@@ -63,56 +65,109 @@ considered a random factor).}
 considered a random factor).}
 
 \item{COD.S}{Spatial coding functions to be used instead of dbMEM. The
-number of columns must be lower than \code{S} and the number of rows equal
-to the number of rows in \code{Y}.}
+number of columns must be lower than \code{S} and the number of rows must
+be equal to the number of rows in \code{Y}. – Do not use full coding of S 
+(binary variables or Helmert contrasts) in COD.S to code for the factor to 
+be tested, space, in Model 6a: there would be no residual degrees of freedom 
+left for the test.}
 
 \item{COD.T}{Temporal coding functions to be used instead of dbMEM. The
-number of columns must be lower than \code{Ti} and the number of rows equal
-to the number of rows in \code{Y}.}
+number of columns must be lower than \code{Ti} and the number of rows must
+be equal to the number of rows in \code{Y}. – Do not use full coding of Ti 
+(binary variables or Helmert contrasts) in COD.T to code for the factor to
+be tested, time, in Model 6b: there would be no residual degrees of freedom 
+left for the test.}
 
-\item{print.res}{If TRUE displays the results and additional information
-onscreen (recommended).}
+\item{save.X}{If TRUE, the explanatory bloc-diagonal matrix constructed for
+model 6a or 6b is saved in the output list with the label X.}
+
+\item{print.res}{If TRUE, displays the results and additional information
+onscreen (recommended). If FALSE, only R2, F and P are printed onscreen.}
 
 \item{alpha}{In \code{quicksti}, confidence level for the interaction test. 
 Depending on the decision for the interaction test, the main factors are 
 tested differently.}
 }
 \value{
+A list containing the following results: \itemize{ 
 \item{testS}{ An object with the result of the space effect test, including
 the mean squares for the F numerator (\code{MS.num}), the mean squares for
 the F denominator (\code{MS.den}), the proportion of explained variance
 (\code{R2}), the adjusted proportion of explained variance (\code{R2.adj}),
 the F statistics (\code{F}) and its p-value computed from a permutation test
-(\code{Prob}). } \item{testT}{ An object with the result of the time effect
-test, like \code{testS}.} \item{teststi}{ An object with the result of the
-space-time interaction test, like \code{testS}.}
+(\code{Prob}). } 
+\item{testT}{ An object with the result of the time effect test, like \code{testS}.} 
+\item{teststi}{ An object with the result of the space-time interaction test, 
+like \code{testS}.} 
+\item{X.matrix}{ The bloc-diagonal explanatory matrix used in test of model 6a or 6b}
+}
 }
 \description{
 Function \code{stimodels} performs two-way ANOVA to test space-time
-interaction without replicates using one among a set of possible models.
+interaction (STI) without replicates using one among a set of possible models 
+described in Legendre et al. (2010).
 Function \code{quicksti} allows performing space-time ANOVA in a simplified
 way. In many models, degrees of freedom are saved by coding space and/or
-time parsimoniously using distance-based Moran Eigenvector Maps (dbMEM).
+time parsimoniously using distance-based Moran Eigenvector Maps (dbMEM; 
+Borcard & Legendre 2002; Dray et al. 2006).
 }
 \details{
-In \code{stimodels} tests for space-time interaction and space or time main
-effects are conducted using one of the different models. With Models 2, 6a
-and 6b the interaction test is not available.
+The 'stimodels' and 'quicksti' functions should only be used 
+(1) when each site has been sampled during each survey, with no missing data, 
+and (2) when there are no replicate observations of the space-time points. When 
+there is replication, use a regular permutational Manova function such as adonis2.
 
-Model 2 - Space and Time are coded using Helmert contrasts for the main
-effects. No interaction is tested. Model 3a - Space is coded using dbMEM
-variables whereas Time is coded using Helmert contrasts. Model 3b - Space is
-coded using Helmert contrasts whereas Time is coded using dbMEM variables.
-Model 4 - Both Space and Time are coded using dbMEM variables for all tests.
-Model 5 - Space and Time are coded using Helmert contrasts for the main
-factor effects, but they are coded using dbMEM variables for the interaction
-term. Model 6a - Nested model. Testing for the existence of spatial
-structure (common or separate) using dbMEM variables to code for Space.
-Model 6b - Nested model. Testing for the existence of temporal structure
-(common or separate) using dbMEM variables to code for Time. Model 7 -
-Space and Time are coded using dbMEM variables for the main factor effects,
-but they are coded using Helmert contrasts for the interaction term (not
-recommended).
+When the sites form a one-dimensional spatial transect, or a meandering line 
+such as the course of a river, with regular sampling intervals, and the time series 
+has fairly equal time intervals, one can use the S and Ti arguments to indicate 
+the number of sites in space and the number of surveys along time. The order of 
+the sites in each temporal block of the input data file will be taken to correspond 
+to the spatial positions of the sites along the transect (from 1 to S), and the 
+order of the time blocks in the data file will be taken to indicate the temporal 
+order of the surveys (from 1 to Ti). The function will then compute dbMEM 
+eigenfunctions corresponding to the spatial and temporal positions of the data 
+rows in the input data file as if they were on straight lines.
+
+When the sites do not form a regular, one-dimensional spatial transect, one must 
+provide a file of spatial coordinates of the sites to argument S. Similarly, when 
+the time series has unequal time intervals, one must provide a file of temporal 
+coordinates of the surveys to argument Ti.
+
+Alternatively, one can use arguments COD.S or COD.T to provide a matrix of Helmert 
+contrasts to be used in the analysis in place of dbMEM eigenfunctions. One can do 
+that, for example, when there are only a few surveys along time and it would not 
+be useful to represent these few surveys by dbMEM eigenfunctions. That matrix can 
+have the class "matrix" or "numeric"; they both work in functions stimodels and 
+quicksti. Arguments COD.S and COD.T can also be used to provide matrices 
+containing other types of eigenfunctions, for example AEM eigenfunctions, to be 
+used instead of dbMEM matrices computed by stimodels or quicksti. However, do not 
+code both the space and time factors as Helmert contrasts; that would not leave 
+residual degrees of freedom for the test of the interaction.
+
+In \code{stimodels}, tests for space-time interaction and space or time main
+effects are conducted using one of the following models: 
+\itemize{
+\item Model 2 - Space and Time are coded using Helmert contrasts for the main
+effects. The interaction cannot be tested. 
+\item Model 3a - Space is coded using dbMEM variables whereas Time is coded 
+using Helmert contrasts. 
+\item Model 3b - Space is coded using Helmert contrasts whereas Time is coded
+using dbMEM variables.
+\item Model 4 - Both Space and Time are coded using dbMEM variables; the 
+interaction is coded as the Hadamard (or elementwise) product of the 
+space-coding by the time-coding dbMEMs.
+\item Model 5 - Space and Time are coded using Helmert contrasts for the main
+factor effects; the interaction is coded as the Hadamard product of the 
+space-coding by the time-coding dbMEM variables. 
+\item Model 6a - Nested model. Testing for the existence of spatial
+structure (common or separate) using dbMEM (or other) variables coding for Space.
+\item Model 6b - Nested model. Testing for the existence of temporal structure
+(common or separate) using dbMEM (or other) variables coding for Time. 
+\item Model 7 - Space and Time are coded using dbMEM variables for the main
+factor effects, but they are coded using Helmert contrasts for the interaction 
+term (not recommended). }
+
+With Models 2, 6a and 6b, the interaction test is not available. 
 
 When using \code{quicksti}, space-time interaction is first tested using
 Model 5. Depending on the outcome of this test, the main factors are tested
@@ -132,46 +187,162 @@ time descriptors can be provided by the user, through \code{COD.S} and
 \code{COD.T}.
 }
 \examples{
+# The "trichoptera" data set contains the abundances of 56 Trichoptera species captured 
+# during 100 consecutive days in 22 emergence traps along a stream. The 22 traps 
+# (sites) form a regular transect, with geographic positions 1 to 22. The original 
+# daily data collected at each site were pooled into 10 survey periods for the study 
+# of Legendre et al. (2010) in order to reduce the very high proportion of zeros in the 
+# original data matrix. Order of the observations in the data set: the 22 traps (sites) 
+# are nested within the survey weeks, as required by the 'stimodels' and 'quicksti' 
+# functions.
 
 data(trichoptera)
 
-# log-transform species data (excluding site and time colums)
+# log-transform the species data, excluding the Site and Date colums
+
 trich.log <- log1p(trichoptera[,-c(1,2)]) 
 
+# A log-chord transformation (Legendre & Borcard 2018) would also be appropriate for 
+# these data: trich.tr <- decostand(log1p(trichoptera[,-c(1,2)]), method="norm")
 
-# Run space-time interaction test using model "5"
-stimodels(trich.log, S=22, Ti=10, nperm=99, model="5")
+# Example 1. Compute the space-time interaction test using model 5. By specifying the  
+# number of sites (traps), the sofware assumes that they form a regular transect with  
+# equispaced sites. Important note to users – In real analyses, use more than 99 
+# permutations.
 
-\dontrun{
-# Run space-time analysis with tests for main effects after testing 
-# interaction (which is significant)
-quicksti(trich.log, S=22, Ti=10, nperm=99)
+out.1 <- stimodels(trich.log, S=22, Ti=10, model="5", nperm=99)
 
-# Run space-time analysis for time blocks number 6 and 7. 
-# Interaction is then not significant and tests of main effects are done 
-# following model 5
-quicksti(trich.log[111:154,], S=22, Ti=2, nperm=99)
-}
+# The interaction is significant. Because of that, test results for the main effects, 
+# space and time, obtained with model 5, cannot be interpreted. Tests of spatial 
+# variation can be done for individual times using simple RDA against dbMEM.S  
+# variables. Likewise, tests of temporal variation can be done for individual sites  
+# using simple RDA against dbMEM.T variables. A global test of the hypothesis that none 
+# of the times shows a significant spatial structure can be done with model 6a. For a  
+# global test of temporal structure at the various sites, use model 6b.
+
+\dontrun{     # Code not run during CRAN software tests
+
+# Example 2. Run space-time analysis with global tests for main effects after testing
+# the interaction, which is significant in this example 
+
+out.2 <- quicksti(trich.log, S=22, Ti=10, nperm=999)
+
+# Since the interaction is significant, function 'quicksti' will carry out the 
+# tests of existence of a spatial (at least in one of the time periods) and temporal 
+# (at least at one of the sites) structures using models 6a and 6b, respectively.
+
+# 3. Run space-time analysis for two time blocks only, i.e. time periods 6 and 7,   
+# then time periods 8 and 9.
+
+# Example 3.1. Time periods 6 and 7. The interaction is not significant. In that case,  
+# function 'quicksti' carries out the tests of the main effects using model 5.
+
+out.3 <- quicksti(trich.log[111:154,], S=22, Ti=2, nperm=999)
+
+# Example 3.2. Time periods 8 and 9. The interaction is significant. In that case,  
+# 'quicksti' carries out the tests of the spatial effects using model 6a. Model 6b 
+# cannot proceed with the test of the temporal effect because Ti=2. An explanation is 
+# printed in the output list.
+
+out.4 <- quicksti(trich.log[155:198,], S=22, Ti=2, nperm=999)
+
+# 4. Illustrations of the use of 'COD.S' and 'COD.T' in STI analysis
+
+# The following examples illustrate how to use other representations of the spatial or 
+# temporal relationships among observations, through arguments 'COD.S' and 
+# 'COD.T' of functions 'stimodels' and 'quicksti'. The trichoptera data 
+# are used again.
+
+# Example 4.1. Explicitly compute dbMEMs for the spatial structure along the regular 
+# transect, using function 'dbmem' of adespatial, and provide it to 'stimodels' 
+# or 'quicksti' as argument 'COD.S'. The dbMEMs must first be computed on the
+# transect, then repeated (Ti-1) times to provide Ti repeats in total.
+
+dbMEM.S1 <- as.matrix(dbmem(1:22))
+dbMEM.S10 <- dbMEM.S1
+for(j in 2:10) dbMEM.S10 <- rbind(dbMEM.S10, dbMEM.S1)
+out.5 <- stimodels(trich.log, S=22, Ti=10, model="5", COD.S=dbMEM.S10, nperm=999)
+
+# Results should be identical to those in output file out.1 of Example 1, except for 
+# P-values which can vary slightly.
+
+# Example 4.2. Assume now that the sampling sites have irregular positions, as 
+# described by the following matrix of geographic coordinates 'xy.trich'. Provide 
+# this matrix to argument S of 'stimodels'
+
+xy.trich = matrix(c(1:5,11:15,21:25,31:35,41,42,rep(c(1,2),11)),22,2)
+plot(xy.trich, asp=1)   # Plot a quick map of the site positions
+out.6 <- stimodels(trich.log, S=xy.trich, Ti=10, model="5", nperm=999)
+
+# Example 4.3. Compute a matrix of dbMEMs for the sites. The coding matrix provided to 
+# argument 'COD.S' must contain repeated dbMEM.S codes because that matrix must have 
+# the same number of rows as matrix Y. Construct coding matrix dbMEM.S10 containing the 
+# dbMEM.S codes repeated 10 times. 
+
+dbMEM.S1 <- as.matrix(dbmem(xy.trich))
+dbMEM.S10 = dbMEM.S1
+for(i in 1:9) dbMEM.S10 <- rbind(dbMEM.S10, dbMEM.S1)
+out.7 <- stimodels(trich.log, S=22, Ti=10, model="5", COD.S=dbMEM.S10, nperm=999)
+
+# Compare the results with those obtained in the output file out6, example 4.2.
+
+# Careful: If an analysis requires a dbMEM coding matrix for 'COD.T', the dbMEM.T    
+# codes must follow the required data arrangement: sites must be nested within times.
+# The following function can be used to construct a dbMEM.T matrix.
+
+MEM.T <- function(s, tt, coord.T=NULL)
+  # Documentation of function MEM.T –
+ # Generate a matrix of temporal eigenfunctions for input into stimodels, 
+ # with sites nested within times.
+ # Arguments –
+ # s : number of space points (sites)
+ # tt : number of time points
+ # coord.T : optional matrix or vector giving the time point coordinates
+  {
+  n <- s*tt
+  if(is.null(coord.T)) coord.T <- as.matrix(1:tt)
+  MEM.TT <- as.matrix(dbmem(coord.T))
+  dbMEM.T <- matrix(0,n,ncol(MEM.TT))    # Empty matrix to house dbMEM.T		
+  beg.x <- seq(1, n, by=s)
+  for(i in 1:tt) { # Fill tt blocks of rows with identical MEM.TT values
+	  for(j in 1:s) dbMEM.T[(beg.x[i]+j-1),] <- MEM.TT[i,]
+	  }
+  dbMEM.T
+  }
+
+# Example of use of function MEM.T
+ 
+dbMEM.T <- MEM.T(s=6, tt=5)
+# Check the size of the dbMEM.T output matrix
+dim(dbMEM.T)
+
+}   # End of code not run during CRAN software tests
 
 }
 \references{
-Borcard, D. and P. Legendre. 2002. All-scale spatial analysis of
-ecological data by means of principal coordinates of neighbour matrices.
-Ecological Modelling 153: 51-68.
+Borcard, D. & P. Legendre. 2002. All-scale spatial analysis of ecological data by 
+means of principal coordinates of neighbour matrices. Ecological Modelling 153: 51-68.
+https://doi.org/10.1016/S0304-3800(01)00501-4.
 
-Dray, S., P. Legendre and P. R. Peres-Neto. 2006. Spatial modelling: a
+Dray, S., P. Legendre & P. R. Peres-Neto. 2006. Spatial modelling: a
 comprehensive framework for principal coordinate analysis of neighbour
-matrices (PCNM). Ecological Modelling 196: 483-493.
+matrices (PCNM). Ecological Modelling 196: 483-493. 
+https://doi.org/10.1016/j.ecolmodel.2006.02.015.
 
-Legendre, P., M. De Caceres and D. Borcard. 2010. Community surveys through
-space and time to assess environmental changes: testing space-time
-interaction in the absence of replication. Ecology 91: 262-272.
+Legendre, P. & D. Borcard. 2018. Box-Cox-chord transformations for community 
+composition data prior to beta diversity analysis. Ecography 41: 1820–1824. 
+https://doi.org/10.1111/ecog.03498.
+
+Legendre, P., M. De Caceres & D. Borcard. 2010. Community surveys through space 
+and time: testing the space-time interaction in the absence of replication. 
+Ecology 91: 262-272. https://doi.org/10.1890/09-0199.1.
 }
 \seealso{
 \code{\link{trichoptera}}
 }
 \author{
-Pierre Legendre \email{pierre.legendre@umontreal.ca}, Miquel De Caceres and Daniel Borcard
+Pierre Legendre \email{pierre.legendre@umontreal.ca}, Miquel De Caceres 
+and Daniel Borcard
 }
 \keyword{multivariate}
 \keyword{spatial}
