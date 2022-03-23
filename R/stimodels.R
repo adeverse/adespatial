@@ -82,7 +82,6 @@
 #' time descriptors can be provided by the user, through \code{COD.S} and
 #' \code{COD.T}.
 #' 
-#' @arguments
 #' @param Y Site-by-species response data table. Assumes row blocks
 #' corresponding to times, i.e. within each block all sites are provided, 
 #' always in the same order.
