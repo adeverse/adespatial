@@ -197,7 +197,7 @@
         eig <- attr(res, "values")
         if(length(eig)>1) {      
             if(eig[1]-eig[2]< 1.0e-10) {
-                cat("Information: Square regular grid; multiple eigenvalues\n")
+                cat("Info: Multiple eigenvalues, circularity in the structure\n")
             }
         }
         a[3] <- sprintf("%2f", a[3])
