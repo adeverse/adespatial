@@ -118,24 +118,24 @@ obtained. By default, response variables are centered (model with intercept).</p
 <span class="r-in"><span class="va">nvar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">minAIC</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span> <span class="co"># number of orthogonal vectors + 1 for intercept</span></span>
 <span class="r-in"><span class="va">lm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">[</span>,<span class="va">res</span><span class="op">$</span><span class="va">ord</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">minAIC</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span><span class="op">$</span><span class="va">r.squared</span> <span class="co"># R2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.745765</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8185902</span>
 <span class="r-in"><span class="va">res</span><span class="op">$</span><span class="va">R2</span><span class="op">[</span><span class="va">minAIC</span><span class="op">]</span> <span class="co"># the same</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.745765</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8185902</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">AICc</span><span class="op">)</span> <span class="co"># corrected AIC</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -66.47679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -79.95134</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/extractAIC.html" class="external-link">extractAIC</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span> <span class="co"># classical AIC</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   3.00000 -66.99853</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   5.00000 -81.31497</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">AICc</span><span class="op">)</span><span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="op">(</span><span class="va">nvar</span><span class="op">*</span><span class="op">(</span><span class="va">nvar</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">-</span><span class="va">nvar</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="co"># the same</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -66.99853</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -81.31497</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">lm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="fl">1</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">res</span><span class="op">$</span><span class="va">AICc0</span> <span class="co"># corrected AIC for the null model</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -2.440392</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -3.881804</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/extractAIC.html" class="external-link">extractAIC</a></span><span class="op">(</span><span class="va">lm2</span><span class="op">)</span> <span class="co"># classical AIC</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.000000 -2.523726</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.000000 -3.965137</span>
 <span class="r-in"><span class="va">res</span><span class="op">$</span><span class="va">AICc0</span><span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="co"># the same</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -2.523726</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -3.965137</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
