@@ -145,7 +145,7 @@
 #' 
 #' Langfelder, P. and S. Horvath. 2012. Fast R functions for robust correlations
 #' and hierarchical clustering. Journal of Statistical Software 46: 1-17. 
-#' \doi{10.18637/jss.v46.i11} 
+#' \doi{10.18637/jss.v046.i11}
 #' 
 #' Legendre, P. and L. Legendre. 2012. Numerical ecology, 3rd English edition.
 #' Elsevier Science BV, Amsterdam.
