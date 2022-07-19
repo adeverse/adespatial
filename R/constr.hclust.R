@@ -159,14 +159,15 @@
 #' \doi{10.18637/jss.v046.i11}
 #' 
 #' Legendre, P. and L. Legendre. 2012. Numerical ecology, 3rd English edition.
-#' Elsevier Science BV, Amsterdam.
+#' Elsevier Science BV, Amsterdam. \doi{10.1016/S0304-3800(00)00291-X}
 #' 
 #' Murtagh, F. and P. Legendre. 2014. Ward’s hierarchical agglomerative
 #' clustering method: which algorithms implement Ward’s criterion? Journal of
-#' Classification 31: 274-295. doi: 10.1007/s00357-014-9161-z
+#' Classification 31: 274-295. \doi{10.1007/s00357-014-9161-z}
 #' 
 #' Ward, J. H. 1963. Hierarchical grouping to optimize an objective function.
 #' Journal of the American Statistical Association 58: 236-244.
+#' \doi{10.1080/01621459.1963.10500845}
 #'
 #' 
 #' @examples
