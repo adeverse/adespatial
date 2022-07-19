@@ -15,30 +15,31 @@ constr.hclust(
 )
 }
 \arguments{
-\item{d}{A \code{\link{dist}-class} dissimilarity (distance) matrix}
+\item{d}{A \code{\link{dist}-class} dissimilarity (distance) matrix.}
 
 \item{method}{The agglomeration method to be used (default: "ward.D2"; see
-details)}
+details).}
 
 \item{links}{A list of edges (or links) connecting the points. May be omitted
-in some cases; see details and examples}
+in some cases; see details and examples.}
 
-\item{coords}{Coordinates of the observations (data rows) in the dissimilarity matrix 
-\code{d}. The coordinates are used for plotting maps of the clustering results. 
-This matrix may be omitted when the user does not wish to print maps of the clustering  
-results or when no \code{links} file is provided. \code{coords} is a matrix or data 
-frame with two columns, following the convention of the Cartesian plane: 
-first column for abscissa, second column for ordinate. See examples}
+\item{coords}{Coordinates of the observations (data rows) in the
+dissimilarity matrix \code{d}. The coordinates are used for plotting maps of
+the clustering results. This matrix may be omitted when the user does not
+wish to print maps of the clustering results or when no \code{links} file is
+provided. \code{coords} is a matrix or data frame with two columns, following
+the convention of the Cartesian plane: first column for abscissa, second
+column for ordinate. See examples.}
 
 \item{beta}{The beta parameter for beta-flexible clustering (default:
-\code{beta = -0.25})}
+\code{beta = -0.25}).}
 
 \item{chron}{Logical (TRUE or FALSE) indicating whether a chronological (i.e.
-time-constrained or spatial transect) clustering should be calculated (default:
-\code{chron = FALSE})}
+time-constrained or spatial transect) clustering should be calculated 
+(default: \code{chron = FALSE}).}
 
 \item{members}{NULL or a vector with length size of \code{d} (default: NULL;
-See details)}
+See details).}
 }
 \value{
 A \code{\link{constr.hclust-class}} object.
@@ -76,16 +77,16 @@ class \code{listw} (see, e.g., \code{\link{nb2listw}}), a two-element
 \code{dataframe}), or a two-column matrix with each row representing an edge
 and the columns representing the two ends of the edges. For lists with more
 than two elements, as well as dataframes or matrices with more than
-two-columns, only the first two elements or columns are used for the analysis.
-The edges are interpreted as being non directional; there is no need to
-specify an edge going from point a to point b and one going from point b to
-point a. While doing so is generally inconsequential for the analysis, it
-carries some penalty in terms of computation time. It is a good practice to
-place the nodes in increasing order of numbers from the top to the bottom and
-from the left to the right of the list but this is not mandatory. A word of
-caution: in cases where clusters with identical minimum distances occur, the
-order of the edges in the list may have an influence on the result.
-Alternative results would be statistically equivalent.
+two-columns, only the first two elements or columns are used for the
+analysis. The edges are interpreted as being non directional; there is no
+need to specify an edge going from point a to point b and one going from
+point b to point a. While doing so is generally inconsequential for the
+analysis, it carries some penalty in terms of computation time. It is a good
+practice to place the nodes in increasing order of numbers from the top to
+the bottom and from the left to the right of the list but this is not
+mandatory. A word of caution: in cases where clusters with identical minimum
+distances occur, the order of the edges in the list may have an influence on
+the result. Alternative results would be statistically equivalent.
 
 When argument \code{link} is omitted, regular (unconstrained) clustering is
 performed and a \code{\link{hclust}-class} object is returned unless
@@ -109,12 +110,12 @@ these clusters are merged is a missing value (\code{NA}) in vector
 constrained clustering).
 
 If \code{members != NULL}, then \code{d} is taken to be a dissimilarity
-matrix between clusters instead of dissimilarities between individual objects. 
-Then, \code{members} must be a vector giving the number of observations per
-cluster. In this way, the hierarchical clustering algorithm can be ‘started
-in the middle of the dendrogram’, e.g., in order to reconstruct the part of
-the tree above a cut. See examples in \code{hclust} for details on that
-functionality."
+matrix between clusters instead of dissimilarities between individual
+objects. Then, \code{members} must be a vector giving the number of
+observations per cluster. In this way, the hierarchical clustering algorithm
+can be ‘started in the middle of the dendrogram’, e.g., in order to
+reconstruct the part of the tree above a cut. See examples in \code{hclust}
+for details on that functionality."
 
 Memory storage and time to compute constrained clustering for N objects. The
 Lance and Williams algorithm for agglomerative clustering uses dissimilarity
@@ -415,12 +416,13 @@ res
 
 }
 \references{
-Guénard, G. and P. Legendre. Hierarchical clustering with contiguity constraint 
-in R. Journal of Statistical Software (submitted).
+Guénard, G. and P. Legendre. 2022. Hierarchical clustering with contiguity
+constraint in {R}. Journal of Statistical Software 103(7): 1-12
+<doi:10.18637/jss.v103.i07>
 
 Langfelder, P. and S. Horvath. 2012. Fast R functions for robust correlations
 and hierarchical clustering. Journal of Statistical Software 46: 1-17. 
-\doi{10.18637/jss.v046.i11}
+\url{https://www.jstatsoft.org/v46/i11/}
 
 Legendre, P. and L. Legendre. 2012. Numerical ecology, 3rd English edition.
 Elsevier Science BV, Amsterdam.
