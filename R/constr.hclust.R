@@ -1,4 +1,13 @@
 ##
+## **************************************************************************
+##
+##    (c) 2018-2022 Guillaume Guénard
+##        Department de sciences biologiques
+##        Université de Montréal
+##        Montreal, QC, Canada
+##
+## **************************************************************************
+##
 ## /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\
 ## |                                                            |
 ## |  CONSTRAINED HIERARCHICAL CLUSTERING                       |
@@ -9,7 +18,7 @@
 ## |  contiguity constraint.                                    |
 ## |                                                            |
 ## |  Guillaume Guénard, Université de Montréal, Québec, Canada |
-## |  August 2018 - August 2022                                 |
+## |  August 2018 - July 2022                                   |
 ## |                                                            |
 ## \-----------------------------------------------------------*/
 ##
