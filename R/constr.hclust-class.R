@@ -1,7 +1,7 @@
 ## **************************************************************************
 ##
 ##    (c) 2018-2022 Guillaume Guénard
-##        Department de sciences biologiques
+##        Department de sciences biologiques,
 ##        Université de Montréal
 ##        Montreal, QC, Canada
 ##
