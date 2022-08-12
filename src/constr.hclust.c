@@ -8,7 +8,7 @@
 |  contiguity constraint.                                    |
 |                                                            |
 |  Guillaume Guénard, Université de Montréal, Québec, Canada |
-|  August 2018 - February 2020                               |
+|  August 2018 - February 2022                               |
 |                                                            |
 |  The present implementation has been vastly inspirered by  |
 |  the original HCLUST Fortran code by                       |
@@ -569,7 +569,7 @@ void lw_flexible(int n, int* flag, int* membr, double* diss0, double* par,
 void clust(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
            double* diss0, unsigned int* nn_idx, double* nn_diss, int* method,
            double* par, int fastUpdate) {
-  unsigned int i, k, nn_i, nn_j, i2, j2, ncl, min_idx;
+  unsigned int i, nn_i, nn_j, i2, j2, ncl;
   double min_diss;
   void (*update)(int,int*,int*,double*,double*,unsigned int,unsigned int);
   setLWUpdate((unsigned int)(*n),*method,diss0,&update);
@@ -691,7 +691,7 @@ void constClust(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
 void clustLS(int* n, int* membr, int* flag, int* ia, int* ib, double* crit,
              int* m, double* x, double* xx, unsigned int* nn_idx,
              double* nn_diss, int* out) {
-  unsigned int i, j, k, nn_i, nn_j, i2, j2, ncl;
+  unsigned int i, j, nn_i, nn_j, i2, j2, ncl;
   double min_diss;
   for(i = 0; i < *n; i++) {
     membr[i] = 1;

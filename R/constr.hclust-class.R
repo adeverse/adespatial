@@ -1,3 +1,12 @@
+## **************************************************************************
+##
+##    (c) 2018-2022 Guillaume Guénard
+##        Department de sciences biologiques,
+##        Université de Montréal
+##        Montreal, QC, Canada
+##
+## **************************************************************************
+##
 #' Class For Constrained Hiereachical Clustering
 #' 
 #' Files belonging to this class hold information about the constrained

@@ -184,8 +184,8 @@
 #' @importFrom adegraphics sortparamADEgS s.match s.arrow plotEig layout2position s.corcircle
 #' @importFrom graphics barplot
 #' @importFrom methods new
+#' 
 #' @export
-
 "multispati" <- function(dudi, listw, scannf = TRUE, nfposi = 2, nfnega = 0) {
     if(!inherits(dudi,"dudi")) 
         stop ("object of class 'dudi' expected")
@@ -259,6 +259,7 @@
 }
 
 #' @rdname multispati
+#' @method summary multispati
 #' @export
 "summary.multispati" <- function (object, ...) {
   
@@ -312,8 +313,8 @@
   return(invisible(res))
 }
 
-
 #' @rdname multispati
+#' @method print multispati
 #' @export
 print.multispati <- function(x, ...)
 {
@@ -360,6 +361,7 @@ print.multispati <- function(x, ...)
 }
 
 #' @rdname multispati
+#' @method plot multispati
 #' @export
 "plot.multispati" <- function(x, xax = 1, yax = 2, pos = -1, storeData = TRUE, plot = TRUE, ...) {
     if(!inherits(x, "multispati")) 
@@ -401,4 +403,3 @@ print.multispati <- function(x, ...)
         print(object)
     invisible(object)   
 }
-

@@ -1,4 +1,12 @@
+## **************************************************************************
 ##
+##    (c) 2018-2022 Guillaume Guénard
+##        Department de sciences biologiques
+##        Université de Montréal
+##        Montreal, QC, Canada
+##
+## **************************************************************************
+## 
 ## /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\
 ## |                                                            |
 ## |  CONSTRAINED HIERARCHICAL CLUSTERING                       |
@@ -9,34 +17,39 @@
 ## |  contiguity constraint.                                    |
 ## |                                                            |
 ## |  Guillaume Guénard, Université de Montréal, Québec, Canada |
-## |  August 2018 - August 2021                                 |
+## |  August 2018 - July 2022                                   |
 ## |                                                            |
 ## \-----------------------------------------------------------*/
-##
+## 
+##    R source code file
+## 
+## **************************************************************************
+## 
 #' Space- And Time-Constrained Clustering
 #'
 #' Function \code{constr.hclust} carries out space-constrained or
 #' time-constrained agglomerative clustering from a multivariate dissimilarity
 #' matrix.
 #'
-#' @param d A \code{\link{dist}-class} dissimilarity (distance) matrix
+#' @param d A \code{\link{dist}-class} dissimilarity (distance) matrix.
 #' @param method The agglomeration method to be used (default: "ward.D2"; see
-#' details)
+#' details).
 #' @param links A list of edges (or links) connecting the points. May be omitted
-#' in some cases; see details and examples
-#' @param coords Coordinates of the observations (data rows) in the dissimilarity matrix 
-#' \code{d}. The coordinates are used for plotting maps of the clustering results. 
-#' This matrix may be omitted when the user does not wish to print maps of the clustering  
-#' results or when no \code{links} file is provided. \code{coords} is a matrix or data 
-#' frame with two columns, following the convention of the Cartesian plane: 
-#' first column for abscissa, second column for ordinate. See examples
+#' in some cases; see details and examples.
+#' @param coords Coordinates of the observations (data rows) in the
+#' dissimilarity matrix \code{d}. The coordinates are used for plotting maps of
+#' the clustering results. This matrix may be omitted when the user does not
+#' wish to print maps of the clustering results or when no \code{links} file is
+#' provided. \code{coords} is a matrix or data frame with two columns, following
+#' the convention of the Cartesian plane: first column for abscissa, second
+#' column for ordinate. See examples.
 #' @param beta The beta parameter for beta-flexible clustering (default:
-#' \code{beta = -0.25})
+#' \code{beta = -0.25}).
 #' @param chron Logical (TRUE or FALSE) indicating whether a chronological (i.e.
-#' time-constrained or spatial transect) clustering should be calculated (default:
-#' \code{chron = FALSE})
+#' time-constrained or spatial transect) clustering should be calculated 
+#' (default: \code{chron = FALSE}).
 #' @param members NULL or a vector with length size of \code{d} (default: NULL;
-#' See details)
+#' See details).
 #' 
 #' @return A \code{\link{constr.hclust-class}} object.
 #' 
@@ -67,16 +80,16 @@
 #' \code{dataframe}), or a two-column matrix with each row representing an edge
 #' and the columns representing the two ends of the edges. For lists with more
 #' than two elements, as well as dataframes or matrices with more than
-#' two-columns, only the first two elements or columns are used for the analysis.
-#' The edges are interpreted as being non directional; there is no need to
-#' specify an edge going from point a to point b and one going from point b to
-#' point a. While doing so is generally inconsequential for the analysis, it
-#' carries some penalty in terms of computation time. It is a good practice to
-#' place the nodes in increasing order of numbers from the top to the bottom and
-#' from the left to the right of the list but this is not mandatory. A word of
-#' caution: in cases where clusters with identical minimum distances occur, the
-#' order of the edges in the list may have an influence on the result.
-#' Alternative results would be statistically equivalent.
+#' two-columns, only the first two elements or columns are used for the
+#' analysis. The edges are interpreted as being non directional; there is no
+#' need to specify an edge going from point a to point b and one going from
+#' point b to point a. While doing so is generally inconsequential for the
+#' analysis, it carries some penalty in terms of computation time. It is a good
+#' practice to place the nodes in increasing order of numbers from the top to
+#' the bottom and from the left to the right of the list but this is not
+#' mandatory. A word of caution: in cases where clusters with identical minimum
+#' distances occur, the order of the edges in the list may have an influence on
+#' the result. Alternative results would be statistically equivalent.
 #' 
 #' When argument \code{link} is omitted, regular (unconstrained) clustering is
 #' performed and a \code{\link{hclust}-class} object is returned unless
@@ -100,12 +113,12 @@
 #' constrained clustering).
 #' 
 #' If \code{members != NULL}, then \code{d} is taken to be a dissimilarity
-#' matrix between clusters instead of dissimilarities between individual objects. 
-#' Then, \code{members} must be a vector giving the number of observations per
-#' cluster. In this way, the hierarchical clustering algorithm can be ‘started
-#' in the middle of the dendrogram’, e.g., in order to reconstruct the part of
-#' the tree above a cut. See examples in \code{hclust} for details on that
-#' functionality."
+#' matrix between clusters instead of dissimilarities between individual
+#' objects. Then, \code{members} must be a vector giving the number of
+#' observations per cluster. In this way, the hierarchical clustering algorithm
+#' can be ‘started in the middle of the dendrogram’, e.g., in order to
+#' reconstruct the part of the tree above a cut. See examples in \code{hclust}
+#' for details on that functionality."
 #' 
 #' Memory storage and time to compute constrained clustering for N objects. The
 #' Lance and Williams algorithm for agglomerative clustering uses dissimilarity
@@ -140,95 +153,101 @@
 #' \code{\link{cutree}}, and \code{\link{ScotchWhiskey}}
 #' 
 #' @references
-#' Guénard, G. and P. Legendre. Hierarchical clustering with contiguity constraint 
-#' in R. Journal of Statistical Software (submitted).
+#' Guénard, G. and P. Legendre. 2022. Hierarchical clustering with contiguity
+#' constraint in {R}. Journal of Statistical Software 103(7): 1-26
+#' \doi{10.18637/jss.v103.i07}
 #' 
 #' Langfelder, P. and S. Horvath. 2012. Fast R functions for robust correlations
-#' and hierarchical clustering. Journal of Statistical Software 46: 1-17. 
+#' and hierarchical clustering. Journal of Statistical Software 46(11): 1-17.
 #' \doi{10.18637/jss.v046.i11}
 #' 
 #' Legendre, P. and L. Legendre. 2012. Numerical ecology, 3rd English edition.
-#' Elsevier Science BV, Amsterdam.
+#' Elsevier Science BV, Amsterdam. \doi{10.1016/S0304-3800(00)00291-X}
 #' 
 #' Murtagh, F. and P. Legendre. 2014. Ward’s hierarchical agglomerative
 #' clustering method: which algorithms implement Ward’s criterion? Journal of
-#' Classification 31: 274-295. doi: 10.1007/s00357-014-9161-z
+#' Classification 31: 274-295. \doi{10.1007/s00357-014-9161-z}
 #' 
 #' Ward, J. H. 1963. Hierarchical grouping to optimize an objective function.
 #' Journal of the American Statistical Association 58: 236-244.
-#'
+#' \doi{10.1080/01621459.1963.10500845}
+#' 
+#' @import sp
+#' @import spdep
 #' 
 #' @examples
-#' ##
-#' ### First example: Artificial map data from Legendre & Legendre
-#' ###                (2012, Fig. 13.26): n = 16
-#' ##
+#' 
+#' ## First example: Artificial map data from Legendre & Legendre
+#' ##                (2012, Fig. 13.26): n = 16
+#' 
 #' dat <- c(41,42,25,38,50,30,41,43,43,41,30,50,38,25,42,41)
 #' coord.dat <- matrix(c(1,3,5,7,2,4,6,8,1,3,5,7,2,4,6,8,
 #'                       4.4,4.4,4.4,4.4,3.3,3.3,3.3,3.3,
 #'                       2.2,2.2,2.2,2.2,1.1,1.1,1.1,1.1),16,2)
-#' ##
-#' ### Obtaining a list of neighbours:
+#' 
+#' ## Obtaining a list of neighbours:
 #' library(spdep)
 #' listW <- nb2listw(tri2nb(coord.dat), style="B")
 #' links.mat.dat <- listw2mat(listW)
 #' neighbors <- listw2sn(listW)[,1:2]
-#' ##
-#' ### Calculating the (Euclidean) distance between points:
+#' 
+#' ## Calculating the (Euclidean) distance between points:
 #' D.dat <- dist(dat)
-#' ##
-#' ### Display the points:
+#' 
+#' ## Display the points:
 #' plot(coord.dat, type='n',asp=1)
 #' title("Delaunay triangulation")
 #' text(coord.dat, labels=as.character(as.matrix(dat)), pos=3)
 #' for(i in 1:nrow(neighbors))
 #'     lines(rbind(coord.dat[neighbors[i,1],],
 #'           coord.dat[neighbors[i,2],]))
-#' ##
-#' ### Unconstrained clustring by hclust:
+#' 
+#' ## Unconstrained clustring by hclust:
 #' grpWD2_hclust <- hclust(D.dat, method="ward.D2")
 #' plot(grpWD2_hclust, hang=-1)
-#' ##
-#' ### Clustering without a contiguity constraint;
-#' ### the result is represented as a dendrogram:
+#' 
+#' ## Clustering without a contiguity constraint;
+#' ## the result is represented as a dendrogram:
 #' grpWD2_constr_hclust <- constr.hclust(D.dat, method="ward.D2")
 #' plot(grpWD2_constr_hclust, hang=-1)
-#' ##
-#' ### Clustering with a contiguity constraint described by a list of
-#' ### links:
+#' 
+#' ## Clustering with a contiguity constraint described by a list of
+#' ## links:
 #' grpWD2cst_constr_hclust <-
 #'     constr.hclust(
 #'         D.dat, method="ward.D2",
 #'         neighbors, coord.dat)
-#' ##
-#' ### To visualize using hclust's plotting method:
-#' ### stats:::plot.hclust(grpWD2cst_constr_hclust, hang=-1)
-#' ##
-#' ### Plot the results on a map with k=3 clusters:
+#' 
+#' ## To visualize using hclust's plotting method:
+#' ## stats:::plot.hclust(grpWD2cst_constr_hclust, hang=-1)
+#' 
+#' ## Plot the results on a map with k=3 clusters:
 #' plot(grpWD2cst_constr_hclust, k=3, links=TRUE, las=1, xlab="Eastings",
 #'      ylab="Northings", cex=3, lwd=3)
-#' ##
-#' ### Generic functions from hclust can be used, for instance to obtain
-#' ### a list of members of each cluster:
+#' 
+#' ## Generic functions from hclust can be used, for instance to obtain
+#' ## a list of members of each cluster:
 #' cutree(grpWD2cst_constr_hclust, k=3)
-#' ##
-#' ### Now with k=5 clusters:
+#' 
+#' ## Now with k=5 clusters:
 #' plot(grpWD2cst_constr_hclust, k=5, links=TRUE, las=1, xlab="Eastings",
 #'      ylab="Northings", cex=3, lwd=3)
 #' cutree(grpWD2cst_constr_hclust, k=5)
-#' ##
+#' 
 #' ## End of the artificial map example
 #' 
-#' ##
-#' ### Second example: Scotch Whiskey distilleries clustered using tasting
-#' ### scores (nose, body, palate, finish, and the four distances combined)
-#' ### constrained with respect to the distillery locations in Scotland.
-#' ##
+#' 
+#' ## Second example: Scotch Whiskey distilleries clustered using tasting
+#' ## scores (nose, body, palate, finish, and the four distances combined)
+#' ## constrained with respect to the distillery locations in Scotland.
+#' 
 #' ## Documentation file about the Scotch Whiskey data: ?ScotchWhiskey
-#' ##
+#' 
 #' data(ScotchWhiskey)
-#' ### Cluster analyses for the nose, body, palate, and finish D
-#' ### matrices:
+#' 
+#' ## Cluster analyses for the nose, body, palate, and finish D
+#' ## matrices:
+#' 
 #' grpWD2cst_ScotchWhiskey <-
 #'     lapply(
 #'         ScotchWhiskey$dist,    ## A list of distance matrices
@@ -236,25 +255,28 @@
 #'         links=ScotchWhiskey$neighbors@data,         ## The list of links
 #'         coords=ScotchWhiskey$geo@coords/1000
 #'     )
-#' ##
-#' ### The four D matrices (nose, body, palate, finish), represented as
-#' ### vectors in the ScotchWiskey data file, are combined as follows to
-#' ### produce a single distance matrix integrating all four types of
-#' ### tastes:
+#' 
+#' ## The four D matrices (nose, body, palate, finish), represented as
+#' ## vectors in the ScotchWiskey data file, are combined as follows to
+#' ## produce a single distance matrix integrating all four types of
+#' ## tastes:
+#' 
 #' Dmat <- ScotchWhiskey$dist
 #' ScotchWhiskey[["norm"]] <-
 #'     sqrt(Dmat$nose^2 + Dmat$body^2 + Dmat$palate^2 + Dmat$finish^2)
-#' ##
-#' ### This example shows how to apply const.clust to a single D matrix when
-#' ### the data file contains several matrices.
+#' 
+#' ## This example shows how to apply const.clust to a single D matrix when
+#' ## the data file contains several matrices.
+#' 
 #' grpWD2cst_ScotchWhiskey[["norm"]] <-
 #'     constr.hclust(
 #'         d=ScotchWhiskey[["norm"]],method="ward.D2",
 #'         ScotchWhiskey$neighbors@data,
 #'         coords=ScotchWhiskey$geo@coords/1000
 #'     )
-#' ##
-#' ### A fonction to plot the Whiskey clustering results
+#' 
+#' ## A fonction to plot the Whiskey clustering results:
+#' 
 #' plotWhiskey <- function(wh, k) {
 #'    par(fig=c(0,1,0,1))
 #'    plot(grpWD2cst_ScotchWhiskey[[wh]], k=k, links=TRUE, las=1,
@@ -274,23 +296,23 @@
 #'    rect(xleft=SpeyZoom$xlim[1L], ybottom=SpeyZoom$ylim[1L],
 #'         xright=SpeyZoom$xlim[2L], ytop=SpeyZoom$ylim[2L], lwd=2, lty=1L)
 #' }
-#' ##
-#' ### Plot the clustering results on the map of Scotland for 5 groups.
-#' ### The inset map shows the Speyside distilleries in detail:
+#' 
+#' ## Plot the clustering results on the map of Scotland for 5 groups.
+#' ## The inset map shows the Speyside distilleries in detail:
 #' plotWhiskey("nose", 5L)
 #' plotWhiskey("body", 5L)
 #' plotWhiskey("palate", 5L)
 #' plotWhiskey("finish", 5L)
 #' plotWhiskey("norm", 5L)
-#' ##
+#' 
 #' ## End of the Scotch Whiskey tasting data example
 #' 
 #' \dontrun{
-#' ##
-#' ### Third example: Fish community composition along the Doubs River,
-#' ### France. The sequence is analyzed as a case of chronological
-#' ### clustering, substituting space for time.
-#' ##
+#' 
+#' ## Third example: Fish community composition along the Doubs River,
+#' ## France. The sequence is analyzed as a case of chronological
+#' ## clustering, substituting space for time.
+#' 
 #' library(ade4)
 #' library(adespatial)
 #' data(doubs, package="ade4")
@@ -299,27 +321,26 @@
 #'                                 coords=as.matrix(doubs$xy))
 #' plot(grpWD2cst_fish, k=5, las=1, xlab="Eastings (km)",
 #'      ylab="Northings (km)", cex=3, lwd=3)
-#' ##
-#' ### Repeat the plot with other values of k (number of groups)
-#' ##
+#' 
+#' ## Repeat the plot with other values of k (number of groups)
+#' 
 #' ## End of the Doubs River fish assemblages example
 #' 
-#' ##
-#' ### Example with 6 connected points, shown in Fig. 2 of Guénard & Legendre paper 
-#' ##
+#' ## Example with 6 connected points, shown in Fig. 2 of Guénard & Legendre paper 
+#' 
 #' var = c(1.5, 0.2, 5.1, 3.0, 2.1, 1.4)
 #' ex.Y = data.frame(var)
-#' ##
+#' 
 #' ## Site coordinates, matrix xy
 #' x.coo = c(-1, -2, -0.5, 0.5, 2, 1)
 #' y.coo = c(-2, -1, 0, 0, 1, 2)
 #' ex.xy = data.frame(x.coo, y.coo)
-#' ##
+#' 
 #' ## Matrix of connecting edges E
 #' from = c(1,1,2,3,4,3,4)
 #' to = c(2,3,3,4,5,6,6)
 #' ex.E = data.frame(from, to)
-#' ##
+#' 
 #' ## Carry out constrained clustering analysis
 #' test.out <-
 #'     constr.hclust(
@@ -328,29 +349,29 @@
 #'         links=ex.E,       # File of link edges (constraint) E
 #'         coords=ex.xy      # File of geographic coordinates
 #'     )
-#' ##
+#' 
 #' par(mfrow=c(1,2))
 #' ## Plot the map of the results for k = 3
 #' plot(test.out, k=3)
 #' ## Plot the dendrogram
 #' stats:::plot.hclust(test.out, hang=-1)
-#' ##
+#' 
 #'
-#' ### Same example modified: disjoint clusters
-#' ##  Same ex.Y and ex.xy as in the previous example
+#' ## Same example modified: disjoint clusters
+#' ## Same ex.Y and ex.xy as in the previous example
 #' var = c(1.5, 0.2, 5.1, 3.0, 2.1, 1.4)
 #' ex.Y = data.frame(var)
-#' ##
+#' 
 #' ## Site coordinates, matrix xy
 #' x.coo = c(-1, -2, -0.5, 0.5, 2, 1)
 #' y.coo = c(-2, -1, 0, 0, 1, 2)
 #' ex.xy = data.frame(x.coo, y.coo)
-#' ##
+#' 
 #' ## Matrix of connecting edges E2
 #' from = c(1,1,2,4,4)
 #' to = c(2,3,3,5,6)
 #' ex.E2 = data.frame(from, to)
-#' ##
+#' 
 #' ## Carry out constrained clustering analysis
 #' test.out2 <-
 #'     constr.hclust(
@@ -360,25 +381,25 @@
 #'         coords=ex.xy      # File of geographic coordinates
 #'     )
 #' cutree(test.out2, k=2)
-#' ##
+#' 
 #' par(mfrow=c(1,2))
 #' ## Plot the map of the results for k = 3
 #' plot(test.out2, k=3)
 #' ## Plot the dendrogram showing the disconnected groups
 #' stats:::plot.hclust(test.out2, hang=-1)
 #' axis(2,at=0:ceiling(max(test.out2$height,na.rm=TRUE)))
-#' ##
+#' 
 #' ## End of the disjoint clusters example
-#' ##
-#' ### Benchmarking example
-#' ### Benchmarking can be used to estimate computation time for different
-#' ### values of N. 
-#' ### Computing time grows with N at roughly the same speed as the memory
-#' ### storage requirements to store the dissimilarity matrices.
-#' ##
+#' 
+#' ## Benchmarking example
+#' ## Benchmarking can be used to estimate computation time for different
+#' ## values of N. 
+#' ## Computing time grows with N at roughly the same speed as the memory
+#' ## storage requirements to store the dissimilarity matrices.
+#' 
 #' require(magrittr)
 #' require(pryr)
-#' ##
+#' 
 #' benchmark <- function(nobj) {
 #'     # Argument -
 #'     # nobj : Number of objects in simulation runs
@@ -413,8 +434,8 @@
 #'     res
 #' }
 #' res <- benchmark(nobj=c(1000,2000,5000,10000,20000,50000,100000))
-#' ##
-#' ### Plotting the results:
+#' 
+#' ## Plotting the results:
 #' ok <- res %>% apply(1L, function(x) !x %>% is.na %>% any)
 #' par(mar=c(3,6,2,2),mfrow=c(2L,1L))
 #' barplot(height = res[ok,"Time (sec)"], names.arg= res[ok,"N.objects"],
@@ -423,13 +444,13 @@
 #' barplot(height = res[ok,"Storage (MiB)"], names.arg= res[ok,"N.objects"],
 #'         ylab="Total storage (MB)\n",xlab="Number of observations",
 #'         las=1L,log="y")
-#' ##
-#' ### Examine the output file
+#' 
+#' ## Examine the output file
 #' res
-#' ##
+#' 
 #' ## End of the benchmarking example
 #' }
-#' ### End of examples
+#' ## End of examples
 #' 
 #' @useDynLib adespatial, .registration = TRUE
 #' @importFrom graphics segments points
@@ -437,9 +458,7 @@
 #' @importFrom spdep nb2listw tri2nb listw2mat listw2sn
 #' @importFrom stats dist hclust cutree
 #' 
-#' @export constr.hclust
-#'
-
+#' @export
 constr.hclust <- function(d, method = "ward.D2", links, coords, beta = -0.25,
                           chron = FALSE, members = NULL) {
     METHODS <- c("ward.D", "ward.D2", "single", "complete", "average",

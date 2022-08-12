@@ -1,3 +1,12 @@
+## **************************************************************************
+##
+##    (c) 2018-2022 Guillaume Guénard
+##        Department de sciences biologiques
+##        Université de Montréal
+##        Montreal, QC, Canada
+##
+## **************************************************************************
+##
 #' Scotch Whiskey Data Set
 #'
 #' Single Malt Scotch whiskeys from 109 distilleries

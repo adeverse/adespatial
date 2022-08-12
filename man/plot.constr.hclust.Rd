@@ -10,53 +10,55 @@ lwd.hyb=1, col.hyb="black", plot=TRUE, col, axes, cex=1, lty, lwd, lwd.pt=1,
 invert.axes=FALSE, ...)
 }
 \arguments{
-\item{x}{A \code{\link{constr.hclust-class}} object}
+\item{x}{A \code{\link{constr.hclust-class}} object.}
 
-\item{k}{The number of clusters to delineate}
+\item{k}{The number of clusters to delineate.}
 
-\item{xlim}{Limits, in abscissa, of the zone to be plotted}
+\item{xlim}{Limits, in abscissa, of the zone to be plotted.}
 
-\item{ylim}{Limits, in ordinate, of the zone to be plotted}
+\item{ylim}{Limits, in ordinate, of the zone to be plotted.}
 
-\item{xlab}{Labels for x axis annotation}
+\item{xlab}{Labels for x axis annotation.}
 
-\item{ylab}{Labels for y axis annotation}
+\item{ylab}{Labels for y axis annotation.}
 
 \item{links}{Should segments be drawn to represent the edges (links)
-(default: FALSE)}
+(default: FALSE).}
 
-\item{points}{Should observation points be drawn (default: TRUE)}
+\item{points}{Should observation points be drawn (default: TRUE).}
 
 \item{pch}{Point character to display observations (default: 21, a circle
-with a background color)}
+with a background color).}
 
-\item{hybrids}{How should hybrid segments be drawn (default: "change")}
+\item{hybrids}{How should hybrid segments be drawn (default: "change").}
 
-\item{lty.hyb}{Line type to use for hybrid segments (default: lty)}
+\item{lty.hyb}{Line type to use for hybrid segments (default: lty).}
 
-\item{lwd.hyb}{Width of hybrid segments with respect to lwd (default: 1)}
+\item{lwd.hyb}{Width of hybrid segments with respect to lwd (default: 1).}
 
-\item{col.hyb}{Colour of hybrid segments, when applicable (default: "black")}
+\item{col.hyb}{Colour of hybrid segments, when applicable (default: "black").}
 
-\item{plot}{Should a new plotting window be opened first (default: TRUE)}
+\item{plot}{Should a new plotting window be opened first (default: TRUE).}
 
 \item{col}{Colours to use for the \code{k} different clusters (see details). 
-Default: \code{col=rainbow})}
+Default: for \code{k <= 10}: a set of 10 contrasted colours; otherwise, a set
+of rainbow colours).}
 
-\item{axes}{Should the axes be displayed (default: TRUE)}
+\item{axes}{Should the axes be displayed (default: TRUE).}
 
 \item{cex}{Text and symbol magnification (see \link{graphical parameters})
-(default: 1)}
+(default: 1).}
 
-\item{lty}{Reference line type (see \link{graphical parameters} for details)}
+\item{lty}{Reference line type (see \link{graphical parameters} for details).}
 
-\item{lwd}{Reference line width (see \link{graphical parameters} for details)}
+\item{lwd}{Reference line width (see \link{graphical parameters} for
+details).}
 
-\item{lwd.pt}{Line width around points with respect to lwd (default: 1)}
+\item{lwd.pt}{Line width around points with respect to lwd (default: 1).}
 
-\item{invert.axes}{Should axes be inverted on the plot (default: FALSE)}
+\item{invert.axes}{Should axes be inverted on the plot (default: FALSE).}
 
-\item{...}{Other \link{graphical parameters}}
+\item{...}{Other \link{graphical parameters}.}
 }
 \description{
 Method \code{plot.constr.hclust} displays the results of space-constrained or
@@ -97,44 +99,44 @@ allow one to plot fewer clusters than the number of disjoint subsets; a
 warning message is issued to notify the user.
 }
 \examples{
-##
-### Artificial map data from Legendre & Legendre (2012, Fig. 13.26)
-### n = 16
-##
+
+## Artificial map data from Legendre & Legendre (2012, Fig. 13.26)
+## n = 16
+
 dat <- c(41,42,25,38,50,30,41,43,43,41,30,50,38,25,42,41)
 coord.dat <- matrix(c(1,3,5,7,2,4,6,8,1,3,5,7,2,4,6,8,
                       4.4,4.4,4.4,4.4,3.3,3.3,3.3,3.3,
                       2.2,2.2,2.2,2.2,1.1,1.1,1.1,1.1),16,2)
-##
-### Obtaining a list of neighbours:
+
+## Obtaining a list of neighbours:
 library(spdep)
 listW <- nb2listw(tri2nb(coord.dat), style="B")
 links.mat.dat <- listw2mat(listW)
 neighbors <- listw2sn(listW)[,1:2]
-##
-### Calculating the (Euclidean) distance between points:
+
+## Calculating the (Euclidean) distance between points:
 D.dat <- dist(dat)
-##
-### Display the points:
+
+## Display the points:
 plot(coord.dat, type='n',asp=1)
 title("Delaunay triangulation")
 text(coord.dat, labels=as.character(as.matrix(dat)), pos=3)
 for(i in 1:nrow(neighbors))
     lines(rbind(coord.dat[neighbors[i,1],],
           coord.dat[neighbors[i,2],]))
-##
-### Clustering with a contiguity constraint described by a list of
-### links:
+
+## Clustering with a contiguity constraint described by a list of
+## links:
 grpWD2cst_constr_hclust <-
     constr.hclust(
         D.dat, method="ward.D2",
         neighbors, coord.dat)
-##
-### Plot the results with k=5 clusters on a map:
+
+## Plot the results with k=5 clusters on a map:
 plot(grpWD2cst_constr_hclust, k=5, links=TRUE, las=1,
      xlab="Eastings", ylab="Northings", cex=3, lwd=3)
-##
-### Repeat the plot with other values of k (number of groups)
+
+## Repeat the plot with other values of k (number of groups)
 
 }
 \author{

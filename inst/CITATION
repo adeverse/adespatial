@@ -1,0 +1,35 @@
+if(!exists("meta") || is.null(meta)) meta <- packageDescription("adespatial")
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version %s", meta$Version)
+
+bibentry(bibtype = "Manual",
+         title   = "{adespatial}: Multivariate Multiscale Spatial Analysis",
+         author  = c(person(given = "St{\\'e}phane", family = "Dray"),
+                     person(given = "David", family = "Bauman"),
+                     person(given = "Guillaume", family = "Blanchet"),
+                     person(given = "Daniel", family = "Borcard"),
+                     person(given = "Sylvie", family = "Clappe"),
+                     person(given = "Guillaume", family = "Gu{\\'e}nard"),
+                     person(given = "Thibaut", family = "Jombart"),
+                     person(given = "Guillaume", family = "Larocque"),
+                     person(given = "Pierre", family = "Legendre"),
+                     person(given = "Naima", family = "Madi"),
+                     person(given = c("Helene", "H"), family = "Wagner")),
+         year    = year,
+         note    = note,
+         url     = "https://CRAN.R-project.org/package=adespatial",
+         header  = "To cite adespatial in publications use:"
+)
+
+bibentry(bibtype = "Article",
+         title   = "Hierarchical Clustering with Contiguity Constraint in {R}",
+         author  = c(person(given = "Guillaume", family = "Gu{\\'e}nard"),
+                     person(given = "Pierre", family = "Legendre")),
+         journal = "Journal of Statistical Software",
+         year    = "2022",
+         volume  = "103",
+         number  = "7",
+         pages   = "1--26",
+         doi     = "10.18637/jss.v103.i07",
+         header  = "When using constr.hclust() please use:"
+)
