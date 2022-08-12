@@ -172,8 +172,7 @@
 #' Journal of the American Statistical Association 58: 236-244.
 #' \doi{10.1080/01621459.1963.10500845}
 #' 
-#' @import sp
-#' @import spdep
+#' @importFrom spdep listw2mat listw2sn nb2listw tri2nb
 #' 
 #' @examples
 #' 

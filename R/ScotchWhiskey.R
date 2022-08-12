@@ -73,7 +73,9 @@
 #' 
 #' Legendre, P. and Legendre, L. 2012. Numerical Ecology. 3rd English edition.
 #' Elsevier Science BV, Amsterdam.
-#'
+#' 
+#' @importFrom sp SpatialPointsDataFrame SpatialLinesDataFrame
+#' 
 #' @examples data(ScotchWhiskey)
 #' lapply(ScotchWhiskey,ncol)
 #' ScotchWhiskey$nbChar
