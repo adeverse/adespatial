@@ -52,7 +52,7 @@
 #' the principal axes (LXQv), data frame with n rows and (nfposi + nfnega)
 #' columns} 
 #' \item{as}{principal axes of the dudi analysis (u) onto principal
-#' axes of multispati (t(u)Qv), data frame with dudi\$nf rows and (nfposi +
+#' axes of multispati (t(u)Qv), data frame with nf rows and (nfposi +
 #' nfnega) columns}
 #' @author Stéphane Dray \email{stephane.dray@@univ-lyon1.fr} with contributions by 
 #' Daniel Chessel, Sebastien Ollier and Thibaut Jombart
