@@ -1,4 +1,4 @@
-#'@aliases aem.weight.time
+#'@aliases aem.weight.edges aem.weight.time
 #'  
 #'@title Weight edges when constructing AEM variables
 #'  

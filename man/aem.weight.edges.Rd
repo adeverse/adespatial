@@ -108,9 +108,9 @@ provide the distance where the correlation becomes 0 as the value for max.d.
 }
 \section{Functions}{
 \itemize{
-\item \code{aem.weight.time}: 
-}}
+\item \code{aem.weight.time()}: 
 
+}}
 \examples{
 
 ### Time serie example
