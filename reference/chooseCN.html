@@ -22,7 +22,7 @@ types 1-4, duplicated locations are not accepted and will issue an error."><meta
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -70,60 +70,83 @@ types 1-4, duplicated locations are not accepted and will issue an error.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">chooseCN</span><span class="op">(</span>
-  <span class="va">xy</span>,
-  ask <span class="op">=</span> <span class="cn">TRUE</span>,
-  type <span class="op">=</span> <span class="cn">NULL</span>,
-  result.type <span class="op">=</span> <span class="st">"nb"</span>,
-  d1 <span class="op">=</span> <span class="cn">NULL</span>,
-  d2 <span class="op">=</span> <span class="cn">NULL</span>,
-  k <span class="op">=</span> <span class="cn">NULL</span>,
-  a <span class="op">=</span> <span class="cn">NULL</span>,
-  dmin <span class="op">=</span> <span class="cn">NULL</span>,
-  plot.nb <span class="op">=</span> <span class="cn">TRUE</span>,
-  edit.nb <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">chooseCN</span><span class="op">(</span></span>
+<span>  <span class="va">xy</span>,</span>
+<span>  ask <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  result.type <span class="op">=</span> <span class="st">"nb"</span>,</span>
+<span>  d1 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  d2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  k <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  a <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dmin <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  plot.nb <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  edit.nb <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>xy</dt>
 <dd><p>an matrix or data.frame with two columns for x and y coordinates.</p></dd>
+
+
 <dt>ask</dt>
 <dd><p>a logical stating whether graph should be chosen interactively
 (TRUE,default) or not (FALSE). Set to FALSE if <code>type</code> is provided.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>an integer giving the type of graph (see details).</p></dd>
+
+
 <dt>result.type</dt>
 <dd><p>a character giving the class of the returned object.
 Either "nb" (default) or "listw", both from <code>spdep</code> package. See
 details.</p></dd>
+
+
 <dt>d1</dt>
 <dd><p>the minimum distance between any two neighbours. Used if
 <code>type=5.</code></p></dd>
+
+
 <dt>d2</dt>
 <dd><p>the maximum distance between any two neighbours. Used if
 <code>type=5</code>. Can also be a character: "dmin" for the minimum distance so
 that each site has at least one connection, or "dmax" to have all sites
 connected (despite the later has no sense).</p></dd>
+
+
 <dt>k</dt>
 <dd><p>the number of neighbours per point. Used if <code>type=6</code>.</p></dd>
+
+
 <dt>a</dt>
 <dd><p>the exponent of the inverse distance matrix. Used if <code>type=7</code>.</p></dd>
+
+
 <dt>dmin</dt>
 <dd><p>the minimum distance between any two distinct points. Used to
 avoid infinite spatial proximities (defined as the inversed spatial
 distances). Used if <code>type=7</code>.</p></dd>
+
+
 <dt>plot.nb</dt>
 <dd><p>a logical stating whether the resulting graph should be
 plotted (TRUE, default) or not (FALSE).</p></dd>
+
+
 <dt>edit.nb</dt>
 <dd><p>a logical stating whether the resulting graph should be
 edited manually for corrections (TRUE) or not (FALSE, default).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Returns a connection network having the class <code>nb</code> or
+    
+
+<p>Returns a connection network having the class <code>nb</code> or
 <code>listw</code>. The xy coordinates are passed as attribute to the created
 object.</p>
     </div>
@@ -149,19 +172,19 @@ using 'graph' as keyword.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">cn1</span> <span class="op">&lt;-</span> <span class="fu">chooseCN</span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span>,ask<span class="op">=</span><span class="cn">FALSE</span>,type<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">cn2</span> <span class="op">&lt;-</span> <span class="fu">chooseCN</span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span>,ask<span class="op">=</span><span class="cn">FALSE</span>,type<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">cn3</span> <span class="op">&lt;-</span> <span class="fu">chooseCN</span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span>,ask<span class="op">=</span><span class="cn">FALSE</span>,type<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">cn4</span> <span class="op">&lt;-</span> <span class="fu">chooseCN</span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span>,ask<span class="op">=</span><span class="cn">FALSE</span>,type<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cn1</span> <span class="op">&lt;-</span> <span class="fu">chooseCN</span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span>,ask<span class="op">=</span><span class="cn">FALSE</span>,type<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cn2</span> <span class="op">&lt;-</span> <span class="fu">chooseCN</span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span>,ask<span class="op">=</span><span class="cn">FALSE</span>,type<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cn3</span> <span class="op">&lt;-</span> <span class="fu">chooseCN</span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span>,ask<span class="op">=</span><span class="cn">FALSE</span>,type<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cn4</span> <span class="op">&lt;-</span> <span class="fu">chooseCN</span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span>,ask<span class="op">=</span><span class="cn">FALSE</span>,type<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="chooseCN-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -176,7 +199,7 @@ using 'graph' as keyword.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

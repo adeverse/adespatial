@@ -21,7 +21,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -68,30 +68,30 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">aem.weight.edges</span><span class="op">(</span>
-  <span class="va">nb.object</span>,
-  <span class="va">coords</span>,
-  distmat <span class="op">=</span> <span class="cn">NULL</span>,
-  alpha <span class="op">=</span> <span class="fl">2</span>,
-  beta <span class="op">=</span> <span class="cn">NULL</span>,
-  max.d <span class="op">=</span> <span class="cn">NULL</span>,
-  unit.angle <span class="op">=</span> <span class="st">"degrees"</span>,
-  rot.angle <span class="op">=</span> <span class="fl">0</span>,
-  rm.same.y <span class="op">=</span> <span class="cn">TRUE</span>,
-  plot.connexions <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">aem.weight.time</span><span class="op">(</span>
-  <span class="va">dates</span>,
-  distmat <span class="op">=</span> <span class="cn">NULL</span>,
-  alpha <span class="op">=</span> <span class="fl">2</span>,
-  beta <span class="op">=</span> <span class="cn">NULL</span>,
-  max.d <span class="op">=</span> <span class="cn">NULL</span>,
-  unit.angle <span class="op">=</span> <span class="st">"degrees"</span>,
-  rot.angle <span class="op">=</span> <span class="fl">0</span>,
-  rm.same.y <span class="op">=</span> <span class="cn">TRUE</span>,
-  plot.connexions <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">aem.weight.edges</span><span class="op">(</span></span>
+<span>  <span class="va">nb.object</span>,</span>
+<span>  <span class="va">coords</span>,</span>
+<span>  distmat <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  beta <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max.d <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  unit.angle <span class="op">=</span> <span class="st">"degrees"</span>,</span>
+<span>  rot.angle <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  rm.same.y <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot.connexions <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">aem.weight.time</span><span class="op">(</span></span>
+<span>  <span class="va">dates</span>,</span>
+<span>  distmat <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  beta <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max.d <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  unit.angle <span class="op">=</span> <span class="st">"degrees"</span>,</span>
+<span>  rot.angle <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  rm.same.y <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot.connexions <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -99,46 +99,69 @@
     <dl><dt>nb.object</dt>
 <dd><p>Object with class 'nb', computed by the spdep package,
 containing a list of neighbours for each sampling unit (site or time).</p></dd>
+
+
 <dt>coords</dt>
 <dd><p>A three-column matrix or data frame. Column 1: identifiers of
 the points (must be numeric). Columns 2 and 3: the X and Y coordinates of
 the points.</p></dd>
+
+
 <dt>distmat</dt>
 <dd><p>Class 'matrix' or 'dist' object containing a dissimilarity or
 distance matrix. (See details).</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>Numeric. Exponent of the first weighting function. (See details).</p></dd>
+
+
 <dt>beta</dt>
 <dd><p>Numeric. Exponent of the second weighting function. (See details).</p></dd>
+
+
 <dt>max.d</dt>
 <dd><p>Numeric. Maximum distance for weighting. Default value if
 max.d=NULL: the maximum distance among a set of sites divided by 2 or the
 full span of a time series divided by 2 (not recommended in most problems,
 see details). A warning is given if <code>max.d = NULL</code> and the default
 value is used.</p></dd>
+
+
 <dt>unit.angle</dt>
 <dd><p>Character. The measurement units in which the angle is
 defined: either "degrees" (default) or "radians".</p></dd>
+
+
 <dt>rot.angle</dt>
 <dd><p>Numeric. Angle of the vector describing the process
 influencing the sites. This argument generates a rotation of the site
 coordinates. The set of coordinates is rotated counterclockwise. Negative
 values will produce a clockwise rotation.</p></dd>
+
+
 <dt>rm.same.y</dt>
 <dd><p>Logical (<code>TRUE</code>, <code>FALSE</code>). Determines if the links
 perpendicular to the gradient should be removed. Default value: <code>TRUE</code>.
 If these links have already been removed, this argument put to <code>TRUE</code>
 will make the function crash. See details for more information.</p></dd>
+
+
 <dt>plot.connexions</dt>
 <dd><p>Logical (<code>TRUE</code>, <code>FALSE</code>). Determines if the
 sites and the associated connexion diagram should be plotted after rotation
 of the coordinates by <code>gradient.angle</code>.</p></dd>
+
+
 <dt>dates</dt>
 <dd><p>A vector of dates, class 'numeric' or 'Date'.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A vector of weights associating a value to each edge of the graph.</p>
+    
+
+<p>A vector of weights associating a value to each edge of the graph.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -186,34 +209,34 @@ Royal Society B - Biological Sciences</em>, 281, 20132728.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">### Time serie example</span></span>
-<span class="r-in"><span class="co">### Example - 12 dates (days from January 1st of year 1) </span></span>
-<span class="r-in"><span class="co">### in a 6-year study starting September 5, 2000</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/r-spatial/spdep/" class="external-link">"spdep"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in"><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">129</span>,<span class="fl">269</span>,<span class="fl">500</span>,<span class="fl">631</span>,<span class="fl">864</span>,<span class="fl">976</span>,<span class="fl">1228</span>,<span class="fl">1352</span>,<span class="fl">1606</span>,<span class="fl">1730</span>,<span class="fl">1957</span>,<span class="fl">2087</span><span class="op">)</span>,origin<span class="op">=</span><span class="st">"2000/1/1"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">autocor.limit</span> <span class="op">&lt;-</span> <span class="fl">522</span>  <span class="co"># Limit of autcorrelation in the correlogram</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### Using aem.weight.time()</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">wtime</span> <span class="op">&lt;-</span> <span class="fu">aem.weight.time</span><span class="op">(</span><span class="va">dates</span>, alpha<span class="op">=</span><span class="fl">2</span>, max.d<span class="op">=</span><span class="va">autocor.limit</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">### Using aem.weight.edges()</span></span>
-<span class="r-in"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">nb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/cell2nb.html" class="external-link">cell2nb</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">xy.dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span><span class="op">)</span>, <span class="va">dates</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">wtime</span> <span class="op">&lt;-</span> <span class="fu">aem.weight.edges</span><span class="op">(</span><span class="va">nb</span>, <span class="va">xy.dates</span>, alpha<span class="op">=</span><span class="fl">2</span>, max.d<span class="op">=</span><span class="va">autocor.limit</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">nb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/cell2nb.html" class="external-link">cell2nb</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">xy.dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="va">dates</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="co">## Note the inversion of 'dates' and 'rep(1,n)'</span></span>
-<span class="r-in"><span class="va">wtime</span> <span class="op">&lt;-</span> <span class="fu">aem.weight.edges</span><span class="op">(</span><span class="va">nb</span>, <span class="va">xy.dates</span>, alpha<span class="op">=</span><span class="fl">2</span>, </span>
-<span class="r-in">max.d<span class="op">=</span><span class="va">autocor.limit</span>,rot.angle<span class="op">=</span><span class="fl">90</span><span class="op">)</span> <span class="co"># Note that 'rot.angle=90' was used</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### Spatial example using default d.max (notice the warning)</span></span>
-<span class="r-in"><span class="co">###########################################################################</span></span>
-<span class="r-in"><span class="va">nb</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/cell2nb.html" class="external-link">cell2nb</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span>,<span class="st">"queen"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">25</span>,<span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">wspace</span> <span class="op">&lt;-</span> <span class="fu">aem.weight.edges</span><span class="op">(</span><span class="va">nb</span>,<span class="va">xy</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Time serie example</span></span></span>
+<span class="r-in"><span><span class="co">### Example - 12 dates (days from January 1st of year 1) </span></span></span>
+<span class="r-in"><span><span class="co">### in a 6-year study starting September 5, 2000</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/r-spatial/spdep/" class="external-link">"spdep"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">129</span>,<span class="fl">269</span>,<span class="fl">500</span>,<span class="fl">631</span>,<span class="fl">864</span>,<span class="fl">976</span>,<span class="fl">1228</span>,<span class="fl">1352</span>,<span class="fl">1606</span>,<span class="fl">1730</span>,<span class="fl">1957</span>,<span class="fl">2087</span><span class="op">)</span>,origin<span class="op">=</span><span class="st">"2000/1/1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">autocor.limit</span> <span class="op">&lt;-</span> <span class="fl">522</span>  <span class="co"># Limit of autcorrelation in the correlogram</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Using aem.weight.time()</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">wtime</span> <span class="op">&lt;-</span> <span class="fu">aem.weight.time</span><span class="op">(</span><span class="va">dates</span>, alpha<span class="op">=</span><span class="fl">2</span>, max.d<span class="op">=</span><span class="va">autocor.limit</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">### Using aem.weight.edges()</span></span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">nb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/cell2nb.html" class="external-link">cell2nb</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">xy.dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span><span class="op">)</span>, <span class="va">dates</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">wtime</span> <span class="op">&lt;-</span> <span class="fu">aem.weight.edges</span><span class="op">(</span><span class="va">nb</span>, <span class="va">xy.dates</span>, alpha<span class="op">=</span><span class="fl">2</span>, max.d<span class="op">=</span><span class="va">autocor.limit</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">nb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/cell2nb.html" class="external-link">cell2nb</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">xy.dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="va">dates</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="co">## Note the inversion of 'dates' and 'rep(1,n)'</span></span></span>
+<span class="r-in"><span><span class="va">wtime</span> <span class="op">&lt;-</span> <span class="fu">aem.weight.edges</span><span class="op">(</span><span class="va">nb</span>, <span class="va">xy.dates</span>, alpha<span class="op">=</span><span class="fl">2</span>, </span></span>
+<span class="r-in"><span>max.d<span class="op">=</span><span class="va">autocor.limit</span>,rot.angle<span class="op">=</span><span class="fl">90</span><span class="op">)</span> <span class="co"># Note that 'rot.angle=90' was used</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Spatial example using default d.max (notice the warning)</span></span></span>
+<span class="r-in"><span><span class="co">###########################################################################</span></span></span>
+<span class="r-in"><span><span class="va">nb</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/cell2nb.html" class="external-link">cell2nb</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span>,<span class="st">"queen"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">25</span>,<span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">wspace</span> <span class="op">&lt;-</span> <span class="fu">aem.weight.edges</span><span class="op">(</span><span class="va">nb</span>,<span class="va">xy</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="aem.weight.edges-1.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="aem.weight.edges-2.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "The default value for 'max.d' was used. The weights may not be optimum"</span>
@@ -223,7 +246,7 @@ Royal Society B - Biological Sciences</em>, 281, 20132728.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [25] 0.750 0.875 0.875 0.750 0.750 0.875 0.750 0.750 0.875 0.750 0.750 0.875</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [37] 0.750 0.750 0.875 0.875 0.750 0.750 0.875 0.750 0.750 0.875 0.750 0.750</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [49] 0.875 0.750 0.750 0.875</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -238,7 +261,7 @@ Royal Society B - Biological Sciences</em>, 281, 20132728.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

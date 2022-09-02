@@ -1,7 +1,7 @@
 pandoc: 2.7.3
-pkgdown: 2.0.2
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   tutorial: tutorial.html
-last_built: 2022-04-01T22:05Z
+last_built: 2022-09-02T07:34Z
 

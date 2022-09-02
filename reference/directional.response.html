@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -60,7 +60,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">directional.response</span><span class="op">(</span><span class="va">mat</span>, method <span class="op">=</span> <span class="st">"overlap"</span>, relativize <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">directional.response</span><span class="op">(</span><span class="va">mat</span>, method <span class="op">=</span> <span class="st">"overlap"</span>, relativize <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -70,6 +70,8 @@
 in columns. The direction of the physical process is indicated by the order of the 
 sampling units in <code>mat</code>. The class of <code>mat</code> can be either <code>data.frame</code> 
 or <code>matrix</code>.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>One of the 11 calculation methods available in the function:
 <code>"overlap"</code>, <code>"gain"</code>, <code>"loss"</code>, <code>"gaining.turnover"</code>, 
@@ -77,14 +79,19 @@ or <code>matrix</code>.</p></dd>
 <code>"neutral.nestedness"</code>, <code> "losing.nestedness"</code>, 
 <code>"gaining.strict.nestedness"</code>, <code>"losing.strict.nestedness"</code>. 
 The default value is <code>method="overlap"</code>.</p></dd>
+
+
 <dt>relativize</dt>
 <dd><p>Compute relativized indices: <code>relativize="J"</code> for the
 Jaccard denominator (a+b+c) or <code>relativize="S"</code> for the Sorensen denominator 
 (2*a+b+c). If <code>relativize=NULL</code>, the index is not divided by a denominator.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list containing the following results:</p><ul><li><p><code>mat.out</code>: A square matrix with the chosen index computed among the sites.
+    
+
+<p>A list containing the following results:</p><ul><li><p><code>mat.out</code>: A square matrix with the chosen index computed among the sites.
  Depending on the method chosen, this matrix may be symmetric or non-symmetric.
 <code>total.t</code>: methods  #4 to 6, a matrix with total turnover (b+c); else NA.
 <code>total.n</code>: For methods #7 to 9, a matrix with total nestedness a+abs(b-c) 
@@ -121,29 +128,29 @@ and Pierre Legendre <a href="mailto:pierre.legendre@umontreal.ca">pierre.legendr
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co"># Artificial Example</span></span>
-<span class="r-in"><span class="va">art</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
-<span class="r-in">         <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
-<span class="r-in">         <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">art.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="va">art</span>, nrow<span class="op">=</span><span class="fl">3</span>, ncol<span class="op">=</span><span class="fl">6</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">art.out</span> <span class="op">&lt;-</span> <span class="fu">directional.response</span><span class="op">(</span><span class="va">art.data</span>, method<span class="op">=</span><span class="st">"overlap"</span>,relativize<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Artificial Example</span></span></span>
+<span class="r-in"><span><span class="va">art</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span></span>
+<span class="r-in"><span>         <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span></span>
+<span class="r-in"><span>         <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">art.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="va">art</span>, nrow<span class="op">=</span><span class="fl">3</span>, ncol<span class="op">=</span><span class="fl">6</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">art.out</span> <span class="op">&lt;-</span> <span class="fu">directional.response</span><span class="op">(</span><span class="va">art.data</span>, method<span class="op">=</span><span class="st">"overlap"</span>,relativize<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Method:  overlap </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Real data example: the Doubs River fish data (Verneaux 1973), available in ade4.</span></span>
-<span class="r-in"><span class="co"># 30 sites, 27 species. No fish had been caught at site 8; remove that site</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">doubs</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">doubs</span><span class="op">$</span><span class="va">fish</span><span class="op">)</span>   </span>
-<span class="r-in"><span class="va">fish</span> <span class="op">&lt;-</span> <span class="va">doubs</span><span class="op">$</span><span class="va">fish</span><span class="op">[</span><span class="op">-</span><span class="fl">8</span>,<span class="op">]</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">fish</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doubs.out</span> <span class="op">&lt;-</span> <span class="fu">directional.response</span><span class="op">(</span><span class="va">fish</span>, method<span class="op">=</span><span class="st">"gain"</span>, relativize<span class="op">=</span><span class="st">"S"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Real data example: the Doubs River fish data (Verneaux 1973), available in ade4.</span></span></span>
+<span class="r-in"><span><span class="co"># 30 sites, 27 species. No fish had been caught at site 8; remove that site</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">doubs</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">doubs</span><span class="op">$</span><span class="va">fish</span><span class="op">)</span>   </span></span>
+<span class="r-in"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="va">doubs</span><span class="op">$</span><span class="va">fish</span><span class="op">[</span><span class="op">-</span><span class="fl">8</span>,<span class="op">]</span> </span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">fish</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doubs.out</span> <span class="op">&lt;-</span> <span class="fu">directional.response</span><span class="op">(</span><span class="va">fish</span>, method<span class="op">=</span><span class="st">"gain"</span>, relativize<span class="op">=</span><span class="st">"S"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Method:  gain </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Relativize with denominator: Sorensen</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -158,7 +165,7 @@ and Pierre Legendre <a href="mailto:pierre.legendre@umontreal.ca">pierre.legendr
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

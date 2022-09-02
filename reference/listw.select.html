@@ -27,7 +27,7 @@ can easily be generated using listw.candidates."><meta property="og:image" conte
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -79,57 +79,80 @@ can easily be generated using <code><a href="listw.candidates.html">listw.candid
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">listw.select</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">candidates</span>,
-  MEM.autocor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"positive"</span>, <span class="st">"negative"</span>, <span class="st">"all"</span><span class="op">)</span>,
-  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"FWD"</span>, <span class="st">"MIR"</span>, <span class="st">"global"</span><span class="op">)</span>,
-  MEM.all <span class="op">=</span> <span class="cn">FALSE</span>,
-  nperm <span class="op">=</span> <span class="fl">999</span>,
-  nperm.global <span class="op">=</span> <span class="fl">9999</span>,
-  alpha <span class="op">=</span> <span class="fl">0.05</span>,
-  p.adjust <span class="op">=</span> <span class="cn">TRUE</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">listw.select</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">candidates</span>,</span>
+<span>  MEM.autocor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"positive"</span>, <span class="st">"negative"</span>, <span class="st">"all"</span><span class="op">)</span>,</span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"FWD"</span>, <span class="st">"MIR"</span>, <span class="st">"global"</span><span class="op">)</span>,</span>
+<span>  MEM.all <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  nperm <span class="op">=</span> <span class="fl">999</span>,</span>
+<span>  nperm.global <span class="op">=</span> <span class="fl">9999</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  p.adjust <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>Vector, matrix, or dataframe of the response variable(s)</p></dd>
+
+
 <dt>candidates</dt>
 <dd><p>A list of SWMs of the class <code>listw</code>;
 <code>candidates</code> can be created by <code>listw.candidates</code></p></dd>
+
+
 <dt>MEM.autocor</dt>
 <dd><p>Sign of the spatial eigenvectors to generate; <code>"positive"</code>,
 <code>"negative"</code>, or <code>"all"</code>, for positively, negatively autocorrelated
 eigenvectors, or both, respectively; default is <code>"positive"</code></p></dd>
+
+
 <dt>method</dt>
 <dd><p>Criterion to select the best subset of MEM variables. Either
 <code>forward</code> (default option), <code>"MIR"</code> (for univariate <code>x</code>
 only), or <code>"global"</code> (see <code>Details</code>)</p></dd>
+
+
 <dt>MEM.all</dt>
 <dd><p>A logical indicating if the complete set of MEM variables for the best model
 should be returned</p></dd>
+
+
 <dt>nperm</dt>
 <dd><p>Number of permutations to perform the tests in the selection 
 procedure; Default is 999</p></dd>
+
+
 <dt>nperm.global</dt>
 <dd><p>Number of permutations to perform the tests in the global test;
 Default is 9999</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>Significance threshold value for the tests; Default is 0.05</p></dd>
+
+
 <dt>p.adjust</dt>
 <dd><p>A logical indicating wheter the p-value of the global test performed on each SWM
 should be corrected for multiple tests (TRUE) or not (FALSE); default is
 <code>TRUE</code></p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>If 'TRUE' more diagnostics are printed. The default setting is
 FALSE</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>listw.select</code> returns a list that contains:</p><dl><dt>candidates</dt>
+    
+
+<p><code>listw.select</code> returns a list that contains:</p>
+<p></p>
+<dl><dt>candidates</dt>
 <dd><p>A data.frame that summarizes the results on all SWMs</p></dd>
 
  <dt>best.id</dt>
@@ -224,60 +247,60 @@ FALSE</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-spatial/spdep/" class="external-link">spdep</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">### Create a grid of 15 x 15:</span></span>
-<span class="r-in"><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">15</span>, <span class="fl">1</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">15</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">### Generate a response variable Y structured at broad scale by linear combination of</span></span>
-<span class="r-in"><span class="co">### the first three MEM variables to which a normal noise is added:</span></span>
-<span class="r-in"><span class="va">nb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/cell2nb.html" class="external-link">cell2nb</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">15</span>, ncol <span class="op">=</span> <span class="fl">15</span>, <span class="st">"queen"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">lw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></span><span class="op">(</span><span class="va">nb</span>, style <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">MEM</span> <span class="op">&lt;-</span> <span class="fu"><a href="mem.html">scores.listw</a></span><span class="op">(</span><span class="va">lw</span>, MEM.autocor <span class="op">=</span> <span class="st">"positive"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Degree of spatial autocorrelation:</span></span>
-<span class="r-in"><span class="va">intensity</span> <span class="op">&lt;-</span> <span class="fl">0.8</span></span>
-<span class="r-in"><span class="va">Y_space</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">MEM</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="va">MEM</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">+</span> <span class="va">MEM</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="va">intensity</span></span>
-<span class="r-in"><span class="va">Y_noise</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">MEM</span><span class="op">)</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">intensity</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Y</span> <span class="op">&lt;-</span> <span class="va">Y_space</span> <span class="op">+</span> <span class="va">Y_noise</span></span>
-<span class="r-in"><span class="co">### Y is sampled in 100 randomly-chosen sites of the grid:</span></span>
-<span class="r-in"><span class="va">idx.sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span><span class="op">)</span>, <span class="fl">100</span>, replace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">xy</span> <span class="op">&lt;-</span> <span class="va">grid</span><span class="op">[</span><span class="va">idx.sample</span>, <span class="op">]</span></span>
-<span class="r-in"><span class="va">Y_sampled</span> <span class="op">&lt;-</span> <span class="va">Y</span><span class="op">[</span><span class="va">idx.sample</span><span class="op">]</span></span>
-<span class="r-in"><span class="co">### The function listw.candidates is used to build the spatial weighting matrices that</span></span>
-<span class="r-in"><span class="co">### we want to test and compare (with the listw.select function). We test a Gabriel's graph,</span></span>
-<span class="r-in"><span class="co">### a minimum spanning tree, and a distance-based connectivity defined by a threshold</span></span>
-<span class="r-in"><span class="co">### distance corresponding to the smallest distance keeping all sites connected (i.e.,</span></span>
-<span class="r-in"><span class="co">### the defaut value of d2; see help of function listw.candidates).</span></span>
-<span class="r-in"><span class="co">### These connectivity matrices are then either not weighted (binary weighting), or</span></span>
-<span class="r-in"><span class="co">### weighted by the linearly decreasing function (see help of the function listw.candidates):</span></span>
-<span class="r-in"><span class="va">candidates</span> <span class="op">&lt;-</span> <span class="fu"><a href="listw.candidates.html">listw.candidates</a></span><span class="op">(</span>coord <span class="op">=</span> <span class="va">xy</span>, nb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gab"</span>, <span class="st">"mst"</span><span class="op">)</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"binary"</span>, <span class="st">"flin"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">### Number of candidate W matrices generated:</span></span>
-<span class="r-in"><span class="va">nbw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">candidates</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">### Significance threshold value after p-value correction (Sidak correction):</span></span>
-<span class="r-in"><span class="fl">1</span> <span class="op">-</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.05</span><span class="op">)</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="va">nbw</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">### Optimization of the selection of the SWM among the candidates generated above,</span></span>
-<span class="r-in"><span class="co">### using the corrected significance threshold calculated above for the global tests:</span></span>
-<span class="r-in"><span class="va">W_sel</span> <span class="op">&lt;-</span> <span class="fu">listw.select</span><span class="op">(</span><span class="va">Y_sampled</span>, <span class="va">candidates</span>, MEM.autocor <span class="op">=</span> <span class="st">"positive"</span>, method <span class="op">=</span> <span class="st">"FWD"</span>,</span>
-<span class="r-in">                    p.adjust <span class="op">=</span> <span class="cn">TRUE</span>, nperm <span class="op">=</span> <span class="fl">299</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">### Some characteristics of the best spatial model:</span></span>
-<span class="r-in"><span class="co"># Best SWM:</span></span>
-<span class="r-in"><span class="va">W_sel</span><span class="op">$</span><span class="va">best.id</span></span>
-<span class="r-in"><span class="co"># Selected subset of spatial predictor within the best SWM:</span></span>
-<span class="r-in"><span class="va">W_sel</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">MEM.select</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">W_sel</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Corrected p-value of the global test of the best SWM:</span></span>
-<span class="r-in"><span class="va">W_sel</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">global.test</span><span class="op">$</span><span class="va">Pvalue</span></span>
-<span class="r-in"><span class="co"># Adjusted R2 of the subset of spatial predictors selected within the chosen SWM:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">W_sel</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">R2Adj</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># p-values of all the tested W matrices:</span></span>
-<span class="r-in"><span class="va">W_sel</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">Pvalue</span></span>
-<span class="r-in"><span class="co"># Adjusted R2 of the subset of spatial predictors selected for all the significant</span></span>
-<span class="r-in"><span class="co"># W matrices:</span></span>
-<span class="r-in"><span class="va">W_sel</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">R2Adj.select</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># See Appendix S3 of Bauman et al. 2018 for more extensive examples and illustrations.</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-spatial/spdep/" class="external-link">spdep</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">### Create a grid of 15 x 15:</span></span></span>
+<span class="r-in"><span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">15</span>, <span class="fl">1</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">15</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">### Generate a response variable Y structured at broad scale by linear combination of</span></span></span>
+<span class="r-in"><span><span class="co">### the first three MEM variables to which a normal noise is added:</span></span></span>
+<span class="r-in"><span><span class="va">nb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/cell2nb.html" class="external-link">cell2nb</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">15</span>, ncol <span class="op">=</span> <span class="fl">15</span>, <span class="st">"queen"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></span><span class="op">(</span><span class="va">nb</span>, style <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">MEM</span> <span class="op">&lt;-</span> <span class="fu"><a href="mem.html">scores.listw</a></span><span class="op">(</span><span class="va">lw</span>, MEM.autocor <span class="op">=</span> <span class="st">"positive"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Degree of spatial autocorrelation:</span></span></span>
+<span class="r-in"><span><span class="va">intensity</span> <span class="op">&lt;-</span> <span class="fl">0.8</span></span></span>
+<span class="r-in"><span><span class="va">Y_space</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">MEM</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="va">MEM</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">+</span> <span class="va">MEM</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="va">intensity</span></span></span>
+<span class="r-in"><span><span class="va">Y_noise</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">MEM</span><span class="op">)</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">intensity</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="va">Y_space</span> <span class="op">+</span> <span class="va">Y_noise</span></span></span>
+<span class="r-in"><span><span class="co">### Y is sampled in 100 randomly-chosen sites of the grid:</span></span></span>
+<span class="r-in"><span><span class="va">idx.sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span><span class="op">)</span>, <span class="fl">100</span>, replace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">xy</span> <span class="op">&lt;-</span> <span class="va">grid</span><span class="op">[</span><span class="va">idx.sample</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">Y_sampled</span> <span class="op">&lt;-</span> <span class="va">Y</span><span class="op">[</span><span class="va">idx.sample</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="co">### The function listw.candidates is used to build the spatial weighting matrices that</span></span></span>
+<span class="r-in"><span><span class="co">### we want to test and compare (with the listw.select function). We test a Gabriel's graph,</span></span></span>
+<span class="r-in"><span><span class="co">### a minimum spanning tree, and a distance-based connectivity defined by a threshold</span></span></span>
+<span class="r-in"><span><span class="co">### distance corresponding to the smallest distance keeping all sites connected (i.e.,</span></span></span>
+<span class="r-in"><span><span class="co">### the defaut value of d2; see help of function listw.candidates).</span></span></span>
+<span class="r-in"><span><span class="co">### These connectivity matrices are then either not weighted (binary weighting), or</span></span></span>
+<span class="r-in"><span><span class="co">### weighted by the linearly decreasing function (see help of the function listw.candidates):</span></span></span>
+<span class="r-in"><span><span class="va">candidates</span> <span class="op">&lt;-</span> <span class="fu"><a href="listw.candidates.html">listw.candidates</a></span><span class="op">(</span>coord <span class="op">=</span> <span class="va">xy</span>, nb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gab"</span>, <span class="st">"mst"</span><span class="op">)</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"binary"</span>, <span class="st">"flin"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">### Number of candidate W matrices generated:</span></span></span>
+<span class="r-in"><span><span class="va">nbw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">candidates</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">### Significance threshold value after p-value correction (Sidak correction):</span></span></span>
+<span class="r-in"><span><span class="fl">1</span> <span class="op">-</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.05</span><span class="op">)</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="va">nbw</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">### Optimization of the selection of the SWM among the candidates generated above,</span></span></span>
+<span class="r-in"><span><span class="co">### using the corrected significance threshold calculated above for the global tests:</span></span></span>
+<span class="r-in"><span><span class="va">W_sel</span> <span class="op">&lt;-</span> <span class="fu">listw.select</span><span class="op">(</span><span class="va">Y_sampled</span>, <span class="va">candidates</span>, MEM.autocor <span class="op">=</span> <span class="st">"positive"</span>, method <span class="op">=</span> <span class="st">"FWD"</span>,</span></span>
+<span class="r-in"><span>                    p.adjust <span class="op">=</span> <span class="cn">TRUE</span>, nperm <span class="op">=</span> <span class="fl">299</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">### Some characteristics of the best spatial model:</span></span></span>
+<span class="r-in"><span><span class="co"># Best SWM:</span></span></span>
+<span class="r-in"><span><span class="va">W_sel</span><span class="op">$</span><span class="va">best.id</span></span></span>
+<span class="r-in"><span><span class="co"># Selected subset of spatial predictor within the best SWM:</span></span></span>
+<span class="r-in"><span><span class="va">W_sel</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">MEM.select</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">W_sel</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Corrected p-value of the global test of the best SWM:</span></span></span>
+<span class="r-in"><span><span class="va">W_sel</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">global.test</span><span class="op">$</span><span class="va">Pvalue</span></span></span>
+<span class="r-in"><span><span class="co"># Adjusted R2 of the subset of spatial predictors selected within the chosen SWM:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">W_sel</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">R2Adj</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># p-values of all the tested W matrices:</span></span></span>
+<span class="r-in"><span><span class="va">W_sel</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">Pvalue</span></span></span>
+<span class="r-in"><span><span class="co"># Adjusted R2 of the subset of spatial predictors selected for all the significant</span></span></span>
+<span class="r-in"><span><span class="co"># W matrices:</span></span></span>
+<span class="r-in"><span><span class="va">W_sel</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">R2Adj.select</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># See Appendix S3 of Bauman et al. 2018 for more extensive examples and illustrations.</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -292,7 +315,7 @@ FALSE</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -18,7 +18,7 @@ summing univariate variograms"><meta property="og:image" content="/logo.svg"><!-
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -62,40 +62,53 @@ summing univariate variograms</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">variogmultiv</span><span class="op">(</span><span class="va">Y</span>, <span class="va">xy</span>, dmin <span class="op">=</span> <span class="fl">0</span>, dmax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span>, nclass <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">variogmultiv</span><span class="op">(</span><span class="va">Y</span>, <span class="va">xy</span>, dmin <span class="op">=</span> <span class="fl">0</span>, dmax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span>, nclass <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>Y</dt>
 <dd><p>A matrix with numeric data</p></dd>
+
+
 <dt>xy</dt>
 <dd><p>A matrix with coordinates of samples</p></dd>
+
+
 <dt>dmin</dt>
 <dd><p>The minimum distance value at which the variogram is computed 
 (i.e. lower bound of the first class)</p></dd>
+
+
 <dt>dmax</dt>
 <dd><p>The maximum distance value at which the variogram is computed 
 (i.e. higher bound of the last class)</p></dd>
+
+
 <dt>nclass</dt>
 <dd><p>Number of classes of distances</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list:</p>
+    
+
+<p>A list:</p>
 <dl><dt>d </dt>
 <dd><p>Distances (i.e. centers of distance classes).</p></dd>
-<dt>var </dt>
+ 
+  <dt>var </dt>
 <dd><p>Empirical semi-variances.</p></dd>
-<dt>n.w </dt>
+ <dt>n.w </dt>
 <dd><p>Number of connections 
   between samples for a given distance.</p></dd>
-<dt>n.c </dt>
+ <dt>n.c </dt>
 <dd><p>Number of samples used 
   for the computation of the variogram.</p></dd>
-<dt>dclass </dt>
+ <dt>dclass </dt>
 <dd><p>Character vector with
   the names of the distance classes.</p></dd>
+
 </dl></div>
     <div id="references">
     <h2>References</h2>
@@ -110,19 +123,19 @@ summing univariate variograms</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">ade4</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Hellinger transformation</span></span>
-<span class="r-in"><span class="va">fau</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">fau</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">fau</span>, <span class="fl">1</span>, <span class="va">sum</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">fau</span><span class="op">)</span><span class="op">)</span>, <span class="st">"*"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Removing linear effect</span></span>
-<span class="r-in"><span class="va">faudt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">fau</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span>
-<span class="r-in"><span class="va">mvspec</span> <span class="op">&lt;-</span> <span class="fu">variogmultiv</span><span class="op">(</span><span class="va">faudt</span>, <span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span>, nclass <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mvspec</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mvspec</span><span class="op">$</span><span class="va">d</span>, <span class="va">mvspec</span><span class="op">$</span><span class="va">var</span>,type <span class="op">=</span> <span class="st">'b'</span>, pch <span class="op">=</span> <span class="fl">20</span>, xlab <span class="op">=</span> <span class="st">"Distance"</span>, ylab <span class="op">=</span> <span class="st">"C(distance)"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">ade4</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Hellinger transformation</span></span></span>
+<span class="r-in"><span><span class="va">fau</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">fau</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">fau</span>, <span class="fl">1</span>, <span class="va">sum</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">fau</span><span class="op">)</span><span class="op">)</span>, <span class="st">"*"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Removing linear effect</span></span></span>
+<span class="r-in"><span><span class="va">faudt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">fau</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="va">mvspec</span> <span class="op">&lt;-</span> <span class="fu">variogmultiv</span><span class="op">(</span><span class="va">faudt</span>, <span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span>, nclass <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mvspec</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mvspec</span><span class="op">$</span><span class="va">d</span>, <span class="va">mvspec</span><span class="op">$</span><span class="va">var</span>,type <span class="op">=</span> <span class="st">'b'</span>, pch <span class="op">=</span> <span class="fl">20</span>, xlab <span class="op">=</span> <span class="st">"Distance"</span>, ylab <span class="op">=</span> <span class="st">"C(distance)"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="variogmultiv-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -137,7 +150,7 @@ summing univariate variograms</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

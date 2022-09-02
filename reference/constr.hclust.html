@@ -19,7 +19,7 @@ matrix."><meta property="og:image" content="/logo.svg"><!-- mathjax --><script s
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -64,48 +64,64 @@ matrix.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">constr.hclust</span><span class="op">(</span>
-  <span class="va">d</span>,
-  method <span class="op">=</span> <span class="st">"ward.D2"</span>,
-  <span class="va">links</span>,
-  <span class="va">coords</span>,
-  beta <span class="op">=</span> <span class="op">-</span><span class="fl">0.25</span>,
-  chron <span class="op">=</span> <span class="cn">FALSE</span>,
-  members <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">constr.hclust</span><span class="op">(</span></span>
+<span>  <span class="va">d</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"ward.D2"</span>,</span>
+<span>  <span class="va">links</span>,</span>
+<span>  <span class="va">coords</span>,</span>
+<span>  beta <span class="op">=</span> <span class="op">-</span><span class="fl">0.25</span>,</span>
+<span>  chron <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  members <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>d</dt>
-<dd><p>A <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a>-class</code> dissimilarity (distance) matrix</p></dd>
+<dd><p>A <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a>-class</code> dissimilarity (distance) matrix.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>The agglomeration method to be used (default: "ward.D2"; see
-details)</p></dd>
+details).</p></dd>
+
+
 <dt>links</dt>
 <dd><p>A list of edges (or links) connecting the points. May be omitted
-in some cases; see details and examples</p></dd>
+in some cases; see details and examples.</p></dd>
+
+
 <dt>coords</dt>
-<dd><p>Coordinates of the observations (data rows) in the dissimilarity matrix 
-<code>d</code>. The coordinates are used for plotting maps of the clustering results. 
-This matrix may be omitted when the user does not wish to print maps of the clustering  
-results or when no <code>links</code> file is provided. <code>coords</code> is a matrix or data 
-frame with two columns, following the convention of the Cartesian plane: 
-first column for abscissa, second column for ordinate. See examples</p></dd>
+<dd><p>Coordinates of the observations (data rows) in the
+dissimilarity matrix <code>d</code>. The coordinates are used for plotting maps of
+the clustering results. This matrix may be omitted when the user does not
+wish to print maps of the clustering results or when no <code>links</code> file is
+provided. <code>coords</code> is a matrix or data frame with two columns, following
+the convention of the Cartesian plane: first column for abscissa, second
+column for ordinate. See examples.</p></dd>
+
+
 <dt>beta</dt>
 <dd><p>The beta parameter for beta-flexible clustering (default:
-<code>beta = -0.25</code>)</p></dd>
+<code>beta = -0.25</code>).</p></dd>
+
+
 <dt>chron</dt>
 <dd><p>Logical (TRUE or FALSE) indicating whether a chronological (i.e.
-time-constrained or spatial transect) clustering should be calculated (default:
-<code>chron = FALSE</code>)</p></dd>
+time-constrained or spatial transect) clustering should be calculated 
+(default: <code>chron = FALSE</code>).</p></dd>
+
+
 <dt>members</dt>
 <dd><p>NULL or a vector with length size of <code>d</code> (default: NULL;
-See details)</p></dd>
+See details).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code><a href="constr.hclust-class.html">constr.hclust-class</a></code> object.</p>
+    
+
+<p>A <code><a href="constr.hclust-class.html">constr.hclust-class</a></code> object.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -133,16 +149,16 @@ class <code>listw</code> (see, e.g., <code><a href="https://r-spatial.github.io/
 <code>dataframe</code>), or a two-column matrix with each row representing an edge
 and the columns representing the two ends of the edges. For lists with more
 than two elements, as well as dataframes or matrices with more than
-two-columns, only the first two elements or columns are used for the analysis.
-The edges are interpreted as being non directional; there is no need to
-specify an edge going from point a to point b and one going from point b to
-point a. While doing so is generally inconsequential for the analysis, it
-carries some penalty in terms of computation time. It is a good practice to
-place the nodes in increasing order of numbers from the top to the bottom and
-from the left to the right of the list but this is not mandatory. A word of
-caution: in cases where clusters with identical minimum distances occur, the
-order of the edges in the list may have an influence on the result.
-Alternative results would be statistically equivalent.</p>
+two-columns, only the first two elements or columns are used for the
+analysis. The edges are interpreted as being non directional; there is no
+need to specify an edge going from point a to point b and one going from
+point b to point a. While doing so is generally inconsequential for the
+analysis, it carries some penalty in terms of computation time. It is a good
+practice to place the nodes in increasing order of numbers from the top to
+the bottom and from the left to the right of the list but this is not
+mandatory. A word of caution: in cases where clusters with identical minimum
+distances occur, the order of the edges in the list may have an influence on
+the result. Alternative results would be statistically equivalent.</p>
 <p>When argument <code>link</code> is omitted, regular (unconstrained) clustering is
 performed and a <code><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a>-class</code> object is returned unless
 argument <code>chron = TRUE</code>. When argument <code>chron = TRUE</code>,
@@ -163,12 +179,12 @@ these clusters are merged is a missing value (<code>NA</code>) in vector
 <code>height</code> (i.e., unconnected clusters have undefined dissimilarities in
 constrained clustering).</p>
 <p>If <code>members != NULL</code>, then <code>d</code> is taken to be a dissimilarity
-matrix between clusters instead of dissimilarities between individual objects. 
-Then, <code>members</code> must be a vector giving the number of observations per
-cluster. In this way, the hierarchical clustering algorithm can be ‘started
-in the middle of the dendrogram’, e.g., in order to reconstruct the part of
-the tree above a cut. See examples in <code>hclust</code> for details on that
-functionality."</p>
+matrix between clusters instead of dissimilarities between individual
+objects. Then, <code>members</code> must be a vector giving the number of
+observations per cluster. In this way, the hierarchical clustering algorithm
+can be ‘started in the middle of the dendrogram’, e.g., in order to
+reconstruct the part of the tree above a cut. See examples in <code>hclust</code>
+for details on that functionality."</p>
 <p>Memory storage and time to compute constrained clustering for N objects. The
 Lance and Williams algorithm for agglomerative clustering uses dissimilarity
 matrices. The amount of memory needed to store the dissimilarities among N
@@ -194,18 +210,20 @@ number of groups. A dendrogram would be unreadable.</p>
     </div>
     <div id="references">
     <h2>References</h2>
-    <p>Guénard, G. and P. Legendre. Hierarchical clustering with contiguity constraint 
-in R. Journal of Statistical Software (submitted).</p>
+    <p>Guénard, G. and P. Legendre. 2022. Hierarchical clustering with contiguity
+constraint in R. Journal of Statistical Software 103(7): 1-26
+<a href="https://doi.org/10.18637/jss.v103.i07" class="external-link">doi:10.18637/jss.v103.i07</a></p>
 <p>Langfelder, P. and S. Horvath. 2012. Fast R functions for robust correlations
-and hierarchical clustering. Journal of Statistical Software 46: 1-17. 
-doi: <a href="https://doi.org/10.18637/jss.v046.i11" class="external-link">10.18637/jss.v046.i11</a></p>
+and hierarchical clustering. Journal of Statistical Software 46(11): 1-17.
+<a href="https://doi.org/10.18637/jss.v046.i11" class="external-link">doi:10.18637/jss.v046.i11</a></p>
 <p>Legendre, P. and L. Legendre. 2012. Numerical ecology, 3rd English edition.
-Elsevier Science BV, Amsterdam.</p>
+Elsevier Science BV, Amsterdam. <a href="https://doi.org/10.1016/S0304-3800%2800%2900291-X" class="external-link">doi:10.1016/S0304-3800(00)00291-X</a></p>
 <p>Murtagh, F. and P. Legendre. 2014. Ward’s hierarchical agglomerative
 clustering method: which algorithms implement Ward’s criterion? Journal of
-Classification 31: 274-295. doi: 10.1007/s00357-014-9161-z</p>
+Classification 31: 274-295. <a href="https://doi.org/10.1007/s00357-014-9161-z" class="external-link">doi:10.1007/s00357-014-9161-z</a></p>
 <p>Ward, J. H. 1963. Hierarchical grouping to optimize an objective function.
-Journal of the American Statistical Association 58: 236-244.</p>
+Journal of the American Statistical Association 58: 236-244.
+<a href="https://doi.org/10.1080/01621459.1963.10500845" class="external-link">doi:10.1080/01621459.1963.10500845</a></p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -222,290 +240,294 @@ and Guillaume Guénard <a href="mailto:guillaume.guenard@umontreal.ca">guillaume
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### First example: Artificial map data from Legendre &amp; Legendre</span></span>
-<span class="r-in"><span class="co">###                (2012, Fig. 13.26): n = 16</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">41</span>,<span class="fl">42</span>,<span class="fl">25</span>,<span class="fl">38</span>,<span class="fl">50</span>,<span class="fl">30</span>,<span class="fl">41</span>,<span class="fl">43</span>,<span class="fl">43</span>,<span class="fl">41</span>,<span class="fl">30</span>,<span class="fl">50</span>,<span class="fl">38</span>,<span class="fl">25</span>,<span class="fl">42</span>,<span class="fl">41</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">coord.dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">7</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">8</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">7</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">8</span>,</span>
-<span class="r-in">                      <span class="fl">4.4</span>,<span class="fl">4.4</span>,<span class="fl">4.4</span>,<span class="fl">4.4</span>,<span class="fl">3.3</span>,<span class="fl">3.3</span>,<span class="fl">3.3</span>,<span class="fl">3.3</span>,</span>
-<span class="r-in">                      <span class="fl">2.2</span>,<span class="fl">2.2</span>,<span class="fl">2.2</span>,<span class="fl">2.2</span>,<span class="fl">1.1</span>,<span class="fl">1.1</span>,<span class="fl">1.1</span>,<span class="fl">1.1</span><span class="op">)</span>,<span class="fl">16</span>,<span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Obtaining a list of neighbours:</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-spatial/spdep/" class="external-link">spdep</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">listW</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/tri2nb.html" class="external-link">tri2nb</a></span><span class="op">(</span><span class="va">coord.dat</span><span class="op">)</span>, style<span class="op">=</span><span class="st">"B"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">links.mat.dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2mat.html" class="external-link">listw2mat</a></span><span class="op">(</span><span class="va">listW</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">neighbors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/listw2sn.html" class="external-link">listw2sn</a></span><span class="op">(</span><span class="va">listW</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Calculating the (Euclidean) distance between points:</span></span>
-<span class="r-in"><span class="va">D.dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Display the points:</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coord.dat</span>, type<span class="op">=</span><span class="st">'n'</span>,asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">"Delaunay triangulation"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/sp/man/gridlines.html" class="external-link">text</a></span><span class="op">(</span><span class="va">coord.dat</span>, labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">)</span>, pos<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">neighbors</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">coord.dat</span><span class="op">[</span><span class="va">neighbors</span><span class="op">[</span><span class="va">i</span>,<span class="fl">1</span><span class="op">]</span>,<span class="op">]</span>,</span>
-<span class="r-in">          <span class="va">coord.dat</span><span class="op">[</span><span class="va">neighbors</span><span class="op">[</span><span class="va">i</span>,<span class="fl">2</span><span class="op">]</span>,<span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## First example: Artificial map data from Legendre &amp; Legendre</span></span></span>
+<span class="r-in"><span><span class="co">##                (2012, Fig. 13.26): n = 16</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">41</span>,<span class="fl">42</span>,<span class="fl">25</span>,<span class="fl">38</span>,<span class="fl">50</span>,<span class="fl">30</span>,<span class="fl">41</span>,<span class="fl">43</span>,<span class="fl">43</span>,<span class="fl">41</span>,<span class="fl">30</span>,<span class="fl">50</span>,<span class="fl">38</span>,<span class="fl">25</span>,<span class="fl">42</span>,<span class="fl">41</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">coord.dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">7</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">8</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">7</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">8</span>,</span></span>
+<span class="r-in"><span>                      <span class="fl">4.4</span>,<span class="fl">4.4</span>,<span class="fl">4.4</span>,<span class="fl">4.4</span>,<span class="fl">3.3</span>,<span class="fl">3.3</span>,<span class="fl">3.3</span>,<span class="fl">3.3</span>,</span></span>
+<span class="r-in"><span>                      <span class="fl">2.2</span>,<span class="fl">2.2</span>,<span class="fl">2.2</span>,<span class="fl">2.2</span>,<span class="fl">1.1</span>,<span class="fl">1.1</span>,<span class="fl">1.1</span>,<span class="fl">1.1</span><span class="op">)</span>,<span class="fl">16</span>,<span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Obtaining a list of neighbours:</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-spatial/spdep/" class="external-link">spdep</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">listW</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/tri2nb.html" class="external-link">tri2nb</a></span><span class="op">(</span><span class="va">coord.dat</span><span class="op">)</span>, style<span class="op">=</span><span class="st">"B"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">links.mat.dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2mat.html" class="external-link">listw2mat</a></span><span class="op">(</span><span class="va">listW</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">neighbors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/listw2sn.html" class="external-link">listw2sn</a></span><span class="op">(</span><span class="va">listW</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Calculating the (Euclidean) distance between points:</span></span></span>
+<span class="r-in"><span><span class="va">D.dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Display the points:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coord.dat</span>, type<span class="op">=</span><span class="st">'n'</span>,asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">"Delaunay triangulation"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">coord.dat</span>, labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">)</span>, pos<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">neighbors</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">coord.dat</span><span class="op">[</span><span class="va">neighbors</span><span class="op">[</span><span class="va">i</span>,<span class="fl">1</span><span class="op">]</span>,<span class="op">]</span>,</span></span>
+<span class="r-in"><span>          <span class="va">coord.dat</span><span class="op">[</span><span class="va">neighbors</span><span class="op">[</span><span class="va">i</span>,<span class="fl">2</span><span class="op">]</span>,<span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="constr.hclust-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Unconstrained clustring by hclust:</span></span>
-<span class="r-in"><span class="va">grpWD2_hclust</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">D.dat</span>, method<span class="op">=</span><span class="st">"ward.D2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2_hclust</span>, hang<span class="op">=</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Unconstrained clustring by hclust:</span></span></span>
+<span class="r-in"><span><span class="va">grpWD2_hclust</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">D.dat</span>, method<span class="op">=</span><span class="st">"ward.D2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2_hclust</span>, hang<span class="op">=</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="constr.hclust-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Clustering without a contiguity constraint;</span></span>
-<span class="r-in"><span class="co">### the result is represented as a dendrogram:</span></span>
-<span class="r-in"><span class="va">grpWD2_constr_hclust</span> <span class="op">&lt;-</span> <span class="fu">constr.hclust</span><span class="op">(</span><span class="va">D.dat</span>, method<span class="op">=</span><span class="st">"ward.D2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2_constr_hclust</span>, hang<span class="op">=</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Clustering without a contiguity constraint;</span></span></span>
+<span class="r-in"><span><span class="co">## the result is represented as a dendrogram:</span></span></span>
+<span class="r-in"><span><span class="va">grpWD2_constr_hclust</span> <span class="op">&lt;-</span> <span class="fu">constr.hclust</span><span class="op">(</span><span class="va">D.dat</span>, method<span class="op">=</span><span class="st">"ward.D2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2_constr_hclust</span>, hang<span class="op">=</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="constr.hclust-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Clustering with a contiguity constraint described by a list of</span></span>
-<span class="r-in"><span class="co">### links:</span></span>
-<span class="r-in"><span class="va">grpWD2cst_constr_hclust</span> <span class="op">&lt;-</span></span>
-<span class="r-in">    <span class="fu">constr.hclust</span><span class="op">(</span></span>
-<span class="r-in">        <span class="va">D.dat</span>, method<span class="op">=</span><span class="st">"ward.D2"</span>,</span>
-<span class="r-in">        <span class="va">neighbors</span>, <span class="va">coord.dat</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### To visualize using hclust's plotting method:</span></span>
-<span class="r-in"><span class="co">### stats:::plot.hclust(grpWD2cst_constr_hclust, hang=-1)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Plot the results on a map with k=3 clusters:</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2cst_constr_hclust</span>, k<span class="op">=</span><span class="fl">3</span>, links<span class="op">=</span><span class="cn">TRUE</span>, las<span class="op">=</span><span class="fl">1</span>, xlab<span class="op">=</span><span class="st">"Eastings"</span>,</span>
-<span class="r-in">     ylab<span class="op">=</span><span class="st">"Northings"</span>, cex<span class="op">=</span><span class="fl">3</span>, lwd<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Clustering with a contiguity constraint described by a list of</span></span></span>
+<span class="r-in"><span><span class="co">## links:</span></span></span>
+<span class="r-in"><span><span class="va">grpWD2cst_constr_hclust</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>    <span class="fu">constr.hclust</span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="va">D.dat</span>, method<span class="op">=</span><span class="st">"ward.D2"</span>,</span></span>
+<span class="r-in"><span>        <span class="va">neighbors</span>, <span class="va">coord.dat</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## To visualize using hclust's plotting method:</span></span></span>
+<span class="r-in"><span><span class="co">## stats:::plot.hclust(grpWD2cst_constr_hclust, hang=-1)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Plot the results on a map with k=3 clusters:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2cst_constr_hclust</span>, k<span class="op">=</span><span class="fl">3</span>, links<span class="op">=</span><span class="cn">TRUE</span>, las<span class="op">=</span><span class="fl">1</span>, xlab<span class="op">=</span><span class="st">"Eastings"</span>,</span></span>
+<span class="r-in"><span>     ylab<span class="op">=</span><span class="st">"Northings"</span>, cex<span class="op">=</span><span class="fl">3</span>, lwd<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="constr.hclust-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Generic functions from hclust can be used, for instance to obtain</span></span>
-<span class="r-in"><span class="co">### a list of members of each cluster:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree</a></span><span class="op">(</span><span class="va">grpWD2cst_constr_hclust</span>, k<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Generic functions from hclust can be used, for instance to obtain</span></span></span>
+<span class="r-in"><span><span class="co">## a list of members of each cluster:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree</a></span><span class="op">(</span><span class="va">grpWD2cst_constr_hclust</span>, k<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1 1 2 3 1 2 3 3 1 1 2 3 1 2 3 3</span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Now with k=5 clusters:</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2cst_constr_hclust</span>, k<span class="op">=</span><span class="fl">5</span>, links<span class="op">=</span><span class="cn">TRUE</span>, las<span class="op">=</span><span class="fl">1</span>, xlab<span class="op">=</span><span class="st">"Eastings"</span>,</span>
-<span class="r-in">     ylab<span class="op">=</span><span class="st">"Northings"</span>, cex<span class="op">=</span><span class="fl">3</span>, lwd<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Now with k=5 clusters:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2cst_constr_hclust</span>, k<span class="op">=</span><span class="fl">5</span>, links<span class="op">=</span><span class="cn">TRUE</span>, las<span class="op">=</span><span class="fl">1</span>, xlab<span class="op">=</span><span class="st">"Eastings"</span>,</span></span>
+<span class="r-in"><span>     ylab<span class="op">=</span><span class="st">"Northings"</span>, cex<span class="op">=</span><span class="fl">3</span>, lwd<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="constr.hclust-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree</a></span><span class="op">(</span><span class="va">grpWD2cst_constr_hclust</span>, k<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree</a></span><span class="op">(</span><span class="va">grpWD2cst_constr_hclust</span>, k<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1 1 2 3 4 2 3 3 1 1 2 5 1 2 3 3</span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">## End of the artificial map example</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Second example: Scotch Whiskey distilleries clustered using tasting</span></span>
-<span class="r-in"><span class="co">### scores (nose, body, palate, finish, and the four distances combined)</span></span>
-<span class="r-in"><span class="co">### constrained with respect to the distillery locations in Scotland.</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">## Documentation file about the Scotch Whiskey data: ?ScotchWhiskey</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">### Cluster analyses for the nose, body, palate, and finish D</span></span>
-<span class="r-in"><span class="co">### matrices:</span></span>
-<span class="r-in"><span class="va">grpWD2cst_ScotchWhiskey</span> <span class="op">&lt;-</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span></span>
-<span class="r-in">        <span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">dist</span>,    <span class="co">## A list of distance matrices</span></span>
-<span class="r-in">        <span class="va">constr.hclust</span>,         <span class="co">## The function called by function lapply</span></span>
-<span class="r-in">        links<span class="op">=</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">neighbors</span><span class="op">@</span><span class="va">data</span>,         <span class="co">## The list of links</span></span>
-<span class="r-in">        coords<span class="op">=</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">@</span><span class="va">coords</span><span class="op">/</span><span class="fl">1000</span></span>
-<span class="r-in">    <span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### The four D matrices (nose, body, palate, finish), represented as</span></span>
-<span class="r-in"><span class="co">### vectors in the ScotchWiskey data file, are combined as follows to</span></span>
-<span class="r-in"><span class="co">### produce a single distance matrix integrating all four types of</span></span>
-<span class="r-in"><span class="co">### tastes:</span></span>
-<span class="r-in"><span class="va">Dmat</span> <span class="op">&lt;-</span> <span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">dist</span></span>
-<span class="r-in"><span class="va">ScotchWhiskey</span><span class="op">[[</span><span class="st">"norm"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">Dmat</span><span class="op">$</span><span class="va">nose</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">Dmat</span><span class="op">$</span><span class="va">body</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">Dmat</span><span class="op">$</span><span class="va">palate</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">Dmat</span><span class="op">$</span><span class="va">finish</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### This example shows how to apply const.clust to a single D matrix when</span></span>
-<span class="r-in"><span class="co">### the data file contains several matrices.</span></span>
-<span class="r-in"><span class="va">grpWD2cst_ScotchWhiskey</span><span class="op">[[</span><span class="st">"norm"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span></span>
-<span class="r-in">    <span class="fu">constr.hclust</span><span class="op">(</span></span>
-<span class="r-in">        d<span class="op">=</span><span class="va">ScotchWhiskey</span><span class="op">[[</span><span class="st">"norm"</span><span class="op">]</span><span class="op">]</span>,method<span class="op">=</span><span class="st">"ward.D2"</span>,</span>
-<span class="r-in">        <span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">neighbors</span><span class="op">@</span><span class="va">data</span>,</span>
-<span class="r-in">        coords<span class="op">=</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">@</span><span class="va">coords</span><span class="op">/</span><span class="fl">1000</span></span>
-<span class="r-in">    <span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### A fonction to plot the Whiskey clustering results</span></span>
-<span class="r-in"><span class="va">plotWhiskey</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">wh</span>, <span class="va">k</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>fig<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">   <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2cst_ScotchWhiskey</span><span class="op">[[</span><span class="va">wh</span><span class="op">]</span><span class="op">]</span>, k<span class="op">=</span><span class="va">k</span>, links<span class="op">=</span><span class="cn">TRUE</span>, las<span class="op">=</span><span class="fl">1</span>,</span>
-<span class="r-in">        xlab<span class="op">=</span><span class="st">"Eastings (km)"</span>, ylab<span class="op">=</span><span class="st">"Northings (km)"</span>, cex<span class="op">=</span><span class="fl">0.1</span>, lwd<span class="op">=</span><span class="fl">3</span>,</span>
-<span class="r-in">        main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"Feature: %s"</span>,<span class="va">wh</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/pkg/sp/man/gridlines.html" class="external-link">text</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">@</span><span class="va">coords</span><span class="op">/</span><span class="fl">1000</span>,labels<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">375</span>, y<span class="op">=</span><span class="fl">700</span>, lty<span class="op">=</span><span class="fl">1L</span>, lwd<span class="op">=</span><span class="fl">3</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">rainbow</a></span><span class="op">(</span><span class="fl">1.2</span><span class="op">*</span><span class="va">k</span><span class="op">)</span><span class="op">[</span><span class="fl">1L</span><span class="op">:</span><span class="va">k</span><span class="op">]</span>,</span>
-<span class="r-in">          legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"Group %d"</span>,<span class="fl">1</span><span class="op">:</span><span class="va">k</span><span class="op">)</span>, cex<span class="op">=</span><span class="fl">1.25</span><span class="op">)</span></span>
-<span class="r-in">   <span class="va">SpeyZoom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">314.7</span>,<span class="fl">342.2</span><span class="op">)</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">834.3</span>,<span class="fl">860.0</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">rect</a></span><span class="op">(</span>xleft<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">xlim</span><span class="op">[</span><span class="fl">1L</span><span class="op">]</span>, ybottom<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">ylim</span><span class="op">[</span><span class="fl">1L</span><span class="op">]</span>,col<span class="op">=</span><span class="st">"#E6E6E680"</span>,</span>
-<span class="r-in">        xright<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">xlim</span><span class="op">[</span><span class="fl">2L</span><span class="op">]</span>, ytop<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">ylim</span><span class="op">[</span><span class="fl">2L</span><span class="op">]</span>, lwd<span class="op">=</span><span class="fl">2</span>, lty<span class="op">=</span><span class="fl">1L</span><span class="op">)</span></span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>fig<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.50</span>,<span class="fl">0.46</span>,<span class="fl">0.99</span><span class="op">)</span>, new<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in">   <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2cst_ScotchWhiskey</span><span class="op">[[</span><span class="va">wh</span><span class="op">]</span><span class="op">]</span>, xlim<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">xlim</span>,</span>
-<span class="r-in">        ylim<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">ylim</span>, k<span class="op">=</span><span class="va">k</span>, links<span class="op">=</span><span class="cn">TRUE</span>, las<span class="op">=</span><span class="fl">1</span>, xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="st">""</span>,</span>
-<span class="r-in">        cex<span class="op">=</span><span class="fl">0.1</span>, lwd<span class="op">=</span><span class="fl">3</span>, axes<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/pkg/sp/man/gridlines.html" class="external-link">text</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">@</span><span class="va">coords</span><span class="op">/</span><span class="fl">1000</span>,labels<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">rect</a></span><span class="op">(</span>xleft<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">xlim</span><span class="op">[</span><span class="fl">1L</span><span class="op">]</span>, ybottom<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">ylim</span><span class="op">[</span><span class="fl">1L</span><span class="op">]</span>,</span>
-<span class="r-in">        xright<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">xlim</span><span class="op">[</span><span class="fl">2L</span><span class="op">]</span>, ytop<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">ylim</span><span class="op">[</span><span class="fl">2L</span><span class="op">]</span>, lwd<span class="op">=</span><span class="fl">2</span>, lty<span class="op">=</span><span class="fl">1L</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Plot the clustering results on the map of Scotland for 5 groups.</span></span>
-<span class="r-in"><span class="co">### The inset map shows the Speyside distilleries in detail:</span></span>
-<span class="r-in"><span class="fu">plotWhiskey</span><span class="op">(</span><span class="st">"nose"</span>, <span class="fl">5L</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## End of the artificial map example</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Second example: Scotch Whiskey distilleries clustered using tasting</span></span></span>
+<span class="r-in"><span><span class="co">## scores (nose, body, palate, finish, and the four distances combined)</span></span></span>
+<span class="r-in"><span><span class="co">## constrained with respect to the distillery locations in Scotland.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Documentation file about the Scotch Whiskey data: ?ScotchWhiskey</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Cluster analyses for the nose, body, palate, and finish D</span></span></span>
+<span class="r-in"><span><span class="co">## matrices:</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">grpWD2cst_ScotchWhiskey</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">dist</span>,    <span class="co">## A list of distance matrices</span></span></span>
+<span class="r-in"><span>        <span class="va">constr.hclust</span>,         <span class="co">## The function called by function lapply</span></span></span>
+<span class="r-in"><span>        links<span class="op">=</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">neighbors</span><span class="op">@</span><span class="va">data</span>,         <span class="co">## The list of links</span></span></span>
+<span class="r-in"><span>        coords<span class="op">=</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">@</span><span class="va">coords</span><span class="op">/</span><span class="fl">1000</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## The four D matrices (nose, body, palate, finish), represented as</span></span></span>
+<span class="r-in"><span><span class="co">## vectors in the ScotchWiskey data file, are combined as follows to</span></span></span>
+<span class="r-in"><span><span class="co">## produce a single distance matrix integrating all four types of</span></span></span>
+<span class="r-in"><span><span class="co">## tastes:</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">Dmat</span> <span class="op">&lt;-</span> <span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">dist</span></span></span>
+<span class="r-in"><span><span class="va">ScotchWhiskey</span><span class="op">[[</span><span class="st">"norm"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">Dmat</span><span class="op">$</span><span class="va">nose</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">Dmat</span><span class="op">$</span><span class="va">body</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">Dmat</span><span class="op">$</span><span class="va">palate</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">Dmat</span><span class="op">$</span><span class="va">finish</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## This example shows how to apply const.clust to a single D matrix when</span></span></span>
+<span class="r-in"><span><span class="co">## the data file contains several matrices.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">grpWD2cst_ScotchWhiskey</span><span class="op">[[</span><span class="st">"norm"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>    <span class="fu">constr.hclust</span><span class="op">(</span></span></span>
+<span class="r-in"><span>        d<span class="op">=</span><span class="va">ScotchWhiskey</span><span class="op">[[</span><span class="st">"norm"</span><span class="op">]</span><span class="op">]</span>,method<span class="op">=</span><span class="st">"ward.D2"</span>,</span></span>
+<span class="r-in"><span>        <span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">neighbors</span><span class="op">@</span><span class="va">data</span>,</span></span>
+<span class="r-in"><span>        coords<span class="op">=</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">@</span><span class="va">coords</span><span class="op">/</span><span class="fl">1000</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## A fonction to plot the Whiskey clustering results:</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">plotWhiskey</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">wh</span>, <span class="va">k</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>fig<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2cst_ScotchWhiskey</span><span class="op">[[</span><span class="va">wh</span><span class="op">]</span><span class="op">]</span>, k<span class="op">=</span><span class="va">k</span>, links<span class="op">=</span><span class="cn">TRUE</span>, las<span class="op">=</span><span class="fl">1</span>,</span></span>
+<span class="r-in"><span>        xlab<span class="op">=</span><span class="st">"Eastings (km)"</span>, ylab<span class="op">=</span><span class="st">"Northings (km)"</span>, cex<span class="op">=</span><span class="fl">0.1</span>, lwd<span class="op">=</span><span class="fl">3</span>,</span></span>
+<span class="r-in"><span>        main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"Feature: %s"</span>,<span class="va">wh</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">@</span><span class="va">coords</span><span class="op">/</span><span class="fl">1000</span>,labels<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">375</span>, y<span class="op">=</span><span class="fl">700</span>, lty<span class="op">=</span><span class="fl">1L</span>, lwd<span class="op">=</span><span class="fl">3</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">rainbow</a></span><span class="op">(</span><span class="fl">1.2</span><span class="op">*</span><span class="va">k</span><span class="op">)</span><span class="op">[</span><span class="fl">1L</span><span class="op">:</span><span class="va">k</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>          legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"Group %d"</span>,<span class="fl">1</span><span class="op">:</span><span class="va">k</span><span class="op">)</span>, cex<span class="op">=</span><span class="fl">1.25</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="va">SpeyZoom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">314.7</span>,<span class="fl">342.2</span><span class="op">)</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">834.3</span>,<span class="fl">860.0</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">rect</a></span><span class="op">(</span>xleft<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">xlim</span><span class="op">[</span><span class="fl">1L</span><span class="op">]</span>, ybottom<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">ylim</span><span class="op">[</span><span class="fl">1L</span><span class="op">]</span>,col<span class="op">=</span><span class="st">"#E6E6E680"</span>,</span></span>
+<span class="r-in"><span>        xright<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">xlim</span><span class="op">[</span><span class="fl">2L</span><span class="op">]</span>, ytop<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">ylim</span><span class="op">[</span><span class="fl">2L</span><span class="op">]</span>, lwd<span class="op">=</span><span class="fl">2</span>, lty<span class="op">=</span><span class="fl">1L</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>fig<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.50</span>,<span class="fl">0.46</span>,<span class="fl">0.99</span><span class="op">)</span>, new<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2cst_ScotchWhiskey</span><span class="op">[[</span><span class="va">wh</span><span class="op">]</span><span class="op">]</span>, xlim<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">xlim</span>,</span></span>
+<span class="r-in"><span>        ylim<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">ylim</span>, k<span class="op">=</span><span class="va">k</span>, links<span class="op">=</span><span class="cn">TRUE</span>, las<span class="op">=</span><span class="fl">1</span>, xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="st">""</span>,</span></span>
+<span class="r-in"><span>        cex<span class="op">=</span><span class="fl">0.1</span>, lwd<span class="op">=</span><span class="fl">3</span>, axes<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">@</span><span class="va">coords</span><span class="op">/</span><span class="fl">1000</span>,labels<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">rect</a></span><span class="op">(</span>xleft<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">xlim</span><span class="op">[</span><span class="fl">1L</span><span class="op">]</span>, ybottom<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">ylim</span><span class="op">[</span><span class="fl">1L</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>        xright<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">xlim</span><span class="op">[</span><span class="fl">2L</span><span class="op">]</span>, ytop<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">ylim</span><span class="op">[</span><span class="fl">2L</span><span class="op">]</span>, lwd<span class="op">=</span><span class="fl">2</span>, lty<span class="op">=</span><span class="fl">1L</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Plot the clustering results on the map of Scotland for 5 groups.</span></span></span>
+<span class="r-in"><span><span class="co">## The inset map shows the Speyside distilleries in detail:</span></span></span>
+<span class="r-in"><span><span class="fu">plotWhiskey</span><span class="op">(</span><span class="st">"nose"</span>, <span class="fl">5L</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="constr.hclust-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">plotWhiskey</span><span class="op">(</span><span class="st">"body"</span>, <span class="fl">5L</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">plotWhiskey</span><span class="op">(</span><span class="st">"body"</span>, <span class="fl">5L</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="constr.hclust-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">plotWhiskey</span><span class="op">(</span><span class="st">"palate"</span>, <span class="fl">5L</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">plotWhiskey</span><span class="op">(</span><span class="st">"palate"</span>, <span class="fl">5L</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="constr.hclust-8.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">plotWhiskey</span><span class="op">(</span><span class="st">"finish"</span>, <span class="fl">5L</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">plotWhiskey</span><span class="op">(</span><span class="st">"finish"</span>, <span class="fl">5L</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="constr.hclust-9.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">plotWhiskey</span><span class="op">(</span><span class="st">"norm"</span>, <span class="fl">5L</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">plotWhiskey</span><span class="op">(</span><span class="st">"norm"</span>, <span class="fl">5L</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="constr.hclust-10.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">## End of the Scotch Whiskey tasting data example</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Third example: Fish community composition along the Doubs River,</span></span>
-<span class="r-in"><span class="co">### France. The sequence is analyzed as a case of chronological</span></span>
-<span class="r-in"><span class="co">### clustering, substituting space for time.</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">ade4</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sdray/adespatial" class="external-link">adespatial</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">doubs</span>, package<span class="op">=</span><span class="st">"ade4"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Doubs.D</span> <span class="op">&lt;-</span> <span class="fu"><a href="dist.ldc.html">dist.ldc</a></span><span class="op">(</span><span class="va">doubs</span><span class="op">$</span><span class="va">fish</span>, method<span class="op">=</span><span class="st">"hellinger"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">grpWD2cst_fish</span> <span class="op">&lt;-</span> <span class="fu">constr.hclust</span><span class="op">(</span><span class="va">Doubs.D</span>, method<span class="op">=</span><span class="st">"ward.D2"</span>, chron<span class="op">=</span><span class="cn">TRUE</span>,</span>
-<span class="r-in">                                coords<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">doubs</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2cst_fish</span>, k<span class="op">=</span><span class="fl">5</span>, las<span class="op">=</span><span class="fl">1</span>, xlab<span class="op">=</span><span class="st">"Eastings (km)"</span>,</span>
-<span class="r-in">     ylab<span class="op">=</span><span class="st">"Northings (km)"</span>, cex<span class="op">=</span><span class="fl">3</span>, lwd<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Repeat the plot with other values of k (number of groups)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">## End of the Doubs River fish assemblages example</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Example with 6 connected points, shown in Fig. 2 of Guénard &amp; Legendre paper </span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="va">var</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">0.2</span>, <span class="fl">5.1</span>, <span class="fl">3.0</span>, <span class="fl">2.1</span>, <span class="fl">1.4</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ex.Y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">## Site coordinates, matrix xy</span></span>
-<span class="r-in"><span class="va">x.coo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y.coo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ex.xy</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">x.coo</span>, <span class="va">y.coo</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">## Matrix of connecting edges E</span></span>
-<span class="r-in"><span class="va">from</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">to</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">6</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ex.E</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">from</span>, <span class="va">to</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">## Carry out constrained clustering analysis</span></span>
-<span class="r-in"><span class="va">test.out</span> <span class="op">&lt;-</span></span>
-<span class="r-in">    <span class="fu">constr.hclust</span><span class="op">(</span></span>
-<span class="r-in">        <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">ex.Y</span><span class="op">)</span>,       <span class="co"># Response dissimilarity matrix</span></span>
-<span class="r-in">        method<span class="op">=</span><span class="st">"ward.D2"</span>, <span class="co"># Clustering method</span></span>
-<span class="r-in">        links<span class="op">=</span><span class="va">ex.E</span>,       <span class="co"># File of link edges (constraint) E</span></span>
-<span class="r-in">        coords<span class="op">=</span><span class="va">ex.xy</span>      <span class="co"># File of geographic coordinates</span></span>
-<span class="r-in">    <span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Plot the map of the results for k = 3</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">test.out</span>, k<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Plot the dendrogram</span></span>
-<span class="r-in"><span class="fu">stats</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">plot.hclust</a></span><span class="op">(</span><span class="va">test.out</span>, hang<span class="op">=</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### Same example modified: disjoint clusters</span></span>
-<span class="r-in"><span class="co">##  Same ex.Y and ex.xy as in the previous example</span></span>
-<span class="r-in"><span class="va">var</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">0.2</span>, <span class="fl">5.1</span>, <span class="fl">3.0</span>, <span class="fl">2.1</span>, <span class="fl">1.4</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ex.Y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">## Site coordinates, matrix xy</span></span>
-<span class="r-in"><span class="va">x.coo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y.coo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ex.xy</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">x.coo</span>, <span class="va">y.coo</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">## Matrix of connecting edges E2</span></span>
-<span class="r-in"><span class="va">from</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">to</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ex.E2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">from</span>, <span class="va">to</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">## Carry out constrained clustering analysis</span></span>
-<span class="r-in"><span class="va">test.out2</span> <span class="op">&lt;-</span></span>
-<span class="r-in">    <span class="fu">constr.hclust</span><span class="op">(</span></span>
-<span class="r-in">        <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">ex.Y</span><span class="op">)</span>,       <span class="co"># Response dissimilarity matrix</span></span>
-<span class="r-in">        method<span class="op">=</span><span class="st">"ward.D2"</span>, <span class="co"># Clustering method</span></span>
-<span class="r-in">        links<span class="op">=</span><span class="va">ex.E2</span>,      <span class="co"># File of link edges (constraint) E</span></span>
-<span class="r-in">        coords<span class="op">=</span><span class="va">ex.xy</span>      <span class="co"># File of geographic coordinates</span></span>
-<span class="r-in">    <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree</a></span><span class="op">(</span><span class="va">test.out2</span>, k<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Plot the map of the results for k = 3</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">test.out2</span>, k<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Plot the dendrogram showing the disconnected groups</span></span>
-<span class="r-in"><span class="fu">stats</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">plot.hclust</a></span><span class="op">(</span><span class="va">test.out2</span>, hang<span class="op">=</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>,at<span class="op">=</span><span class="fl">0</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">test.out2</span><span class="op">$</span><span class="va">height</span>,na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">## End of the disjoint clusters example</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Benchmarking example</span></span>
-<span class="r-in"><span class="co">### Benchmarking can be used to estimate computation time for different</span></span>
-<span class="r-in"><span class="co">### values of N. </span></span>
-<span class="r-in"><span class="co">### Computing time grows with N at roughly the same speed as the memory</span></span>
-<span class="r-in"><span class="co">### storage requirements to store the dissimilarity matrices.</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/pryr" class="external-link">pryr</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="va">benchmark</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">nobj</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="co"># Argument -</span></span>
-<span class="r-in">    <span class="co"># nobj : Number of objects in simulation runs</span></span>
-<span class="r-in">    <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">NA</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">nobj</span><span class="op">)</span>,<span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">as.data.frame</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"N.objects"</span>,<span class="st">"Storage (MiB)"</span>,<span class="st">"Time (sec)"</span><span class="op">)</span></span>
-<span class="r-in">    <span class="va">res</span><span class="op">[</span>,<span class="fl">1L</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">nobj</span></span>
-<span class="r-in">    <span class="co">## resources &lt;- list()</span></span>
-<span class="r-in">    <span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">nobj</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span> </span>
-<span class="r-in">        <span class="va">N</span> <span class="op">&lt;-</span> <span class="va">nobj</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
-<span class="r-in">        <span class="va">coords.mem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">N</span>,<span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>,y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">N</span>,<span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">        <span class="va">dat.mem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">N</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in">        <span class="kw">if</span><span class="op">(</span><span class="va">i</span><span class="op">&gt;</span><span class="fl">1L</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">D.mem</span><span class="op">)</span> ; <span class="fu"><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in">        <span class="va">D.mem</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="va">dat.mem</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">dist</span><span class="op">)</span>  <span class="co">#; gc()</span></span>
-<span class="r-in">        <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">D.mem</span><span class="op">)</span><span class="op">==</span><span class="st">"try-error"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">            <span class="kw">break</span></span>
-<span class="r-in">        <span class="va">neighbors.mem</span> <span class="op">&lt;-</span></span>
-<span class="r-in">            <span class="op">(</span><span class="va">coords.mem</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">                 <span class="va">tri2nb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">                 <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></span><span class="op">(</span>style<span class="op">=</span><span class="st">"B"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">                 <span class="va">listw2sn</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span>
-<span class="r-in">        <span class="op">{</span><span class="va">start.time</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in">            <span class="va">res.mem</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">constr.hclust</span><span class="op">(</span><span class="va">D.mem</span>, method<span class="op">=</span><span class="st">"ward.D2"</span>,</span>
-<span class="r-in">                                         <span class="va">neighbors.mem</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">            <span class="va">end.time</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">}</span></span>
-<span class="r-in">        <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">res.mem</span><span class="op">)</span><span class="op">==</span><span class="st">"try-error"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">            <span class="kw">break</span></span>
-<span class="r-in">        <span class="va">res</span><span class="op">[</span><span class="va">i</span>,<span class="fl">2L</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="fu">object_size</span><span class="op">(</span><span class="va">D.mem</span><span class="op">)</span> <span class="op">+</span> <span class="fu">object_size</span><span class="op">(</span><span class="va">neighbors.mem</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">                          <span class="fu">object_size</span><span class="op">(</span><span class="va">res.mem</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">1048576</span>  <span class="co"># n. bytes per MiB</span></span>
-<span class="r-in">        <span class="va">res</span><span class="op">[</span><span class="va">i</span>,<span class="fl">3L</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">end.time</span><span class="op">-</span><span class="va">start.time</span></span>
-<span class="r-in">    <span class="op">}</span></span>
-<span class="r-in">    <span class="va">res</span><span class="op">[[</span><span class="st">"N.objects"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">res</span><span class="op">[[</span><span class="st">"N.objects"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in">    <span class="va">res</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">benchmark</span><span class="op">(</span>nobj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1000</span>,<span class="fl">2000</span>,<span class="fl">5000</span>,<span class="fl">10000</span>,<span class="fl">20000</span>,<span class="fl">50000</span>,<span class="fl">100000</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Plotting the results:</span></span>
-<span class="r-in"><span class="va">ok</span> <span class="op">&lt;-</span> <span class="va">res</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">!</span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">is.na</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">any</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">6</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>,mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2L</span>,<span class="fl">1L</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span>height <span class="op">=</span> <span class="va">res</span><span class="op">[</span><span class="va">ok</span>,<span class="st">"Time (sec)"</span><span class="op">]</span>, names.arg<span class="op">=</span> <span class="va">res</span><span class="op">[</span><span class="va">ok</span>,<span class="st">"N.objects"</span><span class="op">]</span>,</span>
-<span class="r-in">        ylab<span class="op">=</span><span class="st">"Time (seconds)\n"</span>,xlab<span class="op">=</span><span class="st">""</span>,las<span class="op">=</span><span class="fl">1L</span>,log<span class="op">=</span><span class="st">"y"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">0</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span>height <span class="op">=</span> <span class="va">res</span><span class="op">[</span><span class="va">ok</span>,<span class="st">"Storage (MiB)"</span><span class="op">]</span>, names.arg<span class="op">=</span> <span class="va">res</span><span class="op">[</span><span class="va">ok</span>,<span class="st">"N.objects"</span><span class="op">]</span>,</span>
-<span class="r-in">        ylab<span class="op">=</span><span class="st">"Total storage (MB)\n"</span>,xlab<span class="op">=</span><span class="st">"Number of observations"</span>,</span>
-<span class="r-in">        las<span class="op">=</span><span class="fl">1L</span>,log<span class="op">=</span><span class="st">"y"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Examine the output file</span></span>
-<span class="r-in"><span class="va">res</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">## End of the benchmarking example</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="co">### End of examples</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## End of the Scotch Whiskey tasting data example</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Third example: Fish community composition along the Doubs River,</span></span></span>
+<span class="r-in"><span><span class="co">## France. The sequence is analyzed as a case of chronological</span></span></span>
+<span class="r-in"><span><span class="co">## clustering, substituting space for time.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">ade4</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sdray/adespatial" class="external-link">adespatial</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">doubs</span>, package<span class="op">=</span><span class="st">"ade4"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Doubs.D</span> <span class="op">&lt;-</span> <span class="fu"><a href="dist.ldc.html">dist.ldc</a></span><span class="op">(</span><span class="va">doubs</span><span class="op">$</span><span class="va">fish</span>, method<span class="op">=</span><span class="st">"hellinger"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">grpWD2cst_fish</span> <span class="op">&lt;-</span> <span class="fu">constr.hclust</span><span class="op">(</span><span class="va">Doubs.D</span>, method<span class="op">=</span><span class="st">"ward.D2"</span>, chron<span class="op">=</span><span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                                coords<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">doubs</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2cst_fish</span>, k<span class="op">=</span><span class="fl">5</span>, las<span class="op">=</span><span class="fl">1</span>, xlab<span class="op">=</span><span class="st">"Eastings (km)"</span>,</span></span>
+<span class="r-in"><span>     ylab<span class="op">=</span><span class="st">"Northings (km)"</span>, cex<span class="op">=</span><span class="fl">3</span>, lwd<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Repeat the plot with other values of k (number of groups)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## End of the Doubs River fish assemblages example</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Example with 6 connected points, shown in Fig. 2 of Guénard &amp; Legendre paper </span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">var</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">0.2</span>, <span class="fl">5.1</span>, <span class="fl">3.0</span>, <span class="fl">2.1</span>, <span class="fl">1.4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ex.Y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Site coordinates, matrix xy</span></span></span>
+<span class="r-in"><span><span class="va">x.coo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y.coo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ex.xy</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">x.coo</span>, <span class="va">y.coo</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Matrix of connecting edges E</span></span></span>
+<span class="r-in"><span><span class="va">from</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">to</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ex.E</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">from</span>, <span class="va">to</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Carry out constrained clustering analysis</span></span></span>
+<span class="r-in"><span><span class="va">test.out</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>    <span class="fu">constr.hclust</span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">ex.Y</span><span class="op">)</span>,       <span class="co"># Response dissimilarity matrix</span></span></span>
+<span class="r-in"><span>        method<span class="op">=</span><span class="st">"ward.D2"</span>, <span class="co"># Clustering method</span></span></span>
+<span class="r-in"><span>        links<span class="op">=</span><span class="va">ex.E</span>,       <span class="co"># File of link edges (constraint) E</span></span></span>
+<span class="r-in"><span>        coords<span class="op">=</span><span class="va">ex.xy</span>      <span class="co"># File of geographic coordinates</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Plot the map of the results for k = 3</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">test.out</span>, k<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Plot the dendrogram</span></span></span>
+<span class="r-in"><span><span class="fu">stats</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">plot.hclust</a></span><span class="op">(</span><span class="va">test.out</span>, hang<span class="op">=</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Same example modified: disjoint clusters</span></span></span>
+<span class="r-in"><span><span class="co">## Same ex.Y and ex.xy as in the previous example</span></span></span>
+<span class="r-in"><span><span class="va">var</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">0.2</span>, <span class="fl">5.1</span>, <span class="fl">3.0</span>, <span class="fl">2.1</span>, <span class="fl">1.4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ex.Y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Site coordinates, matrix xy</span></span></span>
+<span class="r-in"><span><span class="va">x.coo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y.coo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ex.xy</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">x.coo</span>, <span class="va">y.coo</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Matrix of connecting edges E2</span></span></span>
+<span class="r-in"><span><span class="va">from</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">to</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ex.E2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">from</span>, <span class="va">to</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Carry out constrained clustering analysis</span></span></span>
+<span class="r-in"><span><span class="va">test.out2</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>    <span class="fu">constr.hclust</span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">ex.Y</span><span class="op">)</span>,       <span class="co"># Response dissimilarity matrix</span></span></span>
+<span class="r-in"><span>        method<span class="op">=</span><span class="st">"ward.D2"</span>, <span class="co"># Clustering method</span></span></span>
+<span class="r-in"><span>        links<span class="op">=</span><span class="va">ex.E2</span>,      <span class="co"># File of link edges (constraint) E</span></span></span>
+<span class="r-in"><span>        coords<span class="op">=</span><span class="va">ex.xy</span>      <span class="co"># File of geographic coordinates</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree</a></span><span class="op">(</span><span class="va">test.out2</span>, k<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Plot the map of the results for k = 3</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">test.out2</span>, k<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Plot the dendrogram showing the disconnected groups</span></span></span>
+<span class="r-in"><span><span class="fu">stats</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">plot.hclust</a></span><span class="op">(</span><span class="va">test.out2</span>, hang<span class="op">=</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>,at<span class="op">=</span><span class="fl">0</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">test.out2</span><span class="op">$</span><span class="va">height</span>,na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## End of the disjoint clusters example</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Benchmarking example</span></span></span>
+<span class="r-in"><span><span class="co">## Benchmarking can be used to estimate computation time for different</span></span></span>
+<span class="r-in"><span><span class="co">## values of N. </span></span></span>
+<span class="r-in"><span><span class="co">## Computing time grows with N at roughly the same speed as the memory</span></span></span>
+<span class="r-in"><span><span class="co">## storage requirements to store the dissimilarity matrices.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/pryr" class="external-link">pryr</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">benchmark</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">nobj</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co"># Argument -</span></span></span>
+<span class="r-in"><span>    <span class="co"># nobj : Number of objects in simulation runs</span></span></span>
+<span class="r-in"><span>    <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">NA</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">nobj</span><span class="op">)</span>,<span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">as.data.frame</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"N.objects"</span>,<span class="st">"Storage (MiB)"</span>,<span class="st">"Time (sec)"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">res</span><span class="op">[</span>,<span class="fl">1L</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">nobj</span></span></span>
+<span class="r-in"><span>    <span class="co">## resources &lt;- list()</span></span></span>
+<span class="r-in"><span>    <span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">nobj</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span> </span></span>
+<span class="r-in"><span>        <span class="va">N</span> <span class="op">&lt;-</span> <span class="va">nobj</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span></span>
+<span class="r-in"><span>        <span class="va">coords.mem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">N</span>,<span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>,y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">N</span>,<span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>        <span class="va">dat.mem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">N</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>        <span class="kw">if</span><span class="op">(</span><span class="va">i</span><span class="op">&gt;</span><span class="fl">1L</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">D.mem</span><span class="op">)</span> ; <span class="fu"><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>        <span class="va">D.mem</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="va">dat.mem</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">dist</span><span class="op">)</span>  <span class="co">#; gc()</span></span></span>
+<span class="r-in"><span>        <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">D.mem</span><span class="op">)</span><span class="op">==</span><span class="st">"try-error"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>            <span class="kw">break</span></span></span>
+<span class="r-in"><span>        <span class="va">neighbors.mem</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>            <span class="op">(</span><span class="va">coords.mem</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>                 <span class="va">tri2nb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>                 <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></span><span class="op">(</span>style<span class="op">=</span><span class="st">"B"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>                 <span class="va">listw2sn</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></span>
+<span class="r-in"><span>        <span class="op">{</span><span class="va">start.time</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>            <span class="va">res.mem</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">constr.hclust</span><span class="op">(</span><span class="va">D.mem</span>, method<span class="op">=</span><span class="st">"ward.D2"</span>,</span></span>
+<span class="r-in"><span>                                         <span class="va">neighbors.mem</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>            <span class="va">end.time</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">}</span></span></span>
+<span class="r-in"><span>        <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">res.mem</span><span class="op">)</span><span class="op">==</span><span class="st">"try-error"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>            <span class="kw">break</span></span></span>
+<span class="r-in"><span>        <span class="va">res</span><span class="op">[</span><span class="va">i</span>,<span class="fl">2L</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="fu">object_size</span><span class="op">(</span><span class="va">D.mem</span><span class="op">)</span> <span class="op">+</span> <span class="fu">object_size</span><span class="op">(</span><span class="va">neighbors.mem</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>                          <span class="fu">object_size</span><span class="op">(</span><span class="va">res.mem</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">1048576</span>  <span class="co"># n. bytes per MiB</span></span></span>
+<span class="r-in"><span>        <span class="va">res</span><span class="op">[</span><span class="va">i</span>,<span class="fl">3L</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">end.time</span><span class="op">-</span><span class="va">start.time</span></span></span>
+<span class="r-in"><span>    <span class="op">}</span></span></span>
+<span class="r-in"><span>    <span class="va">res</span><span class="op">[[</span><span class="st">"N.objects"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">res</span><span class="op">[[</span><span class="st">"N.objects"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">res</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">benchmark</span><span class="op">(</span>nobj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1000</span>,<span class="fl">2000</span>,<span class="fl">5000</span>,<span class="fl">10000</span>,<span class="fl">20000</span>,<span class="fl">50000</span>,<span class="fl">100000</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Plotting the results:</span></span></span>
+<span class="r-in"><span><span class="va">ok</span> <span class="op">&lt;-</span> <span class="va">res</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">!</span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">is.na</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">any</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">6</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>,mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2L</span>,<span class="fl">1L</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span>height <span class="op">=</span> <span class="va">res</span><span class="op">[</span><span class="va">ok</span>,<span class="st">"Time (sec)"</span><span class="op">]</span>, names.arg<span class="op">=</span> <span class="va">res</span><span class="op">[</span><span class="va">ok</span>,<span class="st">"N.objects"</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>        ylab<span class="op">=</span><span class="st">"Time (seconds)\n"</span>,xlab<span class="op">=</span><span class="st">""</span>,las<span class="op">=</span><span class="fl">1L</span>,log<span class="op">=</span><span class="st">"y"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">0</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span>height <span class="op">=</span> <span class="va">res</span><span class="op">[</span><span class="va">ok</span>,<span class="st">"Storage (MiB)"</span><span class="op">]</span>, names.arg<span class="op">=</span> <span class="va">res</span><span class="op">[</span><span class="va">ok</span>,<span class="st">"N.objects"</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>        ylab<span class="op">=</span><span class="st">"Total storage (MB)\n"</span>,xlab<span class="op">=</span><span class="st">"Number of observations"</span>,</span></span>
+<span class="r-in"><span>        las<span class="op">=</span><span class="fl">1L</span>,log<span class="op">=</span><span class="st">"y"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Examine the output file</span></span></span>
+<span class="r-in"><span><span class="va">res</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## End of the benchmarking example</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="co">## End of examples</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -520,7 +542,7 @@ and Guillaume Guénard <a href="mailto:guillaume.guenard@umontreal.ca">guillaume
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -21,7 +21,7 @@ explanatory components."><meta property="og:image" content="/logo.svg"><!-- math
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -67,58 +67,79 @@ explanatory components.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">envspace.test</span><span class="op">(</span>
-  <span class="va">spe</span>,
-  <span class="va">env</span>,
-  <span class="va">coord</span>,
-  <span class="va">MEM.spe</span>,
-  <span class="va">listw.env</span>,
-  MEM.autocor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"positive"</span>, <span class="st">"negative"</span>, <span class="st">"all"</span><span class="op">)</span>,
-  regular <span class="op">=</span> <span class="cn">FALSE</span>,
-  nperm <span class="op">=</span> <span class="fl">999</span>,
-  MSR.method <span class="op">=</span> <span class="st">"singleton"</span>,
-  alpha <span class="op">=</span> <span class="fl">0.05</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">envspace.test</span><span class="op">(</span></span>
+<span>  <span class="va">spe</span>,</span>
+<span>  <span class="va">env</span>,</span>
+<span>  <span class="va">coord</span>,</span>
+<span>  <span class="va">MEM.spe</span>,</span>
+<span>  <span class="va">listw.env</span>,</span>
+<span>  MEM.autocor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"positive"</span>, <span class="st">"negative"</span>, <span class="st">"all"</span><span class="op">)</span>,</span>
+<span>  regular <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  nperm <span class="op">=</span> <span class="fl">999</span>,</span>
+<span>  MSR.method <span class="op">=</span> <span class="st">"singleton"</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>spe</dt>
 <dd><p>Vector, matrix, or dataframe of response variable(s) (e.g. species abundances)</p></dd>
+
+
 <dt>env</dt>
 <dd><p>Vector, matrix, or dataframe of environmental variables (rows = sites, 
 columns = variables)</p></dd>
+
+
 <dt>coord</dt>
 <dd><p>Matrix or dataframe of spatial coordinates of the sampled sites</p></dd>
+
+
 <dt>MEM.spe</dt>
 <dd><p>Matrix or dataframe of spatial predictors (MEM variables) selected for 
 <code>spe</code></p></dd>
+
+
 <dt>listw.env</dt>
 <dd><p>An object of class <code>listw</code> (spatial weights) created by the functions
 of the <code>spdep</code> package or returned by <code><a href="listw.candidates.html">listw.candidates</a></code></p></dd>
+
+
 <dt>MEM.autocor</dt>
 <dd><p>A string indicating the type of spatial structure of interest for 
 <code>env</code> (<code>"positive"</code>, <code>"negative"</code>, or <code>"all"</code>, for positive, negative, 
 or both types of spatial autocorrelations, respectively); Default is <code>"positive"</code></p></dd>
+
+
 <dt>regular</dt>
 <dd><p>Logical argument indicating whether a torus-translation test will be
 performed, in addition to the MSR. Set to <code>TRUE</code> only if the sampling design is regular 
 (same number of sites on each line, same number of sites on each column). Set to
 <code>FALSE</code> otherwise; Default is <code>FALSE</code></p></dd>
+
+
 <dt>nperm</dt>
 <dd><p>Number of permutations performed; Default is 999</p></dd>
+
+
 <dt>MSR.method</dt>
 <dd><p>Algorithm of <code><a href="msr.html">msr</a></code> to be used to perform the MSR. The
 three available procedures are <code>"singleton"</code> (default), <code>"pair"</code>, and 
 <code>"triplet"</code> (see <code><a href="msr.html">msr</a></code> for details)</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>Threshold value of null hypothesis rejection for the test of a 
 spatial structure in the environment, and for the shared environment-space fraction of 
 the variation partitioning; Default is 0.05</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>If the condition of <code>env</code> being spatially structured is fulfilled, the test 
+    
+
+<p>If the condition of <code>env</code> being spatially structured is fulfilled, the test 
 is performed and the function returns an object of class <code>randtest</code> containing the results of the test.</p>
     </div>
     <div id="details">
@@ -229,69 +250,69 @@ in the study of ecological communities. Global Ecology and Biogeography, 19, 174
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://cran.r-project.org" class="external-link">vegan</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span> </span>
-<span class="r-in"><span class="co"># Illustration of the test of the SSEF on the oribatid mite data</span></span>
-<span class="r-in"><span class="co"># (Borcard et al. 1992, 1994 for details on the dataset):</span></span>
-<span class="r-in"><span class="co"># Community data (response matrix):</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Hellinger-transformation of the community data (Legendre and Gallagher 2001):</span></span>
-<span class="r-in"><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/vegan/man/decostand.html" class="external-link">decostand</a></span><span class="op">(</span><span class="va">mite</span>, method <span class="op">=</span> <span class="st">"hellinger"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Environmental explanatory dataset:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># We only use two numerical explanatory variables:</span></span>
-<span class="r-in"><span class="va">env</span> <span class="op">&lt;-</span> <span class="va">mite.env</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">env</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Coordinates of the 70 sites:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.xy</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">coord</span> <span class="op">&lt;-</span> <span class="va">mite.xy</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### Building a list of candidate spatial weighting matrices (SWMs) for the </span></span>
-<span class="r-in"><span class="co">### optimisation of the SWM selection, separately for 'Y' and 'env':</span></span>
-<span class="r-in"><span class="co"># We create five candidate SWMs: a connectivity matrix based on a Gabriel graphs, on</span></span>
-<span class="r-in"><span class="co"># a minimum spanning tree (i.e., two contrasted graph-based SWMs), either</span></span>
-<span class="r-in"><span class="co"># not weighted, or weighted by a linear function decreasing with the distance),</span></span>
-<span class="r-in"><span class="co"># and a distance-based SWM corresponding to the connectivity and weighting</span></span>
-<span class="r-in"><span class="co"># criteria of the original PCNM method:</span></span>
-<span class="r-in"><span class="va">candidates</span> <span class="op">&lt;-</span> <span class="fu"><a href="listw.candidates.html">listw.candidates</a></span><span class="op">(</span><span class="va">coord</span>, nb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gab"</span>, <span class="st">"mst"</span>, <span class="st">"pcnm"</span><span class="op">)</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"binary"</span>,</span>
-<span class="r-in">                                                                                <span class="st">"flin"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">### Optimisation of the selection of a SWM:</span></span>
-<span class="r-in"><span class="co"># SWM for 'Y' (based on the best forward-selected subset of MEM variables):</span></span>
-<span class="r-in"><span class="va">modsel.Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="listw.select.html">listw.select</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">candidates</span>, method <span class="op">=</span> <span class="st">"FWD"</span>, MEM.autocor <span class="op">=</span> <span class="st">"positive"</span>,</span>
-<span class="r-in">                         p.adjust <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in">                         </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">candidates</span><span class="op">)</span><span class="op">[</span><span class="va">modsel.Y</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span>                 <span class="co"># Best SWM selected</span></span>
-<span class="r-in"><span class="va">modsel.Y</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">Pvalue</span><span class="op">[</span><span class="va">modsel.Y</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span>        <span class="co"># Adjusted p-value of the global model</span></span>
-<span class="r-in"><span class="va">modsel.Y</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">N.var</span><span class="op">[</span><span class="va">modsel.Y</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span>         <span class="co"># Nb of forward-selected MEM variables</span></span>
-<span class="r-in"><span class="va">modsel.Y</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">R2Adj.select</span><span class="op">[</span><span class="va">modsel.Y</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span>  <span class="co"># Adjusted R2 of the selected MEM var.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># SWM for 'env' (method = "global" for the optimisation, as all MEM variables are required</span></span>
-<span class="r-in"><span class="co"># to use MSR):</span></span>
-<span class="r-in"><span class="va">modsel.env</span> <span class="op">&lt;-</span> <span class="fu"><a href="listw.select.html">listw.select</a></span><span class="op">(</span><span class="va">env</span>, <span class="va">candidates</span>, method <span class="op">=</span> <span class="st">"global"</span>, MEM.autocor <span class="op">=</span> <span class="st">"positive"</span>,</span>
-<span class="r-in">                           p.adjust <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">candidates</span><span class="op">)</span><span class="op">[</span><span class="va">modsel.env</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span>                  <span class="co"># Best SWM selected</span></span>
-<span class="r-in"><span class="va">modsel.env</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">Pvalue</span><span class="op">[</span><span class="va">modsel.env</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span>       <span class="co"># Adjusted p-value of the global model</span></span>
-<span class="r-in"><span class="va">modsel.env</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">N.var</span><span class="op">[</span><span class="va">modsel.env</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span>        <span class="co"># Nb of forward-selected MEM variables</span></span>
-<span class="r-in"><span class="va">modsel.env</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">R2Adj.select</span><span class="op">[</span><span class="va">modsel.env</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span> <span class="co"># Adjusted R2 of the selected MEM var.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### We perform the variation partitioning:</span></span>
-<span class="r-in"><span class="co"># Subset of selected MEM variables within the best SWM:</span></span>
-<span class="r-in"><span class="va">MEM.spe</span> <span class="op">&lt;-</span> <span class="va">modsel.Y</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">MEM.select</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">VP</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/vegan/man/varpart.html" class="external-link">varpart</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">env</span>, <span class="va">MEM.spe</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">VP</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Test of the shared space-environment fraction (fraction [b]):</span></span>
-<span class="r-in"><span class="va">SSEF.test</span> <span class="op">&lt;-</span> <span class="fu">envspace.test</span><span class="op">(</span><span class="va">Y</span>, <span class="va">env</span>, <span class="va">coord</span>, <span class="va">MEM.spe</span>, </span>
-<span class="r-in">                           listw.env <span class="op">=</span> <span class="va">candidates</span><span class="op">[[</span><span class="va">modsel.env</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span><span class="op">]</span>, </span>
-<span class="r-in">                           regular <span class="op">=</span> <span class="cn">FALSE</span>, nperm <span class="op">=</span> <span class="fl">999</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">SSEF.test</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># The SSEF is highly significant, indicating a potential induced spatial dependence.</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan" class="external-link">vegan</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span> </span></span>
+<span class="r-in"><span><span class="co"># Illustration of the test of the SSEF on the oribatid mite data</span></span></span>
+<span class="r-in"><span><span class="co"># (Borcard et al. 1992, 1994 for details on the dataset):</span></span></span>
+<span class="r-in"><span><span class="co"># Community data (response matrix):</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Hellinger-transformation of the community data (Legendre and Gallagher 2001):</span></span></span>
+<span class="r-in"><span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/vegan/man/decostand.html" class="external-link">decostand</a></span><span class="op">(</span><span class="va">mite</span>, method <span class="op">=</span> <span class="st">"hellinger"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Environmental explanatory dataset:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># We only use two numerical explanatory variables:</span></span></span>
+<span class="r-in"><span><span class="va">env</span> <span class="op">&lt;-</span> <span class="va">mite.env</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Coordinates of the 70 sites:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.xy</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">coord</span> <span class="op">&lt;-</span> <span class="va">mite.xy</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Building a list of candidate spatial weighting matrices (SWMs) for the </span></span></span>
+<span class="r-in"><span><span class="co">### optimisation of the SWM selection, separately for 'Y' and 'env':</span></span></span>
+<span class="r-in"><span><span class="co"># We create five candidate SWMs: a connectivity matrix based on a Gabriel graphs, on</span></span></span>
+<span class="r-in"><span><span class="co"># a minimum spanning tree (i.e., two contrasted graph-based SWMs), either</span></span></span>
+<span class="r-in"><span><span class="co"># not weighted, or weighted by a linear function decreasing with the distance),</span></span></span>
+<span class="r-in"><span><span class="co"># and a distance-based SWM corresponding to the connectivity and weighting</span></span></span>
+<span class="r-in"><span><span class="co"># criteria of the original PCNM method:</span></span></span>
+<span class="r-in"><span><span class="va">candidates</span> <span class="op">&lt;-</span> <span class="fu"><a href="listw.candidates.html">listw.candidates</a></span><span class="op">(</span><span class="va">coord</span>, nb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gab"</span>, <span class="st">"mst"</span>, <span class="st">"pcnm"</span><span class="op">)</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"binary"</span>,</span></span>
+<span class="r-in"><span>                                                                                <span class="st">"flin"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">### Optimisation of the selection of a SWM:</span></span></span>
+<span class="r-in"><span><span class="co"># SWM for 'Y' (based on the best forward-selected subset of MEM variables):</span></span></span>
+<span class="r-in"><span><span class="va">modsel.Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="listw.select.html">listw.select</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">candidates</span>, method <span class="op">=</span> <span class="st">"FWD"</span>, MEM.autocor <span class="op">=</span> <span class="st">"positive"</span>,</span></span>
+<span class="r-in"><span>                         p.adjust <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                         </span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">candidates</span><span class="op">)</span><span class="op">[</span><span class="va">modsel.Y</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span>                 <span class="co"># Best SWM selected</span></span></span>
+<span class="r-in"><span><span class="va">modsel.Y</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">Pvalue</span><span class="op">[</span><span class="va">modsel.Y</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span>        <span class="co"># Adjusted p-value of the global model</span></span></span>
+<span class="r-in"><span><span class="va">modsel.Y</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">N.var</span><span class="op">[</span><span class="va">modsel.Y</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span>         <span class="co"># Nb of forward-selected MEM variables</span></span></span>
+<span class="r-in"><span><span class="va">modsel.Y</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">R2Adj.select</span><span class="op">[</span><span class="va">modsel.Y</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span>  <span class="co"># Adjusted R2 of the selected MEM var.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># SWM for 'env' (method = "global" for the optimisation, as all MEM variables are required</span></span></span>
+<span class="r-in"><span><span class="co"># to use MSR):</span></span></span>
+<span class="r-in"><span><span class="va">modsel.env</span> <span class="op">&lt;-</span> <span class="fu"><a href="listw.select.html">listw.select</a></span><span class="op">(</span><span class="va">env</span>, <span class="va">candidates</span>, method <span class="op">=</span> <span class="st">"global"</span>, MEM.autocor <span class="op">=</span> <span class="st">"positive"</span>,</span></span>
+<span class="r-in"><span>                           p.adjust <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">candidates</span><span class="op">)</span><span class="op">[</span><span class="va">modsel.env</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span>                  <span class="co"># Best SWM selected</span></span></span>
+<span class="r-in"><span><span class="va">modsel.env</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">Pvalue</span><span class="op">[</span><span class="va">modsel.env</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span>       <span class="co"># Adjusted p-value of the global model</span></span></span>
+<span class="r-in"><span><span class="va">modsel.env</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">N.var</span><span class="op">[</span><span class="va">modsel.env</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span>        <span class="co"># Nb of forward-selected MEM variables</span></span></span>
+<span class="r-in"><span><span class="va">modsel.env</span><span class="op">$</span><span class="va">candidates</span><span class="op">$</span><span class="va">R2Adj.select</span><span class="op">[</span><span class="va">modsel.env</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span> <span class="co"># Adjusted R2 of the selected MEM var.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### We perform the variation partitioning:</span></span></span>
+<span class="r-in"><span><span class="co"># Subset of selected MEM variables within the best SWM:</span></span></span>
+<span class="r-in"><span><span class="va">MEM.spe</span> <span class="op">&lt;-</span> <span class="va">modsel.Y</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">MEM.select</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">VP</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/vegan/man/varpart.html" class="external-link">varpart</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">env</span>, <span class="va">MEM.spe</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">VP</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Test of the shared space-environment fraction (fraction [b]):</span></span></span>
+<span class="r-in"><span><span class="va">SSEF.test</span> <span class="op">&lt;-</span> <span class="fu">envspace.test</span><span class="op">(</span><span class="va">Y</span>, <span class="va">env</span>, <span class="va">coord</span>, <span class="va">MEM.spe</span>, </span></span>
+<span class="r-in"><span>                           listw.env <span class="op">=</span> <span class="va">candidates</span><span class="op">[[</span><span class="va">modsel.env</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span><span class="op">]</span>, </span></span>
+<span class="r-in"><span>                           regular <span class="op">=</span> <span class="cn">FALSE</span>, nperm <span class="op">=</span> <span class="fl">999</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">SSEF.test</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The SSEF is highly significant, indicating a potential induced spatial dependence.</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -306,7 +327,7 @@ in the study of ecological communities. Global Ecology and Biogeography, 19, 174
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

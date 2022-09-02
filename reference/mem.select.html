@@ -25,7 +25,7 @@ autocorrelation (method = "MIR") (see details in Bauman et al. 2018a).'><meta pr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -75,18 +75,18 @@ autocorrelation (<code>method = "MIR"</code>) (see details in Bauman et al. 2018
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">mem.select</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">listw</span>,
-  MEM.autocor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"positive"</span>, <span class="st">"negative"</span>, <span class="st">"all"</span><span class="op">)</span>,
-  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"FWD"</span>, <span class="st">"MIR"</span>, <span class="st">"global"</span><span class="op">)</span>,
-  MEM.all <span class="op">=</span> <span class="cn">FALSE</span>,
-  nperm <span class="op">=</span> <span class="fl">999</span>,
-  nperm.global <span class="op">=</span> <span class="fl">9999</span>,
-  alpha <span class="op">=</span> <span class="fl">0.05</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mem.select</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">listw</span>,</span>
+<span>  MEM.autocor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"positive"</span>, <span class="st">"negative"</span>, <span class="st">"all"</span><span class="op">)</span>,</span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"FWD"</span>, <span class="st">"MIR"</span>, <span class="st">"global"</span><span class="op">)</span>,</span>
+<span>  MEM.all <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  nperm <span class="op">=</span> <span class="fl">999</span>,</span>
+<span>  nperm.global <span class="op">=</span> <span class="fl">9999</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,40 +96,61 @@ autocorrelation (<code>method = "MIR"</code>) (see details in Bauman et al. 2018
 <code>method = "MIR"</code> is only implemented for a vector response. Note that
 <code>x</code> can also contain the residuals of a model when other (e.g.,
 environmental) variables should be considered in the model.</p></dd>
+
+
 <dt>listw</dt>
 <dd><p>A spatial weighting matrix of class <code>listw</code>; can be created
 with functions of the package <code>spdep</code>, or with the user-friendly
 function <code>listw.candidates</code>. Note that, the function <code>listw.candidates</code>
 returns a <code>list</code> of <code>listw</code> and subselection by <code>[[]]</code> should be 
 performed in this case (see <code>Example</code>)</p></dd>
+
+
 <dt>MEM.autocor</dt>
 <dd><p>Sign of the spatial eigenvectors to generate; "positive",
 "negative", or "all", for positively, negatively autocorrelated
 eigenvectors, or both, respectively; default is "positive"</p></dd>
+
+
 <dt>method</dt>
 <dd><p>Criterion to select the best subset of MEM variables. Either
 <code>"FWD"</code> (default option), <code>"MIR"</code> (for univariate <code>x</code>
 only), or <code>"global"</code> (see <code>Details</code>)</p></dd>
+
+
 <dt>MEM.all</dt>
 <dd><p>A logical indicating if the complete set of MEM variables
 should be returned</p></dd>
+
+
 <dt>nperm</dt>
 <dd><p>Number of permutations to perform the tests in the selection 
 procedure; Default is 999</p></dd>
+
+
 <dt>nperm.global</dt>
 <dd><p>Number of permutations to perform the tests in the global test;
 Default is 9999</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>Significance threshold value for the tests; Default is 0.05</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>If 'TRUE' more diagnostics are printed. The default setting is
 FALSE</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other parameters (for internal use with <code>listw.select</code>)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns a list with:</p><dl><dt>global.test</dt>
+    
+
+<p>The function returns a list with:</p><dl><dt>global.test</dt>
 <dd><p>An
   object of class <code>randtest</code> containing the result of the global test
   associated to all MEM (adjusted R2 and p-value). If <code>MEM.autocor = "all"</code>, 
@@ -272,55 +293,55 @@ in Ecology and Evolution, 6, 1169--1178</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://cran.r-project.org" class="external-link">vegan</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span> </span>
-<span class="r-in"><span class="co"># Illustration of the MIR selection on the oribatid mite data</span></span>
-<span class="r-in"><span class="co"># (Borcard et al. 1992, 1994 for details on the dataset):</span></span>
-<span class="r-in"><span class="co"># *******************************************************</span></span>
-<span class="r-in"><span class="co"># Community data (response matrix):</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># We will compute the example on a single species:</span></span>
-<span class="r-in"><span class="va">spe</span> <span class="op">&lt;-</span> <span class="va">mite</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span></span>
-<span class="r-in"><span class="co"># Environmental explanatory dataset:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># We only use two numerical explanatory variables:</span></span>
-<span class="r-in"><span class="va">env</span> <span class="op">&lt;-</span> <span class="va">mite.env</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">env</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Coordinates of the 70 sites:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.xy</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">coord</span> <span class="op">&lt;-</span> <span class="va">mite.xy</span></span>
-<span class="r-in"><span class="co"># We build the model we are interested in:</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">spe</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">env</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># In order to avoid possible type I error rate inflation issues, we check </span></span>
-<span class="r-in"><span class="co"># whether the model residuals are independent, and if they are spatially</span></span>
-<span class="r-in"><span class="co"># autocorrelated, we select a small subset of MEM variables to add to the</span></span>
-<span class="r-in"><span class="co"># model as covariables with the MIR selection:</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># 1) We build a spatial weighting matrix based on Gabriel graph with a</span></span>
-<span class="r-in"><span class="co"># weighting function decreasing linearly with the distance:</span></span>
-<span class="r-in"><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="listw.candidates.html">listw.candidates</a></span><span class="op">(</span><span class="va">coord</span>, nb <span class="op">=</span> <span class="st">"gab"</span>, weights <span class="op">=</span> <span class="st">"flin"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># 2) We test the spatial autocorrelation of the model residuals and, if</span></span>
-<span class="r-in"><span class="co"># necessary, select a subset of spatial predictors:</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">MEM</span> <span class="op">&lt;-</span> <span class="fu">mem.select</span><span class="op">(</span>x <span class="op">=</span> <span class="va">y</span>, listw <span class="op">=</span> <span class="va">w</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, method <span class="op">=</span> <span class="st">"MIR"</span>, MEM.autocor <span class="op">=</span> <span class="st">"positive"</span>,</span>
-<span class="r-in">         nperm <span class="op">=</span> <span class="fl">999</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">MEM</span><span class="op">$</span><span class="va">MEM.select</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># The residuals of the model presented spatial autocorrelation. The selection</span></span>
-<span class="r-in"><span class="co"># of MEM variables is thus performed to remove residual autocorrelation.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># 3) We can reconstruct our model adding the selected MEM variable as covariables:</span></span>
-<span class="r-in"><span class="va">env2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">env</span>, <span class="va">MEM</span><span class="op">$</span><span class="va">MEM.select</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod_complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">spe</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">env2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod_complete</span><span class="op">)</span><span class="op">$</span><span class="va">coefficient</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>   <span class="co"># Coefficient estimates</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod_complete</span><span class="op">)</span><span class="op">$</span><span class="va">coefficient</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>   <span class="co"># Standard errors</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan" class="external-link">vegan</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span> </span></span>
+<span class="r-in"><span><span class="co"># Illustration of the MIR selection on the oribatid mite data</span></span></span>
+<span class="r-in"><span><span class="co"># (Borcard et al. 1992, 1994 for details on the dataset):</span></span></span>
+<span class="r-in"><span><span class="co"># *******************************************************</span></span></span>
+<span class="r-in"><span><span class="co"># Community data (response matrix):</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># We will compute the example on a single species:</span></span></span>
+<span class="r-in"><span><span class="va">spe</span> <span class="op">&lt;-</span> <span class="va">mite</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="co"># Environmental explanatory dataset:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># We only use two numerical explanatory variables:</span></span></span>
+<span class="r-in"><span><span class="va">env</span> <span class="op">&lt;-</span> <span class="va">mite.env</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Coordinates of the 70 sites:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.xy</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">coord</span> <span class="op">&lt;-</span> <span class="va">mite.xy</span></span></span>
+<span class="r-in"><span><span class="co"># We build the model we are interested in:</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">spe</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">env</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># In order to avoid possible type I error rate inflation issues, we check </span></span></span>
+<span class="r-in"><span><span class="co"># whether the model residuals are independent, and if they are spatially</span></span></span>
+<span class="r-in"><span><span class="co"># autocorrelated, we select a small subset of MEM variables to add to the</span></span></span>
+<span class="r-in"><span><span class="co"># model as covariables with the MIR selection:</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 1) We build a spatial weighting matrix based on Gabriel graph with a</span></span></span>
+<span class="r-in"><span><span class="co"># weighting function decreasing linearly with the distance:</span></span></span>
+<span class="r-in"><span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="listw.candidates.html">listw.candidates</a></span><span class="op">(</span><span class="va">coord</span>, nb <span class="op">=</span> <span class="st">"gab"</span>, weights <span class="op">=</span> <span class="st">"flin"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 2) We test the spatial autocorrelation of the model residuals and, if</span></span></span>
+<span class="r-in"><span><span class="co"># necessary, select a subset of spatial predictors:</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">MEM</span> <span class="op">&lt;-</span> <span class="fu">mem.select</span><span class="op">(</span>x <span class="op">=</span> <span class="va">y</span>, listw <span class="op">=</span> <span class="va">w</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, method <span class="op">=</span> <span class="st">"MIR"</span>, MEM.autocor <span class="op">=</span> <span class="st">"positive"</span>,</span></span>
+<span class="r-in"><span>         nperm <span class="op">=</span> <span class="fl">999</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">MEM</span><span class="op">$</span><span class="va">MEM.select</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># The residuals of the model presented spatial autocorrelation. The selection</span></span></span>
+<span class="r-in"><span><span class="co"># of MEM variables is thus performed to remove residual autocorrelation.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 3) We can reconstruct our model adding the selected MEM variable as covariables:</span></span></span>
+<span class="r-in"><span><span class="va">env2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">env</span>, <span class="va">MEM</span><span class="op">$</span><span class="va">MEM.select</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod_complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">spe</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">env2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod_complete</span><span class="op">)</span><span class="op">$</span><span class="va">coefficient</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>   <span class="co"># Coefficient estimates</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod_complete</span><span class="op">)</span><span class="op">$</span><span class="va">coefficient</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>   <span class="co"># Standard errors</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)    SubsDens    WatrCont        MEM6 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.760995835 0.017682006 0.001459706 0.196137323 </span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -335,7 +356,7 @@ in Ecology and Evolution, 6, 1169--1178</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -24,7 +24,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -74,23 +74,30 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">create.dbMEM.model</span><span class="op">(</span>coord <span class="op">=</span> <span class="cn">NULL</span>, D.mat <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">nsites</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create.dbMEM.model</span><span class="op">(</span>coord <span class="op">=</span> <span class="cn">NULL</span>, D.mat <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">nsites</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>coord</dt>
 <dd><p>Optional file containing the Cartesian coordinates of the sites.</p></dd>
+
+
 <dt>D.mat</dt>
 <dd><p>Optional distance matrix provided by user, class <code>matrix</code> or
 <code>dist</code>. If <code>D.mat=NULL</code>, the geographic distance matrix will be computed
 from the coordinates provided in file <code>coord</code>.</p></dd>
+
+
 <dt>nsites</dt>
 <dd><p>A vector containing the number of sites per group.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A matrix with <code>n</code> rows containing a set of <code>k</code> staggered matrices of
+    
+
+<p>A matrix with <code>n</code> rows containing a set of <code>k</code> staggered matrices of
  dbMEM eigenfunctions in its diagonal portion; <code>n</code> is the total number of sites
  in the study and <code>k</code> is the number of groups. Each small matrix contains
  the dbMEM functions, modelling positive spatial correlation, describing the spatial
@@ -138,102 +145,102 @@ from the coordinates provided in file <code>coord</code>.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="op">{</span></span>
-<span class="r-in"> <span class="co"># Generate random coordinates for 35 sites forming 6 distinct groups on the map</span></span>
-<span class="r-in"> <span class="va">Easting</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">35</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">6</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1.5</span>,<span class="fl">7</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">5</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1.5</span>,<span class="fl">5</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"> <span class="va">Northing</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">35</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2.8</span>,<span class="fl">6</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2.3</span>,<span class="fl">7</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2.8</span>,<span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">5</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">5</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"> <span class="va">cartesian</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">Easting</span>,<span class="va">Northing</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">cartesian</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"S"</span>,<span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">cartesian</span><span class="op">)</span>,sep<span class="op">=</span><span class="st">''</span><span class="op">)</span></span>
-<span class="r-in"> <span class="va">nsites.per.group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"> <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">create.dbMEM.model</span><span class="op">(</span>coord<span class="op">=</span><span class="va">cartesian</span>, nsites<span class="op">=</span><span class="va">nsites.per.group</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"> <span class="co"># Draw a map to check the coding of the sites into the groups</span></span>
-<span class="r-in"> <span class="va">site.codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,<span class="fl">1</span>,n<span class="op">=</span><span class="va">nsites.per.group</span>,<span class="kw">function</span><span class="op">(</span><span class="va">a</span>,<span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">n</span><span class="op">[</span><span class="va">a</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"> <span class="va">col.vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green3"</span>,<span class="st">"gray99"</span>,<span class="st">"orange2"</span>,<span class="st">"gold1"</span>,<span class="st">"brown3"</span>,<span class="st">"gray70"</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">cartesian</span>, pch<span class="op">=</span><span class="fl">22</span>, col<span class="op">=</span><span class="st">"black"</span>, bg<span class="op">=</span><span class="va">col.vec</span><span class="op">[</span><span class="va">site.codes</span><span class="op">]</span>, cex<span class="op">=</span><span class="fl">2</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4</span><span class="op">)</span>,asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/gridlines.html" class="external-link">text</a></span><span class="op">(</span><span class="va">cartesian</span>,labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">cartesian</span><span class="op">)</span>, cex<span class="op">=</span><span class="fl">0.5</span>, pos<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"> <span class="co"># Examine the staggered matrix of dbMEM eigenfunctions</span></span>
-<span class="r-in"> <span class="co"># Not run:</span></span>
-<span class="r-in"> <span class="va">result</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="op">{</span></span></span>
+<span class="r-in"><span> <span class="co"># Generate random coordinates for 35 sites forming 6 distinct groups on the map</span></span></span>
+<span class="r-in"><span> <span class="va">Easting</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">35</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">6</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1.5</span>,<span class="fl">7</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">5</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1.5</span>,<span class="fl">5</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="va">Northing</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">35</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2.8</span>,<span class="fl">6</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2.3</span>,<span class="fl">7</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2.8</span>,<span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">5</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">5</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="va">cartesian</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">Easting</span>,<span class="va">Northing</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">cartesian</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"S"</span>,<span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">cartesian</span><span class="op">)</span>,sep<span class="op">=</span><span class="st">''</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="va">nsites.per.group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span> <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">create.dbMEM.model</span><span class="op">(</span>coord<span class="op">=</span><span class="va">cartesian</span>, nsites<span class="op">=</span><span class="va">nsites.per.group</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span> <span class="co"># Draw a map to check the coding of the sites into the groups</span></span></span>
+<span class="r-in"><span> <span class="va">site.codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,<span class="fl">1</span>,n<span class="op">=</span><span class="va">nsites.per.group</span>,<span class="kw">function</span><span class="op">(</span><span class="va">a</span>,<span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">n</span><span class="op">[</span><span class="va">a</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span> <span class="va">col.vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green3"</span>,<span class="st">"gray99"</span>,<span class="st">"orange2"</span>,<span class="st">"gold1"</span>,<span class="st">"brown3"</span>,<span class="st">"gray70"</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">cartesian</span>, pch<span class="op">=</span><span class="fl">22</span>, col<span class="op">=</span><span class="st">"black"</span>, bg<span class="op">=</span><span class="va">col.vec</span><span class="op">[</span><span class="va">site.codes</span><span class="op">]</span>, cex<span class="op">=</span><span class="fl">2</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4</span><span class="op">)</span>,asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">cartesian</span>,labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">cartesian</span><span class="op">)</span>, cex<span class="op">=</span><span class="fl">0.5</span>, pos<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span> <span class="co"># Examine the staggered matrix of dbMEM eigenfunctions</span></span></span>
+<span class="r-in"><span> <span class="co"># Not run:</span></span></span>
+<span class="r-in"><span> <span class="va">result</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="create.dbMEM.model-1.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          dbMEM.1    dbMEM.2    dbMEM.3       dbMEM.4    dbMEM.5    dbMEM.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S1   1.341608506  0.3837360  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S2  -0.881758674 -1.3725948  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S3  -0.004230337  1.6785433  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S4  -0.904784102  0.1487460  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S5   1.343300692 -1.0427593  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S6  -0.894136086  0.2043288  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S7   0.000000000  0.0000000 -1.2700608  5.464922e-04  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S8   0.000000000  0.0000000 -1.0775695 -1.871370e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S9   0.000000000  0.0000000  0.9502316 -1.930547e-06  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S10  0.000000000  0.0000000  0.9656326  6.880520e-06  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S11  0.000000000  0.0000000 -1.0779812  1.870287e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S12  0.000000000  0.0000000  0.9654573  8.380954e-06  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S13  0.000000000  0.0000000  0.5442900  5.228258e-04  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S14  0.000000000  0.0000000  0.0000000  0.000000e+00 -0.6052158  1.7790395</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S15  0.000000000  0.0000000  0.0000000  0.000000e+00 -1.0913709  0.2330073</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S16  0.000000000  0.0000000  0.0000000  0.000000e+00 -0.2082532 -1.2093195</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S17  0.000000000  0.0000000  0.0000000  0.000000e+00  1.3161794 -0.3315429</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S18  0.000000000  0.0000000  0.0000000  0.000000e+00  1.4109468  0.5051318</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S19  0.000000000  0.0000000  0.0000000  0.000000e+00 -0.8222863 -0.9763163</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S20  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S21  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S22  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S23  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S24  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S25  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S26  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S27  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S28  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S29  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S30  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S31  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S32  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S33  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S34  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S35  0.000000000  0.0000000  0.0000000  0.000000e+00  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        dbMEM.7    dbMEM.8     dbMEM.9   dbMEM.10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S1   0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S2   0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S3   0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S4   0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S5   0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S6   0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S7   0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S8   0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S9   0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S10  0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S11  0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S12  0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S13  0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S14  0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S15  0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S16  0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S17  0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S18  0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S19  0.0000000  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S20  1.3078046  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S21 -0.4706466  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S22 -0.9659120  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S23  1.0956054  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S24 -0.9668514  0.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S25  0.0000000  0.9684594  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S26  0.0000000  0.4654148  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S27  0.0000000  0.9685365  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S28  0.0000000 -1.3051866  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S29  0.0000000 -1.0972240  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S30  0.0000000  0.0000000  1.22436636  0.1908351</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S31  0.0000000  0.0000000 -1.22491136  0.1554644</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S32  0.0000000  0.0000000 -0.03318136  1.1296935</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S33  0.0000000  0.0000000 -1.20028153 -1.3317376</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S34  0.0000000  0.0000000 -0.01440509  1.1277213</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S35  0.0000000  0.0000000  1.24841297 -1.2719768</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         dbMEM.1    dbMEM.2     dbMEM.3     dbMEM.4      dbMEM.5    dbMEM.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S1   1.26079084  0.9740266  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S2  -0.05403762 -1.1445422  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S3  -1.21331677  0.3497860  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S4  -0.04222146 -1.5410785  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S5   1.23525504  0.2829334  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S6  -1.18647004  1.0788747  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S7   0.00000000  0.0000000  1.32429567 -0.05450865  0.016870827  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S8   0.00000000  0.0000000 -0.92260202 -1.41626308  1.324805920  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S9   0.00000000  0.0000000 -0.01411032  1.29891437 -0.000586161  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S10  0.00000000  0.0000000 -0.94217936  0.83448376 -1.294419915  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S11  0.00000000  0.0000000 -1.32146189 -0.06210707  0.016885531  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S12  0.00000000  0.0000000  0.91471305 -1.40105869 -1.367213718  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S13  0.00000000  0.0000000  0.96134487  0.80053936  1.303657515  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S14  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000 -1.3165840</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S15  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000 -1.4090073</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S16  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.6042965</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S17  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  1.0918768</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S18  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.8262255</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S19  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.2031924</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S20  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S21  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S22  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S23  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S24  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S25  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S26  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S27  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S28  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S29  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S30  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S31  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S32  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S33  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S34  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S35  0.00000000  0.0000000  0.00000000  0.00000000  0.000000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        dbMEM.7      dbMEM.8    dbMEM.9   dbMEM.10   dbMEM.11   dbMEM.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S1   0.0000000  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S2   0.0000000  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S3   0.0000000  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S4   0.0000000  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S5   0.0000000  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S6   0.0000000  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S7   0.0000000  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S8   0.0000000  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S9   0.0000000  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S10  0.0000000  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S11  0.0000000  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S12  0.0000000  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S13  0.0000000  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S14 -0.3355843  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S15  0.5052324  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S16  1.7903971  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S17  0.2092395  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S18 -0.9623261  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S19 -1.2069585  0.000000000  0.0000000  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S20  0.0000000  0.004390293  1.5701844  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S21  0.0000000 -1.120197451 -1.0825237  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S22  0.0000000  1.118008970  0.2972579  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S23  0.0000000  1.115857445 -1.0875322  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S24  0.0000000 -1.118059257  0.3026136  0.0000000  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S25  0.0000000  0.000000000  0.0000000  0.9661077  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S26  0.0000000  0.000000000  0.0000000 -1.3100238  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S27  0.0000000  0.000000000  0.0000000  0.4753560  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S28  0.0000000  0.000000000  0.0000000 -1.0942801  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S29  0.0000000  0.000000000  0.0000000  0.9628402  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S30  0.0000000  0.000000000  0.0000000  0.0000000 -0.8535991 -0.6217565</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S31  0.0000000  0.000000000  0.0000000  0.0000000  1.3332901  0.3225681</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S32  0.0000000  0.000000000  0.0000000  0.0000000 -0.8231547 -0.7224752</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S33  0.0000000  0.000000000  0.0000000  0.0000000 -1.1137457  0.4108626</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S34  0.0000000  0.000000000  0.0000000  0.0000000  1.2355381 -1.2164490</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S35  0.0000000  0.000000000  0.0000000  0.0000000  0.2216714  1.8272499</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -248,7 +255,7 @@ from the coordinates provided in file <code>coord</code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

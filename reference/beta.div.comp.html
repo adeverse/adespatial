@@ -20,7 +20,7 @@ presence-absence or abundance data, as described in Legendre (2014)."><meta prop
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -66,13 +66,15 @@ presence-absence or abundance data, as described in Legendre (2014).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">beta.div.comp</span><span class="op">(</span><span class="va">mat</span>, coef <span class="op">=</span> <span class="st">"J"</span>, quant <span class="op">=</span> <span class="cn">FALSE</span>, save.abc <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">beta.div.comp</span><span class="op">(</span><span class="va">mat</span>, coef <span class="op">=</span> <span class="st">"J"</span>, quant <span class="op">=</span> <span class="cn">FALSE</span>, save.abc <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>mat</dt>
 <dd><p>Community composition data (<code>data.frame</code> or <code>matrix</code>).</p></dd>
+
+
 <dt>coef</dt>
 <dd><p>Family of coefficients to be computed.</p><ul><li><p>"J" or "Jaccard": 
 Podani family, Jaccard-based indices.</p></li>
@@ -83,17 +85,26 @@ Sørensen-based indices.</p></li>
 </ul><p>The 
 quantitative form of the Sørensen dissimilarity is the percentage difference index.
 The quantitative form of the Jaccard dissimilarity is the Ruzicka index.</p></dd>
+
+
 <dt>quant</dt>
 <dd><p>If <code>TRUE</code>, compute the quantitative forms of replacement, 
 nestedness and D. If <code>FALSE</code>, compute the presence-absence forms of the
 coefficients.</p></dd>
+
+
 <dt>save.abc</dt>
 <dd><p>If <code>TRUE</code>, save the matrices of parameters a, b and c 
 used in presence-absence calculations.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list containing the following results:</p><ul><li><p><code>repl</code>: Replacement matrix, class = dist.</p></li>
+    
+
+<p>A list containing the following results:</p>
+<p></p>
+<ul><li><p><code>repl</code>: Replacement matrix, class = dist.</p></li>
 <li><p><code>rich</code>: Richness/abundance difference or nestedness matrix (class
  <code>dist</code>). With options "BJ", "BS" and "N", <code>rich</code> contains
  nestedness indices. With option "N", the repl[i,j] and rich[i,j] values do
@@ -167,25 +178,25 @@ for exploring and explaining pattern in presence-absence data. Oikos, 120,
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">ade4</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">doubs</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fish.sp</span> <span class="op">=</span> <span class="va">doubs</span><span class="op">$</span><span class="va">fish</span><span class="op">[</span><span class="op">-</span><span class="fl">8</span>,<span class="op">]</span>   <span class="co"># Fish data; site 8 is removed because no fish were caught</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Compute and partition a matrix of Jaccard indices (presence-absence data)</span></span>
-<span class="r-in"><span class="va">out1</span> <span class="op">=</span> <span class="fu">beta.div.comp</span><span class="op">(</span><span class="va">fish.sp</span>, coef<span class="op">=</span><span class="st">"J"</span>, quant<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">out1</span><span class="op">$</span><span class="va">part</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Compute and partition a matrix of percentage difference indices</span></span>
-<span class="r-in"><span class="co"># (quantitative form of Sorensen index)</span></span>
-<span class="r-in"><span class="va">out2</span> <span class="op">=</span> <span class="fu">beta.div.comp</span><span class="op">(</span><span class="va">fish.sp</span>, coef<span class="op">=</span><span class="st">"S"</span>, quant<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">out2</span><span class="op">$</span><span class="va">part</span></span>
-<span class="r-in"><span class="co"># In paragraph Value, see the description of the 5 elements of vector part. </span></span>
-<span class="r-in"><span class="co"># Is the fish beta diversity dominated by replacement or richness/abundance difference?</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">ade4</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">doubs</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fish.sp</span> <span class="op">=</span> <span class="va">doubs</span><span class="op">$</span><span class="va">fish</span><span class="op">[</span><span class="op">-</span><span class="fl">8</span>,<span class="op">]</span>   <span class="co"># Fish data; site 8 is removed because no fish were caught</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Compute and partition a matrix of Jaccard indices (presence-absence data)</span></span></span>
+<span class="r-in"><span><span class="va">out1</span> <span class="op">=</span> <span class="fu">beta.div.comp</span><span class="op">(</span><span class="va">fish.sp</span>, coef<span class="op">=</span><span class="st">"J"</span>, quant<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">out1</span><span class="op">$</span><span class="va">part</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Compute and partition a matrix of percentage difference indices</span></span></span>
+<span class="r-in"><span><span class="co"># (quantitative form of Sorensen index)</span></span></span>
+<span class="r-in"><span><span class="va">out2</span> <span class="op">=</span> <span class="fu">beta.div.comp</span><span class="op">(</span><span class="va">fish.sp</span>, coef<span class="op">=</span><span class="st">"S"</span>, quant<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">out2</span><span class="op">$</span><span class="va">part</span></span></span>
+<span class="r-in"><span><span class="co"># In paragraph Value, see the description of the 5 elements of vector part. </span></span></span>
+<span class="r-in"><span><span class="co"># Is the fish beta diversity dominated by replacement or richness/abundance difference?</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         BDtotal            Repl         RichDif    Repl/BDtotal RichDif/BDtotal </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       0.3237960       0.1203572       0.2034388       0.3717068       0.6282932 </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -200,7 +211,7 @@ for exploring and explaining pattern in presence-absence data. Oikos, 120,
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

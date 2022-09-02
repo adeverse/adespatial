@@ -19,7 +19,7 @@ dissimilarity matrices."><meta property="og:image" content="/logo.svg"><!-- math
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -64,63 +64,108 @@ dissimilarity matrices.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for constr.hclust</span>
-<span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">k</span>, <span class="va">xlim</span>, <span class="va">ylim</span>, <span class="va">xlab</span>, <span class="va">ylab</span>, <span class="va">links</span>,
-points<span class="op">=</span><span class="cn">TRUE</span>, pch<span class="op">=</span><span class="fl">21L</span>, hybrids<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"change"</span>,<span class="st">"single"</span>,<span class="st">"none"</span><span class="op">)</span>, lty.hyb<span class="op">=</span><span class="fl">1L</span>,
-lwd.hyb<span class="op">=</span><span class="fl">1</span>, col.hyb<span class="op">=</span><span class="st">"black"</span>, plot<span class="op">=</span><span class="cn">TRUE</span>, <span class="va">col</span>, <span class="va">axes</span>, cex<span class="op">=</span><span class="fl">1</span>, <span class="va">lty</span>, <span class="va">lwd</span>, lwd.pt<span class="op">=</span><span class="fl">1</span>,
-invert.axes<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for constr.hclust</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">k</span>, <span class="va">xlim</span>, <span class="va">ylim</span>, <span class="va">xlab</span>, <span class="va">ylab</span>, <span class="va">links</span>,</span>
+<span>points<span class="op">=</span><span class="cn">TRUE</span>, pch<span class="op">=</span><span class="fl">21L</span>, hybrids<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"change"</span>,<span class="st">"single"</span>,<span class="st">"none"</span><span class="op">)</span>, lty.hyb<span class="op">=</span><span class="fl">1L</span>,</span>
+<span>lwd.hyb<span class="op">=</span><span class="fl">1</span>, col.hyb<span class="op">=</span><span class="st">"black"</span>, plot<span class="op">=</span><span class="cn">TRUE</span>, <span class="va">col</span>, <span class="va">axes</span>, cex<span class="op">=</span><span class="fl">1</span>, <span class="va">lty</span>, <span class="va">lwd</span>, lwd.pt<span class="op">=</span><span class="fl">1</span>,</span>
+<span>invert.axes<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p>A <code><a href="constr.hclust-class.html">constr.hclust-class</a></code> object</p></dd>
+<dd><p>A <code><a href="constr.hclust-class.html">constr.hclust-class</a></code> object.</p></dd>
+
+
 <dt>k</dt>
-<dd><p>The number of clusters to delineate</p></dd>
+<dd><p>The number of clusters to delineate.</p></dd>
+
+
 <dt>xlim</dt>
-<dd><p>Limits, in abscissa, of the zone to be plotted</p></dd>
+<dd><p>Limits, in abscissa, of the zone to be plotted.</p></dd>
+
+
 <dt>ylim</dt>
-<dd><p>Limits, in ordinate, of the zone to be plotted</p></dd>
+<dd><p>Limits, in ordinate, of the zone to be plotted.</p></dd>
+
+
 <dt>xlab</dt>
-<dd><p>Labels for x axis annotation</p></dd>
+<dd><p>Labels for x axis annotation.</p></dd>
+
+
 <dt>ylab</dt>
-<dd><p>Labels for y axis annotation</p></dd>
+<dd><p>Labels for y axis annotation.</p></dd>
+
+
 <dt>links</dt>
 <dd><p>Should segments be drawn to represent the edges (links)
-(default: FALSE)</p></dd>
+(default: FALSE).</p></dd>
+
+
 <dt>points</dt>
-<dd><p>Should observation points be drawn (default: TRUE)</p></dd>
+<dd><p>Should observation points be drawn (default: TRUE).</p></dd>
+
+
 <dt>pch</dt>
 <dd><p>Point character to display observations (default: 21, a circle
-with a background color)</p></dd>
+with a background color).</p></dd>
+
+
 <dt>hybrids</dt>
-<dd><p>How should hybrid segments be drawn (default: "change")</p></dd>
+<dd><p>How should hybrid segments be drawn (default: "change").</p></dd>
+
+
 <dt>lty.hyb</dt>
-<dd><p>Line type to use for hybrid segments (default: lty)</p></dd>
+<dd><p>Line type to use for hybrid segments (default: lty).</p></dd>
+
+
 <dt>lwd.hyb</dt>
-<dd><p>Width of hybrid segments with respect to lwd (default: 1)</p></dd>
+<dd><p>Width of hybrid segments with respect to lwd (default: 1).</p></dd>
+
+
 <dt>col.hyb</dt>
-<dd><p>Colour of hybrid segments, when applicable (default: "black")</p></dd>
+<dd><p>Colour of hybrid segments, when applicable (default: "black").</p></dd>
+
+
 <dt>plot</dt>
-<dd><p>Should a new plotting window be opened first (default: TRUE)</p></dd>
+<dd><p>Should a new plotting window be opened first (default: TRUE).</p></dd>
+
+
 <dt>col</dt>
 <dd><p>Colours to use for the <code>k</code> different clusters (see details). 
-Default: <code>col=rainbow</code>)</p></dd>
+Default: for <code>k &lt;= 10</code>: a set of 10 contrasted colours; otherwise, a set
+of rainbow colours).</p></dd>
+
+
 <dt>axes</dt>
-<dd><p>Should the axes be displayed (default: TRUE)</p></dd>
+<dd><p>Should the axes be displayed (default: TRUE).</p></dd>
+
+
 <dt>cex</dt>
 <dd><p>Text and symbol magnification (see <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameters</a>)
-(default: 1)</p></dd>
+(default: 1).</p></dd>
+
+
 <dt>lty</dt>
-<dd><p>Reference line type (see <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameters</a> for details)</p></dd>
+<dd><p>Reference line type (see <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameters</a> for details).</p></dd>
+
+
 <dt>lwd</dt>
-<dd><p>Reference line width (see <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameters</a> for details)</p></dd>
+<dd><p>Reference line width (see <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameters</a> for
+details).</p></dd>
+
+
 <dt>lwd.pt</dt>
-<dd><p>Line width around points with respect to lwd (default: 1)</p></dd>
+<dd><p>Line width around points with respect to lwd (default: 1).</p></dd>
+
+
 <dt>invert.axes</dt>
-<dd><p>Should axes be inverted on the plot (default: FALSE)</p></dd>
+<dd><p>Should axes be inverted on the plot (default: FALSE).</p></dd>
+
+
 <dt>...</dt>
-<dd><p>Other <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameters</a></p></dd>
+<dd><p>Other <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameters</a>.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -161,47 +206,47 @@ and Pierre Legendre <a href="mailto:pierre.legendre@umontreal.ca">pierre.legendr
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Artificial map data from Legendre &amp; Legendre (2012, Fig. 13.26)</span></span>
-<span class="r-in"><span class="co">### n = 16</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">41</span>,<span class="fl">42</span>,<span class="fl">25</span>,<span class="fl">38</span>,<span class="fl">50</span>,<span class="fl">30</span>,<span class="fl">41</span>,<span class="fl">43</span>,<span class="fl">43</span>,<span class="fl">41</span>,<span class="fl">30</span>,<span class="fl">50</span>,<span class="fl">38</span>,<span class="fl">25</span>,<span class="fl">42</span>,<span class="fl">41</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">coord.dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">7</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">8</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">7</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">8</span>,</span>
-<span class="r-in">                      <span class="fl">4.4</span>,<span class="fl">4.4</span>,<span class="fl">4.4</span>,<span class="fl">4.4</span>,<span class="fl">3.3</span>,<span class="fl">3.3</span>,<span class="fl">3.3</span>,<span class="fl">3.3</span>,</span>
-<span class="r-in">                      <span class="fl">2.2</span>,<span class="fl">2.2</span>,<span class="fl">2.2</span>,<span class="fl">2.2</span>,<span class="fl">1.1</span>,<span class="fl">1.1</span>,<span class="fl">1.1</span>,<span class="fl">1.1</span><span class="op">)</span>,<span class="fl">16</span>,<span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Obtaining a list of neighbours:</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-spatial/spdep/" class="external-link">spdep</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">listW</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/tri2nb.html" class="external-link">tri2nb</a></span><span class="op">(</span><span class="va">coord.dat</span><span class="op">)</span>, style<span class="op">=</span><span class="st">"B"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">links.mat.dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2mat.html" class="external-link">listw2mat</a></span><span class="op">(</span><span class="va">listW</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">neighbors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/listw2sn.html" class="external-link">listw2sn</a></span><span class="op">(</span><span class="va">listW</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Calculating the (Euclidean) distance between points:</span></span>
-<span class="r-in"><span class="va">D.dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Display the points:</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coord.dat</span>, type<span class="op">=</span><span class="st">'n'</span>,asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">"Delaunay triangulation"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/sp/man/gridlines.html" class="external-link">text</a></span><span class="op">(</span><span class="va">coord.dat</span>, labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">)</span>, pos<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">neighbors</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">coord.dat</span><span class="op">[</span><span class="va">neighbors</span><span class="op">[</span><span class="va">i</span>,<span class="fl">1</span><span class="op">]</span>,<span class="op">]</span>,</span>
-<span class="r-in">          <span class="va">coord.dat</span><span class="op">[</span><span class="va">neighbors</span><span class="op">[</span><span class="va">i</span>,<span class="fl">2</span><span class="op">]</span>,<span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Artificial map data from Legendre &amp; Legendre (2012, Fig. 13.26)</span></span></span>
+<span class="r-in"><span><span class="co">## n = 16</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">41</span>,<span class="fl">42</span>,<span class="fl">25</span>,<span class="fl">38</span>,<span class="fl">50</span>,<span class="fl">30</span>,<span class="fl">41</span>,<span class="fl">43</span>,<span class="fl">43</span>,<span class="fl">41</span>,<span class="fl">30</span>,<span class="fl">50</span>,<span class="fl">38</span>,<span class="fl">25</span>,<span class="fl">42</span>,<span class="fl">41</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">coord.dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">7</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">8</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">7</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">8</span>,</span></span>
+<span class="r-in"><span>                      <span class="fl">4.4</span>,<span class="fl">4.4</span>,<span class="fl">4.4</span>,<span class="fl">4.4</span>,<span class="fl">3.3</span>,<span class="fl">3.3</span>,<span class="fl">3.3</span>,<span class="fl">3.3</span>,</span></span>
+<span class="r-in"><span>                      <span class="fl">2.2</span>,<span class="fl">2.2</span>,<span class="fl">2.2</span>,<span class="fl">2.2</span>,<span class="fl">1.1</span>,<span class="fl">1.1</span>,<span class="fl">1.1</span>,<span class="fl">1.1</span><span class="op">)</span>,<span class="fl">16</span>,<span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Obtaining a list of neighbours:</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-spatial/spdep/" class="external-link">spdep</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">listW</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/tri2nb.html" class="external-link">tri2nb</a></span><span class="op">(</span><span class="va">coord.dat</span><span class="op">)</span>, style<span class="op">=</span><span class="st">"B"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">links.mat.dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2mat.html" class="external-link">listw2mat</a></span><span class="op">(</span><span class="va">listW</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">neighbors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/listw2sn.html" class="external-link">listw2sn</a></span><span class="op">(</span><span class="va">listW</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Calculating the (Euclidean) distance between points:</span></span></span>
+<span class="r-in"><span><span class="va">D.dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Display the points:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coord.dat</span>, type<span class="op">=</span><span class="st">'n'</span>,asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">"Delaunay triangulation"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">coord.dat</span>, labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">)</span>, pos<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">neighbors</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">coord.dat</span><span class="op">[</span><span class="va">neighbors</span><span class="op">[</span><span class="va">i</span>,<span class="fl">1</span><span class="op">]</span>,<span class="op">]</span>,</span></span>
+<span class="r-in"><span>          <span class="va">coord.dat</span><span class="op">[</span><span class="va">neighbors</span><span class="op">[</span><span class="va">i</span>,<span class="fl">2</span><span class="op">]</span>,<span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.constr.hclust-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Clustering with a contiguity constraint described by a list of</span></span>
-<span class="r-in"><span class="co">### links:</span></span>
-<span class="r-in"><span class="va">grpWD2cst_constr_hclust</span> <span class="op">&lt;-</span></span>
-<span class="r-in">    <span class="fu"><a href="constr.hclust.html">constr.hclust</a></span><span class="op">(</span></span>
-<span class="r-in">        <span class="va">D.dat</span>, method<span class="op">=</span><span class="st">"ward.D2"</span>,</span>
-<span class="r-in">        <span class="va">neighbors</span>, <span class="va">coord.dat</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Plot the results with k=5 clusters on a map:</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2cst_constr_hclust</span>, k<span class="op">=</span><span class="fl">5</span>, links<span class="op">=</span><span class="cn">TRUE</span>, las<span class="op">=</span><span class="fl">1</span>,</span>
-<span class="r-in">     xlab<span class="op">=</span><span class="st">"Eastings"</span>, ylab<span class="op">=</span><span class="st">"Northings"</span>, cex<span class="op">=</span><span class="fl">3</span>, lwd<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Clustering with a contiguity constraint described by a list of</span></span></span>
+<span class="r-in"><span><span class="co">## links:</span></span></span>
+<span class="r-in"><span><span class="va">grpWD2cst_constr_hclust</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="constr.hclust.html">constr.hclust</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="va">D.dat</span>, method<span class="op">=</span><span class="st">"ward.D2"</span>,</span></span>
+<span class="r-in"><span>        <span class="va">neighbors</span>, <span class="va">coord.dat</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Plot the results with k=5 clusters on a map:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2cst_constr_hclust</span>, k<span class="op">=</span><span class="fl">5</span>, links<span class="op">=</span><span class="cn">TRUE</span>, las<span class="op">=</span><span class="fl">1</span>,</span></span>
+<span class="r-in"><span>     xlab<span class="op">=</span><span class="st">"Eastings"</span>, ylab<span class="op">=</span><span class="st">"Northings"</span>, cex<span class="op">=</span><span class="fl">3</span>, lwd<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.constr.hclust-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co">### Repeat the plot with other values of k (number of groups)</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Repeat the plot with other values of k (number of groups)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -216,7 +261,7 @@ and Pierre Legendre <a href="mailto:pierre.legendre@umontreal.ca">pierre.legendr
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -24,7 +24,7 @@ representing the sites. Prepare the table of site coordinates accordingly."><met
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -74,56 +74,70 @@ representing the sites. Prepare the table of site coordinates accordingly.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">aem.build.binary</span><span class="op">(</span>
-  nb.object <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">coords</span>,
-  link <span class="op">=</span> <span class="cn">NULL</span>,
-  unit.angle <span class="op">=</span> <span class="st">"degrees"</span>,
-  rot.angle <span class="op">=</span> <span class="fl">0</span>,
-  rm.same.y <span class="op">=</span> <span class="cn">TRUE</span>,
-  plot.connexions <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">aem.build.binary</span><span class="op">(</span></span>
+<span>  nb.object <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">coords</span>,</span>
+<span>  link <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  unit.angle <span class="op">=</span> <span class="st">"degrees"</span>,</span>
+<span>  rot.angle <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  rm.same.y <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot.connexions <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>nb.object</dt>
 <dd><p>Object of class <code>nb</code> from library spdep.</p></dd>
+
+
 <dt>coords</dt>
 <dd><p>A three columns matrix or data frame. Colums 1: identifiers of
 the points (needs to be numeric). Columns 2 and 3: the X and Y coordinates
 of the points.</p></dd>
+
+
 <dt>link</dt>
 <dd><p>A two columns matrix. Each row define an edge. Column 1: The site
 from which the edge starts. Column 2: the site to which the edge ends. All
 values in <code>link</code> need to be integers.</p></dd>
+
+
 <dt>unit.angle</dt>
 <dd><p>Character. The measurement units in which the angle is
 defined: either "degrees" (default) or "radians".</p></dd>
+
+
 <dt>rot.angle</dt>
 <dd><p>Numeric. Angle of the vector describing the process
 influencing the sites. This argument generate a rotation of the site
 coordinates. The set of coordinates is rotated counterclockwise. Negative
 values will produce a clockwise rotation.</p></dd>
+
+
 <dt>rm.same.y</dt>
 <dd><p>Logical (<code>TRUE</code>, <code>FALSE</code>). Determines if the links
 perpendicular to the gradient should be removed. Default value:
 <code>TRUE</code>. If these links have already been removed this argument put to
 <code>TRUE</code> will make the function crash. See detail for more information.</p></dd>
+
+
 <dt>plot.connexions</dt>
 <dd><p>Logical (<code>TRUE</code>, <code>FALSE</code>). Determines if the
 sites and the associated connexion diagram should be plotted after rotation
 of the coordinates by <code>gradient.angle</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <dl><dt><code>se.mat</code></dt>
 <dd><p>A binary (n x k) matrix of site (n rows) by link edges
 (k columns).</p></dd>
-<dt><code>edges</code></dt>
+ <dt><code>edges</code></dt>
 <dd><p>A matrix describing the link edges. It has
 2 columns (from, to) and as many rows as there are edges. The edges linked to
 the fictitious site of origin are found at the beginning of the list.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -172,35 +186,35 @@ spatial processes in ecological data. <em>Ecological Modelling</em>, 215,
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">### Create an object of class nb (spdep)</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/r-spatial/spdep/" class="external-link">"spdep"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in"><span class="va">nb</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/cell2nb.html" class="external-link">cell2nb</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span>,<span class="st">"queen"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### Create fictitious geographical coordinates </span></span>
-<span class="r-in"><span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">25</span>,<span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### Build a binary site-by-link matrix; remove the site which have identical Y coordinate</span></span>
-<span class="r-in"><span class="co">### (by default argument: rm.same.y = TRUE)</span></span>
-<span class="r-in"><span class="va">bin.mat</span> <span class="op">&lt;-</span> <span class="fu">aem.build.binary</span><span class="op">(</span><span class="va">nb</span>,<span class="va">xy</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">bin.mat</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### Build a binary site-by-link matrix using the argument link: remove the site which</span></span>
-<span class="r-in"><span class="co">### have identical Y coordinate (by default argument: rm.same.y = TRUE)</span></span>
-<span class="r-in"><span class="va">edges</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">25</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">bin.mat</span> <span class="op">&lt;-</span> <span class="fu">aem.build.binary</span><span class="op">(</span>coords<span class="op">=</span><span class="va">xy</span>,link<span class="op">=</span><span class="va">edges</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">bin.mat</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### Build a binary site-by-link matrix, making the process affect the points at </span></span>
-<span class="r-in"><span class="co">### an angle of 45 degrees</span></span>
-<span class="r-in"><span class="va">bin.mat.45</span> <span class="op">&lt;-</span> <span class="fu">aem.build.binary</span><span class="op">(</span><span class="va">nb</span>,<span class="va">xy</span>, rot.angle<span class="op">=</span><span class="fl">45</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">bin.mat.45</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### Build a binary site-by-link matrix, making the process affect the points at</span></span>
-<span class="r-in"><span class="co">### an angle of pi/3 radians</span></span>
-<span class="r-in"><span class="va">bin.mat.pi3</span> <span class="op">&lt;-</span> <span class="fu">aem.build.binary</span><span class="op">(</span><span class="va">nb</span>,<span class="va">xy</span>,unit.angle<span class="op">=</span><span class="st">"radians"</span>, rot.angle<span class="op">=</span><span class="va">pi</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">bin.mat.pi3</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Create an object of class nb (spdep)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/r-spatial/spdep/" class="external-link">"spdep"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">nb</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/cell2nb.html" class="external-link">cell2nb</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span>,<span class="st">"queen"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Create fictitious geographical coordinates </span></span></span>
+<span class="r-in"><span><span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">25</span>,<span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Build a binary site-by-link matrix; remove the site which have identical Y coordinate</span></span></span>
+<span class="r-in"><span><span class="co">### (by default argument: rm.same.y = TRUE)</span></span></span>
+<span class="r-in"><span><span class="va">bin.mat</span> <span class="op">&lt;-</span> <span class="fu">aem.build.binary</span><span class="op">(</span><span class="va">nb</span>,<span class="va">xy</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">bin.mat</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Build a binary site-by-link matrix using the argument link: remove the site which</span></span></span>
+<span class="r-in"><span><span class="co">### have identical Y coordinate (by default argument: rm.same.y = TRUE)</span></span></span>
+<span class="r-in"><span><span class="va">edges</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">25</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">bin.mat</span> <span class="op">&lt;-</span> <span class="fu">aem.build.binary</span><span class="op">(</span>coords<span class="op">=</span><span class="va">xy</span>,link<span class="op">=</span><span class="va">edges</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">bin.mat</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Build a binary site-by-link matrix, making the process affect the points at </span></span></span>
+<span class="r-in"><span><span class="co">### an angle of 45 degrees</span></span></span>
+<span class="r-in"><span><span class="va">bin.mat.45</span> <span class="op">&lt;-</span> <span class="fu">aem.build.binary</span><span class="op">(</span><span class="va">nb</span>,<span class="va">xy</span>, rot.angle<span class="op">=</span><span class="fl">45</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">bin.mat.45</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Build a binary site-by-link matrix, making the process affect the points at</span></span></span>
+<span class="r-in"><span><span class="co">### an angle of pi/3 radians</span></span></span>
+<span class="r-in"><span><span class="va">bin.mat.pi3</span> <span class="op">&lt;-</span> <span class="fu">aem.build.binary</span><span class="op">(</span><span class="va">nb</span>,<span class="va">xy</span>,unit.angle<span class="op">=</span><span class="st">"radians"</span>, rot.angle<span class="op">=</span><span class="va">pi</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">bin.mat.pi3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="aem.build.binary-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ se.mat: int [1:25, 1:57] 1 0 0 0 0 1 1 0 0 0 ...</span>
@@ -229,7 +243,7 @@ spatial processes in ecological data. <em>Ecological Modelling</em>, 215,
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "dimnames")=List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ : chr [1:73] "" "1" "2" "3" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ : chr [1:2] "from" "to"</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -244,7 +258,7 @@ spatial processes in ecological data. <em>Ecological Modelling</em>, 215,
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

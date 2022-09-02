@@ -18,7 +18,7 @@ listw.select functions."><meta property="og:image" content="/logo.svg"><!-- math
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -62,14 +62,14 @@ listw.select functions."><meta property="og:image" content="/logo.svg"><!-- math
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">test.W</span><span class="op">(</span>
-  <span class="va">Y</span>,
-  <span class="va">nb</span>,
-  <span class="va">xy</span>,
-  MEM.autocor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"positive"</span>, <span class="st">"negative"</span><span class="op">)</span>,
-  f <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">test.W</span><span class="op">(</span></span>
+<span>  <span class="va">Y</span>,</span>
+<span>  <span class="va">nb</span>,</span>
+<span>  <span class="va">xy</span>,</span>
+<span>  MEM.autocor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"positive"</span>, <span class="st">"negative"</span><span class="op">)</span>,</span>
+<span>  f <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -77,34 +77,48 @@ listw.select functions."><meta property="og:image" content="/logo.svg"><!-- math
     <dl><dt>Y</dt>
 <dd><p>A matrix with response variables (univariate or multivariate 
 response)</p></dd>
+
+
 <dt>nb</dt>
 <dd><p>An object of the class <code>nb</code> created by functions of the 
 <code>spdep</code> package</p></dd>
+
+
 <dt>xy</dt>
 <dd><p>Coordinates of the samples, this argument is optional and is 
 required only if the argument <code>f</code> is not null.</p></dd>
+
+
 <dt>MEM.autocor</dt>
 <dd><p>A string indicating if all MEM must be returned or only 
 those corresponding to positive or negative autocorrelation</p></dd>
+
+
 <dt>f</dt>
 <dd><p>A function of the distance that can be used as a weighting spatial 
 function. This argument is optional</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Others arguments for the function <code>f</code>. It defines the range
 of parameters which will be tested</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list with the following elements:</p>
+    
+
+<p>A list with the following elements:</p>
 <dl><dt>all </dt>
 <dd><p>A data.frame where 
   each row correspond to one spatial weighting matrix tested. It contains 
   value of parameteres tested and corrected AIC and number of orthogonal 
   vectors for the best model.</p></dd>
-<dt>best </dt>
+ <dt>best </dt>
 <dd><p>A list containing results of 
   scores.listw and ortho.AIC of the best spatial weighting matrix according 
   to corrected AIC.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -136,29 +150,29 @@ definitions of the spatial weighting matrix and return results of
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">ade4</a></span><span class="op">)</span> <span class="op">&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-spatial/spdep/" class="external-link">spdep</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Hellinger transformation</span></span>
-<span class="r-in"><span class="va">fau</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">fau</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">fau</span>, <span class="fl">1</span>, <span class="va">sum</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">fau</span><span class="op">)</span><span class="op">)</span>, <span class="st">"*"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># remove gradient effect</span></span>
-<span class="r-in"><span class="va">faudt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">fau</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># test a binary spatial weighting matrix</span></span>
-<span class="r-in"><span class="va">nbtri</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/tri2nb.html" class="external-link">tri2nb</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tri.res</span> <span class="op">&lt;-</span> <span class="fu">test.W</span><span class="op">(</span><span class="va">faudt</span>, <span class="va">nbtri</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">maxi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nbdists.html" class="external-link">nbdists</a></span><span class="op">(</span><span class="va">nbtri</span>, <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># test a simple spatial weighting function of the distance</span></span>
-<span class="r-in"><span class="va">f1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="fl">1</span><span class="op">-</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">maxi</span><span class="op">)</span><span class="op">}</span></span>
-<span class="r-in"><span class="va">tri.f1</span> <span class="op">&lt;-</span> <span class="fu">test.W</span><span class="op">(</span><span class="va">faudt</span>, <span class="va">nbtri</span>, f <span class="op">=</span> <span class="va">f1</span>, xy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># test a spatial weighting function with various values of parameters</span></span>
-<span class="r-in"><span class="va">f2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">dmax</span>,<span class="va">y</span><span class="op">)</span> <span class="op">{</span><span class="fl">1</span><span class="op">-</span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="va">y</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">dmax</span><span class="op">)</span><span class="op">^</span><span class="va">y</span><span class="op">}</span></span>
-<span class="r-in"><span class="va">tri.f2</span> <span class="op">&lt;-</span> <span class="fu">test.W</span><span class="op">(</span><span class="va">faudt</span>,<span class="va">nbtri</span>, f <span class="op">=</span> <span class="va">f2</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">10</span>, dmax <span class="op">=</span> <span class="va">maxi</span>, xy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">ade4</a></span><span class="op">)</span> <span class="op">&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-spatial/spdep/" class="external-link">spdep</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Hellinger transformation</span></span></span>
+<span class="r-in"><span><span class="va">fau</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">fau</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">fau</span>, <span class="fl">1</span>, <span class="va">sum</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">fau</span><span class="op">)</span><span class="op">)</span>, <span class="st">"*"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># remove gradient effect</span></span></span>
+<span class="r-in"><span><span class="va">faudt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">fau</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># test a binary spatial weighting matrix</span></span></span>
+<span class="r-in"><span><span class="va">nbtri</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/tri2nb.html" class="external-link">tri2nb</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tri.res</span> <span class="op">&lt;-</span> <span class="fu">test.W</span><span class="op">(</span><span class="va">faudt</span>, <span class="va">nbtri</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">maxi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nbdists.html" class="external-link">nbdists</a></span><span class="op">(</span><span class="va">nbtri</span>, <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># test a simple spatial weighting function of the distance</span></span></span>
+<span class="r-in"><span><span class="va">f1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="fl">1</span><span class="op">-</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">maxi</span><span class="op">)</span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">tri.f1</span> <span class="op">&lt;-</span> <span class="fu">test.W</span><span class="op">(</span><span class="va">faudt</span>, <span class="va">nbtri</span>, f <span class="op">=</span> <span class="va">f1</span>, xy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># test a spatial weighting function with various values of parameters</span></span></span>
+<span class="r-in"><span><span class="va">f2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">dmax</span>,<span class="va">y</span><span class="op">)</span> <span class="op">{</span><span class="fl">1</span><span class="op">-</span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="va">y</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">dmax</span><span class="op">)</span><span class="op">^</span><span class="va">y</span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">tri.f2</span> <span class="op">&lt;-</span> <span class="fu">test.W</span><span class="op">(</span><span class="va">faudt</span>,<span class="va">nbtri</span>, f <span class="op">=</span> <span class="va">f2</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">10</span>, dmax <span class="op">=</span> <span class="va">maxi</span>, xy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>This function is now deprecated. Please try the new 'listw.select' function.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>This function is now deprecated. Please try the new 'mem.select' function.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -194,7 +208,7 @@ definitions of the spatial weighting matrix and return results of
 <span class="r-out co"><span class="r-pr">#&gt;</span> Best spatial model:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   y dmax      AICc NbVar</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2    3 -95.44519     6</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -209,7 +223,7 @@ definitions of the spatial weighting matrix and return results of
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

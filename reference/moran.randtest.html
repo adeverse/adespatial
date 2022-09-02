@@ -20,7 +20,7 @@ and its ouputs are objects of class randtest (one variable) or krandtest (severa
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -66,24 +66,33 @@ and its ouputs are objects of class <code>randtest</code> (one variable) or <cod
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">moran.randtest</span><span class="op">(</span><span class="va">x</span>, <span class="va">listw</span>, nrepet <span class="op">=</span> <span class="fl">999</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">moran.randtest</span><span class="op">(</span><span class="va">x</span>, <span class="va">listw</span>, nrepet <span class="op">=</span> <span class="fl">999</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a <code>vector</code>, <code>matrix</code> or <code>data.frame</code> with numeric data</p></dd>
+
+
 <dt>listw</dt>
 <dd><p>an object of class <code>listw</code> created for example by <code><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></code></p></dd>
+
+
 <dt>nrepet</dt>
 <dd><p>an integer indicating the number of permutations used in the 
 randomization procedure</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other arguments to be passed to the <code><a href="https://rdrr.io/pkg/ade4/man/randtest.html" class="external-link">as.randtest</a></code> or code<a href="https://rdrr.io/pkg/ade4/man/krandtest.html" class="external-link">as.krandtest</a> functions.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class <code>randtest</code> (one variable) or <code>krandtest</code> (several variables)</p>
+    
+
+<p>An object of class <code>randtest</code> (one variable) or <code>krandtest</code> (several variables)</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -100,16 +109,16 @@ randomization procedure</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="op">&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/r-spatial/spdep/" class="external-link">"spdep"</a></span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tests</span> <span class="op">&lt;-</span> <span class="fu">moran.randtest</span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">nb</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tests</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tests</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="op">&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/r-spatial/spdep/" class="external-link">"spdep"</a></span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tests</span> <span class="op">&lt;-</span> <span class="fu">moran.randtest</span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">nb</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tests</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tests</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="moran.randtest-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -124,7 +133,7 @@ randomization procedure</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

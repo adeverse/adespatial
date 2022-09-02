@@ -23,7 +23,7 @@ residuals up to a number of lags determined by the user."><meta property="og:ima
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -72,21 +72,21 @@ residuals up to a number of lags determined by the user.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">mfpa</span><span class="op">(</span>
-  <span class="va">y</span>,
-  MaxNFreq <span class="op">=</span> <span class="fl">2</span>,
-  MinFreq <span class="op">=</span> <span class="fl">3</span>,
-  MaxFreq <span class="op">=</span> <span class="cn">NA</span>,
-  ntrend <span class="op">=</span> <span class="fl">0</span>,
-  nlags <span class="op">=</span> <span class="fl">0</span>,
-  alpha <span class="op">=</span> <span class="fl">0.05</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for mfpa</span>
-<span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, xlab <span class="op">=</span> <span class="st">""</span>, ylab <span class="op">=</span> <span class="st">"Values"</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for mfpa</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mfpa</span><span class="op">(</span></span>
+<span>  <span class="va">y</span>,</span>
+<span>  MaxNFreq <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  MinFreq <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  MaxFreq <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  ntrend <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  nlags <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for mfpa</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, xlab <span class="op">=</span> <span class="st">""</span>, ylab <span class="op">=</span> <span class="st">"Values"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for mfpa</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -94,35 +94,58 @@ residuals up to a number of lags determined by the user.</p>
     <dl><dt>y</dt>
 <dd><p>Vector of <em>n</em> observations (vector of integer or real numbers,
 or one-column matrix).</p></dd>
+
+
 <dt>MaxNFreq</dt>
 <dd><p>Maximum number of frequencies to be estimated in the stepwise 
 procedure (e.g. 2).</p></dd>
+
+
 <dt>MinFreq</dt>
 <dd><p>Minimum value for frequency estimates (e.g. 3.0).</p></dd>
+
+
 <dt>MaxFreq</dt>
 <dd><p>Maximum value for frequency estimates (e.g. 10). Must be larger
 than MinFreq and smaller than half of the number of observations in the 
 series. If unspecified by the user <code>(MaxFreq=NA)</code>, <code>MaxFreq</code> is 
 set to <em>n</em>/4 by the function.</p></dd>
+
+
 <dt>ntrend</dt>
 <dd><p>Number (0 to 3) of orthogonal polynomial components estimating 
 the broad-scale trend, to be included in the joint polynomial-trigonometric 
 model. Use 0 to estimate no trend component, only an intercept.</p></dd>
+
+
 <dt>nlags</dt>
 <dd><p>Number of lags to be used for autocorrelation analysis of OLS 
 residuals. Use 0 to bypass this analysis.</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>Significance threshold for including frequencies.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>An object of class <code>mfpa</code></p></dd>
+
+
 <dt>xlab, ylab</dt>
 <dd><p>Labels for x and y axes</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Further arguments passed to or from other methods</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list containing the following elements:</p><ul><li><p><code>frequencies</code>: Vector of estimated frequencies of the
+    
+
+<p>A list containing the following elements:</p>
+<p></p>
+<ul><li><p><code>frequencies</code>: Vector of estimated frequencies of the
  model periodic components and associated R-squared. The frequencies are
  numbers of cycles in the whole (temporal or spatial) series under study.</p></li>
 <li><p><code>coefficients</code>: Data frame containing OLS slope estimates,
@@ -259,83 +282,83 @@ Elsevier, Amsterdam.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">### Example 1</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Simulate data with frequencies 2.3 and 6.1 and a random component, n = 100. </span></span>
-<span class="r-in"><span class="co"># No trend, no autocorrelated residuals.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fl">0.4</span><span class="op">*</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="fl">2.3</span><span class="op">*</span><span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in"><span class="fl">0.4</span><span class="op">*</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="fl">6.1</span><span class="op">*</span><span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.2</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">mfpa</span><span class="op">(</span><span class="va">y</span>, MaxNFreq <span class="op">=</span> <span class="fl">2</span>, MinFreq <span class="op">=</span> <span class="fl">2</span>, ntrend <span class="op">=</span> <span class="fl">0</span>, nlags <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Compute the periods associated with the two periodic components. Each</span></span>
-<span class="r-in"><span class="co"># frequency in element $frequencies is a number of cycles in the whole series.</span></span>
-<span class="r-in"><span class="co"># The periods are expressed in numbers of time intervals of the data series. In</span></span>
-<span class="r-in"><span class="co"># this example, if the data are measured every min, the periods are in min.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">periods</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">/</span><span class="va">res</span><span class="op">$</span><span class="va">frequencies</span><span class="op">$</span><span class="va">frequency</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Draw the data series and the fitted (or predicted) values</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Example 1</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Simulate data with frequencies 2.3 and 6.1 and a random component, n = 100. </span></span></span>
+<span class="r-in"><span><span class="co"># No trend, no autocorrelated residuals.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fl">0.4</span><span class="op">*</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="fl">2.3</span><span class="op">*</span><span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fl">0.4</span><span class="op">*</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="fl">6.1</span><span class="op">*</span><span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.2</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">mfpa</span><span class="op">(</span><span class="va">y</span>, MaxNFreq <span class="op">=</span> <span class="fl">2</span>, MinFreq <span class="op">=</span> <span class="fl">2</span>, ntrend <span class="op">=</span> <span class="fl">0</span>, nlags <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Compute the periods associated with the two periodic components. Each</span></span></span>
+<span class="r-in"><span><span class="co"># frequency in element $frequencies is a number of cycles in the whole series.</span></span></span>
+<span class="r-in"><span><span class="co"># The periods are expressed in numbers of time intervals of the data series. In</span></span></span>
+<span class="r-in"><span><span class="co"># this example, if the data are measured every min, the periods are in min.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">periods</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">/</span><span class="va">res</span><span class="op">$</span><span class="va">frequencies</span><span class="op">$</span><span class="va">frequency</span> </span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Draw the data series and the fitted (or predicted) values</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mfpa-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### Example 2</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Generate hourly periodic data with tide signal (tide period T = 12.42 h)</span></span>
-<span class="r-in"><span class="co"># during 1 year, hence 24*365 = 8760 hourly data. See</span></span>
-<span class="r-in"><span class="co"># https://en.wikipedia.org/wiki/Tide.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># In this simulation, constant (c = 0) puts the maximum value of the cosine at</span></span>
-<span class="r-in"><span class="co"># midnight on the first day of the series.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">periodic.component</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">T</span>, <span class="va">c</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">cos</a></span><span class="op">(</span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">/</span><span class="cn">T</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="va">c</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">tide.h</span> <span class="op">&lt;-</span> <span class="fu">periodic.component</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8760</span>, <span class="fl">12.42</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># The number of tides in the series is: 8760/12.42 = 705.314 tidal cycles</span></span>
-<span class="r-in"><span class="co"># during one year.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Sample the hourly data series once a day at 12:00 noon every day. The</span></span>
-<span class="r-in"><span class="co"># periodic signal to be detected has a period smaller then the interval between</span></span>
-<span class="r-in"><span class="co"># consecutive observations and its frequency is larger than (n-1). The sequence</span></span>
-<span class="r-in"><span class="co"># of sampling hours for the tide.h data is:</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">h.noon</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">8760</span>, <span class="fl">24</span><span class="op">)</span> </span>
-<span class="r-in"><span class="va">tide.data</span> <span class="op">&lt;-</span> <span class="va">tide.h</span><span class="op">[</span><span class="va">h.noon</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">tide.data</span><span class="op">)</span>   </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Example 2</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Generate hourly periodic data with tide signal (tide period T = 12.42 h)</span></span></span>
+<span class="r-in"><span><span class="co"># during 1 year, hence 24*365 = 8760 hourly data. See</span></span></span>
+<span class="r-in"><span><span class="co"># https://en.wikipedia.org/wiki/Tide.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># In this simulation, constant (c = 0) puts the maximum value of the cosine at</span></span></span>
+<span class="r-in"><span><span class="co"># midnight on the first day of the series.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">periodic.component</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">T</span>, <span class="va">c</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">cos</a></span><span class="op">(</span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">/</span><span class="cn">T</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="va">c</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tide.h</span> <span class="op">&lt;-</span> <span class="fu">periodic.component</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8760</span>, <span class="fl">12.42</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The number of tides in the series is: 8760/12.42 = 705.314 tidal cycles</span></span></span>
+<span class="r-in"><span><span class="co"># during one year.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Sample the hourly data series once a day at 12:00 noon every day. The</span></span></span>
+<span class="r-in"><span><span class="co"># periodic signal to be detected has a period smaller then the interval between</span></span></span>
+<span class="r-in"><span><span class="co"># consecutive observations and its frequency is larger than (n-1). The sequence</span></span></span>
+<span class="r-in"><span><span class="co"># of sampling hours for the tide.h data is:</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">h.noon</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">8760</span>, <span class="fl">24</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="va">tide.data</span> <span class="op">&lt;-</span> <span class="va">tide.h</span><span class="op">[</span><span class="va">h.noon</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">tide.data</span><span class="op">)</span>   </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 365</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># The series contains 365 sampling units</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Compute Dutilleul's multi-frequential periodogram</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">res.noon</span> <span class="op">&lt;-</span> <span class="fu">mfpa</span><span class="op">(</span><span class="va">tide.data</span>, MaxNFreq <span class="op">=</span> <span class="fl">1</span>, MinFreq <span class="op">=</span> <span class="fl">2</span>, ntrend <span class="op">=</span> <span class="fl">1</span>, nlags <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Examine the frequency detected by the periodogram, element</span></span>
-<span class="r-in"><span class="co"># res.noon$frequencies. This is a harmonic of the tide signal in the original</span></span>
-<span class="r-in"><span class="co"># data series tide.h.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Compute the period of the signal in the data series sampled hourly:</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">period</span> <span class="op">&lt;-</span> <span class="fl">365</span><span class="op">/</span><span class="va">res.noon</span><span class="op">$</span><span class="va">frequencies</span><span class="op">$</span><span class="va">frequency</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Draw the data series and the adjusted values</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res.noon</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The series contains 365 sampling units</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Compute Dutilleul's multi-frequential periodogram</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">res.noon</span> <span class="op">&lt;-</span> <span class="fu">mfpa</span><span class="op">(</span><span class="va">tide.data</span>, MaxNFreq <span class="op">=</span> <span class="fl">1</span>, MinFreq <span class="op">=</span> <span class="fl">2</span>, ntrend <span class="op">=</span> <span class="fl">1</span>, nlags <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Examine the frequency detected by the periodogram, element</span></span></span>
+<span class="r-in"><span><span class="co"># res.noon$frequencies. This is a harmonic of the tide signal in the original</span></span></span>
+<span class="r-in"><span><span class="co"># data series tide.h.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Compute the period of the signal in the data series sampled hourly:</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">period</span> <span class="op">&lt;-</span> <span class="fl">365</span><span class="op">/</span><span class="va">res.noon</span><span class="op">$</span><span class="va">frequencies</span><span class="op">$</span><span class="va">frequency</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Draw the data series and the adjusted values</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res.noon</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mfpa-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Repeat this analysis after addition of random noise to the tide data</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">tide.noise</span> <span class="op">&lt;-</span> <span class="va">tide.data</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">365</span>, <span class="fl">0</span>, <span class="fl">0.25</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">res.noise</span> <span class="op">&lt;-</span> <span class="fu">mfpa</span><span class="op">(</span><span class="va">tide.noise</span>, MaxNFreq <span class="op">=</span> <span class="fl">1</span>, MinFreq <span class="op">=</span> <span class="fl">2</span>, ntrend <span class="op">=</span> <span class="fl">1</span>, nlags <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res.noise</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Repeat this analysis after addition of random noise to the tide data</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tide.noise</span> <span class="op">&lt;-</span> <span class="va">tide.data</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">365</span>, <span class="fl">0</span>, <span class="fl">0.25</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">res.noise</span> <span class="op">&lt;-</span> <span class="fu">mfpa</span><span class="op">(</span><span class="va">tide.noise</span>, MaxNFreq <span class="op">=</span> <span class="fl">1</span>, MinFreq <span class="op">=</span> <span class="fl">2</span>, ntrend <span class="op">=</span> <span class="fl">1</span>, nlags <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res.noise</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mfpa-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -350,7 +373,7 @@ Elsevier, Amsterdam.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

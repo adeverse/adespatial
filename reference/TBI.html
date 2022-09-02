@@ -24,7 +24,7 @@ each site. The difference between species (or abundances-per-species) gains
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -74,20 +74,20 @@ each site. The difference between species (or abundances-per-species) gains
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">TBI</span><span class="op">(</span>
-  <span class="va">mat1</span>,
-  <span class="va">mat2</span>,
-  method <span class="op">=</span> <span class="st">"%difference"</span>,
-  pa.tr <span class="op">=</span> <span class="cn">FALSE</span>,
-  nperm <span class="op">=</span> <span class="fl">99</span>,
-  BCD <span class="op">=</span> <span class="cn">TRUE</span>,
-  replace <span class="op">=</span> <span class="cn">FALSE</span>,
-  test.BC <span class="op">=</span> <span class="cn">TRUE</span>,
-  test.t.perm <span class="op">=</span> <span class="cn">FALSE</span>,
-  save.BC <span class="op">=</span> <span class="cn">FALSE</span>,
-  seed. <span class="op">=</span> <span class="cn">NULL</span>,
-  clock <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">TBI</span><span class="op">(</span></span>
+<span>  <span class="va">mat1</span>,</span>
+<span>  <span class="va">mat2</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"%difference"</span>,</span>
+<span>  pa.tr <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  nperm <span class="op">=</span> <span class="fl">99</span>,</span>
+<span>  BCD <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  replace <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  test.BC <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  test.t.perm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  save.BC <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  seed. <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clock <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -100,6 +100,8 @@ columns to the same variables, e.g. species or alleles. –
 The input files are checked for having equal numbers of rows and columns, for  
 rows that are empty in <b>both</b> mat1 and mat2, and for the presence of negative  
 values, which cannot be frequencies.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>One of the following dissimilarity coefficients:
 <code>"%difference"</code> (aka Bray-Curtis), <code>"ruzicka"</code>, <code>"chord"</code>,
@@ -107,13 +109,19 @@ values, which cannot be frequencies.</p></dd>
 <code>"jaccard"</code>, <code>"ochiai"</code>, <code>"euclidean"</code>. See Details. Names
 can be abbreviated to a non-ambiguous set of first letters. Default:
 <code>method="%difference"</code>.</p></dd>
+
+
 <dt>pa.tr</dt>
 <dd><p>If <code>pa.tr=TRUE</code>, the data are transformed to binary (i.e.
 presence-absence, or pa) form. If <code>pa.tr=FALSE</code>, they are not.</p></dd>
+
+
 <dt>nperm</dt>
 <dd><p>Number of permutations for the tests of significance of the
 temporal beta indices and the permutation test of the B-C difference. Use
 <code>nperm</code> = 999 or 9999 in real studies.</p></dd>
+
+
 <dt>BCD</dt>
 <dd><p>If <code>BCD=TRUE</code>, the B and C components of the
 percentage difference (<code>method="%difference"</code>) and Ruzicka
@@ -128,28 +136,38 @@ the case of the percentage difference and Ruzicka indices.</p>
 <p>If <code>BCD=FALSE</code>, that table is not produced. No table can be computed for
 indices other than the Ruzicka and percentage difference or their binary
 forms.</p></dd>
+
+
 <dt>replace</dt>
 <dd><p>If <code>FALSE</code> (default value),
 sampling is done without replacement, producing a regular permutation test.
 If <code>TRUE</code>, sampling is done with replacement for the
 test of significance; the method is then bootstrapping.</p></dd>
+
+
 <dt>test.BC</dt>
 <dd><p>If <code>TRUE</code>, the difference between
 species (or abundances-per-species) gains (C/den) and species (or
 abundances-per-species) losses (B/den) is tested in a parametric paired
 t-test computed by function <code>t.test</code> of <code>stats</code>. If
 <code>FALSE</code>, the test is not computed.</p></dd>
+
+
 <dt>test.t.perm</dt>
 <dd><p>If <code>TRUE</code>, the difference
 between species (or abundances-per-species) gains (C/den) and species (or
 abundances-per-species) losses (B/den) is also tested in a permutational
 paired t-test computed by function <code>t.paired.perm</code>.If
 <code>FALSE</code>, the test is not computed.</p></dd>
+
+
 <dt>save.BC</dt>
 <dd><p>If <code>TRUE</code>, the original B and C
 values are returned in a matrix called <code>BC</code>, without division by den
 as in the output matrix <code>BCD.mat</code>. If <code>FALSE</code>, BC
 will get the value NA in the output list.</p></dd>
+
+
 <dt>seed.</dt>
 <dd><p>Seed for random number generator. If <code>NULL</code>, the random 
 number generator keeps going from the point it had reached in previous
@@ -158,14 +176,21 @@ the random number generator is reset using that value. This allows users to
 repeat exactly a previous calculation launched with the same value of
 <code>seed.</code>; the sequence of generated random numbers will be exactly the
 same.</p></dd>
+
+
 <dt>clock</dt>
 <dd><p>If <code>clock=TRUE</code>, the computation time is printed. This
 option is useful to predict the calculation time when <em>n</em> and
 <em>nperm</em> are large.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Function TBI returns a list containing the following results:</p><ul><li><p><code>TBI</code> The vector of Temporal Beta-diversity Indices
+    
+
+<p>Function TBI returns a list containing the following results:</p>
+<p></p>
+<ul><li><p><code>TBI</code> The vector of Temporal Beta-diversity Indices
   (TBI) between observations at times T1 and T2 for each object.</p></li>
 <li><p><code>p.TBI</code> A corresponding vector of p-values. Significant p-values
   (e.g. p.TBI &lt;= 0.05) indicate exceptional objects for the difference of
@@ -333,59 +358,59 @@ associated with very low richness and no species in common between T1 and T2.</p
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://cran.r-project.org" class="external-link">"vegan"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example 1 -</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Invertebrate communities subjected to insecticide treatment.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## As an example in their paper on Principal Response Curves (PRC method), van den</span></span>
-<span class="r-in"><span class="co">## Brink &amp; ter Braak (1999) used observations on the abundances of 178 invertebrate</span></span>
-<span class="r-in"><span class="co">## species (macroinvertebrates and zooplankton) subjected to treatments in 12 mesocosms by</span></span>
-<span class="r-in"><span class="co">## the insecticide chlorpyrifos. The mesocosms were sampled at 11 occasions. The data,</span></span>
-<span class="r-in"><span class="co">## available in the {vegan} package, are log-transformed species abundances, ytranformed =</span></span>
-<span class="r-in"><span class="co">## log(10*y+1).</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## The data of survey #4 will be compared to those of survey #11 in this example.</span></span>
-<span class="r-in"><span class="co">## Survey #4 was carried out one week after the insecticide treatment, whereas the fauna</span></span>
-<span class="r-in"><span class="co">## of the mesocosms was considered by the authors to have fully recovered from the</span></span>
-<span class="r-in"><span class="co">## insecticide treatment at survey #11.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pyrifos</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## The mesocosms had originally been attributed at random to the treatments. However,</span></span>
-<span class="r-in"><span class="co">## to facilitate presentation of the results, they will be listed here in order of</span></span>
-<span class="r-in"><span class="co">## increased insecticide doses: {0, 0, 0, 0, 0.1, 0.1, 0.9, 0.9, 6, 6, 44, 44} micro g/L.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Select the 12 data rows of surveys 4 and 11 from the data file and reorder them</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ord4</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">38</span>,<span class="fl">39</span>,<span class="fl">41</span>,<span class="fl">47</span>,<span class="fl">37</span>,<span class="fl">44</span>,<span class="fl">40</span>,<span class="fl">46</span>,<span class="fl">43</span>,<span class="fl">48</span>,<span class="fl">42</span>,<span class="fl">45</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ord11</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">122</span>,<span class="fl">123</span>,<span class="fl">125</span>,<span class="fl">131</span>,<span class="fl">121</span>,<span class="fl">128</span>,<span class="fl">124</span>,<span class="fl">130</span>,<span class="fl">127</span>,<span class="fl">132</span>,<span class="fl">126</span>,<span class="fl">129</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Run the TBI function</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">TBI</span><span class="op">(</span><span class="va">pyrifos</span><span class="op">[</span><span class="va">ord4</span>,<span class="op">]</span>, <span class="va">pyrifos</span><span class="op">[</span><span class="va">ord11</span>,<span class="op">]</span>, method <span class="op">=</span> <span class="st">"%diff"</span>, nperm <span class="op">=</span> <span class="fl">0</span>, test.t.perm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">res1</span><span class="op">$</span><span class="va">BCD.mat</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example 2 -</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## This example uses the mite data available in vegan. Let us pretend that sites 1-20</span></span>
-<span class="r-in"><span class="co">## represent T1 and sites 21-40 represent T2.</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Run the TBI function</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">TBI</span><span class="op">(</span><span class="va">mite</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>,<span class="op">]</span>, <span class="va">mite</span><span class="op">[</span><span class="fl">21</span><span class="op">:</span><span class="fl">40</span>,<span class="op">]</span>, method <span class="op">=</span> <span class="st">"%diff"</span>, nperm <span class="op">=</span> <span class="fl">0</span>, test.t.perm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res2</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">res2</span><span class="op">$</span><span class="va">BCD.mat</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/vegandevs/vegan" class="external-link">"vegan"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Example 1 -</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Invertebrate communities subjected to insecticide treatment.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## As an example in their paper on Principal Response Curves (PRC method), van den</span></span></span>
+<span class="r-in"><span><span class="co">## Brink &amp; ter Braak (1999) used observations on the abundances of 178 invertebrate</span></span></span>
+<span class="r-in"><span><span class="co">## species (macroinvertebrates and zooplankton) subjected to treatments in 12 mesocosms by</span></span></span>
+<span class="r-in"><span><span class="co">## the insecticide chlorpyrifos. The mesocosms were sampled at 11 occasions. The data,</span></span></span>
+<span class="r-in"><span><span class="co">## available in the {vegan} package, are log-transformed species abundances, ytranformed =</span></span></span>
+<span class="r-in"><span><span class="co">## log(10*y+1).</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## The data of survey #4 will be compared to those of survey #11 in this example.</span></span></span>
+<span class="r-in"><span><span class="co">## Survey #4 was carried out one week after the insecticide treatment, whereas the fauna</span></span></span>
+<span class="r-in"><span><span class="co">## of the mesocosms was considered by the authors to have fully recovered from the</span></span></span>
+<span class="r-in"><span><span class="co">## insecticide treatment at survey #11.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pyrifos</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## The mesocosms had originally been attributed at random to the treatments. However,</span></span></span>
+<span class="r-in"><span><span class="co">## to facilitate presentation of the results, they will be listed here in order of</span></span></span>
+<span class="r-in"><span><span class="co">## increased insecticide doses: {0, 0, 0, 0, 0.1, 0.1, 0.9, 0.9, 6, 6, 44, 44} micro g/L.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Select the 12 data rows of surveys 4 and 11 from the data file and reorder them</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ord4</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">38</span>,<span class="fl">39</span>,<span class="fl">41</span>,<span class="fl">47</span>,<span class="fl">37</span>,<span class="fl">44</span>,<span class="fl">40</span>,<span class="fl">46</span>,<span class="fl">43</span>,<span class="fl">48</span>,<span class="fl">42</span>,<span class="fl">45</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ord11</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">122</span>,<span class="fl">123</span>,<span class="fl">125</span>,<span class="fl">131</span>,<span class="fl">121</span>,<span class="fl">128</span>,<span class="fl">124</span>,<span class="fl">130</span>,<span class="fl">127</span>,<span class="fl">132</span>,<span class="fl">126</span>,<span class="fl">129</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Run the TBI function</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">TBI</span><span class="op">(</span><span class="va">pyrifos</span><span class="op">[</span><span class="va">ord4</span>,<span class="op">]</span>, <span class="va">pyrifos</span><span class="op">[</span><span class="va">ord11</span>,<span class="op">]</span>, method <span class="op">=</span> <span class="st">"%diff"</span>, nperm <span class="op">=</span> <span class="fl">0</span>, test.t.perm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">res1</span><span class="op">$</span><span class="va">BCD.mat</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Example 2 -</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## This example uses the mite data available in vegan. Let us pretend that sites 1-20</span></span></span>
+<span class="r-in"><span><span class="co">## represent T1 and sites 21-40 represent T2.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Run the TBI function</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">TBI</span><span class="op">(</span><span class="va">mite</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>,<span class="op">]</span>, <span class="va">mite</span><span class="op">[</span><span class="fl">21</span><span class="op">:</span><span class="fl">40</span>,<span class="op">]</span>, method <span class="op">=</span> <span class="st">"%diff"</span>, nperm <span class="op">=</span> <span class="fl">0</span>, test.t.perm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">res2</span><span class="op">$</span><span class="va">BCD.mat</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         B/(2A+B+C) C/(2A+B+C) D=(B+C)/(2A+B+C) Change</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Site.1   0.3618677 0.27237354        0.6342412    -  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Site.2   0.4454545 0.22727273        0.6727273    -  </span>
@@ -421,7 +446,7 @@ associated with very low richness and no species in common between T1 and T2.</p
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

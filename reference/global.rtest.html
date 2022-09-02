@@ -19,7 +19,7 @@ negative Moran's I ."><meta property="og:image" content="/logo.svg"><!-- mathjax
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -64,25 +64,34 @@ negative Moran's I .<br></p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">global.rtest</span><span class="op">(</span><span class="va">X</span>, <span class="va">listw</span>, k <span class="op">=</span> <span class="fl">1</span>, nperm <span class="op">=</span> <span class="fl">499</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">global.rtest</span><span class="op">(</span><span class="va">X</span>, <span class="va">listw</span>, k <span class="op">=</span> <span class="fl">1</span>, nperm <span class="op">=</span> <span class="fl">499</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>X</dt>
 <dd><p>a data matrix, with variables in columns</p></dd>
+
+
 <dt>listw</dt>
 <dd><p>a list of weights of class <code>listw</code>. Can be obtained easily 
 using the function <code>chooseCN</code>.</p></dd>
+
+
 <dt>k</dt>
 <dd><p>integer: the number of highest \(R^2\) summed to form the 
 test statistics</p></dd>
+
+
 <dt>nperm</dt>
 <dd><p>integer: the number of randomisations to be performed.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class <code>randtest</code>.</p>
+    
+
+<p>An object of class <code>randtest</code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -110,11 +119,11 @@ permuting the rows of X.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># wait for a generic dataset</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># wait for a generic dataset</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -130,7 +139,7 @@ permuting the rows of X.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

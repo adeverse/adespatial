@@ -19,7 +19,7 @@ available."><meta property="og:image" content="/logo.svg"><!-- mathjax --><scrip
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -64,26 +64,26 @@ available.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for TBI</span>
-<span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/plot.html" class="external-link">plot</a></span><span class="op">(</span>
-  <span class="va">x</span>,
-  type <span class="op">=</span> <span class="st">"BC"</span>,
-  s.names <span class="op">=</span> <span class="cn">NULL</span>,
-  pch.loss <span class="op">=</span> <span class="fl">21</span>,
-  pch.gain <span class="op">=</span> <span class="fl">22</span>,
-  cex.names <span class="op">=</span> <span class="fl">1</span>,
-  col.rim <span class="op">=</span> <span class="st">"black"</span>,
-  col.bg <span class="op">=</span> <span class="st">"gold1"</span>,
-  cex.symb <span class="op">=</span> <span class="fl">3</span>,
-  diam <span class="op">=</span> <span class="cn">TRUE</span>,
-  main <span class="op">=</span> <span class="st">"B-C plot"</span>,
-  cex.main <span class="op">=</span> <span class="fl">1</span>,
-  cex.lab <span class="op">=</span> <span class="fl">1</span>,
-  xlim <span class="op">=</span> <span class="cn">NULL</span>,
-  ylim <span class="op">=</span> <span class="cn">NULL</span>,
-  silent <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for TBI</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"BC"</span>,</span>
+<span>  s.names <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  pch.loss <span class="op">=</span> <span class="fl">21</span>,</span>
+<span>  pch.gain <span class="op">=</span> <span class="fl">22</span>,</span>
+<span>  cex.names <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  col.rim <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  col.bg <span class="op">=</span> <span class="st">"gold1"</span>,</span>
+<span>  cex.symb <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  diam <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"B-C plot"</span>,</span>
+<span>  cex.main <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  cex.lab <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  xlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ylim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -93,49 +93,84 @@ available.</p>
 The matrix BCD.mat will be extracted from that object. This matrix contains the 
 B/den statistics in column 1 and the C/den statistics in column 2, where "den" is the 
 denominator used in the TBI analysis.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>Specify which outputs are plotted. At this time, only BC plots are implemented</p></dd>
+
+
 <dt>s.names</dt>
 <dd><p>a vector of names: Site names will be printed on the BC plot. Examples:
 s.names=1:25; s.names=paste("Site",1:25,sep="."); s.names=rownames(res1$BCD.mat). 
 Else, s.names=NULL (default): no site names will be printed.</p></dd>
+
+
 <dt>pch.loss</dt>
 <dd><p>Symbol used for sites where losses &gt; gains. Default: pch=21, circles. 
 Symbols 21 to 25 have a black rim and can be filled with different colours (argument 
 col.bg); see documentation of funciton points. Symbols 0 to 20 only have a rim.</p></dd>
+
+
 <dt>pch.gain</dt>
 <dd><p>Symbol used for sites where losses &gt;= gains. Default: pch=21, squares.</p></dd>
+
+
 <dt>cex.names</dt>
 <dd><p>Multiplier for the font size of the site names.</p></dd>
+
+
 <dt>col.rim</dt>
 <dd><p>Colour of symbol rims in the plot. The following colours have been used
 in BC plots: "gold","grey70","cadetblue2","red","orange3","coral2","grey100","green".</p></dd>
+
+
 <dt>col.bg</dt>
 <dd><p>Colour filling symbols 21 to 25 in the plot.</p></dd>
+
+
 <dt>cex.symb</dt>
 <dd><p>Multiplier for size of the symbols representing the TBI values of the 
 sites in the plot. With cex.symb=NULL, symbols have small and uniform sizes.</p></dd>
+
+
 <dt>diam</dt>
 <dd><p>If  <code>TRUE</code>, symbol diameter represents the TBI value. If <code>FALSE</code>,
 symbol surface area represents the TBI value.</p></dd>
+
+
 <dt>main</dt>
 <dd><p>Main title above the plot. Change the title and adapt it to your study.</p></dd>
+
+
 <dt>cex.main</dt>
 <dd><p>Multiplier for the font size of the main title.</p></dd>
+
+
 <dt>cex.lab</dt>
 <dd><p>Multiplier for the font size of the labels.</p></dd>
+
+
 <dt>xlim</dt>
 <dd><p>The x limits of the plot, e.g. c(0,1).</p></dd>
+
+
 <dt>ylim</dt>
 <dd><p>The y limits of the plot, e.g. c(0,1).</p></dd>
+
+
 <dt>silent</dt>
 <dd><p>If <code>FALSE</code> print intercept of red line with ordinate.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other arguments to be passed to the function</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A graph in the R graphic window, with the same scale along the 2 axes (asp=1).</p>
+    
+
+<p>A graph in the R graphic window, with the same scale along the 2 axes (asp=1).</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -165,97 +200,97 @@ time-dependent multivariate responses of biological community to stress.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://cran.r-project.org" class="external-link">"vegan"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example 1 -</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Invertebrate communities subjected to insecticide treatment.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## As an example in their paper on Principal Response Curves (PRC method), van den </span></span>
-<span class="r-in"><span class="co">## Brink &amp; ter Braak (1999) used observations on the abundances of 178 invertebrate </span></span>
-<span class="r-in"><span class="co">## species (macroinvertebrates and zooplankton) subjected to treatments in 12 mesocosms </span></span>
-<span class="r-in"><span class="co">## by the insecticide chlorpyrifos. The mesocosms were sampled at 11 occasions. The </span></span>
-<span class="r-in"><span class="co">## data, available in the {vegan} package, are log-transformed species abundances, </span></span>
-<span class="r-in"><span class="co">## ytranformed = loge(10*y+1).</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## The data of survey #4 will be compared to those of survey #11 in this example. </span></span>
-<span class="r-in"><span class="co">## Survey #4 was carried out one week after the insecticide treatment, whereas the  </span></span>
-<span class="r-in"><span class="co">## fauna of the mesocosms was considered by the authors to have fully recovered from  </span></span>
-<span class="r-in"><span class="co">## the insecticide treatment at survey #11.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pyrifos</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## The mesocosms had originally been attributed at random to the treatments. However, </span></span>
-<span class="r-in"><span class="co">## to facilitate presentation of the results, they will be listed here in order of </span></span>
-<span class="r-in"><span class="co">## increased insecticide doses: {0, 0, 0, 0, 0.1, 0.1, 0.9, 0.9, 6, 6, 44, 44} </span></span>
-<span class="r-in"><span class="co">## micro g/L.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Select the 12 data rows of surveys 4 and 11 from the data file and reorder them</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ord4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">38</span>,<span class="fl">39</span>,<span class="fl">41</span>,<span class="fl">47</span>,<span class="fl">37</span>,<span class="fl">44</span>,<span class="fl">40</span>,<span class="fl">46</span>,<span class="fl">43</span>,<span class="fl">48</span>,<span class="fl">42</span>,<span class="fl">45</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ord11</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">122</span>,<span class="fl">123</span>,<span class="fl">125</span>,<span class="fl">131</span>,<span class="fl">121</span>,<span class="fl">128</span>,<span class="fl">124</span>,<span class="fl">130</span>,<span class="fl">127</span>,<span class="fl">132</span>,<span class="fl">126</span>,<span class="fl">129</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Run the TBI function</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu"><a href="TBI.html">TBI</a></span><span class="op">(</span><span class="va">pyrifos</span><span class="op">[</span><span class="va">ord4</span>,<span class="op">]</span>, <span class="va">pyrifos</span><span class="op">[</span><span class="va">ord11</span>,<span class="op">]</span>, method <span class="op">=</span> <span class="st">"%diff"</span>, nperm <span class="op">=</span> <span class="fl">0</span>, test.t.perm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">res1</span><span class="op">$</span><span class="va">BCD.mat</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Draw BC plots</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">s.names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Surv"</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">12</span>,sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## In the 1st plot, the symbols have diameters proportional to the site TBI statistics </span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res1</span>, s.names<span class="op">=</span><span class="va">s.names</span>, col.bg<span class="op">=</span><span class="st">"red"</span>, pch.loss<span class="op">=</span><span class="fl">21</span>, pch.gain<span class="op">=</span><span class="fl">22</span>, </span>
-<span class="r-in">main<span class="op">=</span><span class="st">"B-C plot, Pyrifos, surveys 4 &amp; 11"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## In the 2nd plot, control the axes limit values by specifying xlim and ylim</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res1</span>, s.names<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, col.bg<span class="op">=</span><span class="st">"green"</span>, pch.loss<span class="op">=</span><span class="fl">23</span>, pch.gain<span class="op">=</span><span class="fl">24</span>, </span>
-<span class="r-in">main<span class="op">=</span><span class="st">"B-C plot, Pyrifos, surveys 4 &amp; 11"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.5</span><span class="op">)</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.6</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## In the 3rd plot, draw all symbols small and of the same size, using cex.symb=NULL</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res1</span>, s.names<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, col.bg<span class="op">=</span><span class="st">"gold"</span>, pch.loss<span class="op">=</span><span class="fl">23</span>, pch.gain<span class="op">=</span><span class="fl">24</span>, </span>
-<span class="r-in">main<span class="op">=</span><span class="st">"B-C plot, Pyrifos, surveys 4 &amp; 11"</span>, cex.symb<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example 2 -</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## This example uses the mite data available in vegan. Let us pretend that sites 1-20 </span></span>
-<span class="r-in"><span class="co">## represent a survey at time 1 (T1) and sites 21-40 a survey at time 2 (T2).</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Run the TBI function</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu"><a href="TBI.html">TBI</a></span><span class="op">(</span><span class="va">mite</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>,<span class="op">]</span>,<span class="va">mite</span><span class="op">[</span><span class="fl">21</span><span class="op">:</span><span class="fl">40</span>,<span class="op">]</span>,method<span class="op">=</span><span class="st">"%diff"</span>,nperm<span class="op">=</span><span class="fl">0</span>,test.t.perm<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">res2</span><span class="op">$</span><span class="va">BCD.mat</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Draw BC plots</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">s.names</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">res2</span><span class="op">$</span><span class="va">BCD.mat</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## In the 1st plot, the symbols have diameters proportional to the site TBI statistics</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res2</span>, s.names<span class="op">=</span><span class="va">s.names</span>, col.bg<span class="op">=</span><span class="st">"cadetblue2"</span>, pch.loss<span class="op">=</span><span class="fl">21</span>, pch.gain<span class="op">=</span><span class="fl">22</span>, </span>
-<span class="r-in">main<span class="op">=</span><span class="st">"B-C plot, Mite data"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># In the 2nd plot, control the axes limit values by specifying xlim and ylim</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res2</span>, s.names<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, col.rim<span class="op">=</span><span class="st">"coral2"</span>, pch.loss<span class="op">=</span><span class="fl">19</span>, pch.gain<span class="op">=</span><span class="fl">15</span>, </span>
-<span class="r-in">main<span class="op">=</span><span class="st">"B-C plot, Mite data"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.6</span><span class="op">)</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.6</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/vegandevs/vegan" class="external-link">"vegan"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Example 1 -</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Invertebrate communities subjected to insecticide treatment.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## As an example in their paper on Principal Response Curves (PRC method), van den </span></span></span>
+<span class="r-in"><span><span class="co">## Brink &amp; ter Braak (1999) used observations on the abundances of 178 invertebrate </span></span></span>
+<span class="r-in"><span><span class="co">## species (macroinvertebrates and zooplankton) subjected to treatments in 12 mesocosms </span></span></span>
+<span class="r-in"><span><span class="co">## by the insecticide chlorpyrifos. The mesocosms were sampled at 11 occasions. The </span></span></span>
+<span class="r-in"><span><span class="co">## data, available in the {vegan} package, are log-transformed species abundances, </span></span></span>
+<span class="r-in"><span><span class="co">## ytranformed = loge(10*y+1).</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## The data of survey #4 will be compared to those of survey #11 in this example. </span></span></span>
+<span class="r-in"><span><span class="co">## Survey #4 was carried out one week after the insecticide treatment, whereas the  </span></span></span>
+<span class="r-in"><span><span class="co">## fauna of the mesocosms was considered by the authors to have fully recovered from  </span></span></span>
+<span class="r-in"><span><span class="co">## the insecticide treatment at survey #11.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pyrifos</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## The mesocosms had originally been attributed at random to the treatments. However, </span></span></span>
+<span class="r-in"><span><span class="co">## to facilitate presentation of the results, they will be listed here in order of </span></span></span>
+<span class="r-in"><span><span class="co">## increased insecticide doses: {0, 0, 0, 0, 0.1, 0.1, 0.9, 0.9, 6, 6, 44, 44} </span></span></span>
+<span class="r-in"><span><span class="co">## micro g/L.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Select the 12 data rows of surveys 4 and 11 from the data file and reorder them</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ord4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">38</span>,<span class="fl">39</span>,<span class="fl">41</span>,<span class="fl">47</span>,<span class="fl">37</span>,<span class="fl">44</span>,<span class="fl">40</span>,<span class="fl">46</span>,<span class="fl">43</span>,<span class="fl">48</span>,<span class="fl">42</span>,<span class="fl">45</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ord11</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">122</span>,<span class="fl">123</span>,<span class="fl">125</span>,<span class="fl">131</span>,<span class="fl">121</span>,<span class="fl">128</span>,<span class="fl">124</span>,<span class="fl">130</span>,<span class="fl">127</span>,<span class="fl">132</span>,<span class="fl">126</span>,<span class="fl">129</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Run the TBI function</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu"><a href="TBI.html">TBI</a></span><span class="op">(</span><span class="va">pyrifos</span><span class="op">[</span><span class="va">ord4</span>,<span class="op">]</span>, <span class="va">pyrifos</span><span class="op">[</span><span class="va">ord11</span>,<span class="op">]</span>, method <span class="op">=</span> <span class="st">"%diff"</span>, nperm <span class="op">=</span> <span class="fl">0</span>, test.t.perm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">res1</span><span class="op">$</span><span class="va">BCD.mat</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Draw BC plots</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">s.names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Surv"</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">12</span>,sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## In the 1st plot, the symbols have diameters proportional to the site TBI statistics </span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res1</span>, s.names<span class="op">=</span><span class="va">s.names</span>, col.bg<span class="op">=</span><span class="st">"red"</span>, pch.loss<span class="op">=</span><span class="fl">21</span>, pch.gain<span class="op">=</span><span class="fl">22</span>, </span></span>
+<span class="r-in"><span>main<span class="op">=</span><span class="st">"B-C plot, Pyrifos, surveys 4 &amp; 11"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## In the 2nd plot, control the axes limit values by specifying xlim and ylim</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res1</span>, s.names<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, col.bg<span class="op">=</span><span class="st">"green"</span>, pch.loss<span class="op">=</span><span class="fl">23</span>, pch.gain<span class="op">=</span><span class="fl">24</span>, </span></span>
+<span class="r-in"><span>main<span class="op">=</span><span class="st">"B-C plot, Pyrifos, surveys 4 &amp; 11"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.5</span><span class="op">)</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## In the 3rd plot, draw all symbols small and of the same size, using cex.symb=NULL</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res1</span>, s.names<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, col.bg<span class="op">=</span><span class="st">"gold"</span>, pch.loss<span class="op">=</span><span class="fl">23</span>, pch.gain<span class="op">=</span><span class="fl">24</span>, </span></span>
+<span class="r-in"><span>main<span class="op">=</span><span class="st">"B-C plot, Pyrifos, surveys 4 &amp; 11"</span>, cex.symb<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Example 2 -</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## This example uses the mite data available in vegan. Let us pretend that sites 1-20 </span></span></span>
+<span class="r-in"><span><span class="co">## represent a survey at time 1 (T1) and sites 21-40 a survey at time 2 (T2).</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Run the TBI function</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu"><a href="TBI.html">TBI</a></span><span class="op">(</span><span class="va">mite</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>,<span class="op">]</span>,<span class="va">mite</span><span class="op">[</span><span class="fl">21</span><span class="op">:</span><span class="fl">40</span>,<span class="op">]</span>,method<span class="op">=</span><span class="st">"%diff"</span>,nperm<span class="op">=</span><span class="fl">0</span>,test.t.perm<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">res2</span><span class="op">$</span><span class="va">BCD.mat</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Draw BC plots</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">s.names</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">res2</span><span class="op">$</span><span class="va">BCD.mat</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## In the 1st plot, the symbols have diameters proportional to the site TBI statistics</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res2</span>, s.names<span class="op">=</span><span class="va">s.names</span>, col.bg<span class="op">=</span><span class="st">"cadetblue2"</span>, pch.loss<span class="op">=</span><span class="fl">21</span>, pch.gain<span class="op">=</span><span class="fl">22</span>, </span></span>
+<span class="r-in"><span>main<span class="op">=</span><span class="st">"B-C plot, Mite data"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># In the 2nd plot, control the axes limit values by specifying xlim and ylim</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res2</span>, s.names<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, col.rim<span class="op">=</span><span class="st">"coral2"</span>, pch.loss<span class="op">=</span><span class="fl">19</span>, pch.gain<span class="op">=</span><span class="fl">15</span>, </span></span>
+<span class="r-in"><span>main<span class="op">=</span><span class="st">"B-C plot, Mite data"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.6</span><span class="op">)</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -270,7 +305,7 @@ time-dependent multivariate responses of biological community to stress.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

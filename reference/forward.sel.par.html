@@ -21,7 +21,7 @@ distributed (to be verified by the user)."><meta property="og:image" content="/l
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -68,17 +68,17 @@ distributed (to be verified by the user).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">forward.sel.par</span><span class="op">(</span>
-  <span class="va">Y</span>,
-  <span class="va">X</span>,
-  alpha <span class="op">=</span> <span class="fl">0.05</span>,
-  K <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,
-  R2thresh <span class="op">=</span> <span class="fl">0.99</span>,
-  R2more <span class="op">=</span> <span class="fl">0.001</span>,
-  adjR2thresh <span class="op">=</span> <span class="fl">0.99</span>,
-  Yscale <span class="op">=</span> <span class="cn">FALSE</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">forward.sel.par</span><span class="op">(</span></span>
+<span>  <span class="va">Y</span>,</span>
+<span>  <span class="va">X</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  K <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
+<span>  R2thresh <span class="op">=</span> <span class="fl">0.99</span>,</span>
+<span>  R2more <span class="op">=</span> <span class="fl">0.001</span>,</span>
+<span>  adjR2thresh <span class="op">=</span> <span class="fl">0.99</span>,</span>
+<span>  Yscale <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -86,55 +86,76 @@ distributed (to be verified by the user).</p>
     <dl><dt>Y</dt>
 <dd><p>Response data matrix with n rows and m columns containing 
 quantitative variables</p></dd>
+
+
 <dt>X</dt>
 <dd><p>Explanatory data matrix with n rows and p columns containing 
 quantitative variables</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>Significance level. Stop the forward selection procedure if the 
 p-value of a variable is higher than alpha. The default is 0.05</p></dd>
+
+
 <dt>K</dt>
 <dd><p>Maximum number of variables to be selected. The default is one minus
 the number of rows</p></dd>
+
+
 <dt>R2thresh</dt>
 <dd><p>Stop the forward selection procedure if the R-square of the 
 model exceeds the stated value. This parameter can vary from 0.001 to 1</p></dd>
+
+
 <dt>R2more</dt>
 <dd><p>Stop the forward selection procedure if the difference in model
 R-square with the previous step is lower than R2more. The default setting 
 is 0.001</p></dd>
+
+
 <dt>adjR2thresh</dt>
 <dd><p>Stop the forward selection procedure if the adjusted 
 R-square of the model exceeds the stated value. This parameter can take any
 value (positive or negative) smaller than 1</p></dd>
+
+
 <dt>Yscale</dt>
 <dd><p>Standardize the variables in table Y to variance 1. The default
 setting is FALSE. The setting is automatically changed to TRUE if Y 
 contains more than one variable. This is a validity condition for the 
 parametric test of significance (Miller and Farr 1971)</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>If 'TRUE' more diagnostics are printed. The default setting is
 TRUE</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A dataframe with:</p>
+    
+
+<p>A dataframe with:</p>
 <dl><dt> variables </dt>
 <dd><p>The names of the variables</p></dd>
-<dt> order </dt>
+ 
+  <dt> order </dt>
 <dd><p>The order of the selection of the variables</p></dd>
-<dt> R2 </dt>
+ <dt> R2 </dt>
 <dd><p>The R2 of the variable selected</p></dd>
-<dt> R2Cum </dt>
+ <dt> R2Cum </dt>
 <dd><p>The cumulative R2 of the 
   variables selected</p></dd>
-<dt> AdjR2Cum </dt>
+ <dt> AdjR2Cum </dt>
 <dd><p>The cumulative adjusted R2 of the 
   variables selected</p></dd>
-<dt> F </dt>
+ <dt> F </dt>
 <dd><p>The F statistic</p></dd>
-<dt> pval </dt>
+ <dt> pval </dt>
 <dd><p>The 
   P-value statistic</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -155,17 +176,19 @@ R2more has its parameter reached.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span>,<span class="fl">10</span>,<span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>,<span class="fl">10</span>,<span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in">    </span>
-<span class="r-in"><span class="fu">forward.sel.par</span><span class="op">(</span><span class="va">y</span>,<span class="va">x</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span>,<span class="fl">10</span>,<span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>,<span class="fl">10</span>,<span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    </span></span>
+<span class="r-in"><span><span class="fu">forward.sel.par</span><span class="op">(</span><span class="va">y</span>,<span class="va">x</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> The variables in response matrix Y have been standardized </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Procedure stopped (alpha criterion): pvalue for variable  2  is  0.8613045 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   variable order        R2     R2cum  AdjR2Cum        F      pval</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       V1     1 0.1600452 0.1600452 0.0550508 1.524322 0.2040601</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       V3     3 0.1590196 0.3190647 0.1245118 1.634718 0.1766018</span>
-<span class="r-in"> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Procedure stopped (alpha criterion): pvalue for variable  1  is  1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Procedure stopped (R2more criterion): delta for variable  1  is  -0.4008764 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   variable order         R2     R2cum   AdjR2Cum         F      pval</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       V3     3 0.17589263 0.1758926 0.07287921 1.7074730 0.1551585</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       V2     2 0.12875647 0.3046491 0.10597741 1.2961733 0.2878809</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       V1     1 0.09622734 0.4008764 0.10131466 0.9636811 0.4555221</span>
+<span class="r-in"><span> </span></span>
 </code></pre></div>
     </div>
   </div>
@@ -180,7 +203,7 @@ R2more has its parameter reached.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

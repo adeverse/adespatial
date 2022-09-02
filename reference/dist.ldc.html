@@ -22,7 +22,7 @@ steps in vegan."><meta property="og:image" content="/logo.svg"><!-- mathjax --><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-18</span>
       </span>
     </div>
 
@@ -70,7 +70,7 @@ steps in <code>vegan</code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dist.ldc</span><span class="op">(</span><span class="va">Y</span>, method <span class="op">=</span> <span class="st">"hellinger"</span>, binary <span class="op">=</span> <span class="cn">FALSE</span>, samp <span class="op">=</span> <span class="cn">TRUE</span>, silent <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dist.ldc</span><span class="op">(</span><span class="va">Y</span>, method <span class="op">=</span> <span class="st">"hellinger"</span>, binary <span class="op">=</span> <span class="cn">FALSE</span>, samp <span class="op">=</span> <span class="cn">TRUE</span>, silent <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -78,6 +78,8 @@ steps in <code>vegan</code>.</p>
     <dl><dt>Y</dt>
 <dd><p>Community composition data. The object class can be either
 <code>data.frame</code> or <code>matrix</code>.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>One of the 21 dissimilarity coefficients available in the
 function: <code>"hellinger"</code>, <code>"chord"</code>, <code>"log.chord"</code>,
@@ -89,23 +91,32 @@ function: <code>"hellinger"</code>, <code>"chord"</code>, <code>"log.chord"</cod
 <code>"euclidean"</code>, <code>"manhattan"</code>, <code>"modmeanchardiff"</code>. See
 Details. Names can be abbreviated to a non-ambiguous set of first letters.
 Default: <code>method="hellinger"</code>.</p></dd>
+
+
 <dt>binary</dt>
 <dd><p>If <code>binary=TRUE</code>, the data are transformed to
 presence-absence form before computation of the dissimilarities. Default
 value: <code>binary=FALSE</code>, except for the Jaccard, Sørensen and Ochiai
 indices where <code>binary=TRUE</code>.</p></dd>
+
+
 <dt>samp</dt>
 <dd><p>If <code>samp=TRUE</code>, the abundance-based distances (ab.jaccard,
 ab.sorensen, ab.ochiai, ab.simpson) are computed for sample data. If
 <code>samp=FALSE</code>, binary indices are computed for true population data.</p></dd>
+
+
 <dt>silent</dt>
 <dd><p>If <code>silent=FALSE</code>, informative messages sent to users will
 be printed to the R console. Use <code>silent=TRUE</code> is called on a
 numerical simulation loop, for example.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A dissimilarity matrix, with class <code>dist</code>.</p>
+    
+
+<p>A dissimilarity matrix, with class <code>dist</code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -243,27 +254,27 @@ numerical simulation loop, for example.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://cran.r-project.org" class="external-link">"vegan"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mat1</span>  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mite</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span><span class="op">)</span>   <span class="co"># No column has a sum of 0</span></span>
-<span class="r-in"><span class="va">mat2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mite</span><span class="op">[</span><span class="fl">61</span><span class="op">:</span><span class="fl">70</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span><span class="op">)</span>   <span class="co"># 7 of the 15 columns have a sum of 0</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#Example 1: compute Hellinger distance for mat1</span></span>
-<span class="r-in"><span class="va">D.out</span> <span class="op">=</span> <span class="fu">dist.ldc</span><span class="op">(</span><span class="va">mat1</span>,<span class="st">"hellinger"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#Example 2: compute chi-square distance for mat2</span></span>
-<span class="r-in"><span class="va">D.out</span> <span class="op">=</span> <span class="fu">dist.ldc</span><span class="op">(</span><span class="va">mat2</span>,<span class="st">"chisquare"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#Example 3: compute percentage difference dissimilarity for mat2</span></span>
-<span class="r-in"><span class="va">D.out</span> <span class="op">=</span> <span class="fu">dist.ldc</span><span class="op">(</span><span class="va">mat2</span>,<span class="st">"percentdiff"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/vegandevs/vegan" class="external-link">"vegan"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mat1</span>  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mite</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span><span class="op">)</span>   <span class="co"># No column has a sum of 0</span></span></span>
+<span class="r-in"><span><span class="va">mat2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mite</span><span class="op">[</span><span class="fl">61</span><span class="op">:</span><span class="fl">70</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span><span class="op">)</span>   <span class="co"># 7 of the 15 columns have a sum of 0</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#Example 1: compute Hellinger distance for mat1</span></span></span>
+<span class="r-in"><span><span class="va">D.out</span> <span class="op">=</span> <span class="fu">dist.ldc</span><span class="op">(</span><span class="va">mat1</span>,<span class="st">"hellinger"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#Example 2: compute chi-square distance for mat2</span></span></span>
+<span class="r-in"><span><span class="va">D.out</span> <span class="op">=</span> <span class="fu">dist.ldc</span><span class="op">(</span><span class="va">mat2</span>,<span class="st">"chisquare"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#Example 3: compute percentage difference dissimilarity for mat2</span></span></span>
+<span class="r-in"><span><span class="va">D.out</span> <span class="op">=</span> <span class="fu">dist.ldc</span><span class="op">(</span><span class="va">mat2</span>,<span class="st">"percentdiff"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Info -- This coefficient is Euclidean</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Info -- This coefficient is Euclidean</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Info -- For this coefficient, sqrt(D) would be Euclidean</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -278,7 +289,7 @@ numerical simulation loop, for example.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
