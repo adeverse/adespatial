@@ -38,7 +38,6 @@ library(ade4)
 library(adespatial)
 library(adegraphics)
 library(spdep)
-library(maptools)
 ```
 
 # The Mafragh data set

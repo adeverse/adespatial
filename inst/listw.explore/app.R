@@ -222,7 +222,7 @@ server <- shinyServer(function(input, output) {
             cex = 2
         )
         
-        maptools::pointLabel(Spobj, attr(tmp$nb, "region.id"))
+        text(Spobj, attr(tmp$nb, "region.id"), pos = 3)
         box()
     })
 })
