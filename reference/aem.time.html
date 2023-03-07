@@ -18,7 +18,7 @@ regular time series or spatial transect of univariate or multivariate data."><me
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-20</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-21</span>
       </span>
     </div>
 
@@ -154,6 +154,7 @@ Royal Society B - Biological Sciences</em>, 281, 20132728.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Time series containing 20 equispaced observations</span></span></span>
 <span class="r-in"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">aem.time</span><span class="op">(</span><span class="fl">20</span>, moran <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>style is M (missing); style should be set to a valid value</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Time series containing 20 observations with unequal spacing</span></span></span>
 <span class="r-in"><span><span class="co"># Generate (n-1) random interpoint distances</span></span></span>
@@ -164,6 +165,7 @@ Royal Society B - Biological Sciences</em>, 281, 20132728.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Compute the AEM eigenfunctions</span></span></span>
 <span class="r-in"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">aem.time</span><span class="op">(</span><span class="fl">20</span>, w <span class="op">=</span> <span class="va">w</span>, moran <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>style is M (missing); style should be set to a valid value</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

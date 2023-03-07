@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-20</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-21</span>
       </span>
     </div>
 
@@ -129,24 +129,24 @@ obtained. By default, response variables are centered (model with intercept).</p
 <span class="r-in"><span><span class="va">nvar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">minAIC</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span> <span class="co"># number of orthogonal vectors + 1 for intercept</span></span></span>
 <span class="r-in"><span><span class="va">lm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">[</span>,<span class="va">res</span><span class="op">$</span><span class="va">ord</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">minAIC</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span><span class="op">$</span><span class="va">r.squared</span> <span class="co"># R2</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8659728</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7966843</span>
 <span class="r-in"><span><span class="va">res</span><span class="op">$</span><span class="va">R2</span><span class="op">[</span><span class="va">minAIC</span><span class="op">]</span> <span class="co"># the same</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8659728</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7966843</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">AICc</span><span class="op">)</span> <span class="co"># corrected AIC</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -86.11831</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -70.41024</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/extractAIC.html" class="external-link">extractAIC</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span> <span class="co"># classical AIC</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   5.00000 -87.48195</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   6.00000 -72.36373</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">AICc</span><span class="op">)</span><span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="op">(</span><span class="va">nvar</span><span class="op">*</span><span class="op">(</span><span class="va">nvar</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">-</span><span class="va">nvar</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="co"># the same</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -87.48195</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -72.36373</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">lm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">res</span><span class="op">$</span><span class="va">AICc0</span> <span class="co"># corrected AIC for the null model</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5.086998</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -2.630637</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/extractAIC.html" class="external-link">extractAIC</a></span><span class="op">(</span><span class="va">lm2</span><span class="op">)</span> <span class="co"># classical AIC</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.000000 5.003665</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.00000 -2.71397</span>
 <span class="r-in"><span><span class="va">res</span><span class="op">$</span><span class="va">AICc0</span><span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="co"># the same</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5.003665</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -2.71397</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
