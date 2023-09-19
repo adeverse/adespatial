@@ -10,7 +10,7 @@ Description: Tools for the multiscale spatial analysis of multivariate data.
     eigenvector decomposition (Moran's Eigenvectors Maps, MEM). 
     Several approaches are described in the review Dray et al (2012)
     <doi:10.1890/11-1183.1>.
-Maintainer: Stéphane Dray <stephane.dray@univ-lyon1.fr>
+Maintainer: Aurélie Siberchicot <aurelie.siberchicot@univ-lyon1.fr>
 Imports:
     ade4 (>= 1.7-13),
     adegraphics,
