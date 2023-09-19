@@ -3,7 +3,7 @@
 #include <Rinternals.h>
 #include <Rdefines.h>
 #include <math.h>
-#include <R_ext/Applic.h> /* for dgemm */
+#include <R_ext/BLAS.h> /* for dgemm */
 #ifndef FCONE
 # define FCONE
 #endif

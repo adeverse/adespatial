@@ -8,7 +8,7 @@
 #include <Rdefines.h>
 #include <float.h>
 #include <math.h>
-#include <R_ext/Applic.h> /* for dgemm */
+#include <R_ext/BLAS.h> /* for dgemm */
 #ifndef FCONE
 # define FCONE
 #endif
