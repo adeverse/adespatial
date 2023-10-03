@@ -14,7 +14,7 @@
 #' 
 #' @docType data
 #' 
-#' @keywords Tiahura
+#' @keywords Tiahura datasets
 #' 
 #' @name Tiahura
 #' 

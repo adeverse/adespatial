@@ -13,7 +13,7 @@
 #'
 #' @docType data
 #' 
-#' @keywords Scotch Whiskey
+#' @keywords Scotch Whiskey datasets
 #' 
 #' @name ScotchWhiskey
 #' 
