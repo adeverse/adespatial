@@ -148,7 +148,7 @@
 #' @keywords spatial
 #' 
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' if(require(vegan)) { 
 #' # Illustration of the test of the SSEF on the oribatid mite data
 #' # (Borcard et al. 1992, 1994 for details on the dataset):

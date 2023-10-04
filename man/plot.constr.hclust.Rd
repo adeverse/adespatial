@@ -60,6 +60,9 @@ details).}
 
 \item{...}{Other \link{graphical parameters}.}
 }
+\value{
+No return value
+}
 \description{
 Method \code{plot.constr.hclust} displays the results of space-constrained or
 time-constrained agglomerative cluster analyses obtained from multivariate

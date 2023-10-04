@@ -277,7 +277,7 @@
 #' ## A fonction to plot the Whiskey clustering results:
 #' 
 #' plotWhiskey <- function(wh, k) {
-#'    par(fig=c(0,1,0,1))
+#'    oldpar <- par(fig=c(0,1,0,1))
 #'    plot(grpWD2cst_ScotchWhiskey[[wh]], k=k, links=TRUE, las=1,
 #'         xlab="Eastings (km)", ylab="Northings (km)", cex=0.1, lwd=3,
 #'         main=sprintf("Feature: %s",wh))
@@ -294,6 +294,7 @@
 #'    text(ScotchWhiskey$geo@coords/1000,labels=1:length(ScotchWhiskey$geo))
 #'    rect(xleft=SpeyZoom$xlim[1L], ybottom=SpeyZoom$ylim[1L],
 #'         xright=SpeyZoom$xlim[2L], ytop=SpeyZoom$ylim[2L], lwd=2, lty=1L)
+#'    par(oldpar)
 #' }
 #' 
 #' ## Plot the clustering results on the map of Scotland for 5 groups.
@@ -306,14 +307,13 @@
 #' 
 #' ## End of the Scotch Whiskey tasting data example
 #' 
-#' \dontrun{
+#' \donttest{
 #' 
 #' ## Third example: Fish community composition along the Doubs River,
 #' ## France. The sequence is analyzed as a case of chronological
 #' ## clustering, substituting space for time.
 #' 
-#' library(ade4)
-#' library(adespatial)
+#' if(require("ade4", quietly = TRUE)){
 #' data(doubs, package="ade4")
 #' Doubs.D <- dist.ldc(doubs$fish, method="hellinger")
 #' grpWD2cst_fish <- constr.hclust(Doubs.D, method="ward.D2", chron=TRUE,
@@ -349,12 +349,13 @@
 #'         coords=ex.xy      # File of geographic coordinates
 #'     )
 #' 
-#' par(mfrow=c(1,2))
+#' oldpar <- par(mfrow=c(1,2))
 #' ## Plot the map of the results for k = 3
 #' plot(test.out, k=3)
 #' ## Plot the dendrogram
 #' stats:::plot.hclust(test.out, hang=-1)
-#' 
+#' par(oldpar)
+#' }
 #'
 #' ## Same example modified: disjoint clusters
 #' ## Same ex.Y and ex.xy as in the previous example
@@ -381,12 +382,13 @@
 #'     )
 #' cutree(test.out2, k=2)
 #' 
-#' par(mfrow=c(1,2))
+#' oldpar <- par(mfrow=c(1,2))
 #' ## Plot the map of the results for k = 3
 #' plot(test.out2, k=3)
 #' ## Plot the dendrogram showing the disconnected groups
 #' stats:::plot.hclust(test.out2, hang=-1)
 #' axis(2,at=0:ceiling(max(test.out2$height,na.rm=TRUE)))
+#' par(oldpar)
 #' 
 #' ## End of the disjoint clusters example
 #' 
@@ -396,8 +398,7 @@
 #' ## Computing time grows with N at roughly the same speed as the memory
 #' ## storage requirements to store the dissimilarity matrices.
 #' 
-#' require(magrittr)
-#' require(pryr)
+#' if(require("magrittr", quietly = TRUE) & require("pryr", quietly = TRUE)){
 #' 
 #' benchmark <- function(nobj) {
 #'     # Argument -
@@ -436,7 +437,7 @@
 #' 
 #' ## Plotting the results:
 #' ok <- res %>% apply(1L, function(x) !x %>% is.na %>% any)
-#' par(mar=c(3,6,2,2),mfrow=c(2L,1L))
+#' oldpar <- par(mar=c(3,6,2,2),mfrow=c(2L,1L))
 #' barplot(height = res[ok,"Time (sec)"], names.arg= res[ok,"N.objects"],
 #'         ylab="Time (seconds)\n",xlab="",las=1L,log="y")
 #' par(mar=c(5,6,0,2))
@@ -446,8 +447,9 @@
 #' 
 #' ## Examine the output file
 #' res
-#' 
+#' par(oldpar)
 #' ## End of the benchmarking example
+#' }
 #' }
 #' ## End of examples
 #' 

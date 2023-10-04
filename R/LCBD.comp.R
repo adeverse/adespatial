@@ -98,7 +98,8 @@
 #' col = c("white", "brown"), main = "Doubs fish abundance diff. LCBD")
 #' }
 #' 
-#' \dontrun{
+#' \donttest{
+#' if(require("ade4", quietly = TRUE) & require("betapart", quietly = TRUE)){
 #' ### Example 3
 #' ### This example requires packages \code{"betapart"} and \code{"ade4"} for data. 
 #' ### For the Baselga-family indices, the same partitioning results are obtained using
@@ -130,6 +131,7 @@
 #' out3.AbDiff = LCBD.comp(out3$beta.bray.gra, sqrt.D=TRUE)
 #' out3.AbDiff$beta
 #' # Compare BDtotal here to RichDiff/Nes in out.comp$part (above)
+#' }
 #' }
 #'
 #' @importFrom stats as.dist

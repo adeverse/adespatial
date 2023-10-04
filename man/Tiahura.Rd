@@ -97,7 +97,7 @@ tiah.chclust <- constr.hclust(tiah.jac, coords=Tiahura$habitat[,"distance"],
                               chron=TRUE)
 
 ## Plotting the results
-par(mfrow=c(3,1))
+oldpar <- par(mfrow=c(3,1))
 
 ## First graph: constrained clusters
 par(mar=c(3,6.5,2,2))
@@ -165,7 +165,7 @@ plot_slice(1L,5L)
 ## plot_slice(3L,5L)
 ## plot_slice(4L,5L)
 ## plot_slice(5L,5L)
-
+par(oldpar)
 }
 \references{
 Galzin, R. & P. Legendre. 1987. The fish communities of a coral

@@ -195,7 +195,7 @@ aem.weight.edges <-
             xy.range.min<-xy.range[1,2]-((xy.range[2,2]-xy.range[1,2])/5)
             xy.range.max<-xy.range[2,2]
             
-            par(mar=c(1,1,1,1))
+            oldpar <- par(mar=c(1,1,1,1))
             plot(coords[, 2:3], pch = 20, asp = 1, cex = 0.5, axes = FALSE, xlab = "", ylab = "", ylim=c(xy.range.min,xy.range.max))
             segments(x0 = coords[links[, 1], 2], y0 = coords[links[, 1], 3], x1 = coords[links[, 2], 2], y1 = coords[links[, 2], 3], col = "red")
             text(coords[,2:3],labels=as.character(coords[,1]),pos=2,col="red")
@@ -205,6 +205,7 @@ aem.weight.edges <-
             points(site0[1],site0[2],pch=19,col="blue")
             segments(x0=site0[1],y0=site0[2],x1=coords[low.y,2],y1=coords[low.y,3],col="blue")
             par(mar=c(5,4,4,2))
+            par(oldpar)
         }
         
         ### Reorganize the edges 

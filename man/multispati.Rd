@@ -113,7 +113,7 @@ if (require(spdep, quiet = TRUE) & require(ade4, quiet = TRUE)) {
       labels <- lapply(1:length(obj$eig),function(i) bquote(lambda[.(i)]))
       # draw the plot
       xmax <- eval(as.list(obj$call)$dudi)$eig[1]*1.1
-      par(las=1)
+      oldpar <- par(las=1)
       var <- sum.obj[,2]
       moran <- sum.obj[,3]
       plot(x=var,y=moran,type='n',xlab='Inertia',ylab="Spatial autocorrelation (I)",
@@ -128,6 +128,7 @@ if (require(spdep, quiet = TRUE) & require(ade4, quiet = TRUE)) {
       segments(0,I0,xmax,I0,lty=2)
       abline(v=0)
       title("Spatial and inertia components of the eigenvalues")
+      par(oldpar)
     }
     fgraph(maf.coa.ms)
     ## end eigenvalues details
@@ -139,11 +140,11 @@ if (require(spdep, quiet = TRUE) & require(ade4, quiet = TRUE)) {
       g4 <- s.corcircle(maf.coa.ms$as, plot = FALSE)
       G1 <- ADEgS(list(g2, g3, g4), layout = c(1, 3))
     } else {
-      par(mfrow = c(1, 3))
+      oldpar <- par(mfrow = c(1, 3))
       barplot(maf.coa$eig)
       barplot(maf.coa.ms$eig) 
       s.corcircle(maf.coa.ms$as)
-      par(mfrow = c(1, 1))
+      par(oldpar)
     }
  
  
@@ -154,12 +155,12 @@ if (require(spdep, quiet = TRUE) & require(ade4, quiet = TRUE)) {
       g8 <- s.value(maf.xy, maf.coa.ms$li[, 2], plot = FALSE)
       G2 <- ADEgS(list(g5, g6, g7, g8), layout = c(2, 2))
     } else {
-      par(mfrow = c(2, 2))
+      oldpar <- par(mfrow = c(2, 2))
       s.value(maf.xy, -maf.coa$li[, 1])
       s.value(maf.xy, -maf.coa$li[, 2])
       s.value(maf.xy, maf.coa.ms$li[, 1])
       s.value(maf.xy, maf.coa.ms$li[, 2])
-      par(mfrow = c(1, 1))
+      par(oldpar)
     }
 
 
@@ -172,10 +173,10 @@ if (require(spdep, quiet = TRUE) & require(ade4, quiet = TRUE)) {
       g10 <- s.match(w1.ms, w1.msm, plab.cex = 0.75, plot = FALSE)
       G3 <- cbindADEg(g9, g10, plot = TRUE)
     } else {
-      par(mfrow = c(1,2))
+      oldpar <- par(mfrow = c(1,2))
       s.match(w1, w1m, clab = 0.75)
       s.match(w1.ms, w1.msm, clab = 0.75)
-      par(mfrow = c(1, 1))
+      par(oldpar)
     }
 
     maf.pca <- dudi.pca(mafragh$env, scannf = FALSE)

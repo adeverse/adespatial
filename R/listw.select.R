@@ -125,7 +125,7 @@
 #'@keywords spatial
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' if(require(spdep)) {
 #' ### Create a grid of 15 x 15:
 #' grid <- expand.grid(x = seq(1, 15, 1), y = seq(1, 15, 1))

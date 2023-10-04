@@ -71,7 +71,7 @@
 #' # Illustrate 4 AEM eigenfunctions using bubble plots
 #' opal <- palette()
 #' palette(c("black","white"))
-#' par(mfrow=c(2,2))
+#' oldpar <- par(mfrow=c(2,2))
 #' symbols(x=xy[,2:3], circles=abs(res$vectors[,1]), inches=FALSE, asp=1,
 #'  fg=ifelse(sign(-res$vectors[,1])+1>0,1,0), 
 #'  bg=ifelse(sign(res$vectors[,1])+1>0,1,0), xlab="x", ylab="y")
@@ -113,6 +113,7 @@
 #' title("AEM 4")
 #' 
 #' palette(opal)
+#' par(oldpar)
 #' 
 #' # Construct AEM eigenfunctions with a function of the distance
 #' # as weights to put on the links

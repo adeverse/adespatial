@@ -220,7 +220,7 @@ out.1 <- stimodels(trich.log, S=22, Ti=10, model="5", nperm=99)
 # of the times shows a significant spatial structure can be done with model 6a. For a  
 # global test of temporal structure at the various sites, use model 6b.
 
-\dontrun{     # Code not run during CRAN software tests
+\donttest{     # Code not run during CRAN software tests
 
 # Example 2. Run space-time analysis with global tests for main effects after testing
 # the interaction, which is significant in this example 

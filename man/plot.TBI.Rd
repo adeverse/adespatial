@@ -125,7 +125,7 @@ res1$BCD.mat
 
 ## Draw BC plots
 
-par(mfrow=c(1,2))
+oldpar <- par(mfrow=c(1,2))
 
 s.names <- paste("Surv",1:12,sep=".")
 
@@ -141,7 +141,7 @@ main="B-C plot, Pyrifos, surveys 4 & 11", xlim=c(0,0.5), ylim=c(0.1,0.6))
 
 ## In the 3rd plot, draw all symbols small and of the same size, using cex.symb=NULL
 
-dev.off()
+par(oldpar)
 
 plot(res1, s.names=1:12, col.bg="gold", pch.loss=23, pch.gain=24, 
 main="B-C plot, Pyrifos, surveys 4 & 11", cex.symb=NULL)
@@ -161,7 +161,7 @@ res2$BCD.mat
 
 ## Draw BC plots
 
-par(mfrow=c(1,2))
+oldpar <- par(mfrow=c(1,2))
 
 s.names=rownames(res2$BCD.mat)
 
@@ -174,7 +174,7 @@ main="B-C plot, Mite data")
 
 plot(res2, s.names=1:20, col.rim="coral2", pch.loss=19, pch.gain=15, 
 main="B-C plot, Mite data", xlim=c(0,0.6), ylim=c(0,0.6))
-
+par(oldpar)
 }
 
 }

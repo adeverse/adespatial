@@ -39,6 +39,9 @@ to the function).}
 \item{coords}{A copy of the coordinates (if coordinates were provided to the
 function).} }
 }
+\value{
+No return value
+}
 \description{
 Files belonging to this class hold information about the constrained
 agglomerative clustering and allows one to display results graphically.

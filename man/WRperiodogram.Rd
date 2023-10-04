@@ -152,7 +152,7 @@ tide <- periodic.component(1:n, 2, 0)
 # Periodogram of the lunar component only 
 res.moon.250 <- WRperiodogram(moon, nperm=0)  # T1=2, T2=n/2=250; no test
 res.moon.130 <- WRperiodogram(moon, T2=130, nperm=499)
-par(mfrow=c(1,2))
+oldpar <- par(mfrow=c(1,2))
 # Plot 2 moon cycles, n = 118*2 = 236 points
 plot(moon[1:236], xlab="One time unit = 6 hours") 
 plot(res.moon.130, prog=1) # Plot the periodogram
@@ -218,6 +218,7 @@ plot(ld.res.perio, prog=3) # Progressive correction for multiple tests
 # The yearly cycle and harmonics are significant
 # Compare the results of afc() to those of WRperiodogram above
 acf(ldeaths)   # lag=1.0 is one year; see ?acf
+par(oldpar)
 
 }
 \references{

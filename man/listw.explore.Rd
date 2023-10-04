@@ -6,11 +6,14 @@
 \usage{
 listw.explore()
 }
+\value{
+No return value
+}
 \description{
 Interactive tool to generate R code that creates a spatial weighting matrix
 }
 \examples{
-\dontrun{
+if(interactive()){
 ## a matrix or an object of class 'Spatial*' should be in the global environment
 xy <- matrix(rnorm(50), 25)
 listw.explore()

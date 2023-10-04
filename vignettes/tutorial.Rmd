@@ -311,9 +311,10 @@ names(attributes(mem.gab))
 
 The eigenvalues associated to MEMs are stored in the attribute called `values`:
 ```{r, echo = -1}
-par(mar = c(0, 2, 3, 0))
+oldpar <- par(mar = c(0, 2, 3, 0))
     barplot(attr(mem.gab, "values"), 
         main = "Eigenvalues of the spatial weighting matrix", cex.main = 0.7)
+par(oldpar)
 ```
 
 A `plot` method is provided to represent MEMs. By default, eigenvectors are represented as a table (sites as rows, MEMs as columns). This representation is usually not informative and it is better to map MEMs in the geographical space by documenting the argument `SpORcoords`:
