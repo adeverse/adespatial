@@ -16,7 +16,7 @@
 #' @param method an character specifying which algorithm should be used to
 #'   produce spatial replicates (see \code{\link{msr.default}}).
 #' @param \dots further arguments of the \code{\link{msr.default}} function.
-#' @return An object of class \code{randtest}.
+#' @returns An object of class \code{randtest}.
 #' @author Sylvie Clappe, Stephane Dray \email{stephane.dray@@univ-lyon1.fr}
 #' @seealso \code{\link{msr.default}}, \code{\link[ade4]{mantel.randtest}}
 #' @references Crabot, J., Clappe, S., Dray, S. and Datry, T. (2019) Testing the

@@ -4,6 +4,7 @@
 #' @importFrom shiny runApp
 #' @author Stéphane Dray \email{stephane.dray@@univ-lyon1.fr}
 #' @seealso \code{\link{chooseCN}}
+#' @returns No return value
 #' @examples
 #' \dontrun{
 #' ## a matrix or an object of class 'Spatial*' should be in the global environment

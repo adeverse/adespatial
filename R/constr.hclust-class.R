@@ -60,4 +60,6 @@
 #' 
 #' @seealso \code{\link{hclust}-class}
 #' 
+#' @returns No return value
+#' 
 NULL

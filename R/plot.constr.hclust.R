@@ -111,7 +111,7 @@
 #' 
 #' @author Guillaume Guénard \email{guillaume.guenard@umontreal.ca}
 #' and Pierre Legendre \email{pierre.legendre@@umontreal.ca}
-#' 
+#' @returns No return value
 #' @examples
 #' 
 #' ## Artificial map data from Legendre & Legendre (2012, Fig. 13.26)
