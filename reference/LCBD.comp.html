@@ -19,7 +19,7 @@ AbDiff, or Nes) (Legendre 2014)."><meta property="og:image" content="/logo.svg">
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-22</span>
       </span>
     </div>
 
@@ -196,7 +196,8 @@ appear in the output list.</p></dd>
 <span class="r-plt img"><img src="LCBD.comp-2.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="LCBD.comp-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"betapart"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co">### Example 3</span></span></span>
 <span class="r-in"><span><span class="co">### This example requires packages \code{"betapart"} and \code{"ade4"} for data. </span></span></span>
 <span class="r-in"><span><span class="co">### For the Baselga-family indices, the same partitioning results are obtained using</span></span></span>
@@ -213,7 +214,7 @@ appear in the output list.</p></dd>
 <span class="r-in"><span><span class="va">out.comp</span><span class="op">$</span><span class="va">part</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Compute the D and component matrices using \code{"beta.pair.abund"}</span></span></span>
-<span class="r-in"><span><span class="va">out3</span> <span class="op">=</span> <span class="fu">beta.pair.abund</span><span class="op">(</span><span class="va">fish.sp</span>, index.family <span class="op">=</span> <span class="st">"bray"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">out3</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/betapart/man/beta.pair.abund.html" class="external-link">beta.pair.abund</a></span><span class="op">(</span><span class="va">fish.sp</span>, index.family <span class="op">=</span> <span class="st">"bray"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">out3</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/ade4/man/is.euclid.html" class="external-link">is.euclid</a></span><span class="op">(</span><span class="va">out3</span><span class="op">$</span><span class="va">beta.bray</span><span class="op">)</span>    <span class="co"># D matrix out3$beta.bray is not Euclidean</span></span></span>
@@ -229,6 +230,9 @@ appear in the output list.</p></dd>
 <span class="r-in"><span><span class="va">out3.AbDiff</span><span class="op">$</span><span class="va">beta</span></span></span>
 <span class="r-in"><span><span class="co"># Compare BDtotal here to RichDiff/Nes in out.comp$part (above)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   SStotal   BDtotal </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3.1033015 0.1108322 </span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -240,7 +244,7 @@ appear in the output list.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Stéphane Dray.</p>
+  <p></p><p>Developed by Stéphane Dray, Aurélie Siberchicot.</p>
 </div>
 
 <div class="pkgdown">

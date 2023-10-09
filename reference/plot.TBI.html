@@ -19,7 +19,7 @@ available."><meta property="og:image" content="/logo.svg"><!-- mathjax --><scrip
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-22</span>
       </span>
     </div>
 
@@ -239,7 +239,7 @@ time-dependent multivariate responses of biological community to stress.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Draw BC plots</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">s.names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Surv"</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">12</span>,sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -255,7 +255,7 @@ time-dependent multivariate responses of biological community to stress.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## In the 3rd plot, draw all symbols small and of the same size, using cex.symb=NULL</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res1</span>, s.names<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, col.bg<span class="op">=</span><span class="st">"gold"</span>, pch.loss<span class="op">=</span><span class="fl">23</span>, pch.gain<span class="op">=</span><span class="fl">24</span>, </span></span>
 <span class="r-in"><span>main<span class="op">=</span><span class="st">"B-C plot, Pyrifos, surveys 4 &amp; 11"</span>, cex.symb<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span></span></span>
@@ -275,7 +275,7 @@ time-dependent multivariate responses of biological community to stress.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Draw BC plots</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">s.names</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">res2</span><span class="op">$</span><span class="va">BCD.mat</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -288,8 +288,11 @@ time-dependent multivariate responses of biological community to stress.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res2</span>, s.names<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, col.rim<span class="op">=</span><span class="st">"coral2"</span>, pch.loss<span class="op">=</span><span class="fl">19</span>, pch.gain<span class="op">=</span><span class="fl">15</span>, </span></span>
 <span class="r-in"><span>main<span class="op">=</span><span class="st">"B-C plot, Mite data"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.6</span><span class="op">)</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.6</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-plt img"><img src="plot.TBI-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot.TBI-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot.TBI-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -301,7 +304,7 @@ time-dependent multivariate responses of biological community to stress.
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Stéphane Dray.</p>
+  <p></p><p>Developed by Stéphane Dray, Aurélie Siberchicot.</p>
 </div>
 
 <div class="pkgdown">

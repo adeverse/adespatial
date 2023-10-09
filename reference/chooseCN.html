@@ -22,7 +22,7 @@ types 1-4, duplicated locations are not accepted and will issue an error."><meta
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-22</span>
       </span>
     </div>
 
@@ -176,12 +176,12 @@ using 'graph' as keyword.</p>
 <span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cn1</span> <span class="op">&lt;-</span> <span class="fu">chooseCN</span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span>,ask<span class="op">=</span><span class="cn">FALSE</span>,type<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cn2</span> <span class="op">&lt;-</span> <span class="fu">chooseCN</span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span>,ask<span class="op">=</span><span class="cn">FALSE</span>,type<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cn3</span> <span class="op">&lt;-</span> <span class="fu">chooseCN</span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span>,ask<span class="op">=</span><span class="cn">FALSE</span>,type<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cn4</span> <span class="op">&lt;-</span> <span class="fu">chooseCN</span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span>,ask<span class="op">=</span><span class="cn">FALSE</span>,type<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="chooseCN-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
@@ -195,7 +195,7 @@ using 'graph' as keyword.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Stéphane Dray.</p>
+  <p></p><p>Developed by Stéphane Dray, Aurélie Siberchicot.</p>
 </div>
 
 <div class="pkgdown">

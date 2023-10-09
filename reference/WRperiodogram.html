@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-22</span>
       </span>
     </div>
 
@@ -259,7 +259,7 @@ treatise on numerical mathematics. Blackie &amp; Son, London.</p>
 <span class="r-in"><span><span class="co"># Periodogram of the lunar component only </span></span></span>
 <span class="r-in"><span><span class="va">res.moon.250</span> <span class="op">&lt;-</span> <span class="fu">WRperiodogram</span><span class="op">(</span><span class="va">moon</span>, nperm<span class="op">=</span><span class="fl">0</span><span class="op">)</span>  <span class="co"># T1=2, T2=n/2=250; no test</span></span></span>
 <span class="r-in"><span><span class="va">res.moon.130</span> <span class="op">&lt;-</span> <span class="fu">WRperiodogram</span><span class="op">(</span><span class="va">moon</span>, T2<span class="op">=</span><span class="fl">130</span>, nperm<span class="op">=</span><span class="fl">499</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Plot 2 moon cycles, n = 118*2 = 236 points</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">moon</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">236</span><span class="op">]</span>, xlab<span class="op">=</span><span class="st">"One time unit = 6 hours"</span><span class="op">)</span> </span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res.moon.130</span>, prog<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="co"># Plot the periodogram</span></span></span>
@@ -331,8 +331,9 @@ treatise on numerical mathematics. Blackie &amp; Son, London.</p>
 <span class="r-in"><span><span class="co"># The yearly cycle and harmonics are significant</span></span></span>
 <span class="r-in"><span><span class="co"># Compare the results of afc() to those of WRperiodogram above</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html" class="external-link">acf</a></span><span class="op">(</span><span class="va">ldeaths</span><span class="op">)</span>   <span class="co"># lag=1.0 is one year; see ?acf</span></span></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="WRperiodogram-7.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -343,7 +344,7 @@ treatise on numerical mathematics. Blackie &amp; Son, London.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Stéphane Dray.</p>
+  <p></p><p>Developed by Stéphane Dray, Aurélie Siberchicot.</p>
 </div>
 
 <div class="pkgdown">

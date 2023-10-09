@@ -23,7 +23,7 @@ Borcard &amp;amp; Legendre 2002; Dray et al. 2006)."><meta property="og:image" c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-22</span>
       </span>
     </div>
 
@@ -351,7 +351,7 @@ and Daniel Borcard</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Time test:          R2 = 0.3076   F = 22.0858   P( 99 perm) = 0.01 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Time for computation = 1.971000  sec </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Time for computation = 1.031000  sec </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =======================================================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -363,12 +363,65 @@ and Daniel Borcard</p>
 <span class="r-in"><span><span class="co"># of the times shows a significant spatial structure can be done with model 6a. For a  </span></span></span>
 <span class="r-in"><span><span class="co"># global test of temporal structure at the various sites, use model 6b.</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>      <span class="co"># Code not run during CRAN software tests</span></span></span>
+<span class="r-in"><span>     <span class="co"># Code not run during CRAN software tests</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 2. Run space-time analysis with global tests for main effects after testing</span></span></span>
 <span class="r-in"><span><span class="co"># the interaction, which is significant in this example </span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">out.2</span> <span class="op">&lt;-</span> <span class="fu">quicksti</span><span class="op">(</span><span class="va">trich.log</span>, S<span class="op">=</span><span class="fl">22</span>, Ti<span class="op">=</span><span class="fl">10</span>, nperm<span class="op">=</span><span class="fl">999</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> =========================================================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Space-time ANOVA without replicates</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Pierre Legendre, Miquel De Caceres, Daniel Borcard</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Number of space points (s) = 22 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Number of time points (tt) = 10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Number of observations (n = s*tt) = 220 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Number of response variables (p) = 56 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Significance level for the interaction test (alpha) = 0.05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Computing dbMEMs to code for space</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Truncation level for space dbMEMs = 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Computing dbMEMs to code for time</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Truncation level for time dbMEMs = 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Number of space coding functions = 10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Number of time coding functions = 4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Testing space-time interaction (model 5)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Number of space variables = 21 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Number of time variables = 9 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Number of interaction variables = 40 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Number of residual degrees of freedom = 149 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Interaction test:  R2 = 0.1809   F = 2.9235   P( 999 perm) = 0.001 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Testing for separate spatial structures (model 6a)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Number of space variables = 100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Number of time variables = 9 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Number of residual degrees of freedom = 110 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Space test:  R2 = 0.4666   F = 2.2733   P( 999 perm) = 0.001 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Testing for separate temporal structures (model 6b)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Number of space variables = 21 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Number of time variables = 88 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Number of residual degrees of freedom = 110 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Time test:   R2 = 0.5265   F = 3.4186   P( 999 perm) = 0.001 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Time for computation = 4.494000  sec </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> =========================================================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Since the interaction is significant, function 'quicksti' will carry out the </span></span></span>
 <span class="r-in"><span><span class="co"># tests of existence of a spatial (at least in one of the time periods) and temporal </span></span></span>
@@ -411,7 +464,7 @@ and Daniel Borcard</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Number of interaction variables = 10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Number of residual degrees of freedom = 11 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Interaction test:  R2 = 0.0755   F = 1.1814   P( 999 perm) = 0.234 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Interaction test:  R2 = 0.0755   F = 1.1814   P( 999 perm) = 0.238 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Testing for common spatial and common temporal structures (model 5)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------------------------</span>
@@ -420,7 +473,7 @@ and Daniel Borcard</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Time test:    R2 = 0.045   F = 7.045   P( 999 perm) = 0.001 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Time for computation = 1.215000  sec </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Time for computation = 0.685000  sec </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================================================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -460,7 +513,7 @@ and Daniel Borcard</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Number of interaction variables = 10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Number of residual degrees of freedom = 11 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Interaction test:  R2 = 0.1476   F = 1.5921   P( 999 perm) = 0.015 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Interaction test:  R2 = 0.1476   F = 1.5921   P( 999 perm) = 0.02 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Testing for separate spatial structures (model 6a)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------</span>
@@ -481,7 +534,7 @@ and Daniel Borcard</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model 6b requires that 'tt' be larger than 2. When tt=2, full coding of the times by a binary variable or Helmert contrast does not leave any degree of freedom for the residuals in the test of the Time factor.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Time for computation = 1.433000  sec </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Time for computation = 0.775000  sec </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================================================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -531,7 +584,7 @@ and Daniel Borcard</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Time test:          R2 = 0.3076   F = 22.0858   P( 999 perm) = 0.001 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Time for computation = 14.123000  sec </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Time for computation = 2.505000  sec </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =======================================================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -578,7 +631,7 @@ and Daniel Borcard</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Time test:          R2 = 0.3076   F = 18.8093   P( 999 perm) = 0.001 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Time for computation = 15.839000  sec </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Time for computation = 2.918000  sec </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =======================================================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -621,7 +674,7 @@ and Daniel Borcard</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Time test:          R2 = 0.3076   F = 18.8093   P( 999 perm) = 0.001 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Time for computation = 15.291000  sec </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Time for computation = 2.592000  sec </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =======================================================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -670,7 +723,7 @@ and Daniel Borcard</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Stéphane Dray.</p>
+  <p></p><p>Developed by Stéphane Dray, Aurélie Siberchicot.</p>
 </div>
 
 <div class="pkgdown">
