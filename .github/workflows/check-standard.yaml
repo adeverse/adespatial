@@ -39,6 +39,11 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Install libraries for macOS
+        if: runner.os == 'macOS'
+        run: |
+          brew install udunits
+          
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           pak-version: devel
