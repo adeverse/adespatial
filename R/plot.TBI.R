@@ -17,14 +17,14 @@
 #'
 #' @param pch.loss Symbol used for sites where losses > gains. Default: pch=21, circles. 
 #' Symbols 21 to 25 have a black rim and can be filled with different colours (argument 
-#' col.bg); see documentation of funciton points. Symbols 0 to 20 only have a rim. 
+#' col.bg); see documentation of function points. Symbols 0 to 20 only have a rim. 
 #'
 #' @param pch.gain Symbol used for sites where losses >= gains. Default: pch=21, squares.
 #'
 #' @param cex.names Multiplier for the font size of the site names.
 #'
 #' @param col.rim Colour of symbol rims in the plot. The following colours have been used
-#' in BC plots: {"gold","grey70","cadetblue2","red","orange3","coral2","grey100","green"}.
+#' in BC plots: \code{"gold","grey70","cadetblue2","red","orange3","coral2","grey100","green"}.
 #'
 #' @param col.bg Colour filling symbols 21 to 25 in the plot. 
 #' 

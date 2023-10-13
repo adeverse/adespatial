@@ -20,7 +20,7 @@
 #'  used in presence-absence calculations.
 #'  
 #'@details For species presence-absence data, the dissimilarity coefficients are 
-#'  Jaccard = (b+c)/(a+b+c) and Sørensen = (b+c)/(2*a+b+c) with the usual {a,b,c} 
+#'  Jaccard = (b+c)/(a+b+c) and Sørensen = (b+c)/(2*a+b+c) with the usual \code{a,b,c} 
 #'  notation. For species abundance data, the dissimilarity coefficients are the 
 #'  Ruzicka index = (B+C)/(A+B+C) and Odum's percentage difference = 
 #'  (B+C)/(2A+B+C) (aka Bray-Curtis in some packages), where 

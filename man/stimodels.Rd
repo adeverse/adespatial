@@ -89,17 +89,18 @@ Depending on the decision for the interaction test, the main factors are
 tested differently.}
 }
 \value{
-A list containing the following results: \itemize{ 
-\item{testS}{ An object with the result of the space effect test, including
+A list containing the following results: 
+\itemize{
+\item \code{testS} An object with the result of the space effect test, including
 the mean squares for the F numerator (\code{MS.num}), the mean squares for
 the F denominator (\code{MS.den}), the proportion of explained variance
 (\code{R2}), the adjusted proportion of explained variance (\code{R2.adj}),
 the F statistics (\code{F}) and its p-value computed from a permutation test
-(\code{Prob}). } 
-\item{testT}{ An object with the result of the time effect test, like \code{testS}.} 
-\item{teststi}{ An object with the result of the space-time interaction test, 
-like \code{testS}.} 
-\item{X.matrix}{ The bloc-diagonal explanatory matrix used in test of model 6a or 6b}
+(\code{Prob}).
+\item \code{testT} An object with the result of the time effect test, like \code{testS}.
+\item \code{teststi} An object with the result of the space-time interaction test, 
+like \code{testS}.
+\item \code{X.matrix} The bloc-diagonal explanatory matrix used in test of model 6a or 6b
 }
 }
 \description{

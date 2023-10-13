@@ -24,8 +24,8 @@
 #'   (\code{me.phylo})
 #' @param nrepet an \code{integer} indicating the number of replicates
 #' @param method an character specifying which algorithm should be used to
-#'   produce spatial replicates (see code{\link{msr.default}}).
-#' @param \dots further arguments of the code{\link{msr.default}} function.
+#'   produce spatial replicates (see \code{\link{msr.default}}).
+#' @param \dots further arguments of the \code{\link{msr.default}} function.
 #' @return An object of class \code{4thcorner} randomized replicates.
 #' @author Stephane Dray \email{stephane.dray@@univ-lyon1.fr}
 #' @seealso \code{\link{msr.default}}, \code{\link[adephylo]{me.phylo}}

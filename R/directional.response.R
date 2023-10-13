@@ -22,8 +22,8 @@
 #' The output matrix is non-symmetric, meaning that its upper triangle is not the mirror 
 #' image of the lower triangle. Given the direction of the physical process through space 
 #' or time indicated by the order of the sampling units, the output matrix \code{mat.out} 
-#' reflects that direction in its non-symmetric presentation, emph{From} (rows of the 
-#' matrix) emph{To} (columns of the matrix). Users of the function can extract one or the 
+#' reflects that direction in its non-symmetric presentation, \emph{From} (rows of the 
+#' matrix) \emph{To} (columns of the matrix). Users of the function can extract one or the 
 #' other of these triangular portions and analyse them separately. See Appendix xx for 
 #' examples.
 #'

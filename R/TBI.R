@@ -181,7 +181,7 @@
 #'   their species composition.
 #'
 #'   \item \code{p.adj} The p-values are corrected for multiple testing using
-#'   function p.adjust of {stats}. The adjustment is done using
+#'   function p.adjust of \code{stats}. The adjustment is done using
 #'   \code{method="holm"}, which is the default option of the \code{p.adjust}
 #'   function.
 #'

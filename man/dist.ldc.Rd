@@ -94,9 +94,9 @@ The dissimilarities computed by this function are the following.
   indices are computed for true population data. - Do not use indices of
   group 4 with \code{samp=TRUE} on presence-absence data; the indices are not
   meant to accommodate this type of data. If \code{samp=FALSE} is used with
-  presence-absence data, the indices are the regular {Jaccard, Sorensen,
-  Ochiai, Simpson} indices. On output, however, the D matrices are not
-  square-rooted, contrary to the {Jaccard, Sorensen, Ochiai} indices in
+  presence-absence data, the indices are the regular Jaccard, Sørensen,
+  Ochiai and Simpson indices. On output, however, the D matrices are not
+  square-rooted, contrary to the Jaccard, Sørensen and Ochiai indices in
   section 3 which are square-rooted. \itemize{\item abundance-based Jaccard
   D, D[ik] = 1-(UV/(U+V-UV)) \item abundance-based Sørensen D, D[ik] =
   1-(2UV/(U+V)) \item abundance-based Ochiai D, D[ik] = 1-sqrt(UV) \item

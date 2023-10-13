@@ -14,7 +14,7 @@ moran.randtest(x, listw, nrepet = 999, ...)
 \item{nrepet}{an integer indicating the number of permutations used in the 
 randomization procedure}
 
-\item{\dots}{other arguments to be passed to the \code{\link[ade4]{as.randtest}} or code{\link[ade4]{as.krandtest}} functions.}
+\item{\dots}{other arguments to be passed to the \code{\link[ade4]{as.randtest}} or \code{\link[ade4]{as.krandtest}} functions.}
 }
 \value{
 An object of class \code{randtest} (one variable) or \code{krandtest} (several variables)

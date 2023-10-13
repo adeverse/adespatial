@@ -13,8 +13,8 @@
 #'  \code{orthobasis}
 #'@param nrepet an \code{integer} indicating the number of replicates
 #'@param method an character specifying which algorithm should be used to
-#'  produce spatial replicates (see code{\link{msr.default}}).
-#'@param \dots further arguments of the code{\link{msr.default}} function.
+#'  produce spatial replicates (see \code{\link{msr.default}}).
+#'@param \dots further arguments of the \code{\link{msr.default}} function.
 #'@return An object of class \code{varipart} randomized replicates.
 #'
 #'@details The function corrects the biases due to spatial autocorrelation by

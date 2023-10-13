@@ -11,7 +11,7 @@
 #' @param listw an object of class \code{listw} created for example by \code{\link[spdep]{nb2listw}}
 #' @param nrepet an integer indicating the number of permutations used in the 
 #'  randomization procedure
-#' @param \dots other arguments to be passed to the \code{\link[ade4]{as.randtest}} or code{\link[ade4]{as.krandtest}} functions. 
+#' @param \dots other arguments to be passed to the \code{\link[ade4]{as.randtest}} or \code{\link[ade4]{as.krandtest}} functions. 
 #' @return An object of class \code{randtest} (one variable) or \code{krandtest} (several variables)
 #' 
 #' @author Stéphane Dray \email{stephane.dray@@univ-lyon1.fr}

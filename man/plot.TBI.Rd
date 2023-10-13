@@ -38,14 +38,14 @@ Else, s.names=NULL (default): no site names will be printed.}
 
 \item{pch.loss}{Symbol used for sites where losses > gains. Default: pch=21, circles. 
 Symbols 21 to 25 have a black rim and can be filled with different colours (argument 
-col.bg); see documentation of funciton points. Symbols 0 to 20 only have a rim.}
+col.bg); see documentation of function points. Symbols 0 to 20 only have a rim.}
 
 \item{pch.gain}{Symbol used for sites where losses >= gains. Default: pch=21, squares.}
 
 \item{cex.names}{Multiplier for the font size of the site names.}
 
 \item{col.rim}{Colour of symbol rims in the plot. The following colours have been used
-in BC plots: {"gold","grey70","cadetblue2","red","orange3","coral2","grey100","green"}.}
+in BC plots: \code{"gold","grey70","cadetblue2","red","orange3","coral2","grey100","green"}.}
 
 \item{col.bg}{Colour filling symbols 21 to 25 in the plot.}
 

@@ -26,7 +26,7 @@ randomization procedure}
 be one of "greater" (default), "less" or "two-sided"}
 
 \item{\dots}{other arguments (e.g., \code{p.adjust.method}) to be passed to
-the code{\link[ade4]{as.krandtest}} function.}
+the \code{\link[ade4]{as.krandtest}} function.}
 }
 \value{
 An object of class \code{randtest} (for unilateral test) or
