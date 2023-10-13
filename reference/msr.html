@@ -177,32 +177,32 @@ strictly the global autocorrelation level.</p>
 <span class="r-in"><span><span class="va">lw1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/cell2nb.html" class="external-link">cell2nb</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/moran.mc.html" class="external-link">moran.mc</a></span><span class="op">(</span><span class="va">x1</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="va">lw1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">statistic</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  statistic </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.07577448 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    statistic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.005554863 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## singleton</span></span></span>
 <span class="r-in"><span><span class="va">x1.1</span> <span class="op">&lt;-</span> <span class="fu">msr</span><span class="op">(</span><span class="va">x1</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="va">lw1</span>, nrepet <span class="op">=</span> <span class="fl">9</span>, method <span class="op">=</span> <span class="st">"singleton"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">x1.1</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/moran.mc.html" class="external-link">moran.mc</a></span><span class="op">(</span><span class="va">x</span>, listw <span class="op">=</span> <span class="va">lw1</span>, nsim <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">statistic</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.07577448 0.07577448 0.07577448 0.07577448 0.07577448 0.07577448 0.07577448</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [8] 0.07577448 0.07577448</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.005554863 -0.005554863 -0.005554863 -0.005554863 -0.005554863</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6] -0.005554863 -0.005554863 -0.005554863 -0.005554863</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## triplet</span></span></span>
 <span class="r-in"><span><span class="va">x1.2</span> <span class="op">&lt;-</span> <span class="fu">msr</span><span class="op">(</span><span class="va">x1</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="va">lw1</span>, nrepet <span class="op">=</span> <span class="fl">9</span>, method <span class="op">=</span> <span class="st">"triplet"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">x1.2</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/moran.mc.html" class="external-link">moran.mc</a></span><span class="op">(</span><span class="va">x</span>, listw <span class="op">=</span> <span class="va">lw1</span>, nsim <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">statistic</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.07577448 0.07577448 0.07577448 0.07577448 0.07577448 0.07577448 0.07577448</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [8] 0.07577448 0.07577448</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.005554863 -0.005554863 -0.005554863 -0.005554863 -0.005554863</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6] -0.005554863 -0.005554863 -0.005554863 -0.005554863</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## pair</span></span></span>
 <span class="r-in"><span><span class="va">x1.3</span> <span class="op">&lt;-</span> <span class="fu">msr</span><span class="op">(</span><span class="va">x1</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="va">lw1</span>, nrepet <span class="op">=</span> <span class="fl">9</span>, method <span class="op">=</span> <span class="st">"pair"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">x1.3</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/moran.mc.html" class="external-link">moran.mc</a></span><span class="op">(</span><span class="va">x</span>, listw <span class="op">=</span> <span class="va">lw1</span>, nsim <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">statistic</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.07469059 0.07319935 0.06905956 0.06589240 0.06746221 0.06586918 0.08069318</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [8] 0.06719310 0.07863919</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.009062670 -0.010335840 -0.012706117 -0.009616568 -0.010682939</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6] -0.009009830 -0.008173758 -0.009540442 -0.007900050</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## pair with cor.fixed</span></span></span>
 <span class="r-in"><span><span class="va">x1.4</span> <span class="op">&lt;-</span> <span class="fu">msr</span><span class="op">(</span><span class="va">x1</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="va">lw1</span>, nrepet <span class="op">=</span> <span class="fl">9</span>, cor.fixed <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">x1.4</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/moran.mc.html" class="external-link">moran.mc</a></span><span class="op">(</span><span class="va">x</span>, listw <span class="op">=</span> <span class="va">lw1</span>, nsim <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">statistic</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.06272533 0.06839816 0.06417388 0.06200063 0.06934872 0.07294923 0.06331635</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [8] 0.06937051 0.07215122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.012015301 -0.013119120 -0.009030709 -0.009818945 -0.007107935</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6] -0.008632896 -0.006437741 -0.011925570 -0.010107157</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">x1</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="va">x1.4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5</span>
@@ -211,177 +211,177 @@ strictly the global autocorrelation level.</p>
 <span class="r-in"><span><span class="va">x1.5</span> <span class="op">&lt;-</span> <span class="fu">msr</span><span class="op">(</span><span class="va">x1</span>, <span class="va">lw1</span>, nrepet <span class="op">=</span> <span class="fl">9</span>, cor.fixed <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">x1.5</span>, <span class="va">cor</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[5]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[6]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[7]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[8]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[9]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">x1</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/moran.mc.html" class="external-link">moran.mc</a></span><span class="op">(</span><span class="va">x</span>, listw <span class="op">=</span> <span class="va">lw1</span>, nsim <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">statistic</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.07577448 -0.02511053 -0.05375993  0.07612076  0.02004518</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.005554863  0.006591645 -0.096287804 -0.219209846  0.075636158</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">x1.5</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/moran.mc.html" class="external-link">moran.mc</a></span><span class="op">(</span><span class="va">x</span>, listw <span class="op">=</span> <span class="va">lw1</span>, nsim <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">statistic</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.07254726 -0.02571892 -0.04636550  0.07671136  0.01877036</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.009488663  0.011974744 -0.089088169 -0.221727522  0.068320827</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## singleton preserving correlations for multivariate data</span></span></span>
 <span class="r-in"><span><span class="va">x1.6</span> <span class="op">&lt;-</span> <span class="fu">msr</span><span class="op">(</span><span class="va">x1</span>, <span class="va">lw1</span>, nrepet <span class="op">=</span> <span class="fl">9</span>, method <span class="op">=</span> <span class="st">"singleton"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">x1.6</span>, <span class="va">cor</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[5]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[6]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[7]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[8]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[9]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.08807008  0.07207752 -0.11953581 -0.13733127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.08807008  1.00000000 -0.12690826  0.09560608 -0.22904066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.07207752 -0.12690826  1.00000000 -0.29919287 -0.04340206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.11953581  0.09560608 -0.29919287  1.00000000 -0.01809805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.13733127 -0.22904066 -0.04340206 -0.01809805  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000  0.05429193  0.06885091 -0.03141445  0.05471193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.05429193  1.00000000 -0.01557208  0.01835087 -0.07105495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.06885091 -0.01557208  1.00000000  0.03052883 -0.04021499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.03141445  0.01835087  0.03052883  1.00000000  0.06595289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.05471193 -0.07105495 -0.04021499  0.06595289  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">x1</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/moran.mc.html" class="external-link">moran.mc</a></span><span class="op">(</span><span class="va">x</span>, listw <span class="op">=</span> <span class="va">lw1</span>, nsim <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">statistic</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.07577448 -0.02511053 -0.05375993  0.07612076  0.02004518</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.005554863  0.006591645 -0.096287804 -0.219209846  0.075636158</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">x1.6</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/moran.mc.html" class="external-link">moran.mc</a></span><span class="op">(</span><span class="va">x</span>, listw <span class="op">=</span> <span class="va">lw1</span>, nsim <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">statistic</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.07577448 -0.02511053 -0.05375993  0.07612076  0.02004518</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.005554863  0.006591645 -0.096287804 -0.219209846  0.075636158</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
