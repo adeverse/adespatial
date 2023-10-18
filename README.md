@@ -1,7 +1,7 @@
 # adespatial <img src='man/figures/logo.svg' align="right" height="139" />
 
 [![R-CMD-check](https://github.com/sdray/adespatial/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/sdray/adespatial/actions/workflows/R-CMD-check.yaml)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/adespatial)](http://cran.r-project.org/package=adespatial)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-ago/adespatial)](http://cran.r-project.org/package=adespatial)
 [![CRAN Downloads](https://cranlogs.r-pkg.org/badges/adespatial)](https://cran.r-project.org/package=adespatial)
 
 Multivariate Multiscale Spatial Analysis
