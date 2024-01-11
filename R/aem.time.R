@@ -131,7 +131,7 @@ aem.time <- function(n,
     mat01 <- matrix(0, n, n)
     for (i in 1:(n - 1))
         mat01[i, i + 1] <- w[i]
-    lw <- mat2listw(mat01)
+    lw <- mat2listw(mat01, style = "B", zero.policy = TRUE)
     
     out <- list(E = E,
         values = E.svd$d[1:k] ^ 2 / (n - 1),

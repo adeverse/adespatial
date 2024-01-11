@@ -173,7 +173,7 @@
 #' }
 #' 
 #' # Build a listw object from the asymmetric matrix
-#' listwAsym <- mat2listw(matasym)
+#' listwAsym <-  mat2listw(matasym, style = "B", zero.policy = TRUE)
 #' 
 #' # Calculate Moran's I for AEM
 #' MoranIAEM <- moran.randtest(AEM$vectors, listwAsym)

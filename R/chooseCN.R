@@ -275,8 +275,7 @@ chooseCN <- function(xy,ask=TRUE, type=NULL, result.type="nb", d1=NULL, d2=NULL,
         if(type!=7) {
             cn <- nb2listw(cn, style="W", zero.policy=TRUE)
         } else {
-            cn <- mat2listw(cn)
-            cn$style <- "W"
+            cn <-  mat2listw(cn, style = "W", zero.policy = TRUE)
         }
     }
     
