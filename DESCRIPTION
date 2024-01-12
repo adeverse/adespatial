@@ -37,7 +37,7 @@ Imports:
     vegan
 Suggests: knitr, ape, rmarkdown, betapart
 License: GPL (>= 2)
-URL: https://github.com/sdray/adespatial
+URL: https://github.com/sdray/adespatial, http://sdray.github.io/adespatial/
 BugReports: https://github.com/sdray/adespatial/issues
 Encoding: UTF-8
 NeedsCompilation: yes
