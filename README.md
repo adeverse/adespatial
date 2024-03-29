@@ -13,11 +13,11 @@ Multivariate Multiscale Spatial Analysis
 To avoid confusion, we strongly recommend updating any existing local clones to point to the new 
 repository URL. You can do this by using `git remote` on the command line:
 
-`git remote set-url origin git@github.com:adeverse/ade4.git`
+`git remote set-url origin git@github.com:adeverse/adespatial.git`
 
 or 
 
-`git remote set-url origin https://github.com/adeverse/ade4.git`
+`git remote set-url origin https://github.com/adeverse/adespatial.git`
 
 ---------------------------
 
@@ -30,13 +30,12 @@ For instance, `adespatial` includes the `forward.sel` function (formerly in `pac
 vignette("tutorial", package = "adespatial")
 ```
 
-Installing *adespatial*
+Installing the development version of `adespatial`
 -------------
-To install the development version from github:
 
-1. Install the release version of `devtools` from CRAN with `install.packages("devtools")`.
+- Install the release version of `remotes` from CRAN with `install.packages("remotes")`.
 
-2. Make sure you have a working development environment.
+- Make sure you have a working development environment.
     * **Windows**: Install [Rtools](http://cran.r-project.org/bin/windows/Rtools/).
     * **Mac**: Install Xcode from the Mac App Store.
     * **Linux**: Install a compiler and various development libraries (details vary across different flavors of Linux).
@@ -44,17 +43,22 @@ To install the development version from github:
 Then:
 
 ```r
-library(devtools)
-install_github("adeverse/adespatial")
+remotes::install_github("adeverse/adespatial")
 ```
 
-The stable version can be installed from CRAN using:
+If you do not wish to install the development environments Rtools (Windows) / XCode (Mac), we can supply binary packages of the development version of `adespatial` on request. 
+
+
+Installing the stable version of `adespatial`
+-------------
 
 ```r
 install.packages("adespatial")
 ```
 
-Once installed, the package can be loaded using:
+
+Loading `adespatial`
+-------------
 
 ```r
 library("adespatial")
