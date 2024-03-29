@@ -87,7 +87,7 @@ the spatial multiscale analysis of ecological data</h1>
                         <h4 data-toc-skip class="author">Stéphane
 Dray</h4>
             
-            <h4 data-toc-skip class="date">2024-01-23</h4>
+            <h4 data-toc-skip class="date">2024-03-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/HEAD/vignettes/tutorial.Rmd" class="external-link"><code>vignettes/tutorial.Rmd</code></a></small>
       <div class="hidden name"><code>tutorial.Rmd</code></div>
@@ -103,24 +103,25 @@ packages of the sedaR project hosted on R-Forge
 (<code>spacemakeR</code>, <code>packfor</code>, <code>AEM</code>, etc.).
 It can be seen as a bridge between packages dealing with multivariate
 data (e.g., <code>ade4</code>, <span class="citation">Dray and Dufour
-(<a href="#ref-Dray2007" role="doc-biblioref">2007</a>)</span>) and
-packages that deals with spatial data (<code>sp</code>,
-<code>spdep</code>). In <code>adespatial</code>, many methods consider
-the spatial information as a spatial weighting matrix (SWM), object of
-class <code>listw</code> provided by the <code>spdep</code> package (<a href="#diagram">Figure 1</a>). The SWM is defined as the Hadamard
-product (element-wise product) of a connectivity matrix by a weighting
-matrix. The binary connectivity matrix (spatial neighborhood, object of
-class <code>nb</code>) defines the pairs of connected and unconnected
-samples, while the weighting matrix allows weighting the connections,
-for instance to define that the strength of the connection between two
+(<a href="#ref-Dray2007">2007</a>)</span>) and packages that deals with
+spatial data (<code>sp</code>, <code>spdep</code>). In
+<code>adespatial</code>, many methods consider the spatial information
+as a spatial weighting matrix (SWM), object of class <code>listw</code>
+provided by the <code>spdep</code> package (<a href="#diagram">Figure
+1</a>). The SWM is defined as the Hadamard product (element-wise
+product) of a connectivity matrix by a weighting matrix. The binary
+connectivity matrix (spatial neighborhood, object of class
+<code>nb</code>) defines the pairs of connected and unconnected samples,
+while the weighting matrix allows weighting the connections, for
+instance to define that the strength of the connection between two
 samples decreases with the geographic distance.</p>
 <p>Once SWM is defined, it can be used to build Moran’s Eigenvector Maps
-(MEM, <span class="citation">Dray, Legendre, and Peres-Neto (<a href="#ref-Dray2006" role="doc-biblioref">2006</a>)</span>) that are
-orthogonal vectors maximizing the spatial autocorrelation (measured by
-Moran’s coefficient). These spatial predictors can be used in
-multivariate statistical methods to provide spatially-explicit
-multiscale tools <span class="citation">(<a href="#ref-Dray2012" role="doc-biblioref">Dray et al. 2012</a>)</span>. This document
-provides a description of the main functionalities of the package.</p>
+(MEM, <span class="citation">Dray, Legendre, and Peres-Neto (<a href="#ref-Dray2006">2006</a>)</span>) that are orthogonal vectors
+maximizing the spatial autocorrelation (measured by Moran’s
+coefficient). These spatial predictors can be used in multivariate
+statistical methods to provide spatially-explicit multiscale tools <span class="citation">(<a href="#ref-Dray2012">Dray et al. 2012</a>)</span>.
+This document provides a description of the main functionalities of the
+package.</p>
 <br><div style="text-align:center">
 <p><a name="diagram"></a>
 <img src="adespatial.png" style="width:700px"><span style="color:blue">Figure 1: Schematic representation of the functioning
@@ -236,11 +237,11 @@ background to display the sampling design:</p>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;"></p>
 <p>A more detailed description of the data set is available at <a href="http://pbil.univ-lyon1.fr/R/pdf/pps053.pdf" class="external-link uri">http://pbil.univ-lyon1.fr/R/pdf/pps053.pdf</a> (in
 French).</p>
-<p>The functionalities of the <code>adegraphics</code> package <span class="citation">(<a href="#ref-Siberchicot2017" role="doc-biblioref">Siberchicot et al. 2017</a>)</span> can be used to
-design simple thematic maps to represent data. For instance, it is
-possible to represent the spatial distribution of two species using the
-<code>s.Spatial</code> function applied on Voronoi polygons contained in
-<code>mafragh$Spatial</code>:</p>
+<p>The functionalities of the <code>adegraphics</code> package <span class="citation">(<a href="#ref-Siberchicot2017">Siberchicot et al.
+2017</a>)</span> can be used to design simple thematic maps to represent
+data. For instance, it is possible to represent the spatial distribution
+of two species using the <code>s.Spatial</code> function applied on
+Voronoi polygons contained in <code>mafragh$Spatial</code>:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mafragh</span><span class="op">$</span><span class="va">spenames</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">11</span><span class="op">)</span>, <span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">##                   scientific code</span></span>
@@ -258,10 +259,11 @@ possible to represent the spatial distribution of two species using the
 <p>Spatial neighborhoods are managed in <code>spdep</code> as objects of
 class <code>nb</code>. It corresponds to the notion of connectivity
 matrices discussed in <span class="citation">Dray, Legendre, and
-Peres-Neto (<a href="#ref-Dray2006" role="doc-biblioref">2006</a>)</span> and can be represented by an
-unweighted graph. Various functions allow to create <code>nb</code>
-objects from geographic coordinates of sites. We present different
-alternatives according to the design of the sampling scheme.</p>
+Peres-Neto (<a href="#ref-Dray2006">2006</a>)</span> and can be
+represented by an unweighted graph. Various functions allow to create
+<code>nb</code> objects from geographic coordinates of sites. We present
+different alternatives according to the design of the sampling
+scheme.</p>
 <div class="section level3">
 <h3 id="surface-data">Surface data<a class="anchor" aria-label="anchor" href="#surface-data"></a>
 </h3>
@@ -269,8 +271,7 @@ alternatives according to the design of the sampling scheme.</p>
 the sampling sites are polygons and not points (two regions are
 neighbors if they share a common boundary). The resulting object can be
 plotted on a geographical map using the <code>s.Spatial</code> function
-of the <code>adegraphics</code> package <span class="citation">(<a href="#ref-Siberchicot2017" role="doc-biblioref">Siberchicot et al.
-2017</a>)</span>.</p>
+of the <code>adegraphics</code> package <span class="citation">(<a href="#ref-Siberchicot2017">Siberchicot et al. 2017</a>)</span>.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial</span><span class="op">)</span></span></code></pre></div>
@@ -403,11 +404,8 @@ instance, Delaunay triangulation is obtained with the function
 <code>tri2nb</code>. It requires the package <code>deldir</code>. Other
 graph-based procedures are also available:</p>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nbtri</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/tri2nb.html" class="external-link">tri2nb</a></span><span class="op">(</span><span class="va">xyir</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning in sn2listw(df1): style is M (missing); style should be set to a valid</span></span>
-<span><span class="co">## value</span></span></code></pre>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nbgab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/graphneigh.html" class="external-link">graph2nb</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/graphneigh.html" class="external-link">gabrielneigh</a></span><span class="op">(</span><span class="va">xyir</span><span class="op">)</span>, sym <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">nbtri</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/tri2nb.html" class="external-link">tri2nb</a></span><span class="op">(</span><span class="va">xyir</span><span class="op">)</span></span>
+<span><span class="va">nbgab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/graphneigh.html" class="external-link">graph2nb</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/graphneigh.html" class="external-link">gabrielneigh</a></span><span class="op">(</span><span class="va">xyir</span><span class="op">)</span>, sym <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">nbrel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/graphneigh.html" class="external-link">graph2nb</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/graphneigh.html" class="external-link">relativeneigh</a></span><span class="op">(</span><span class="va">xyir</span><span class="op">)</span>, sym <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.label.html" class="external-link">s.label</a></span><span class="op">(</span><span class="va">xyir</span>, nb <span class="op">=</span> <span class="va">nbtri</span>, pnb.edge.col <span class="op">=</span> <span class="st">"red"</span>, main <span class="op">=</span> <span class="st">"Delaunay"</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -429,13 +427,13 @@ neighborhood objects (see <a href="#listw.explore">Figure 2</a>).</p>
 <p>A <code>nb</code> object is not stored as a matrix. It is a list of
 neighbors. The neighbors of the first site are in the first element of
 the list:</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nbgab</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1]  6 13</span></span></code></pre>
 <p>Various tools are provided by <code>spdep</code> to deal with these
 objects. For instance, it is possible to identify differences between
 two neighborhoods:</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/diffnb.html" class="external-link">diffnb</a></span><span class="op">(</span><span class="va">nbgab</span>, <span class="va">nbrel</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Neighbour list object:</span></span>
 <span><span class="co">## Number of regions: 20 </span></span>
@@ -465,7 +463,7 @@ provides many other tools to manipulate <code>nb</code> objects:</p>
 <p>A spatial weighting matrices (SWM) is computed by a transformation of
 a spatial neighborhood. We consider the Gabriel graph for the full data
 set:</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nbgab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/graphneigh.html" class="external-link">graph2nb</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/graphneigh.html" class="external-link">gabrielneigh</a></span><span class="op">(</span><span class="va">mxy</span><span class="op">)</span>, sym <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>In R, SWM are not stored as matrices but as objects of the class
 <code>listw</code>. This format is more efficient than a matrix
@@ -483,7 +481,7 @@ computes Euclidean distance between neighbor sites defined by an
 <code>nb</code> object.</p>
 <p>To obtain a simple row-standardization, the function is simply called
 by:</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></span><span class="op">(</span><span class="va">nbgab</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Characteristics of weights list object:</span></span>
 <span><span class="co">## Neighbour list object:</span></span>
@@ -500,19 +498,19 @@ by:</p>
 defined. For instance, it is possible to weight edges between neighbors
 as functions of geographic distances. In a fist step, distances between
 neighbors are obtained by the function :</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distgab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nbdists.html" class="external-link">nbdists</a></span><span class="op">(</span><span class="va">nbgab</span>, <span class="va">mxy</span><span class="op">)</span></span>
 <span><span class="va">nbgab</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 2 4 5 6</span></span></code></pre>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distgab</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 16.63971 21.34986 14.54966 16.99176</span></span></code></pre>
 <p>Then, spatial weights are defined as a function of distance
 (e.g. <span class="math inline">\(1-d_{ij}/max(d_{ij})\)</span>):</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fdist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">distgab</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">x</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">mxy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>And the spatial weighting matrix is then created:</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">listwgab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></span><span class="op">(</span><span class="va">nbgab</span>, glist <span class="op">=</span> <span class="va">fdist</span><span class="op">)</span></span>
 <span><span class="va">listwgab</span></span></code></pre></div>
 <pre><code><span><span class="co">## Characteristics of weights list object:</span></span>
@@ -526,18 +524,18 @@ neighbors are obtained by the function :</p>
 <span><span class="co">## Weights constants summary:</span></span>
 <span><span class="co">##    n   nn S0       S1     S2</span></span>
 <span><span class="co">## W 97 9409 97 45.41085 395.21</span></span></code></pre>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">listwgab</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "style"      "neighbours" "weights"</span></span></code></pre>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">listwgab</span><span class="op">$</span><span class="va">neighbours</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 2 4 5 6</span></span></code></pre>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">listwgab</span><span class="op">$</span><span class="va">weights</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.2505174 0.2472375 0.2519728 0.2502723</span></span></code></pre>
 <p>The matrix representation of a <code>listw</code> object can also be
 obtained:</p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2mat.html" class="external-link">listw2mat</a></span><span class="op">(</span><span class="va">listwgab</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     [,1]  [,2]  [,3]  [,4]  [,5]  [,6]  [,7]  [,8]  [,9] [,10]</span></span>
 <span><span class="co">## 1  0.000 0.251 0.000 0.247 0.252 0.250 0.000 0.000 0.000     0</span></span>
@@ -572,7 +570,7 @@ spatial predictors that can be incorporated in multivariate analysis.
 They are orthogonal vectors stored in a object of class
 <code>orthobasisSp</code>. Orthogonal polynomials of geographic
 coordinates can be computed by the function <code>orthobasis.poly</code>
-whereas principal coordinates of neighbour matrices (PCNM, <span class="citation">Borcard and Legendre (<a href="#ref-Borcard2002" role="doc-biblioref">2002</a>)</span>) are obtained by the function
+whereas principal coordinates of neighbour matrices (PCNM, <span class="citation">Borcard and Legendre (<a href="#ref-Borcard2002">2002</a>)</span>) are obtained by the function
 <code>dbmem</code>.</p>
 <p>The Moran’s Eigenvectors Maps (MEMs) provide the most flexible
 framework. If we consider the <span class="math inline">\(n \times
@@ -586,14 +584,14 @@ diagonalization of the doubly-centred SWM:</p>
 \mathbf{I}-\mathbf{11}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}/n \right
 )\)</span> is the centring operator.</p>
 <p>MEMs are orthogonal vectors with a unit norm that maximize Moran’s
-coefficient of spatial autocorrelation <span class="citation">(<a href="#ref-Griffith1996" role="doc-biblioref">Griffith 1996</a>; <a href="#ref-Dray2012" role="doc-biblioref">Dray et al. 2012</a>)</span>
-and are stored in matrix <span class="math inline">\(\mathbf{V}\)</span>.</p>
+coefficient of spatial autocorrelation <span class="citation">(<a href="#ref-Griffith1996">Griffith 1996</a>; <a href="#ref-Dray2012">Dray
+et al. 2012</a>)</span> and are stored in matrix <span class="math inline">\(\mathbf{V}\)</span>.</p>
 <p>MEMs are provided by the functions <code>scores.listw</code> or
 <code>mem</code> of the <code>adespatial</code> package. These two
 functions are exactly identical (both are kept for historical reasons
 and compatibility) and return an object of class
 <code>orthobasisSp</code>.</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mem.gab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mem.html">mem</a></span><span class="op">(</span><span class="va">listwgab</span><span class="op">)</span></span>
 <span><span class="va">mem.gab</span></span></code></pre></div>
 <pre><code><span><span class="co">## Orthobasis with 97 rows and 96 columns</span></span>
@@ -607,39 +605,39 @@ and compatibility) and return an object of class
 <span><span class="co">## 6 0.9629486 -2.017900 -0.5572747 -0.92335694</span></span></code></pre>
 <p>This object contains MEMs, stored as a <code>data.frame</code> and
 other attributes:</p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">mem.gab</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "orthobasisSp" "orthobasis"   "data.frame"</span></span></code></pre>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">mem.gab</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "names"     "class"     "row.names" "values"    "weights"   "call"</span></span></code></pre>
 <p>The eigenvalues associated to MEMs are stored in the attribute called
 <code>values</code>:</p>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">mem.gab</span>, <span class="st">"values"</span><span class="op">)</span>, </span>
 <span>        main <span class="op">=</span> <span class="st">"Eigenvalues of the spatial weighting matrix"</span>, cex.main <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-28-1.png" width="700" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></span></code></pre></div>
 <p>A <code>plot</code> method is provided to represent MEMs. By default,
 eigenvectors are represented as a table (sites as rows, MEMs as
 columns). This representation is usually not informative and it is
 better to map MEMs in the geographical space by documenting the argument
 <code>SpORcoords</code>:</p>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mem.gab</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">70</span><span class="op">)</span><span class="op">]</span>, SpORcoords <span class="op">=</span> <span class="va">mxy</span><span class="op">)</span></span></code></pre></div>
 <p>or using the more flexible <code>s.value</code> function:</p>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.value.html" class="external-link">s.value</a></span><span class="op">(</span><span class="va">mxy</span>, <span class="va">mem.gab</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">70</span><span class="op">)</span><span class="op">]</span>, symbol <span class="op">=</span> <span class="st">"circle"</span>, ppoint.cex <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-30-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>Moran’s I can be computed and tested for each eigenvector with the
 <code>moran.randtest</code> function:</p>
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">moranI</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/moran.randtest.html">moran.randtest</a></span><span class="op">(</span><span class="va">mem.gab</span>, <span class="va">listwgab</span>, <span class="fl">99</span><span class="op">)</span></span></code></pre></div>
 <p>As demonstrated in <span class="citation">Dray, Legendre, and
-Peres-Neto (<a href="#ref-Dray2006" role="doc-biblioref">2006</a>)</span>, eigenvalues and Moran’s I are
-equal (post-multiply by a constant):</p>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+Peres-Neto (<a href="#ref-Dray2006">2006</a>)</span>, eigenvalues and
+Moran’s I are equal (post-multiply by a constant):</p>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">mem.gab</span>, <span class="st">"values"</span><span class="op">)</span> <span class="op">/</span> <span class="va">moranI</span><span class="op">$</span><span class="va">obs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## MEM1.statistic MEM2.statistic MEM3.statistic MEM4.statistic MEM5.statistic </span></span>
 <span><span class="co">##     0.01030928     0.01030928     0.01030928     0.01030928     0.01030928 </span></span>
@@ -685,11 +683,11 @@ allows to compute and test, by permutation, the significance of the
 Moran’s coefficient. A wrapper is provided by the
 <code>moran.randtest</code> function to test simultaneously and
 independently the spatial structure for several variables.</p>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sp.env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPolygons.html" class="external-link">SpatialPolygonsDataFrame</a></span><span class="op">(</span>Sr <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial</span>, data <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, match.ID <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">maps.env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.Spatial.html" class="external-link">s.Spatial</a></span><span class="op">(</span><span class="va">sp.env</span>, col <span class="op">=</span> <span class="fu">fpalette</span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>, nclass <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-33-1.png" width="80%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">MC.env</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/moran.randtest.html">moran.randtest</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, <span class="va">listwgab</span>, nrepet <span class="op">=</span> <span class="fl">999</span><span class="op">)</span></span>
 <span><span class="va">MC.env</span></span></code></pre></div>
 <pre><code><span><span class="co">## class: krandtest lightkrandtest </span></span>
@@ -719,7 +717,7 @@ and <span class="math inline">\(\lambda_{min}
 where <span class="math inline">\(\lambda_{max}\)</span> and <span class="math inline">\(\lambda_{min}\)</span> are the extreme eigenvalues
 of <span class="math inline">\(\mathbf{\Omega}\)</span>. These extreme
 values are returned by the <code>moran.bounds</code> function:</p>
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mc.bounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/moran.bounds.html">moran.bounds</a></span><span class="op">(</span><span class="va">listwgab</span><span class="op">)</span></span>
 <span><span class="va">mc.bounds</span></span></code></pre></div>
 <pre><code><span><span class="co">##       Imin       Imax </span></span>
@@ -727,7 +725,7 @@ values are returned by the <code>moran.bounds</code> function:</p>
 <p>Hence, it is possible to display Moran’s coefficients computed on
 environmental variables and the minimum and maximum values for the given
 SWM:</p>
-<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">env.maps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s1d.barchart.html" class="external-link">s1d.barchart</a></span><span class="op">(</span><span class="va">MC.env</span><span class="op">$</span><span class="va">obs</span>, labels <span class="op">=</span> <span class="va">MC.env</span><span class="op">$</span><span class="va">names</span>, plot <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="fl">1.1</span> <span class="op">*</span> <span class="va">mc.bounds</span>, paxes.draw <span class="op">=</span> <span class="cn">TRUE</span>, pgrid.draw <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/addline.html" class="external-link">addline</a></span><span class="op">(</span><span class="va">env.maps</span>, v <span class="op">=</span> <span class="va">mc.bounds</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, pline.col <span class="op">=</span> <span class="st">'red'</span>, pline.lty <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-35-1.png" width="700" style="display: block; margin: auto;"></p>
@@ -739,10 +737,10 @@ SWM:</p>
 of positive and negative autocorrelation structures (i.e., it leads to a
 non-significant test). The <code>moranNP.randtest</code> function allows
 to decompose the standard MC statistic into two additive parts and thus
-to test for positive and negative autocorrelation separately <span class="citation">(<a href="#ref-Dray2011" role="doc-biblioref">Dray
-2011</a>)</span>. For instance, we can test the spatial distribution of
-Magnesium. Only positive autocorrelation is detected:</p>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+to test for positive and negative autocorrelation separately <span class="citation">(<a href="#ref-Dray2011">Dray 2011</a>)</span>. For
+instance, we can test the spatial distribution of Magnesium. Only
+positive autocorrelation is detected:</p>
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">NP.Mg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/moranNP.randtest.html">moranNP.randtest</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">5</span><span class="op">]</span>, <span class="va">listwgab</span>, nrepet <span class="op">=</span> <span class="fl">999</span>, alter <span class="op">=</span> <span class="st">"two-sided"</span><span class="op">)</span> </span>
 <span><span class="va">NP.Mg</span></span></code></pre></div>
 <pre><code><span><span class="co">## class: krandtest lightkrandtest </span></span>
@@ -757,13 +755,13 @@ Magnesium. Only positive autocorrelation is detected:</p>
 <span><span class="co">##   Test        Obs  Std.Obs   Alter Pvalue</span></span>
 <span><span class="co">## 1   I+  0.3611756 3.743501 greater  0.002</span></span>
 <span><span class="co">## 2   I- -0.1571176 1.552759    less  0.944</span></span></code></pre>
-<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">NP.Mg</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-36-1.png" width="700" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">NP.Mg</span><span class="op">$</span><span class="va">obs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.204058</span></span></code></pre>
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">MC.env</span><span class="op">$</span><span class="va">obs</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## Mg++.statistic </span></span>
 <span><span class="co">##       0.204058</span></span></code></pre>
@@ -777,11 +775,11 @@ alternative is to summarize data by multivariate methods and then detect
 spatial structures using the output of the analysis. For instance, we
 applied a centred principal component analysis on the abundance
 data:</p>
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pca.hell</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/dudi.pca.html" class="external-link">dudi.pca</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">flo</span>, scale <span class="op">=</span> <span class="cn">FALSE</span>, scannf <span class="op">=</span> <span class="cn">FALSE</span>, nf <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p>MC can be computed for PCA scores and the associated spatial
 structures can be visualized on a map:</p>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/moran.randtest.html">moran.randtest</a></span><span class="op">(</span><span class="va">pca.hell</span><span class="op">$</span><span class="va">li</span>, listw <span class="op">=</span> <span class="va">listwgab</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## class: krandtest lightkrandtest </span></span>
 <span><span class="co">## Monte-Carlo tests</span></span>
@@ -794,21 +792,21 @@ structures can be visualized on a map:</p>
 <span><span class="co">##    Test       Obs  Std.Obs   Alter Pvalue</span></span>
 <span><span class="co">## 1 Axis1 0.4830837 7.405295 greater  0.001</span></span>
 <span><span class="co">## 2 Axis2 0.4613738 7.119489 greater  0.001</span></span></code></pre>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.value.html" class="external-link">s.value</a></span><span class="op">(</span><span class="va">mxy</span>, <span class="va">pca.hell</span><span class="op">$</span><span class="va">li</span>, Sp <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial.contour</span>, symbol <span class="op">=</span> <span class="st">"circle"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"palegreen4"</span><span class="op">)</span>, ppoint.cex <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-38-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>PCA results are highly spatially structured. Results can be
 optimized, compared to this two-step procedure, by searching directly
 for multivariate spatial structures. The <code>multispati</code>
-function implements a method <span class="citation">(<a href="#ref-Dray2008" role="doc-biblioref">Dray, Saïd, and Débias
-2008</a>)</span> that search for axes maximizing the product of variance
-(multivariate aspect) by MC (spatial aspect):</p>
-<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+function implements a method <span class="citation">(<a href="#ref-Dray2008">Dray, Saïd, and Débias 2008</a>)</span> that search
+for axes maximizing the product of variance (multivariate aspect) by MC
+(spatial aspect):</p>
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ms.hell</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multispati.html">multispati</a></span><span class="op">(</span><span class="va">pca.hell</span>, listw <span class="op">=</span> <span class="va">listwgab</span>, scannf <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
 <p>The <code>summary</code> method can be applied on the resulting
 object to compare the results of initial analysis (axis 1 (RS1) and axis
 2 (RS2)) and those of the multispati method (CS1 and CS2):</p>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ms.hell</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Multivariate Spatial Analysis</span></span>
@@ -827,12 +825,12 @@ object to compare the results of initial analysis (axis 1 (RS1) and axis
 (higher MC values).</p>
 <p>Scores of the analysis can be mapped and highlight some spatial
 patterns of community composition:</p>
-<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g.ms.maps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.value.html" class="external-link">s.value</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span>, <span class="va">ms.hell</span><span class="op">$</span><span class="va">li</span>, Sp <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial.contour</span>, symbol <span class="op">=</span> <span class="st">"circle"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"palegreen4"</span><span class="op">)</span>, ppoint.cex <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-41-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>The spatial distribution of several species can be inserted to
 facilitate the interpretation of the outputs of the analysis:</p>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g.ms.spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.arrow.html" class="external-link">s.arrow</a></span><span class="op">(</span><span class="va">ms.hell</span><span class="op">$</span><span class="va">c1</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">g.abund</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.value.html" class="external-link">s.value</a></span><span class="op">(</span><span class="va">mxy</span>, <span class="va">mafragh</span><span class="op">$</span><span class="va">flo</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>,<span class="fl">11</span>,<span class="fl">31</span>,<span class="fl">16</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>    Sp <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial.contour</span>, symbol <span class="op">=</span> <span class="st">"circle"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"palegreen4"</span><span class="op">)</span>, plegend.drawKey <span class="op">=</span> <span class="cn">FALSE</span>, ppoint.cex <span class="op">=</span> <span class="fl">0.4</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -861,13 +859,13 @@ These values can be tested by a permutation procedure. Here, we
 illustrate the procedure with the abundance of <em>Bolboschoenus
 maritimus</em> (Sp11) which is mainly located in the central part of the
 study area:</p>
-<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">scalo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/scalogram.html">scalogram</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">flo</span><span class="op">[</span>,<span class="fl">11</span><span class="op">]</span>, <span class="va">mem.gab</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">scalo</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-43-1.png" width="700" style="display: block; margin: auto;">
 As the number of MEMs is equal to the number of sites minus one and as
 MEMs are othogonal, the variance is fully decomposed:</p>
-<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">scalo</span><span class="op">$</span><span class="va">obs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 1</span></span></code></pre>
 <p>When the number of MEMs is high, the results provided by this
@@ -875,18 +873,18 @@ approach can be difficult to interpret. In this case it can be
 advantageous to use smoothed scalograms (using the <code>nblocks</code>
 argument) where spatial components are formed by groups of successive
 MEMs:</p>
-<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/scalogram.html">scalogram</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">flo</span><span class="op">[</span>,<span class="fl">11</span><span class="op">]</span>, <span class="fu"><a href="../reference/mem.html">mem</a></span><span class="op">(</span><span class="va">listwgab</span><span class="op">)</span>, nblocks <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-45-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>It is possible to compute scalograms for all the species of the data
 table. These scalograms can be stored in a table and analysing this
 table with a PCA allows to identify the important scales of the data set
 and the similarities between species based on their spatial
-distributions <span class="citation">(<a href="#ref-Jombart2009" role="doc-biblioref">Jombart, Dray, and Dufour 2009</a>)</span>. This
+distributions <span class="citation">(<a href="#ref-Jombart2009">Jombart, Dray, and Dufour 2009</a>)</span>. This
 analysis named Multiscale Patterns Analysis (MSPA) is available in the
 <code>mspa</code> function that takes the results of a multivariate
 analysis (an object of class <code>dudi</code>) as argument:</p>
-<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mspa.hell</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mspa.html">mspa</a></span><span class="op">(</span><span class="va">pca.hell</span>, <span class="va">listwgab</span>, scannf <span class="op">=</span> <span class="cn">FALSE</span>, nf <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">g.mspa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/scatter.html" class="external-link">scatter</a></span><span class="op">(</span><span class="va">mspa.hell</span>, posieig <span class="op">=</span> <span class="st">"topright"</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -913,22 +911,22 @@ sections) could suffer from overfitting if the number of explanatory
 variables is too high and thus require a procedure to reduce the number
 of MEMs. The function <code>mem.select</code> proposes different
 alternatives to perform this selection using the argument
-<code>method</code> <span class="citation">(<a href="#ref-Bauman2018" role="doc-biblioref">Bauman, Drouet, Dray, et al. 2018</a>)</span>. By
+<code>method</code> <span class="citation">(<a href="#ref-Bauman2018">Bauman, Drouet, Dray, et al. 2018</a>)</span>. By
 default, only MEMs associated to positive eigenvalues are considered
 (argument <code>MEM.autocor = "positive"</code>) and a forward selection
 (based on <span class="math inline">\(R^2\)</span> statistic) is
 performed after a global test (<code>method = "FWD"</code>):</p>
-<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mem.gab.sel</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mem.select.html">mem.select</a></span><span class="op">(</span><span class="va">pca.hell</span><span class="op">$</span><span class="va">tab</span>, listw <span class="op">=</span> <span class="va">listwgab</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Procedure stopped (alpha criteria): pvalue for variable 16 is 0.075000 (&gt; 0.050000)</span></span></code></pre>
-<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mem.gab.sel</span><span class="op">$</span><span class="va">global.test</span></span></code></pre></div>
 <pre><code><span><span class="co">## $obs</span></span>
 <span><span class="co">## [1] 0.3593333</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $pvalue</span></span>
 <span><span class="co">## [1] 1e-04</span></span></code></pre>
-<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mem.gab.sel</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">##    variables order         R2      R2Cum   AdjR2Cum pvalue</span></span>
 <span><span class="co">## 1       MEM1     1 0.08696619 0.08696619 0.07735531  0.001</span></span>
@@ -951,10 +949,10 @@ in elements <code>global.test</code> and <code>summary</code>. The
 subset of selected MEMs are in <code>MEM.select</code> and can be used
 in subsequent analysis (see sections on <a href="#rda">Redundancy
 Analysis</a> and <a href="#varpart">Variation Partitioning</a>).</p>
-<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">mem.gab.sel</span><span class="op">$</span><span class="va">MEM.select</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "orthobasisSp" "orthobasis"   "data.frame"</span></span></code></pre>
-<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">mem.gab.sel</span><span class="op">$</span><span class="va">MEM.select</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 97 15</span></span></code></pre>
 <p>Different SWMs can be defined for a given data set. An important
@@ -966,40 +964,40 @@ create four candidates using two definitions for neighborhood (Gabriel
 and Relative graphs using <code>c("gab", "rel")</code>) and two
 weighting functions (binary and linear using
 <code>c("bin", "flin")</code>):</p>
-<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cand.lw</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/listw.candidates.html">listw.candidates</a></span><span class="op">(</span><span class="va">mxy</span>, nb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gab"</span>, <span class="st">"rel"</span><span class="op">)</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bin"</span>, <span class="st">"flin"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The function <code>listw.select</code> proposes different methods for
-selecting a SWM <span class="citation">(<a href="#ref-Bauman2018a" role="doc-biblioref">Bauman, Drouet, Fortin, et al. 2018</a>)</span>.
+selecting a SWM <span class="citation">(<a href="#ref-Bauman2018a">Bauman, Drouet, Fortin, et al. 2018</a>)</span>.
 The procedure is very similar to the one proposed by
 <code>mem.select</code> except that p-value corrections are applied on
 global tests taking into account the fact that several candidates are
 used. By default (<code>method = "FWD"</code>), it applies forward
 selection on the significant SWMs and selects among these the SWM for
 which the subset of MEMs yields the highest adjusted R.</p>
-<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sel.lw</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/listw.select.html">listw.select</a></span><span class="op">(</span><span class="va">pca.hell</span><span class="op">$</span><span class="va">tab</span>, candidates <span class="op">=</span> <span class="va">cand.lw</span>, nperm <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Procedure stopped (alpha criteria): pvalue for variable 16 is 0.080000 (&gt; 0.050000)</span></span>
 <span><span class="co">## Procedure stopped (alpha criteria): pvalue for variable 15 is 0.060000 (&gt; 0.050000)</span></span>
 <span><span class="co">## Procedure stopped (alpha criteria): pvalue for variable 19 is 0.070000 (&gt; 0.050000)</span></span>
 <span><span class="co">## Procedure stopped (alpha criteria): pvalue for variable 20 is 0.100000 (&gt; 0.050000)</span></span></code></pre>
 <p>A summary of the procedure is available:</p>
-<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sel.lw</span><span class="op">$</span><span class="va">candidates</span></span></code></pre></div>
 <pre><code><span><span class="co">##                     R2Adj     Pvalue N.var R2Adj.select</span></span>
 <span><span class="co">## Gabriel_Binary  0.3571605 0.00039994    15    0.2938182</span></span>
 <span><span class="co">## Gabriel_Linear  0.3745815 0.00039994    14    0.3059982</span></span>
 <span><span class="co">## Relative_Binary 0.3788734 0.00039994    18    0.3299666</span></span>
 <span><span class="co">## Relative_Linear 0.3728263 0.00039994    19    0.3349199</span></span></code></pre>
-<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sel.lw</span><span class="op">$</span><span class="va">best.id</span></span></code></pre></div>
 <pre><code><span><span class="co">## Relative_Linear </span></span>
 <span><span class="co">##               4</span></span></code></pre>
 <p>The corresponding SWM can be obtained by</p>
-<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lw.best</span> <span class="op">&lt;-</span> <span class="va">cand.lw</span><span class="op">[[</span><span class="va">sel.lw</span><span class="op">$</span><span class="va">best.id</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <p>The subset of MEMs corresponding to the best SWM is also returned by
 the function:</p>
-<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sel.lw</span><span class="op">$</span><span class="va">best</span></span></code></pre></div>
 <pre><code><span><span class="co">## $global.test</span></span>
 <span><span class="co">## $global.test$obs</span></span>
@@ -1052,12 +1050,12 @@ Redundancy Analysis (RDA) is available in functions <code>pcaiv</code>
 <code>vegan</code>). RDA can be applied using selected MEMs as
 explanatory variables to study the spatial patterns in plant
 communities, :</p>
-<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rda.hell</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/pcaiv.html" class="external-link">pcaiv</a></span><span class="op">(</span><span class="va">pca.hell</span>, <span class="va">sel.lw</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">MEM.select</span>, scannf <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>The permutation test based on the percentage of variation explained
 by the spatial predictors (<span class="math inline">\(R^2\)</span>) is
 highly significant:</p>
-<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test.rda</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/randtest.html" class="external-link">randtest</a></span><span class="op">(</span><span class="va">rda.hell</span><span class="op">)</span></span>
 <span><span class="va">test.rda</span></span></code></pre></div>
 <pre><code><span><span class="co">## Monte-Carlo test</span></span>
@@ -1071,11 +1069,11 @@ highly significant:</p>
 <span><span class="co">## </span></span>
 <span><span class="co">##      Std.Obs  Expectation     Variance </span></span>
 <span><span class="co">## 15.485157208  0.195439797  0.000306522</span></span></code></pre>
-<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">test.rda</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-55-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>Associated spatial structures can be mapped:</p>
-<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.value.html" class="external-link">s.value</a></span><span class="op">(</span><span class="va">mxy</span>, <span class="va">rda.hell</span><span class="op">$</span><span class="va">li</span>, Sp <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial.contour</span>, symbol <span class="op">=</span> <span class="st">"circle"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"palegreen4"</span><span class="op">)</span>, ppoint.cex <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-56-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
@@ -1083,18 +1081,18 @@ highly significant:</p>
 <h3 id="varpart">Variation partitioning<a class="anchor" aria-label="anchor" href="#varpart"></a>
 </h3>
 <p>Spatial structures identified by Redundancy Analysis in the <a href="#rda">previous section</a> can be due to niche filtering or other
-processes (e.g., neutral dynamics). Variation partitioning <span class="citation">(<a href="#ref-Borcard1992" role="doc-biblioref">Borcard, Legendre, and Drapeau 1992</a>)</span>
-based on adjusted <span class="math inline">\(R^2\)</span> <span class="citation">(<a href="#ref-Peres-Neto2006a" role="doc-biblioref">Peres-Neto et al. 2006</a>)</span> can be used to
-identify the part of spatial structures that can be explained or not by
-environmental predictors. This method is implemented in the function
-<code>varpart</code> of package <code>vegan</code> that is able to deal
-with up to four tables of predictors:</p>
-<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+processes (e.g., neutral dynamics). Variation partitioning <span class="citation">(<a href="#ref-Borcard1992">Borcard, Legendre, and
+Drapeau 1992</a>)</span> based on adjusted <span class="math inline">\(R^2\)</span> <span class="citation">(<a href="#ref-Peres-Neto2006a">Peres-Neto et al. 2006</a>)</span> can be
+used to identify the part of spatial structures that can be explained or
+not by environmental predictors. This method is implemented in the
+function <code>varpart</code> of package <code>vegan</code> that is able
+to deal with up to four tables of predictors:</p>
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan" class="external-link">vegan</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required package: permute</span></span></code></pre>
 <pre><code><span><span class="co">## Loading required package: lattice</span></span></code></pre>
 <pre><code><span><span class="co">## This is vegan 2.6-4</span></span></code></pre>
-<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vp1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/vegan/man/varpart.html" class="external-link">varpart</a></span><span class="op">(</span><span class="va">pca.hell</span><span class="op">$</span><span class="va">tab</span>, <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, <span class="va">sel.lw</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">MEM.select</span><span class="op">)</span></span>
 <span><span class="va">vp1</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
@@ -1124,13 +1122,13 @@ with up to four tables of predictors:</p>
 <span><span class="co">## [d] = Residuals                         0.64740    FALSE</span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Use function 'rda' to test significance of fractions of interest</span></span></code></pre>
-<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vp1</span>, bg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>, Xnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"environment"</span>, <span class="st">"spatial"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-57-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>A simpler function <code>varipart</code> is available in
 <code>ade4</code> that is able to deal only with two tables of
 explanatory variables:</p>
-<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vp2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/varipart.html" class="external-link">varipart</a></span><span class="op">(</span><span class="va">pca.hell</span><span class="op">$</span><span class="va">tab</span>, <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, <span class="va">sel.lw</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">MEM.select</span><span class="op">)</span></span>
 <span><span class="va">vp2</span></span></code></pre></div>
 <pre><code><span><span class="co">## Variation Partitioning</span></span>
@@ -1170,15 +1168,15 @@ Randomization.</p>
 </h3>
 <p>Moran’s Spectral Randomization (MSR) allows to generate random
 replicates that preserve the spatial structure of the original data
-<span class="citation">(<a href="#ref-Wagner2015" role="doc-biblioref">Wagner and Dray 2015</a>)</span>. These replicates
-can be used to create spatially-constrained null distribution. For
-instance, we consider the case of bivariate correlation between
-Elevation and Sodium:</p>
-<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<span class="citation">(<a href="#ref-Wagner2015">Wagner and Dray
+2015</a>)</span>. These replicates can be used to create
+spatially-constrained null distribution. For instance, we consider the
+case of bivariate correlation between Elevation and Sodium:</p>
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">10</span><span class="op">]</span>, <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">11</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] -0.4033508</span></span></code></pre>
 <p>This correlation can be tested by a standard t-test:</p>
-<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">10</span><span class="op">]</span>, <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">11</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">##  Pearson's product-moment correlation</span></span>
@@ -1194,7 +1192,7 @@ Elevation and Sodium:</p>
 <p>However this test assumes independence between observations. This
 condition is not observed in our data as suggested by the computation of
 MC:</p>
-<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/moran.randtest.html">moran.randtest</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">10</span><span class="op">]</span>, <span class="va">lw.best</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Monte-Carlo test</span></span>
 <span><span class="co">## Call: moran.randtest(x = mafragh$env[, 10], listw = lw.best)</span></span>
@@ -1209,16 +1207,16 @@ MC:</p>
 <span><span class="co">##       4.341745200      -0.007295609       0.008096842</span></span></code></pre>
 <p>An alternative is to generate random replicates for the two variables
 with same level of spatial autocorrelation:</p>
-<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">msr1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/msr.html">msr</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">10</span><span class="op">]</span>, <span class="va">lw.best</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="../reference/moran.randtest.html">moran.randtest</a></span><span class="op">(</span><span class="va">msr1</span>, <span class="va">lw.best</span>, nrepet <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">obs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
 <span><span class="co">##  0.3682  0.3776  0.3818  0.3818  0.3863  0.3940</span></span></code></pre>
-<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">msr2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/msr.html">msr</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">11</span><span class="op">]</span>, <span class="va">lw.best</span><span class="op">)</span></span></code></pre></div>
 <p>Then, the statistic is computed on observed and simulated data to
 build a randomization test:</p>
-<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">10</span><span class="op">]</span>, <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">11</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">msr1</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">msr1</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span>, <span class="va">msr2</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">testmsr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/randtest.html" class="external-link">as.randtest</a></span><span class="op">(</span>obs <span class="op">=</span> <span class="va">obs</span>, sim <span class="op">=</span> <span class="va">sim</span>, alter <span class="op">=</span> <span class="st">"two-sided"</span><span class="op">)</span></span>
@@ -1237,9 +1235,9 @@ build a randomization test:</p>
 <p>The function <code>msr</code> is generic and several methods are
 implemented in <code>adespatial</code>. For instance, it can be used to
 correct estimates and significance of the environmental fraction in the
-case of a variation partitioning <span class="citation">(<a href="#ref-Clappe2018" role="doc-biblioref">Clappe, Dray, and Peres-Neto
-2018</a>)</span> computed with the <code>varipart</code> function:</p>
-<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
+case of a variation partitioning <span class="citation">(<a href="#ref-Clappe2018">Clappe, Dray, and Peres-Neto 2018</a>)</span>
+computed with the <code>varipart</code> function:</p>
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/msr.html">msr</a></span><span class="op">(</span><span class="va">vp2</span>, listwORorthobasis <span class="op">=</span> <span class="va">lw.best</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Variation Partitioning</span></span>
 <span><span class="co">## class: varipart list </span></span>
@@ -1269,7 +1267,7 @@ case of a variation partitioning <span class="citation">(<a href="#ref-Clappe201
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-Bauman2018" class="csl-entry">
 Bauman, D, T Drouet, S Dray, and J Vleminckx. 2018. <span>“<span class="nocase">Disentangling good from bad practices in the selection of
 spatial or phylogenetic eigenvectors</span>.”</span> <em>Ecography</em>
