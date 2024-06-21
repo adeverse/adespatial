@@ -192,6 +192,15 @@
     
     method <- match.arg(method)
     MEM.autocor <- match.arg(MEM.autocor)
+  
+    # add validation to candidates object
+    cand_names <- names(candidates)
+    stopifnot(
+      "candidates must be a named list" = is.list(candidates) && !is.null(cand_names),
+      "candidates must be an object of class `listw`" = all(vapply(candidates, inherits, logical(1), "listw")),
+      "candidates must be non-zero character strings" = all(nzchar(cand_names)),
+      "candidate names must be unique" = max(table(cand_names)) == 1
+    )  
     
     ntest <- ifelse(p.adjust, length(candidates), 1)
     res.tmp <- lapply(candidates, mem.select, x = x, MEM.autocor = MEM.autocor, 
