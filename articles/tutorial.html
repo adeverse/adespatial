@@ -12,21 +12,19 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Moran's Eigenvector Maps and related methods for the spatial multiscale analysis of ecological data">
-<meta property="og:description" content="adespatial">
-<meta property="og:image" content="/logo.svg">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -52,7 +50,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -66,7 +64,7 @@
 <li>
   <a href="https://github.com/adeverse/adespatial/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -77,7 +75,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -87,9 +85,9 @@ the spatial multiscale analysis of ecological data</h1>
                         <h4 data-toc-skip class="author">Stéphane
 Dray</h4>
             
-            <h4 data-toc-skip class="date">2024-03-29</h4>
+            <h4 data-toc-skip class="date">2024-07-09</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/HEAD/vignettes/tutorial.Rmd" class="external-link"><code>vignettes/tutorial.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/master/vignettes/tutorial.Rmd" class="external-link"><code>vignettes/tutorial.Rmd</code></a></small>
       <div class="hidden name"><code>tutorial.Rmd</code></div>
 
     </div>
@@ -249,7 +247,7 @@ Voronoi polygons contained in <code>mafragh$Spatial</code>:</p>
 <span><span class="co">## Sp11 Bolboschoenus maritimus Boma</span></span></code></pre>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fpalette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html" class="external-link">colorRampPalette</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"darkseagreen2"</span>, <span class="st">"darkseagreen3"</span>, <span class="st">"palegreen4"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">sp.flo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPolygons.html" class="external-link">SpatialPolygonsDataFrame</a></span><span class="op">(</span>Sr <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial</span>, data <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">flo</span>, match.ID <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">sp.flo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://edzer.github.io/sp/reference/SpatialPolygons.html" class="external-link">SpatialPolygonsDataFrame</a></span><span class="op">(</span>Sr <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial</span>, data <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">flo</span>, match.ID <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.Spatial.html" class="external-link">s.Spatial</a></span><span class="op">(</span><span class="va">sp.flo</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">11</span><span class="op">)</span><span class="op">]</span>, col <span class="op">=</span> <span class="fu">fpalette</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, nclass <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
@@ -506,7 +504,7 @@ neighbors are obtained by the function :</p>
 <code class="sourceCode R"><span><span class="va">distgab</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 16.63971 21.34986 14.54966 16.99176</span></span></code></pre>
 <p>Then, spatial weights are defined as a function of distance
-(e.g. <span class="math inline">\(1-d_{ij}/max(d_{ij})\)</span>):</p>
+(e.g. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>d</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mi>/</mi><mi>m</mi><mi>a</mi><mi>x</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>d</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">1-d_{ij}/max(d_{ij})</annotation></semantics></math>):</p>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fdist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">distgab</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">x</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">mxy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>And the spatial weighting matrix is then created:</p>
@@ -573,19 +571,26 @@ coordinates can be computed by the function <code>orthobasis.poly</code>
 whereas principal coordinates of neighbour matrices (PCNM, <span class="citation">Borcard and Legendre (<a href="#ref-Borcard2002">2002</a>)</span>) are obtained by the function
 <code>dbmem</code>.</p>
 <p>The Moran’s Eigenvectors Maps (MEMs) provide the most flexible
-framework. If we consider the <span class="math inline">\(n \times
-n\)</span> spatial weighting matrix <span class="math inline">\(\mathbf{W} = [w_{ij}]\)</span>, they are the <span class="math inline">\(n-1\)</span> eigenvectors obtained by the
-diagonalization of the doubly-centred SWM:</p>
-<p><span class="math display">\[
+framework. If we consider the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">n \times n</annotation></semantics></math>
+spatial weighting matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐖</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{W} = [w_{ij}]</annotation></semantics></math>,
+they are the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math>
+eigenvectors obtained by the diagonalization of the doubly-centred
+SWM:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi>𝛀</mi><mi>𝐕</mi></mrow><mo>=</mo><mrow><mi>𝐕</mi><mi>𝚲</mi></mrow></mrow><annotation encoding="application/x-tex">
 \mathbf{\Omega V}= \mathbf{V \Lambda}
-\]</span></p>
-<p>where <span class="math inline">\(\mathbf{\Omega} =
-\mathbf{HWH}\)</span> is the doubly-centred SWM and <span class="math inline">\(\mathbf{H} = \left (
-\mathbf{I}-\mathbf{11}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}/n \right
-)\)</span> is the centring operator.</p>
+</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝛀</mi><mo>=</mo><mrow><mi>𝐇</mi><mi>𝐖</mi><mi>𝐇</mi></mrow></mrow><annotation encoding="application/x-tex">\mathbf{\Omega} = \mathbf{HWH}</annotation></semantics></math>
+is the doubly-centred SWM and <span class="math inline">$\mathbf{H} =
+\left ( \mathbf{I}-\mathbf{11}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}/n
+\right )$</span> is the centring operator.</p>
 <p>MEMs are orthogonal vectors with a unit norm that maximize Moran’s
 coefficient of spatial autocorrelation <span class="citation">(<a href="#ref-Griffith1996">Griffith 1996</a>; <a href="#ref-Dray2012">Dray
-et al. 2012</a>)</span> and are stored in matrix <span class="math inline">\(\mathbf{V}\)</span>.</p>
+et al. 2012</a>)</span> and are stored in matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐕</mi><annotation encoding="application/x-tex">\mathbf{V}</annotation></semantics></math>.</p>
 <p>MEMs are provided by the functions <code>scores.listw</code> or
 <code>mem</code> of the <code>adespatial</code> package. These two
 functions are exactly identical (both are kept for historical reasons
@@ -659,32 +664,37 @@ illustrate the different methods.</p>
 </h3>
 <p>The SWM can be used to compute the level of spatial autocorrelation
 of a quantitative variable using the Moran’s coefficient. If we consider
-the <span class="math inline">\(n \times 1\)</span> vector <span class="math inline">\(\mathbf{x} = \left ( {x_1 \cdots x_n } \right
-)\hspace{-0.05cm}^{\top}\hspace{-0.05cm}\)</span> containing
-measurements of a quantitative variable for <span class="math inline">\(n\)</span> sites and <span class="math inline">\(\mathbf{W} = [w_{ij}]\)</span> the SWM. The usual
-formulation for Moran’s coefficient (MC) of spatial autocorrelation is:
-<span class="math display">\[
-MC(\mathbf{x}) = \frac{n\sum\nolimits_{\left( 2 \right)} {w_{ij} (x_i
--\bar
-{x})(x_j -\bar {x})} }{\sum\nolimits_{\left( 2 \right)} {w_{ij} }
-\sum\nolimits_{i = 1}^n {(x_i -\bar {x})^2} }\mbox{ where
-}\sum\nolimits_{\left( 2 \right)} =\sum\limits_{i = 1}^n {\sum\limits_{j
-= 1}^n
+the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n \times 1</annotation></semantics></math>
+vector <span class="math inline">$\mathbf{x} = \left ( {x_1 \cdots x_n }
+\right )\hspace{-0.05cm}^{\top}\hspace{-0.05cm}$</span> containing
+measurements of a quantitative variable for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+sites and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐖</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{W} = [w_{ij}]</annotation></semantics></math>
+the SWM. The usual formulation for Moran’s coefficient (MC) of spatial
+autocorrelation is:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>C</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mrow><mi>n</mi><msub><mo>∑</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></msub><mrow><msub><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>j</mi></msub><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mrow><mrow><msub><mo>∑</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></msub><msub><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></mfrac><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> where </mtext><mspace width="0.333em"></mspace></mrow><msub><mo>∑</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> with </mtext><mspace width="0.333em"></mspace></mrow><mi>i</mi><mo>≠</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">
+MC(\mathbf{x}) = \frac{n\sum\nolimits_{\left( 2 \right)} {w_{ij} (x_i -\bar 
+{x})(x_j -\bar {x})} }{\sum\nolimits_{\left( 2 \right)} {w_{ij} } 
+\sum\nolimits_{i = 1}^n {(x_i -\bar {x})^2} }\mbox{ where 
+}\sum\nolimits_{\left( 2 \right)} =\sum\limits_{i = 1}^n {\sum\limits_{j = 1}^n 
 } \mbox{ with }i\ne j
-\]</span></p>
-<p>MC can be rewritten using matrix notation: <span class="math display">\[
+</annotation></semantics></math></p>
+<p>MC can be rewritten using matrix notation: <span class="math display">$$
 MC(\mathbf{x}) =
 \frac{n}{\mathbf{1}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}\mathbf{W1}}\frac{\mathbf{z}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}{\mathbf{Wz}}}{\mathbf{z}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}\mathbf{z}}
-\]</span> where <span class="math inline">\(\mathbf{z} = \left (
+$$</span> where <span class="math inline">$\mathbf{z} = \left (
 \mathbf{I}-\mathbf{1}\mathbf{1}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}/n
-\right )\mathbf{x}\)</span> is the vector of centred values (i.e., <span class="math inline">\(z_i = x_i-\bar{x}\)</span>).</p>
+\right )\mathbf{x}$</span> is the vector of centred values (i.e.,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>i</mi></msub><mo>=</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">z_i = x_i-\bar{x}</annotation></semantics></math>).</p>
 <p>The function <code>moran.mc</code> of the <code>spdep</code> package
 allows to compute and test, by permutation, the significance of the
 Moran’s coefficient. A wrapper is provided by the
 <code>moran.randtest</code> function to test simultaneously and
 independently the spatial structure for several variables.</p>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sp.env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPolygons.html" class="external-link">SpatialPolygonsDataFrame</a></span><span class="op">(</span>Sr <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial</span>, data <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, match.ID <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">sp.env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://edzer.github.io/sp/reference/SpatialPolygons.html" class="external-link">SpatialPolygonsDataFrame</a></span><span class="op">(</span>Sr <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial</span>, data <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, match.ID <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">maps.env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.Spatial.html" class="external-link">s.Spatial</a></span><span class="op">(</span><span class="va">sp.env</span>, col <span class="op">=</span> <span class="fu">fpalette</span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>, nclass <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-33-1.png" width="80%" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
@@ -710,13 +720,18 @@ independently the spatial structure for several variables.</p>
 <span><span class="co">## 9     Retention 0.2217547  3.609803 greater  0.003</span></span>
 <span><span class="co">## 10        Na+/l 0.3075238  4.791118 greater  0.001</span></span>
 <span><span class="co">## 11    Elevation 0.6136770  9.047577 greater  0.001</span></span></code></pre>
-<p>For a given SWM, the upper and lower bounds of MC are equal to <span class="math inline">\(\lambda_{max}
-(n/\mathbf{1}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}\mathbf{W1})\)</span>
-and <span class="math inline">\(\lambda_{min}
-(n/\mathbf{1}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}\mathbf{W1})\)</span>
-where <span class="math inline">\(\lambda_{max}\)</span> and <span class="math inline">\(\lambda_{min}\)</span> are the extreme eigenvalues
-of <span class="math inline">\(\mathbf{\Omega}\)</span>. These extreme
-values are returned by the <code>moran.bounds</code> function:</p>
+<p>For a given SWM, the upper and lower bounds of MC are equal to <span class="math inline">$\lambda_{max}
+(n/\mathbf{1}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}\mathbf{W1})$</span>
+and <span class="math inline">$\lambda_{min}
+(n/\mathbf{1}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}\mathbf{W1})$</span>
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><annotation encoding="application/x-tex">\lambda_{max}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub><annotation encoding="application/x-tex">\lambda_{min}</annotation></semantics></math>
+are the extreme eigenvalues of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝛀</mi><annotation encoding="application/x-tex">\mathbf{\Omega}</annotation></semantics></math>.
+These extreme values are returned by the <code>moran.bounds</code>
+function:</p>
 <div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mc.bounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/moran.bounds.html">moran.bounds</a></span><span class="op">(</span><span class="va">listwgab</span><span class="op">)</span></span>
 <span><span class="va">mc.bounds</span></span></code></pre></div>
@@ -853,12 +868,13 @@ scales.</p>
 </h3>
 <p>The full set of MEMs provide a basis of orthogonal vectors that can
 be used to decompose the total variance of a given variable at multiple
-scales. This approach consists simply in computing <span class="math inline">\(R^2\)</span> values associated to each MEM to
-build a scalogram indicating the part of variance explained by each MEM.
-These values can be tested by a permutation procedure. Here, we
-illustrate the procedure with the abundance of <em>Bolboschoenus
-maritimus</em> (Sp11) which is mainly located in the central part of the
-study area:</p>
+scales. This approach consists simply in computing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
+values associated to each MEM to build a scalogram indicating the part
+of variance explained by each MEM. These values can be tested by a
+permutation procedure. Here, we illustrate the procedure with the
+abundance of <em>Bolboschoenus maritimus</em> (Sp11) which is mainly
+located in the central part of the study area:</p>
 <div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">scalo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/scalogram.html">scalogram</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">flo</span><span class="op">[</span>,<span class="fl">11</span><span class="op">]</span>, <span class="va">mem.gab</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">scalo</span><span class="op">)</span></span></code></pre></div>
@@ -914,8 +930,10 @@ alternatives to perform this selection using the argument
 <code>method</code> <span class="citation">(<a href="#ref-Bauman2018">Bauman, Drouet, Dray, et al. 2018</a>)</span>. By
 default, only MEMs associated to positive eigenvalues are considered
 (argument <code>MEM.autocor = "positive"</code>) and a forward selection
-(based on <span class="math inline">\(R^2\)</span> statistic) is
-performed after a global test (<code>method = "FWD"</code>):</p>
+(based on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
+statistic) is performed after a global test
+(<code>method = "FWD"</code>):</p>
 <div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mem.gab.sel</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mem.select.html">mem.select</a></span><span class="op">(</span><span class="va">pca.hell</span><span class="op">$</span><span class="va">tab</span>, listw <span class="op">=</span> <span class="va">listwgab</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Procedure stopped (alpha criteria): pvalue for variable 16 is 0.075000 (&gt; 0.050000)</span></span></code></pre>
@@ -1053,8 +1071,9 @@ communities, :</p>
 <div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rda.hell</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/pcaiv.html" class="external-link">pcaiv</a></span><span class="op">(</span><span class="va">pca.hell</span>, <span class="va">sel.lw</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">MEM.select</span>, scannf <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>The permutation test based on the percentage of variation explained
-by the spatial predictors (<span class="math inline">\(R^2\)</span>) is
-highly significant:</p>
+by the spatial predictors
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>)
+is highly significant:</p>
 <div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test.rda</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/randtest.html" class="external-link">randtest</a></span><span class="op">(</span><span class="va">rda.hell</span><span class="op">)</span></span>
 <span><span class="va">test.rda</span></span></code></pre></div>
@@ -1082,16 +1101,18 @@ highly significant:</p>
 </h3>
 <p>Spatial structures identified by Redundancy Analysis in the <a href="#rda">previous section</a> can be due to niche filtering or other
 processes (e.g., neutral dynamics). Variation partitioning <span class="citation">(<a href="#ref-Borcard1992">Borcard, Legendre, and
-Drapeau 1992</a>)</span> based on adjusted <span class="math inline">\(R^2\)</span> <span class="citation">(<a href="#ref-Peres-Neto2006a">Peres-Neto et al. 2006</a>)</span> can be
-used to identify the part of spatial structures that can be explained or
-not by environmental predictors. This method is implemented in the
-function <code>varpart</code> of package <code>vegan</code> that is able
-to deal with up to four tables of predictors:</p>
+Drapeau 1992</a>)</span> based on adjusted
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math><span class="citation">(<a href="#ref-Peres-Neto2006a">Peres-Neto et al.
+2006</a>)</span> can be used to identify the part of spatial structures
+that can be explained or not by environmental predictors. This method is
+implemented in the function <code>varpart</code> of package
+<code>vegan</code> that is able to deal with up to four tables of
+predictors:</p>
 <div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan" class="external-link">vegan</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required package: permute</span></span></code></pre>
 <pre><code><span><span class="co">## Loading required package: lattice</span></span></code></pre>
-<pre><code><span><span class="co">## This is vegan 2.6-4</span></span></code></pre>
+<pre><code><span><span class="co">## This is vegan 2.6-6.1</span></span></code></pre>
 <div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vp1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/vegan/man/varpart.html" class="external-link">varpart</a></span><span class="op">(</span><span class="va">pca.hell</span><span class="op">$</span><span class="va">tab</span>, <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, <span class="va">sel.lw</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">MEM.select</span><span class="op">)</span></span>
 <span><span class="va">vp1</span></span></code></pre></div>
@@ -1354,9 +1375,7 @@ Ecology and Evolution</em> 6 (10): 1169–78.
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -1369,16 +1388,16 @@ Ecology and Evolution</em> 6 (10): 1169–78.
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>
