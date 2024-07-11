@@ -8,7 +8,7 @@
 |  contiguity constraint.                                    |
 |                                                            |
 |  Guillaume Guénard, Université de Montréal, Québec, Canada |
-|  August 2018 - February 2022                               |
+|  August 2018 - February 2024                               |
 |                                                            |
 |  The present implementation has been vastly inspirered by  |
 |  the original HCLUST Fortran code by                       |

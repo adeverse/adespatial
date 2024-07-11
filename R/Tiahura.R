@@ -1,9 +1,11 @@
 ## **************************************************************************
 ##
-##    (c) 2018-2022 Guillaume Guénard
+##    (c) 2018-2024 Guillaume Guénard
 ##        Department de sciences biologiques
 ##        Université de Montréal
 ##        Montreal, QC, Canada
+##
+##    **Tiahura transect fish data set**
 ##
 ## **************************************************************************
 ##
@@ -14,7 +16,7 @@
 #' 
 #' @docType data
 #' 
-#' @keywords Tiahura datasets
+#' @keywords Tiahura
 #' 
 #' @name Tiahura
 #' 
@@ -108,7 +110,7 @@
 #'                               chron=TRUE)
 #' 
 #' ## Plotting the results
-#' oldpar <- par(mfrow=c(3,1))
+#' par(mfrow=c(3,1))
 #' 
 #' ## First graph: constrained clusters
 #' par(mar=c(3,6.5,2,2))
@@ -169,13 +171,13 @@
 #'   axis(2L,at=1:nrow(Tiahura$fish),label=rownames(Tiahura$fish),las=1L)
 #'   invisible(NULL)
 #' }
-#' ##
+#' 
 #' par(mar=c(15,5,2,2))
 #' plot_slice(1L,5L)
 #' ## plot_slice(2L,5L)
 #' ## plot_slice(3L,5L)
 #' ## plot_slice(4L,5L)
 #' ## plot_slice(5L,5L)
-#' par(oldpar)
+#' 
 NULL
 ##

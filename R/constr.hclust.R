@@ -1,7 +1,7 @@
 ## **************************************************************************
 ##
-##    (c) 2018-2022 Guillaume Guénard
-##        Department de sciences biologiques
+##    (c) 2018-2024 Guillaume Guénard
+##        Department de sciences biologiques,
 ##        Université de Montréal
 ##        Montreal, QC, Canada
 ##
@@ -16,15 +16,12 @@
 ## |  for hierarchical clustering with or without the spatial   |
 ## |  contiguity constraint.                                    |
 ## |                                                            |
-## |  Guillaume Guénard, Université de Montréal, Québec, Canada |
-## |  August 2018 - July 2022                                   |
-## |                                                            |
 ## \-----------------------------------------------------------*/
-## 
+##
 ##    R source code file
-## 
+##
 ## **************************************************************************
-## 
+##
 #' Space- And Time-Constrained Clustering
 #'
 #' Function \code{constr.hclust} carries out space-constrained or
@@ -35,19 +32,18 @@
 #' @param method The agglomeration method to be used (default: "ward.D2"; see
 #' details).
 #' @param links A list of edges (or links) connecting the points. May be omitted
-#' in some cases; see details and examples.
-#' @param coords Coordinates of the observations (data rows) in the
-#' dissimilarity matrix \code{d}. The coordinates are used for plotting maps of
-#' the clustering results. This matrix may be omitted when the user does not
-#' wish to print maps of the clustering results or when no \code{links} file is
-#' provided. \code{coords} is a matrix or data frame with two columns, following
-#' the convention of the Cartesian plane: first column for abscissa, second
-#' column for ordinate. See examples.
+#' in some cases; see details and examples
+#' @param coords Coordinates of the observations (data rows) in the dissimilarity matrix 
+#' \code{d}. The coordinates are used for plotting maps of the clustering results. 
+#' This matrix may be omitted when the user does not wish to print maps of the clustering  
+#' results or when no \code{links} file is provided. \code{coords} is a matrix or data 
+#' frame with two columns, following the convention of the Cartesian plane: 
+#' first column for abscissa, second column for ordinate. See examples.
 #' @param beta The beta parameter for beta-flexible clustering (default:
 #' \code{beta = -0.25}).
 #' @param chron Logical (TRUE or FALSE) indicating whether a chronological (i.e.
-#' time-constrained or spatial transect) clustering should be calculated 
-#' (default: \code{chron = FALSE}).
+#' time-constrained or spatial transect) clustering should be calculated (default:
+#' \code{chron = FALSE}).
 #' @param members NULL or a vector with length size of \code{d} (default: NULL;
 #' See details).
 #' 
@@ -74,22 +70,22 @@
 #' fused are now neighbours of the newly formed cluster.
 #'
 #' The edges (links) are specified using argument \code{links}, which can be an
-#' object of class \code{nb} (see, e.g., \code{\link{tri2nb}}), an object of
-#' class \code{listw} (see, e.g., \code{\link{nb2listw}}), a two-element
-#' \code{list} or an object coercible as a such (e.g., a two-column
+#' object of class \code{nb} (see, e.g., \code{\link[spdep]{tri2nb}}), an object
+#' of class \code{listw} (see, e.g., \code{\link[spdep]{nb2listw}}), a
+#' two-element \code{list} or an object coercible as a such (e.g., a two-column
 #' \code{dataframe}), or a two-column matrix with each row representing an edge
 #' and the columns representing the two ends of the edges. For lists with more
 #' than two elements, as well as dataframes or matrices with more than
-#' two-columns, only the first two elements or columns are used for the
-#' analysis. The edges are interpreted as being non directional; there is no
-#' need to specify an edge going from point a to point b and one going from
-#' point b to point a. While doing so is generally inconsequential for the
-#' analysis, it carries some penalty in terms of computation time. It is a good
-#' practice to place the nodes in increasing order of numbers from the top to
-#' the bottom and from the left to the right of the list but this is not
-#' mandatory. A word of caution: in cases where clusters with identical minimum
-#' distances occur, the order of the edges in the list may have an influence on
-#' the result. Alternative results would be statistically equivalent.
+#' two-columns, only the first two elements or columns are used for the analysis.
+#' The edges are interpreted as being non directional; there is no need to
+#' specify an edge going from point a to point b and one going from point b to
+#' point a. While doing so is generally inconsequential for the analysis, it
+#' carries some penalty in terms of computation time. It is a good practice to
+#' place the nodes in increasing order of numbers from the top to the bottom and
+#' from the left to the right of the list but this is not mandatory. A word of
+#' caution: in cases where clusters with identical minimum distances occur, the
+#' order of the edges in the list may have an influence on the result.
+#' Alternative results would be statistically equivalent.
 #' 
 #' When argument \code{link} is omitted, regular (unconstrained) clustering is
 #' performed and a \code{\link{hclust}-class} object is returned unless
@@ -113,12 +109,12 @@
 #' constrained clustering).
 #' 
 #' If \code{members != NULL}, then \code{d} is taken to be a dissimilarity
-#' matrix between clusters instead of dissimilarities between individual
-#' objects. Then, \code{members} must be a vector giving the number of
-#' observations per cluster. In this way, the hierarchical clustering algorithm
-#' can be ‘started in the middle of the dendrogram’, e.g., in order to
-#' reconstruct the part of the tree above a cut. See examples in \code{hclust}
-#' for details on that functionality."
+#' matrix between clusters instead of dissimilarities between individual objects. 
+#' Then, \code{members} must be a vector giving the number of observations per
+#' cluster. In this way, the hierarchical clustering algorithm can be ‘started
+#' in the middle of the dendrogram’, e.g., in order to reconstruct the part of
+#' the tree above a cut. See examples in \code{hclust} for details on that
+#' functionality."
 #' 
 #' Memory storage and time to compute constrained clustering for N objects. The
 #' Lance and Williams algorithm for agglomerative clustering uses dissimilarity
@@ -138,6 +134,7 @@
 #' contemporary common sense as to what sample sizes represent manageable
 #' clustering problems. Computation time grows with N at roughly the same speed
 #' as memory storage requirement to store the dissimilarity matrices increases. 
+#' See the Benchmarking example below.
 #' 
 #' With large data sets, a manageable output describing the classification of
 #' the sites is obtained with function \code{\link{cutree}}(x, k) where k is the
@@ -170,7 +167,7 @@
 #' Ward, J. H. 1963. Hierarchical grouping to optimize an objective function.
 #' Journal of the American Statistical Association 58: 236-244.
 #' \doi{10.1080/01621459.1963.10500845}
-#' 
+#'
 #' @importFrom spdep listw2mat listw2sn nb2listw tri2nb
 #' 
 #' @examples
@@ -276,7 +273,7 @@
 #' ## A fonction to plot the Whiskey clustering results:
 #' 
 #' plotWhiskey <- function(wh, k) {
-#'    oldpar <- par(fig=c(0,1,0,1))
+#'    par(fig=c(0,1,0,1))
 #'    plot(grpWD2cst_ScotchWhiskey[[wh]], k=k, links=TRUE, las=1,
 #'         xlab="Eastings (km)", ylab="Northings (km)", cex=0.1, lwd=3,
 #'         main=sprintf("Feature: %s",wh))
@@ -293,7 +290,6 @@
 #'    text(ScotchWhiskey$geo@coords/1000,labels=1:length(ScotchWhiskey$geo))
 #'    rect(xleft=SpeyZoom$xlim[1L], ybottom=SpeyZoom$ylim[1L],
 #'         xright=SpeyZoom$xlim[2L], ytop=SpeyZoom$ylim[2L], lwd=2, lty=1L)
-#'    par(oldpar)
 #' }
 #' 
 #' ## Plot the clustering results on the map of Scotland for 5 groups.
@@ -306,7 +302,7 @@
 #' 
 #' ## End of the Scotch Whiskey tasting data example
 #' 
-#' \donttest{
+#' \dontrun{
 #' 
 #' ## Third example: Fish community composition along the Doubs River,
 #' ## France. The sequence is analyzed as a case of chronological
@@ -348,12 +344,11 @@
 #'         coords=ex.xy      # File of geographic coordinates
 #'     )
 #' 
-#' oldpar <- par(mfrow=c(1,2))
+#' par(mfrow=c(1,2))
 #' ## Plot the map of the results for k = 3
 #' plot(test.out, k=3)
 #' ## Plot the dendrogram
 #' stats:::plot.hclust(test.out, hang=-1)
-#' par(oldpar)
 #' }
 #'
 #' ## Same example modified: disjoint clusters
@@ -381,13 +376,12 @@
 #'     )
 #' cutree(test.out2, k=2)
 #' 
-#' oldpar <- par(mfrow=c(1,2))
+#' par(mfrow=c(1,2))
 #' ## Plot the map of the results for k = 3
 #' plot(test.out2, k=3)
 #' ## Plot the dendrogram showing the disconnected groups
 #' stats:::plot.hclust(test.out2, hang=-1)
 #' axis(2,at=0:ceiling(max(test.out2$height,na.rm=TRUE)))
-#' par(oldpar)
 #' 
 #' ## End of the disjoint clusters example
 #' 
