@@ -1,6 +1,6 @@
 ## **************************************************************************
 ##
-##    (c) 2018-2022 Guillaume Guénard
+##    (c) 2018-2024 Guillaume Guénard
 ##        Department de sciences biologiques,
 ##        Université de Montréal
 ##        Montreal, QC, Canada
@@ -60,6 +60,5 @@
 #' 
 #' @seealso \code{\link{hclust}-class}
 #' 
-#' @returns No return value
-#' 
 NULL
+
