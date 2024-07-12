@@ -90,17 +90,16 @@ details).</p></dd>
 
 <dt id="arg-links">links<a class="anchor" aria-label="anchor" href="#arg-links"></a></dt>
 <dd><p>A list of edges (or links) connecting the points. May be omitted
-in some cases; see details and examples.</p></dd>
+in some cases; see details and examples</p></dd>
 
 
 <dt id="arg-coords">coords<a class="anchor" aria-label="anchor" href="#arg-coords"></a></dt>
-<dd><p>Coordinates of the observations (data rows) in the
-dissimilarity matrix <code>d</code>. The coordinates are used for plotting maps of
-the clustering results. This matrix may be omitted when the user does not
-wish to print maps of the clustering results or when no <code>links</code> file is
-provided. <code>coords</code> is a matrix or data frame with two columns, following
-the convention of the Cartesian plane: first column for abscissa, second
-column for ordinate. See examples.</p></dd>
+<dd><p>Coordinates of the observations (data rows) in the dissimilarity matrix
+<code>d</code>. The coordinates are used for plotting maps of the clustering results.
+This matrix may be omitted when the user does not wish to print maps of the clustering
+results or when no <code>links</code> file is provided. <code>coords</code> is a matrix or data
+frame with two columns, following the convention of the Cartesian plane:
+first column for abscissa, second column for ordinate. See examples.</p></dd>
 
 
 <dt id="arg-beta">beta<a class="anchor" aria-label="anchor" href="#arg-beta"></a></dt>
@@ -110,8 +109,8 @@ column for ordinate. See examples.</p></dd>
 
 <dt id="arg-chron">chron<a class="anchor" aria-label="anchor" href="#arg-chron"></a></dt>
 <dd><p>Logical (TRUE or FALSE) indicating whether a chronological (i.e.
-time-constrained or spatial transect) clustering should be calculated
-(default: <code>chron = FALSE</code>).</p></dd>
+time-constrained or spatial transect) clustering should be calculated (default:
+<code>chron = FALSE</code>).</p></dd>
 
 
 <dt id="arg-members">members<a class="anchor" aria-label="anchor" href="#arg-members"></a></dt>
@@ -143,22 +142,22 @@ groups of objects: the list of links is updated after each agglomeration
 step. All objects that are neighbours of one of the components that have
 fused are now neighbours of the newly formed cluster.</p>
 <p>The edges (links) are specified using argument <code>links</code>, which can be an
-object of class <code>nb</code> (see, e.g., <code><a href="https://r-spatial.github.io/spdep/reference/tri2nb.html" class="external-link">tri2nb</a></code>), an object of
-class <code>listw</code> (see, e.g., <code><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></code>), a two-element
-<code>list</code> or an object coercible as a such (e.g., a two-column
+object of class <code>nb</code> (see, e.g., <code><a href="https://r-spatial.github.io/spdep/reference/tri2nb.html" class="external-link">tri2nb</a></code>), an object
+of class <code>listw</code> (see, e.g., <code><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></code>), a
+two-element <code>list</code> or an object coercible as a such (e.g., a two-column
 <code>dataframe</code>), or a two-column matrix with each row representing an edge
 and the columns representing the two ends of the edges. For lists with more
 than two elements, as well as dataframes or matrices with more than
-two-columns, only the first two elements or columns are used for the
-analysis. The edges are interpreted as being non directional; there is no
-need to specify an edge going from point a to point b and one going from
-point b to point a. While doing so is generally inconsequential for the
-analysis, it carries some penalty in terms of computation time. It is a good
-practice to place the nodes in increasing order of numbers from the top to
-the bottom and from the left to the right of the list but this is not
-mandatory. A word of caution: in cases where clusters with identical minimum
-distances occur, the order of the edges in the list may have an influence on
-the result. Alternative results would be statistically equivalent.</p>
+two-columns, only the first two elements or columns are used for the analysis.
+The edges are interpreted as being non directional; there is no need to
+specify an edge going from point a to point b and one going from point b to
+point a. While doing so is generally inconsequential for the analysis, it
+carries some penalty in terms of computation time. It is a good practice to
+place the nodes in increasing order of numbers from the top to the bottom and
+from the left to the right of the list but this is not mandatory. A word of
+caution: in cases where clusters with identical minimum distances occur, the
+order of the edges in the list may have an influence on the result.
+Alternative results would be statistically equivalent.</p>
 <p>When argument <code>link</code> is omitted, regular (unconstrained) clustering is
 performed and a <code><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a>-class</code> object is returned unless
 argument <code>chron = TRUE</code>. When argument <code>chron = TRUE</code>,
@@ -179,12 +178,12 @@ these clusters are merged is a missing value (<code>NA</code>) in vector
 <code>height</code> (i.e., unconnected clusters have undefined dissimilarities in
 constrained clustering).</p>
 <p>If <code>members != NULL</code>, then <code>d</code> is taken to be a dissimilarity
-matrix between clusters instead of dissimilarities between individual
-objects. Then, <code>members</code> must be a vector giving the number of
-observations per cluster. In this way, the hierarchical clustering algorithm
-can be ‘started in the middle of the dendrogram’, e.g., in order to
-reconstruct the part of the tree above a cut. See examples in <code>hclust</code>
-for details on that functionality."</p>
+matrix between clusters instead of dissimilarities between individual objects.
+Then, <code>members</code> must be a vector giving the number of observations per
+cluster. In this way, the hierarchical clustering algorithm can be ‘started
+in the middle of the dendrogram’, e.g., in order to reconstruct the part of
+the tree above a cut. See examples in <code>hclust</code> for details on that
+functionality."</p>
 <p>Memory storage and time to compute constrained clustering for N objects. The
 Lance and Williams algorithm for agglomerative clustering uses dissimilarity
 matrices. The amount of memory needed to store the dissimilarities among N
@@ -202,7 +201,8 @@ large data sets. What is considered a large amount of memory has increased
 over time as computer hardware evolved with time. We let users apply
 contemporary common sense as to what sample sizes represent manageable
 clustering problems. Computation time grows with N at roughly the same speed
-as memory storage requirement to store the dissimilarity matrices increases.</p>
+as memory storage requirement to store the dissimilarity matrices increases.
+See the Benchmarking example below.</p>
 <p>With large data sets, a manageable output describing the classification of
 the sites is obtained with function <code><a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree</a></code>(x, k) where k is the
 number of groups. A dendrogram would be unreadable.</p>
@@ -348,7 +348,7 @@ and Guillaume Guénard <a href="mailto:guillaume.guenard@umontreal.ca">guillaume
 <span class="r-in"><span><span class="co">## A fonction to plot the Whiskey clustering results:</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">plotWhiskey</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">wh</span>, <span class="va">k</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>   <span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>fig<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>fig<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">grpWD2cst_ScotchWhiskey</span><span class="op">[[</span><span class="va">wh</span><span class="op">]</span><span class="op">]</span>, k<span class="op">=</span><span class="va">k</span>, links<span class="op">=</span><span class="cn">TRUE</span>, las<span class="op">=</span><span class="fl">1</span>,</span></span>
 <span class="r-in"><span>        xlab<span class="op">=</span><span class="st">"Eastings (km)"</span>, ylab<span class="op">=</span><span class="st">"Northings (km)"</span>, cex<span class="op">=</span><span class="fl">0.1</span>, lwd<span class="op">=</span><span class="fl">3</span>,</span></span>
 <span class="r-in"><span>        main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"Feature: %s"</span>,<span class="va">wh</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -365,7 +365,6 @@ and Guillaume Guénard <a href="mailto:guillaume.guenard@umontreal.ca">guillaume
 <span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">@</span><span class="va">coords</span><span class="op">/</span><span class="fl">1000</span>,labels<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">rect</a></span><span class="op">(</span>xleft<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">xlim</span><span class="op">[</span><span class="fl">1L</span><span class="op">]</span>, ybottom<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">ylim</span><span class="op">[</span><span class="fl">1L</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>        xright<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">xlim</span><span class="op">[</span><span class="fl">2L</span><span class="op">]</span>, ytop<span class="op">=</span><span class="va">SpeyZoom</span><span class="op">$</span><span class="va">ylim</span><span class="op">[</span><span class="fl">2L</span><span class="op">]</span>, lwd<span class="op">=</span><span class="fl">2</span>, lty<span class="op">=</span><span class="fl">1L</span><span class="op">)</span></span></span>
-<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Plot the clustering results on the map of Scotland for 5 groups.</span></span></span>
@@ -383,7 +382,7 @@ and Guillaume Guénard <a href="mailto:guillaume.guenard@umontreal.ca">guillaume
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## End of the Scotch Whiskey tasting data example</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Third example: Fish community composition along the Doubs River,</span></span></span>
 <span class="r-in"><span><span class="co">## France. The sequence is analyzed as a case of chronological</span></span></span>
@@ -425,16 +424,12 @@ and Guillaume Guénard <a href="mailto:guillaume.guenard@umontreal.ca">guillaume
 <span class="r-in"><span>        coords<span class="op">=</span><span class="va">ex.xy</span>      <span class="co"># File of geographic coordinates</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## Plot the map of the results for k = 3</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">test.out</span>, k<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## Plot the dendrogram</span></span></span>
 <span class="r-in"><span><span class="fu">stats</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">plot.hclust</a></span><span class="op">(</span><span class="va">test.out</span>, hang<span class="op">=</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Info -- This coefficient is Euclidean</span>
-<span class="r-plt img"><img src="constr.hclust-11.png" alt="" width="700" height="433"></span>
-<span class="r-plt img"><img src="constr.hclust-12.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Same example modified: disjoint clusters</span></span></span>
 <span class="r-in"><span><span class="co">## Same ex.Y and ex.xy as in the previous example</span></span></span>
@@ -459,22 +454,18 @@ and Guillaume Guénard <a href="mailto:guillaume.guenard@umontreal.ca">guillaume
 <span class="r-in"><span>        links<span class="op">=</span><span class="va">ex.E2</span>,      <span class="co"># File of link edges (constraint) E</span></span></span>
 <span class="r-in"><span>        coords<span class="op">=</span><span class="va">ex.xy</span>      <span class="co"># File of geographic coordinates</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Impossible to cluster all the data using the links provided. To identify the 2 disjoint clusters found, use function cutree with argument k = 2 on the present function's output.</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree</a></span><span class="op">(</span><span class="va">test.out2</span>, k<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 1 1 2 2 2</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## Plot the map of the results for k = 3</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">test.out2</span>, k<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## Plot the dendrogram showing the disconnected groups</span></span></span>
 <span class="r-in"><span><span class="fu">stats</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">plot.hclust</a></span><span class="op">(</span><span class="va">test.out2</span>, hang<span class="op">=</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>,at<span class="op">=</span><span class="fl">0</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">test.out2</span><span class="op">$</span><span class="va">height</span>,na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="constr.hclust-13.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## End of the disjoint clusters example</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="co">## End of examples</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

@@ -65,10 +65,10 @@ dissimilarity matrices.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'constr.hclust'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">k</span>, <span class="va">xlim</span>, <span class="va">ylim</span>, <span class="va">xlab</span>, <span class="va">ylab</span>, <span class="va">links</span>,</span>
-<span>points<span class="op">=</span><span class="cn">TRUE</span>, pch<span class="op">=</span><span class="fl">21L</span>, hybrids<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"change"</span>,<span class="st">"single"</span>,<span class="st">"none"</span><span class="op">)</span>, lty.hyb<span class="op">=</span><span class="fl">1L</span>,</span>
-<span>lwd.hyb<span class="op">=</span><span class="fl">1</span>, col.hyb<span class="op">=</span><span class="st">"black"</span>, plot<span class="op">=</span><span class="cn">TRUE</span>, <span class="va">col</span>, <span class="va">axes</span>, cex<span class="op">=</span><span class="fl">1</span>, <span class="va">lty</span>, <span class="va">lwd</span>, lwd.pt<span class="op">=</span><span class="fl">1</span>,</span>
-<span>invert.axes<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">k</span>, <span class="va">xlim</span>, <span class="va">ylim</span>, <span class="va">xlab</span>, <span class="va">ylab</span>, <span class="va">bg</span>, <span class="va">col</span>,</span>
+<span><span class="va">lty</span>, <span class="va">lwd</span>, <span class="va">col.links</span>, links<span class="op">=</span><span class="cn">FALSE</span>, points<span class="op">=</span><span class="cn">TRUE</span>, pch<span class="op">=</span><span class="fl">21L</span>,</span>
+<span>hybrids<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"change"</span>,<span class="st">"single"</span>,<span class="st">"none"</span><span class="op">)</span>, lty.hyb<span class="op">=</span><span class="fl">1L</span>, lwd.hyb<span class="op">=</span><span class="fl">1</span>, col.hyb<span class="op">=</span><span class="st">"black"</span>,</span>
+<span>plot<span class="op">=</span><span class="cn">TRUE</span>, axes<span class="op">=</span><span class="cn">TRUE</span>, cex<span class="op">=</span><span class="fl">1</span>, lwd.pt<span class="op">=</span><span class="fl">1</span>, invert.axes<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -84,19 +84,45 @@ dissimilarity matrices.</p>
 
 
 <dt id="arg-xlim">xlim<a class="anchor" aria-label="anchor" href="#arg-xlim"></a></dt>
-<dd><p>Limits, in abscissa, of the zone to be plotted.</p></dd>
+<dd><p>Optional: limits, in abscissa, of the zone to be plotted.</p></dd>
 
 
 <dt id="arg-ylim">ylim<a class="anchor" aria-label="anchor" href="#arg-ylim"></a></dt>
-<dd><p>Limits, in ordinate, of the zone to be plotted.</p></dd>
+<dd><p>Optional: limits, in ordinate, of the zone to be plotted.</p></dd>
 
 
 <dt id="arg-xlab">xlab<a class="anchor" aria-label="anchor" href="#arg-xlab"></a></dt>
-<dd><p>Labels for x axis annotation.</p></dd>
+<dd><p>Optional: labels for x axis annotation.</p></dd>
 
 
 <dt id="arg-ylab">ylab<a class="anchor" aria-label="anchor" href="#arg-ylab"></a></dt>
-<dd><p>Labels for y axis annotation.</p></dd>
+<dd><p>Optional: labels for y axis annotation.</p></dd>
+
+
+<dt id="arg-bg">bg<a class="anchor" aria-label="anchor" href="#arg-bg"></a></dt>
+<dd><p>Optional: a colour or set of colours to be used for the point
+backgrounds (one for each of the k clusters), see Details.</p></dd>
+
+
+<dt id="arg-col">col<a class="anchor" aria-label="anchor" href="#arg-col"></a></dt>
+<dd><p>Optional: a colour or set of colours to be used for the point
+outlines (defaults to <code>"black"</code> when omitted).</p></dd>
+
+
+<dt id="arg-lty">lty<a class="anchor" aria-label="anchor" href="#arg-lty"></a></dt>
+<dd><p>Optional: reference line type (see <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameters</a> for
+details).</p></dd>
+
+
+<dt id="arg-lwd">lwd<a class="anchor" aria-label="anchor" href="#arg-lwd"></a></dt>
+<dd><p>Optional: reference line width (see <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameters</a>
+for details).</p></dd>
+
+
+<dt id="arg-col-links">col.links<a class="anchor" aria-label="anchor" href="#arg-col-links"></a></dt>
+<dd><p>Optional: a colour or set of colours to be used for the
+links within a cluster (defaults to the point background colours when
+omitted).</p></dd>
 
 
 <dt id="arg-links">links<a class="anchor" aria-label="anchor" href="#arg-links"></a></dt>
@@ -110,7 +136,7 @@ dissimilarity matrices.</p>
 
 <dt id="arg-pch">pch<a class="anchor" aria-label="anchor" href="#arg-pch"></a></dt>
 <dd><p>Point character to display observations (default: 21, a circle
-with a background color).</p></dd>
+with a background colour).</p></dd>
 
 
 <dt id="arg-hybrids">hybrids<a class="anchor" aria-label="anchor" href="#arg-hybrids"></a></dt>
@@ -133,12 +159,6 @@ with a background color).</p></dd>
 <dd><p>Should a new plotting window be opened first (default: TRUE).</p></dd>
 
 
-<dt id="arg-col">col<a class="anchor" aria-label="anchor" href="#arg-col"></a></dt>
-<dd><p>Colours to use for the <code>k</code> different clusters (see details).
-Default: for <code>k &lt;= 10</code>: a set of 10 contrasted colours; otherwise, a set
-of rainbow colours).</p></dd>
-
-
 <dt id="arg-axes">axes<a class="anchor" aria-label="anchor" href="#arg-axes"></a></dt>
 <dd><p>Should the axes be displayed (default: TRUE).</p></dd>
 
@@ -146,15 +166,6 @@ of rainbow colours).</p></dd>
 <dt id="arg-cex">cex<a class="anchor" aria-label="anchor" href="#arg-cex"></a></dt>
 <dd><p>Text and symbol magnification (see <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameters</a>)
 (default: 1).</p></dd>
-
-
-<dt id="arg-lty">lty<a class="anchor" aria-label="anchor" href="#arg-lty"></a></dt>
-<dd><p>Reference line type (see <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameters</a> for details).</p></dd>
-
-
-<dt id="arg-lwd">lwd<a class="anchor" aria-label="anchor" href="#arg-lwd"></a></dt>
-<dd><p>Reference line width (see <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameters</a> for
-details).</p></dd>
 
 
 <dt id="arg-lwd-pt">lwd.pt<a class="anchor" aria-label="anchor" href="#arg-lwd-pt"></a></dt>
@@ -169,18 +180,17 @@ details).</p></dd>
 <dd><p>Other <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameters</a>.</p></dd>
 
 </dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>No return value</p>
-    </div>
     <div id="details">
     <h2>Details</h2>
     <p>The plotting method uses the coordinates provided by the user of
 <code><a href="constr.hclust.html">constr.hclust</a></code> to display the observations. It cuts the tree
-(see <a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree</a>) into <code>k</code> clusters and uses the colours provided by
-the user as argument <code>col</code> to display each cluster using the indices
-returned by <code><a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree</a></code>. When <code>links = TRUE</code>, each edge is
-displayed as a segments with colours corresponding to the clusters at its two
+(see <a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree</a>) into <code>k</code> clusters and displays each cluster using
+the indices returned by <code><a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree</a></code>. The point background colours
+can be provided using argument <code>bg</code>. When they are omitted, default
+colours are provided automatically by the function as either a set of
+mutually contrasting colours (when <code>k &lt;= 10</code>) or rainbow colours (when
+<code>k &gt; 10</code>). When <code>links = TRUE</code>, each edge is displayed as a segment
+with a colour corresponding to the identity of the clusters located at its
 ends. A special treatment is done for hybrids edges: those whose ends lie in
 different clusters; it is controlled by argument <code>hybrids</code>. When
 argument <code>hybrids="change"</code> (the default), hybrid links are represented
@@ -196,9 +206,6 @@ constrained clustering over an existing map. In that case, arguments
 <code>xlim</code>, <code>ylim</code>, <code>axes</code>, and all other
 <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameters</a> to which the method <a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a> would responds
 are ignored.</p>
-<p>The default colours are generated by function <a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">rainbow</a>; see
-<a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette</a> for further details on using colour palettes in R.
-The colour palette can be changed by the user.</p>
 <p>When disjoint clusters are present (i.e., when the graph provided to
 <code><a href="constr.hclust.html">constr.hclust</a></code> is not entirely connected), the function does not
 allow one to plot fewer clusters than the number of disjoint subsets; a

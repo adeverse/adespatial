@@ -270,7 +270,7 @@ spatial processes in ecological data. <em>Ecological Modelling</em>, 215,
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Build a listw object from the asymmetric matrix</span></span></span>
-<span class="r-in"><span><span class="va">listwAsym</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/mat2listw.html" class="external-link">mat2listw</a></span><span class="op">(</span><span class="va">matasym</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">listwAsym</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/mat2listw.html" class="external-link">mat2listw</a></span><span class="op">(</span><span class="va">matasym</span>, style <span class="op">=</span> <span class="st">"B"</span>, zero.policy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate Moran's I for AEM</span></span></span>
 <span class="r-in"><span><span class="va">MoranIAEM</span> <span class="op">&lt;-</span> <span class="fu"><a href="moran.randtest.html">moran.randtest</a></span><span class="op">(</span><span class="va">AEM</span><span class="op">$</span><span class="va">vectors</span>, <span class="va">listwAsym</span><span class="op">)</span></span></span>
@@ -289,9 +289,6 @@ spatial processes in ecological data. <em>Ecological Modelling</em>, 215,
 <span class="r-plt img"><img src="aem-2.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="aem-3.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="aem-4.png" alt="" width="700" height="433"></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>style is M (missing); style should be set to a valid value</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>no-neighbour observations found, set zero.policy to TRUE;</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> this warning will soon become an error</span>
 <span class="r-plt img"><img src="aem-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>

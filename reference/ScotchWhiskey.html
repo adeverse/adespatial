@@ -66,8 +66,8 @@
     <div id="format">
     <h2>Format</h2>
     <p>A list with 12 members:</p><dl><dt>geo</dt>
-<dd><p>A <code>SpatialPointsDataFrame-class</code> object containing the
-geographic coordinates and other information about the distilleries.</p></dd>
+<dd><p>A <code><a href="https://edzer.github.io/sp/reference/SpatialPointsDataFrame-class.html" class="external-link">SpatialPointsDataFrame-class</a></code> object containing
+the geographic coordinates and other information about the distilleries.</p></dd>
 
 <dt>colour</dt>
 <dd><p>The whiskey colour coded as a 14-level factor.</p></dd>
@@ -89,15 +89,16 @@ geographic coordinates and other information about the distilleries.</p></dd>
 each of the four sets of boolean features: nose, body, palate, finish.</p></dd>
 
 <dt>listW</dt>
-<dd><p>A <code>listw</code> object (see <code>nb2listw</code>)
-containing information about the spatial edges (neighbour links) between the distilleries.</p></dd>
+<dd><p>A <code>listw</code> object (see <code><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></code>)
+containing information about the spatial edges (neighbour links) between the
+distilleries.</p></dd>
 
 <dt>links.mat</dt>
 <dd><p>A binary square matrix of the spatial connexions between the
 distilleries (contiguity matrix).</p></dd>
 
 <dt>neighbors</dt>
-<dd><p>A <code>SpatialLinesDataFrame-class</code> object
+<dd><p>A <code><a href="https://edzer.github.io/sp/reference/SpatialLinesDataFrame-class.html" class="external-link">SpatialLinesDataFrame-class</a></code> object
 containing geographic information about the spatial links between the
 distilleries.</p></dd>
 
@@ -105,17 +106,19 @@ distilleries.</p></dd>
 <dd><p>A list of distance matrices obtained for each of the four sets of
 boolean features.</p></dd>
 
+
 </dl></div>
     <div id="source">
     <h2>Source</h2>
     <p>Pierre Legendre &lt;pierre.legendre@umontreal.ca&gt; and François-Joseph
-Lapoints &lt;francois-joseph.lapointe@umontreal.ca&gt;, Département de sciences
+Lapointe &lt;francois-joseph.lapointe@umontreal.ca&gt;, Département de sciences
 biologiques, Université de Montréal, Montréal, Québec, Canada.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
     <p>There are 5 data sets: color, nose, body, palate, and finish. The
-binary (0,1) descriptors are in the same order as on p. 239 of the whisky paper.</p>
+binary (0,1) descriptors are in the same order as on p. 239 of the whisky
+paper.</p>
 <p>There are two whiskies in the classification from the Springbank distillery.
 One pertains to the Islay group, the other to the Western group.</p>
 <p>Please let us know of the analyses you have performed with the whiskey data,
@@ -125,19 +128,19 @@ data set:</p>
 <p>D = (1 - S4)^0.5,</p>
 <p>where S4 is the Simple matching coefficient of Sokal &amp; Michener (1958). This
 coefficient was called S4 in the Gower &amp; Legendre (1986) paper and S1 in the
-Legendre &amp; Legendre (2012) book. In package ade4, coefficient
-D = sqrt(1 - S4) is computed by function <code><a href="https://rdrr.io/pkg/ade4/man/dist.binary.html" class="external-link">dist.binary</a></code> using
+Legendre &amp; Legendre (2012) book. In package <code>ade4</code>, coefficient
+D = sqrt(1 - S4) is computed by function <code>dist.binary</code> using
 argument <code>"method=2"</code>.</p>
     </div>
     <div id="references">
     <h2>References</h2>
-    <p>Lapointe, F.-J. and P. Legendre. 1994. A classification of pure
-malt Scotch whiskies. Applied Statistics 43: 237-257
-&lt;http://www.dcs.ed.ac.uk/home/jhb/whisky/lapointe/text.html&gt;.</p>
+    <p>Lapointe, F.-J. and P. Legendre. 1994. A classification of pure malt Scotch
+whiskies. Applied Statistics 43: 237-257 <a href="https://doi.org/10.2307/2986124" class="external-link">doi:10.2307/2986124</a></p>
 <p>Gower, J.C. and Legendre, P. 1986. Metric and Euclidean properties of
-dissimilarity coefficients. Journal of Classification, 3, 5-48.</p>
+dissimilarity coefficients. Journal of Classification, 3, 5-48.
+<a href="https://doi.org/10.1007/BF01896809" class="external-link">doi:10.1007/BF01896809</a></p>
 <p>Legendre, P. and Legendre, L. 2012. Numerical Ecology. 3rd English edition.
-Elsevier Science BV, Amsterdam.</p>
+Elsevier Science BV, Amsterdam. <a href="https://doi.org/10.1016/S0304-3800%2800%2900291-X" class="external-link">doi:10.1016/S0304-3800(00)00291-X</a></p>
     </div>
 
     <div id="ref-examples">
@@ -215,7 +218,7 @@ Elsevier Science BV, Amsterdam.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "nbChar"    "listW"     "links.mat" "neighbors" "dist"     </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">dist</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "nose"   "body"   "palate" "finish"</span>
-<span class="r-in"><span><span class="co">##</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">plotWhiskey</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">main</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">@</span><span class="va">coords</span><span class="op">[</span>,<span class="fl">1L</span><span class="op">]</span><span class="op">/</span><span class="fl">1000</span>,</span></span>
 <span class="r-in"><span>         xlab<span class="op">=</span><span class="st">"Eastings (km)"</span>,</span></span>
@@ -237,7 +240,7 @@ Elsevier Science BV, Amsterdam.</p>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span><span class="co">##</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">plotWhiskey</span><span class="op">(</span><span class="st">"Scotch whiskey: peat nose"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>,<span class="st">"orange"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">@</span><span class="va">coords</span><span class="op">/</span><span class="fl">1000</span>,pch<span class="op">=</span><span class="fl">21L</span>,</span></span>
@@ -245,7 +248,7 @@ Elsevier Science BV, Amsterdam.</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">50</span>,y<span class="op">=</span><span class="fl">1000</span>,legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Has a peat nose"</span>,<span class="st">"Has no peat nose"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>       pch<span class="op">=</span><span class="fl">21L</span>,pt.bg<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ScotchWhiskey-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co">##</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">plotWhiskey</span><span class="op">(</span><span class="st">"Scotch whiskey: soft body"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"green"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">@</span><span class="va">coords</span><span class="op">/</span><span class="fl">1000</span>,pch<span class="op">=</span><span class="fl">21L</span>,</span></span>
@@ -253,7 +256,7 @@ Elsevier Science BV, Amsterdam.</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">50</span>,y<span class="op">=</span><span class="fl">1000</span>,legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Has a soft body"</span>,<span class="st">"Has no soft body"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>       pch<span class="op">=</span><span class="fl">21L</span>,pt.bg<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ScotchWhiskey-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co">##</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">plotWhiskey</span><span class="op">(</span><span class="st">"Scotch whiskey: spicy palate"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"green"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">@</span><span class="va">coords</span><span class="op">/</span><span class="fl">1000</span>,pch<span class="op">=</span><span class="fl">21L</span>,</span></span>
@@ -261,7 +264,7 @@ Elsevier Science BV, Amsterdam.</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">50</span>,y<span class="op">=</span><span class="fl">1000</span>,legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Has a spicy palate"</span>,<span class="st">"Has no spicy palate"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>       pch<span class="op">=</span><span class="fl">21L</span>,pt.bg<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ScotchWhiskey-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co">##</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">plotWhiskey</span><span class="op">(</span><span class="st">"Scotch whiskey: sweet finish"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"green"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">geo</span><span class="op">@</span><span class="va">coords</span><span class="op">/</span><span class="fl">1000</span>,pch<span class="op">=</span><span class="fl">21L</span>,</span></span>
@@ -269,8 +272,8 @@ Elsevier Science BV, Amsterdam.</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">50</span>,y<span class="op">=</span><span class="fl">1000</span>,legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Has a sweet finish"</span>,<span class="st">"Has no sweet finish"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>       pch<span class="op">=</span><span class="fl">21L</span>,pt.bg<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ScotchWhiskey-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co">##</span></span></span>
-<span class="r-in"><span><span class="co">### To visualize (part of) the distance matrices:</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## To visualize (part of) the distance matrices:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">dist</span><span class="op">$</span><span class="va">nose</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           1         2         3         4         5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.0000000 0.6454972 0.5773503 0.7071068 0.5773503</span>
@@ -299,8 +302,8 @@ Elsevier Science BV, Amsterdam.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.5129892 0.3973597 0.0000000 0.3244428 0.3244428</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.5129892 0.3973597 0.3244428 0.0000000 0.3244428</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.3973597 0.3973597 0.3244428 0.3244428 0.0000000</span>
-<span class="r-in"><span><span class="co">##</span></span></span>
-<span class="r-in"><span><span class="co">### The data tables:</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## The data tables:</span></span></span>
 <span class="r-in"><span><span class="va">ScotchWhiskey</span><span class="op">$</span><span class="va">colour</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1] yellow  red     sherry  p.gold  p.gold  v.pale  wyne    p.gold  amber  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [10] f.gold  f.amber gold    amber   amber   yellow  p.gold  o.gold  o.gold </span>
