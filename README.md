@@ -1,7 +1,7 @@
 # adespatial <img src='man/figures/logo.svg' align="right" height="139" />
 
 [![R-CMD-check](https://github.com/adeverse/adespatial/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/adeverse/adespatial/actions/workflows/R-CMD-check.yaml)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-ago/adespatial)](http://cran.r-project.org/package=adespatial)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-ago/adespatial)](http://cran.r-project.org/package=adespatial)
 [![CRAN Downloads](https://cranlogs.r-pkg.org/badges/adespatial)](https://cran.r-project.org/package=adespatial)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
