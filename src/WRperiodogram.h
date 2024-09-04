@@ -15,6 +15,7 @@
 #ifndef WRPERIODOGRAM_H
 #define WRPERIODOGRAM_H
 #include<R.h>
+#define INTNUM 10000000
 
 void BBCMVAR(double* x, int* nx, int* T1, int* T2, double* out, double* cmacc, int* cmden);
 /* array out should be pre-allocated to size T2-T1+1, i.e., the number of periods calculated.
