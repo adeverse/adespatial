@@ -236,7 +236,7 @@ Peres-Neto P. and Legendre P. (2010) Estimating and controlling for spatial stru
 in the study of ecological communities. Global Ecology and Biogeography, 19, 174--184
 }
 \seealso{
-\code{\link{varpart}}, \code{\link{listw.select}}, \code{\link{listw.candidates}}, \code{\link{mem.select}}
+\code{\link[vegan]{varpart}}, \code{\link{listw.select}}, \code{\link{listw.candidates}}, \code{\link{mem.select}}
 }
 \author{
 David Bauman and Jason Vleminckx, \email{davbauman@gmail.com}, 

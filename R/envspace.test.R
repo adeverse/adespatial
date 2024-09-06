@@ -113,7 +113,7 @@
 #' @author David Bauman and Jason Vleminckx, \email{davbauman@@gmail.com}, 
 #' \email{jasvlx86@@gmail.com}
 #' 
-#' @seealso \code{\link{varpart}}, \code{\link{listw.select}}, \code{\link{listw.candidates}}, \code{\link{mem.select}}
+#' @seealso \code{\link[vegan]{varpart}}, \code{\link{listw.select}}, \code{\link{listw.candidates}}, \code{\link{mem.select}}
 #' 
 #' @references Anderson M. and Legendre P. (1999) An empirical comparison of permutation 
 #' methods for tests of partial regression coefficients in a linear model. Journal of
