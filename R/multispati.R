@@ -175,7 +175,6 @@
 #'     }
 #' 
 #'     maf.pca <- dudi.pca(mafragh$env, scannf = FALSE)
-#'     multispati.randtest(maf.pca, maf.listw)
 #'     maf.pca.ms <- multispati(maf.pca, maf.listw, scannf=FALSE)
 #'     plot(maf.pca.ms)
 #' }
