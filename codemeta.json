@@ -1,0 +1,389 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "identifier": "adespatial",
+  "description": "Tools for the multiscale spatial analysis of multivariate data. Several methods are based on the use of a spatial weighting matrix and its eigenvector decomposition (Moran's Eigenvectors Maps, MEM). Several approaches are described in the review Dray et al (2012) <doi:10.1890/11-1183.1>.",
+  "name": "adespatial: Multivariate Multiscale Spatial Analysis",
+  "relatedLink": ["http://adeverse.github.io/adespatial/", "https://CRAN.R-project.org/package=adespatial"],
+  "codeRepository": "https://github.com/adeverse/adespatial",
+  "issueTracker": "https://github.com/adeverse/adespatial/issues",
+  "license": "https://spdx.org/licenses/GPL-2.0",
+  "version": "0.3.24",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "R",
+    "url": "https://r-project.org"
+  },
+  "runtimePlatform": "R version 4.4.3 (2025-02-28)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Stéphane",
+      "familyName": "Dray",
+      "email": "stephane.dray@univ-lyon1.fr",
+      "@id": "https://orcid.org/0000-0003-0153-1105"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "David",
+      "familyName": "Bauman"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Guillaume",
+      "familyName": "Blanchet"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Daniel",
+      "familyName": "Borcard"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Sylvie",
+      "familyName": "Clappe"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Guillaume",
+      "familyName": "Guenard",
+      "@id": "https://orcid.org/0000-0003-0761-3072"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Thibaut",
+      "familyName": "Jombart"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Guillaume",
+      "familyName": "Larocque"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Pierre",
+      "familyName": "Legendre",
+      "@id": "https://orcid.org/0000-0002-3838-3305"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Naima",
+      "familyName": "Madi"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Hélène H",
+      "familyName": "Wagner"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Aurélie",
+      "familyName": "Siberchicot",
+      "email": "aurelie.siberchicot@univ-lyon1.fr",
+      "@id": "https://orcid.org/0000-0002-7638-8318"
+    }
+  ],
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "Aurélie",
+      "familyName": "Siberchicot",
+      "email": "aurelie.siberchicot@univ-lyon1.fr",
+      "@id": "https://orcid.org/0000-0002-7638-8318"
+    }
+  ],
+  "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "knitr",
+      "name": "knitr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "ape",
+      "name": "ape",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ape"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "betapart",
+      "name": "betapart",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=betapart"
+    }
+  ],
+  "softwareRequirements": {
+    "1": {
+      "@type": "SoftwareApplication",
+      "identifier": "ade4",
+      "name": "ade4",
+      "version": ">= 1.7-13",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ade4"
+    },
+    "2": {
+      "@type": "SoftwareApplication",
+      "identifier": "adegraphics",
+      "name": "adegraphics",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=adegraphics"
+    },
+    "3": {
+      "@type": "SoftwareApplication",
+      "identifier": "adephylo",
+      "name": "adephylo",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=adephylo"
+    },
+    "4": {
+      "@type": "SoftwareApplication",
+      "identifier": "sp",
+      "name": "sp",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=sp"
+    },
+    "5": {
+      "@type": "SoftwareApplication",
+      "identifier": "spdep",
+      "name": "spdep",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=spdep"
+    },
+    "6": {
+      "@type": "SoftwareApplication",
+      "identifier": "lattice",
+      "name": "lattice",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lattice"
+    },
+    "7": {
+      "@type": "SoftwareApplication",
+      "identifier": "methods",
+      "name": "methods"
+    },
+    "8": {
+      "@type": "SoftwareApplication",
+      "identifier": "grDevices",
+      "name": "grDevices"
+    },
+    "9": {
+      "@type": "SoftwareApplication",
+      "identifier": "graphics",
+      "name": "graphics"
+    },
+    "10": {
+      "@type": "SoftwareApplication",
+      "identifier": "MASS",
+      "name": "MASS",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=MASS"
+    },
+    "11": {
+      "@type": "SoftwareApplication",
+      "identifier": "stats",
+      "name": "stats"
+    },
+    "12": {
+      "@type": "SoftwareApplication",
+      "identifier": "utils",
+      "name": "utils"
+    },
+    "13": {
+      "@type": "SoftwareApplication",
+      "identifier": "shiny",
+      "name": "shiny",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=shiny"
+    },
+    "14": {
+      "@type": "SoftwareApplication",
+      "identifier": "vegan",
+      "name": "vegan",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=vegan"
+    },
+    "SystemRequirements": null
+  },
+  "fileSize": "1841.026KB",
+  "citation": [
+    {
+      "@type": "SoftwareSourceCode",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": "St{\\'e}phane",
+          "familyName": "Dray"
+        },
+        {
+          "@type": "Person",
+          "givenName": "David",
+          "familyName": "Bauman"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Guillaume",
+          "familyName": "Blanchet"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Daniel",
+          "familyName": "Borcard"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Sylvie",
+          "familyName": "Clappe"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Guillaume",
+          "familyName": "Gu{\\'e}nard"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Thibaut",
+          "familyName": "Jombart"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Guillaume",
+          "familyName": "Larocque"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Pierre",
+          "familyName": "Legendre"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Naima",
+          "familyName": "Madi"
+        },
+        {
+          "@type": "Person",
+          "givenName": ["Helene", "H"],
+          "familyName": "Wagner"
+        }
+      ],
+      "name": "{adespatial}: Multivariate Multiscale Spatial Analysis",
+      "url": "https://CRAN.R-project.org/package=adespatial",
+      "description": "R package version 0.3-24"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "datePublished": "2022",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": "Guillaume",
+          "familyName": "Gu{\\'e}nard"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Pierre",
+          "familyName": "Legendre"
+        }
+      ],
+      "name": "Hierarchical Clustering with Contiguity Constraint in {R}",
+      "identifier": "10.18637/jss.v103.i07",
+      "pagination": "1--26",
+      "@id": "https://doi.org/10.18637/jss.v103.i07",
+      "sameAs": "https://doi.org/10.18637/jss.v103.i07",
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "issueNumber": "7",
+        "datePublished": "2022",
+        "isPartOf": {
+          "@type": ["PublicationVolume", "Periodical"],
+          "volumeNumber": "103",
+          "name": "Journal of Statistical Software"
+        }
+      }
+    }
+  ],
+  "readme": "https://github.com/adeverse/adespatial/blob/master/README.md",
+  "contIntegration": "https://github.com/adeverse/adespatial/actions/workflows/R-CMD-check.yaml"
+}
