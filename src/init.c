@@ -31,6 +31,10 @@ extern SEXP transform_mat(SEXP, SEXP);
 extern SEXP whittaker(SEXP);
 extern SEXP wishart(SEXP);
 
+/* FORTRAN calls */
+
+void F77_NAME(geodistv)(double*, double*, double*, double*, double*, int*);
+
 static const R_CMethodDef CEntries[] = {
     {"buildbinary",   (DL_FUNC) &buildbinary,    6},
     {"forwardsel",    (DL_FUNC) &forwardsel,    18},
@@ -62,8 +66,13 @@ static const R_CallMethodDef CallEntries[] = {
     {NULL, NULL, 0}
 };
 
+static const R_FortranMethodDef FortEntries[] = {
+    {"geodistv",      (DL_FUNC) &F77_NAME(geodistv), 6},
+    {NULL, NULL, 0}
+};
+
 void R_init_adespatial(DllInfo *dll)
 {
-    R_registerRoutines(dll, CEntries, CallEntries, NULL, NULL);
+    R_registerRoutines(dll, CEntries, CallEntries, FortEntries, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }
