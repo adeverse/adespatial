@@ -32,3 +32,8 @@ Vincenty,T. (1975). Direct and inverse solutions of geodesics on the
 ellipsoid with application of nested equations. \emph{Survey Review},
 vol. 23(176):88-94.
 }
+\author{
+John Chambers, Stanford Data Science, Stanford University (formerly at Bell
+Labs). Transfer of this function from SoDA to adespatial by Guillaume
+Guénard, with permission of John Chambers.
+}

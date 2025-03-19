@@ -74,3 +74,8 @@ vol. 23(176):88-94.
 \seealso{
 \code{\link{geoDist}}, which computes the distances.
 }
+\author{
+John Chambers, Stanford Data Science, Stanford University (formerly at Bell
+Labs). Transfer of this function from SoDA to adespatial by Guillaume
+Guénard, with permission of John Chambers.
+}
