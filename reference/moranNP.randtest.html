@@ -25,7 +25,7 @@ squared correlations between x and associated MEMs. If alter =
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-24</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-25</span>
       </span>
     </div>
 
@@ -59,7 +59,7 @@ squared correlations between x and associated MEMs. If alter =
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Function to compute positive and negative parts of Moran's index of spatial autocorrelation</h1>
-    <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/v0.3-24/R/moranNP.randtest.R" class="external-link"><code>R/moranNP.randtest.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/master/R/moranNP.randtest.R" class="external-link"><code>R/moranNP.randtest.R</code></a></small>
     <div class="hidden name"><code>moranNP.randtest.Rd</code></div>
     </div>
 
@@ -110,7 +110,7 @@ be one of "greater" (default), "less" or "two-sided"</p></dd>
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>other arguments (e.g., <code>p.adjust.method</code>) to be passed to
-the <code><a href="https://rdrr.io/pkg/ade4/man/krandtest.html" class="external-link">as.krandtest</a></code> function.</p></dd>
+the <code><a href="https://adeverse.github.io/ade4/reference/krandtest.html" class="external-link">as.krandtest</a></code> function.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -135,7 +135,7 @@ the <code><a href="https://rdrr.io/pkg/ade4/man/krandtest.html" class="external-
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="op">&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/r-spatial/spdep/" class="external-link">"spdep"</a></span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://adeverse.github.io/ade4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="op">&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/r-spatial/spdep/" class="external-link">"spdep"</a></span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">tests</span> <span class="op">&lt;-</span> <span class="fu">moranNP.randtest</span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">nb</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span> alter <span class="op">=</span> <span class="st">"two-sided"</span>, p.adjust.method <span class="op">=</span> <span class="st">"holm"</span><span class="op">)</span></span></span>
@@ -159,7 +159,7 @@ the <code><a href="https://rdrr.io/pkg/ade4/man/krandtest.html" class="external-
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>

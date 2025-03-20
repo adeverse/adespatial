@@ -22,7 +22,7 @@ one explanatory matrix."><meta property="og:image" content="/logo.svg"><!-- math
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-24</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-25</span>
       </span>
     </div>
 
@@ -56,7 +56,7 @@ one explanatory matrix."><meta property="og:image" content="/logo.svg"><!-- math
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Moran spectral randomization for variation partitioning</h1>
-    <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/v0.3-24/R/msr.varipart.R" class="external-link"><code>R/msr.varipart.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/master/R/msr.varipart.R" class="external-link"><code>R/msr.varipart.R</code></a></small>
     <div class="hidden name"><code>msr.varipart.Rd</code></div>
     </div>
 
@@ -130,7 +130,7 @@ Methods in Ecology and Evolution 6:1169-1178.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="msr.html">msr.default</a></code>, <code><a href="https://rdrr.io/pkg/ade4/man/varipart.html" class="external-link">varipart</a></code></p></div>
+    <div class="dont-index"><p><code><a href="msr.html">msr.default</a></code>, <code><a href="https://adeverse.github.io/ade4/reference/varipart.html" class="external-link">varipart</a></code></p></div>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -140,14 +140,14 @@ Clappe <a href="mailto:sylvie.clappe@univ-lyon1.fr">sylvie.clappe@univ-lyon1.fr<
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">ade4</a></span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://adeverse.github.io/ade4/" class="external-link">ade4</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-spatial/spdep/" class="external-link">spdep</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## Performing standard variation partitioning</span></span></span>
-<span class="r-in"><span><span class="va">dudiY</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/dudi.pca.html" class="external-link">dudi.pca</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">flo</span>, scannf <span class="op">=</span> <span class="cn">FALSE</span>, scale <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dudiY</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://adeverse.github.io/ade4/reference/dudi.pca.html" class="external-link">dudi.pca</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">flo</span>, scannf <span class="op">=</span> <span class="cn">FALSE</span>, scale <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mafragh.lw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html" class="external-link">nb2listw</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">nb</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">me</span> <span class="op">&lt;-</span> <span class="fu"><a href="mem.html">mem</a></span><span class="op">(</span><span class="va">mafragh.lw</span>, MEM.autocor <span class="op">=</span> <span class="st">"positive"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">vprda</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/varipart.html" class="external-link">varipart</a></span><span class="op">(</span><span class="va">dudiY</span>, <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, <span class="va">me</span>, type <span class="op">=</span> <span class="st">"parametric"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vprda</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://adeverse.github.io/ade4/reference/varipart.html" class="external-link">varipart</a></span><span class="op">(</span><span class="va">dudiY</span>, <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, <span class="va">me</span>, type <span class="op">=</span> <span class="st">"parametric"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Adjust estimation and compute p-value by msr methods</span></span></span>
 <span class="r-in"><span><span class="va">vprda.msr</span> <span class="op">&lt;-</span> <span class="fu"><a href="msr.html">msr</a></span><span class="op">(</span><span class="va">vprda</span>, <span class="va">mafragh.lw</span>, nrepet<span class="op">=</span><span class="fl">99</span><span class="op">)</span></span></span>
@@ -162,11 +162,11 @@ Clappe <a href="mailto:sylvie.clappe@univ-lyon1.fr">sylvie.clappe@univ-lyon1.fr<
 <span class="r-out co"><span class="r-pr">#&gt;</span> Observation: 0.2366554 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Based on 99 replicates</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Simulated p-value: 0.02 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Simulated p-value: 0.01 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Alternative hypothesis: greater </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Std.Obs  Expectation     Variance </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2.7547239398 0.1743802576 0.0005110614 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2.7025303269 0.1741019567 0.0005357487 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Individual fractions:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          a          b          c          d </span>
@@ -174,7 +174,7 @@ Clappe <a href="mailto:sylvie.clappe@univ-lyon1.fr">sylvie.clappe@univ-lyon1.fr<
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Adjusted fractions:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           a           b           c           d </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.01366599  0.08909434  0.25694339  0.66762826 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.01383251  0.08957240  0.25646533  0.66779478 </span>
 </code></pre></div>
     </div>
   </div>
@@ -189,7 +189,7 @@ Clappe <a href="mailto:sylvie.clappe@univ-lyon1.fr">sylvie.clappe@univ-lyon1.fr<
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>

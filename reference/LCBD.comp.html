@@ -19,7 +19,7 @@ AbDiff, or Nes) (Legendre 2014)."><meta property="og:image" content="/logo.svg">
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-24</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-25</span>
       </span>
     </div>
 
@@ -53,7 +53,7 @@ AbDiff, or Nes) (Legendre 2014)."><meta property="og:image" content="/logo.svg">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Compute LCBD from any D matrix</h1>
-    <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/v0.3-24/R/LCBD.comp.R" class="external-link"><code>R/LCBD.comp.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/master/R/LCBD.comp.R" class="external-link"><code>R/LCBD.comp.R</code></a></small>
     <div class="hidden name"><code>LCBD.comp.Rd</code></div>
     </div>
 
@@ -149,10 +149,9 @@ appear in the output list.</p></dd>
 <span class="r-in"><span><span class="va">mite.D</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">mite.hel</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">out.mite.D</span> <span class="op">=</span> <span class="fu">LCBD.comp</span><span class="op">(</span><span class="va">mite.D</span>, sqrt.D<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> This is vegan 2.6-8</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### Example 2</span></span></span>
-<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">"adegraphics"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://adeverse.github.io/ade4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">"adegraphics"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">doubs</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">fish.sp</span> <span class="op">=</span> <span class="va">doubs</span><span class="op">$</span><span class="va">fish</span><span class="op">[</span><span class="op">-</span><span class="fl">8</span>,<span class="op">]</span>   <span class="co"># Fish data; site 8 is removed because no fish were caught</span></span></span>
 <span class="r-in"><span></span></span>
@@ -169,22 +168,17 @@ appear in the output list.</p></dd>
 <span class="r-in"><span><span class="va">fish.xy</span> <span class="op">=</span> <span class="va">doubs</span><span class="op">$</span><span class="va">xy</span><span class="op">[</span><span class="op">-</span><span class="fl">8</span>,<span class="op">]</span>   <span class="co"># Geographic coordinates; site 8 removed because no fish were caught</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Map of LCBD indices for %difference dissimilarity</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/ade4/man/s.value.html" class="external-link">s.value</a></span><span class="op">(</span><span class="va">fish.xy</span>, <span class="va">out.fish.D</span><span class="op">$</span><span class="va">LCBD</span>, method<span class="op">=</span><span class="st">"size"</span>, symbol <span class="op">=</span> <span class="st">"circle"</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://adeverse.github.io/ade4/reference/s.value.html" class="external-link">s.value</a></span><span class="op">(</span><span class="va">fish.xy</span>, <span class="va">out.fish.D</span><span class="op">$</span><span class="va">LCBD</span>, method<span class="op">=</span><span class="st">"size"</span>, symbol <span class="op">=</span> <span class="st">"circle"</span>,</span></span>
 <span class="r-in"><span>col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"brown"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Doubs fish LCBD, %difference D"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Map of LCBD indices for replacement component of %difference dissimilarity</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/ade4/man/s.value.html" class="external-link">s.value</a></span><span class="op">(</span><span class="va">fish.xy</span>, <span class="va">out.fish.Repl</span><span class="op">$</span><span class="va">LCBD</span>, method<span class="op">=</span><span class="st">"size"</span>, symbol <span class="op">=</span> <span class="st">"circle"</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://adeverse.github.io/ade4/reference/s.value.html" class="external-link">s.value</a></span><span class="op">(</span><span class="va">fish.xy</span>, <span class="va">out.fish.Repl</span><span class="op">$</span><span class="va">LCBD</span>, method<span class="op">=</span><span class="st">"size"</span>, symbol <span class="op">=</span> <span class="st">"circle"</span>,</span></span>
 <span class="r-in"><span>col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"brown"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Doubs fish replacement LCBD"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Map of LCBD indices for abundance difference component of %difference dissimilarity</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/ade4/man/s.value.html" class="external-link">s.value</a></span><span class="op">(</span><span class="va">fish.xy</span>, <span class="va">out.fish.AbDiff</span><span class="op">$</span><span class="va">LCBD</span>, method<span class="op">=</span><span class="st">"size"</span>, symbol <span class="op">=</span> <span class="st">"circle"</span>, </span></span>
+<span class="r-in"><span><span class="fu"><a href="https://adeverse.github.io/ade4/reference/s.value.html" class="external-link">s.value</a></span><span class="op">(</span><span class="va">fish.xy</span>, <span class="va">out.fish.AbDiff</span><span class="op">$</span><span class="va">LCBD</span>, method<span class="op">=</span><span class="st">"size"</span>, symbol <span class="op">=</span> <span class="st">"circle"</span>, </span></span>
 <span class="r-in"><span>col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"brown"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Doubs fish abundance diff. LCBD"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘ade4’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:adespatial’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     multispati</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘adegraphics’</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:ade4’:</span>
@@ -197,7 +191,7 @@ appear in the output list.</p></dd>
 <span class="r-plt img"><img src="LCBD.comp-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"betapart"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://adeverse.github.io/ade4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"betapart"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co">### Example 3</span></span></span>
 <span class="r-in"><span><span class="co">### This example requires packages \code{"betapart"} and \code{"ade4"} for data. </span></span></span>
 <span class="r-in"><span><span class="co">### For the Baselga-family indices, the same partitioning results are obtained using</span></span></span>
@@ -217,7 +211,7 @@ appear in the output list.</p></dd>
 <span class="r-in"><span><span class="va">out3</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/betapart/man/beta.pair.abund.html" class="external-link">beta.pair.abund</a></span><span class="op">(</span><span class="va">fish.sp</span>, index.family <span class="op">=</span> <span class="st">"bray"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">out3</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/ade4/man/is.euclid.html" class="external-link">is.euclid</a></span><span class="op">(</span><span class="va">out3</span><span class="op">$</span><span class="va">beta.bray</span><span class="op">)</span>    <span class="co"># D matrix out3$beta.bray is not Euclidean</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://adeverse.github.io/ade4/reference/is.euclid.html" class="external-link">is.euclid</a></span><span class="op">(</span><span class="va">out3</span><span class="op">$</span><span class="va">beta.bray</span><span class="op">)</span>    <span class="co"># D matrix out3$beta.bray is not Euclidean</span></span></span>
 <span class="r-in"><span><span class="va">out3.D</span> <span class="op">=</span> <span class="fu">LCBD.comp</span><span class="op">(</span><span class="va">out3</span><span class="op">$</span><span class="va">beta.bray</span>, sqrt.D<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">out3.D</span><span class="op">$</span><span class="va">beta</span></span></span>
 <span class="r-in"><span><span class="co"># Compare BDtotal here to BDtotal in out.comp$part (above)</span></span></span>
@@ -248,7 +242,7 @@ appear in the output list.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>

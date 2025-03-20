@@ -22,7 +22,7 @@ steps in vegan."><meta property="og:image" content="/logo.svg"><!-- mathjax --><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-24</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-25</span>
       </span>
     </div>
 
@@ -56,7 +56,7 @@ steps in vegan."><meta property="og:image" content="/logo.svg"><!-- mathjax --><
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Dissimilarity matrices for community composition data</h1>
-    <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/v0.3-24/R/dist.ldc.R" class="external-link"><code>R/dist.ldc.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/master/R/dist.ldc.R" class="external-link"><code>R/dist.ldc.R</code></a></small>
     <div class="hidden name"><code>dist.ldc.Rd</code></div>
     </div>
 
@@ -127,29 +127,32 @@ numerical simulation loop, for example.</p></dd>
   one or the other site, or in both. y[i+] is the sum of values in row i;
   same for y[k+]. y[+j] is the sum of values in column j. y[++] is the total
   sum of values in Y. The indices are computed by functions written in C for
-  greater computation speed with large data matrices.</p><ul><li><p>Group 1
-  - D computed by transformation of Y followed by Euclidean distance</p><ul><li><p>Hellinger D, D[ik] =
-  sqrt(sum((sqrt(y[ij]/y[i+])-sqrt(y[kj]/y[k+]))^2))</p></li>
+  greater computation speed with large data matrices.</p><ul><li><p>Group 1 - D computed by transformation of Y followed by Euclidean distance</p><ul><li><p>Hellinger D, D[ik] =
+  sqrt(sum((sqrt(y[ij]/y[i+])-sqrt(y[kj]/y[k+]))^2)) (Rao 1995)</p></li>
 <li><p>chord D, D[ik] =
-  sqrt(sum((y[ij]/sqrt(sum(y[ij]^2))-y[kj]/sqrt(sum(y[kj]^2)))^2))</p></li>
-<li><p>log-chord D, D[ik] = chord D[ik] computed on log(y[ij]+1)-transformed data
-  (Legendre and Borcard 2018)</p></li>
+  sqrt(sum((y[ij]/sqrt(sum(y[ij]^2))-y[kj]/sqrt(sum(y[kj]^2)))^2))
+  (Orlóci 1967)</p></li>
+<li><p>log-chord D, D[ik] = chord D[ik] computed on
+  log(y[ij]+1)-transformed data (Legendre &amp; Borcard 2018)</p></li>
 <li><p>chi-square D, D[ik] = sqrt(y[++]
-  sum((1/j[+j])(y[ij]/y[i+]-y[kj]/y[k+])^2))</p></li>
-<li><p>species profiles D, D[ik]
-  = sqrt(sum((y[ij]/y[i+]-y[kj]/y[k+])^2))</p></li>
+  sum((1/j[+j])(y[ij]/y[i+]-y[kj]/y[k+])^2)) (Lebart &amp; Fénelon 1971)</p></li>
+<li><p>species profiles D, D[ik] = sqrt(sum((y[ij]/y[i+]-y[kj]/y[k+])^2))
+  (Legendre &amp; Legendre (2012)</p></li>
 </ul></li>
 <li><p>Group 2 - Other D functions appropriate for beta diversity studies
-  where A = sum(min(y[ij],y[kj])), B = y[i+]-A, C = y[k+]-A</p><ul><li><p>Ružička D, D[ik] = 1-(sum(min(y[ij],y[kj])/sum(max(y[ij],y[kj])) or
-  else, D[ik] = (B+C)/(A+B+C)</p></li>
-<li><p>coeff. of divergence D, D[ik] =
-  sqrt((1/pp)sum(((y[ij]-y(kj])/(y[ij]+y(kj]))^2))</p></li>
+  where A = sum(min(y[ij],y[kj])), B = y[i+]-A, C = y[k+]-A</p><ul><li><p>percentage difference D (aka Bray-Curtis),
+  D[ik] = (sum(abs(y[ij]-y[k,j])))/(y[i+]+y[k+])
+  or else, D[ik] = (B+C)/(2A+B+C) (Odum 1950)</p></li>
+<li><p>Ružička D, D[ik] = 1-(sum(min(y[ij],y[kj])/sum(max(y[ij],y[kj]))
+  or else, D[ik] = (B+C)/(A+B+C) (Ružička 1958)</p></li>
+<li><p>coefficient of divergence D, D[ik] =
+  sqrt((1/pp)sum(((y[ij]-y(kj])/(y[ij]+y(kj]))^2)) (Clark 1952)</p></li>
 <li><p>Canberra metric D,
-  D[ik] = (1/pp)sum(abs(y[ij]-y(kj])/(y[ij]+y(kj]))</p></li>
-<li><p>Whittaker D, D[ik]
-  = 0.5*sum(abs(y[ij]/y[i+]-y(kj]/y[k+]))</p></li>
-<li><p>Wishart D, D[ik] =
-  1-sum(y[ij]y[kj])/(sum(y[ij]^2)+sum(y[kj]^2)-sum(y[ij]y[kj]))</p></li>
+  D[ik] = (1/pp)sum(abs(y[ij]-y(kj])/(y[ij]+y(kj])) (Lance &amp; Williams 1967)</p></li>
+<li><p>Whittaker D,
+  D[ik] = 0.5*sum(abs(y[ij]/y[i+]-y(kj]/y[k+])) (Whittaker 1952)</p></li>
+<li><p>Wishart D, D[ik] = 1-sum(y[ij]y[kj])
+  /(sum(y[ij]^2)+sum(y[kj]^2)-sum(y[ij]y[kj])) (Wishart 1969)</p></li>
 <li><p>Kulczynski D, D[ik] =
   1-0.5((sum(min(y[ij],y[kj])/y[i+]+sum(min(y[ij],y[kj])/y[k+]))</p></li>
 </ul></li>
@@ -158,9 +161,10 @@ numerical simulation loop, for example.</p></dd>
   and k, b is the number of species in site i not found in k, and c is the
   number of species found in site k but not in i. The D matrices are
   square-root transformed, as in dist.binary of ade4; the user-oriented
-  reason for this transformation is explained below.</p><ul><li><p>Sørensen D, D[ik] =
-  sqrt((b+c)/(2a+b+c))</p></li>
-<li><p>Ochiai D, D[ik] = sqrt(1 - a/sqrt((a+b)(a+c)))</p></li>
+  reason for this transformation is explained below.</p><ul><li><p>Jaccard coefficient of community (CC), D[ik] = sqrt((b+c)/(a+b+c))
+  (Jaccard 1901, CC described in a sentence; 1908, CC shown as an equation)</p></li>
+<li><p>Sørensen D, D[ik] = sqrt((b+c)/(2a+b+c)) (Sørensen 1948)</p></li>
+<li><p>Ochiai D, D[ik] = sqrt(1 - a/sqrt((a+b)(a+c))) (Ochiai 1957)</p></li>
 </ul></li>
 <li><p>Group 4 - Abundance-based indices of Chao et al. (2006) for
   quantitative abundance data. These functions correct the index for species
@@ -174,15 +178,16 @@ numerical simulation loop, for example.</p></dd>
   presence-absence data, the indices are the regular Jaccard, Sørensen,
   Ochiai and Simpson indices. On output, however, the D matrices are not
   square-rooted, contrary to the Jaccard, Sørensen and Ochiai indices in
-  section 3 which are square-rooted.</p><ul><li><p>abundance-based Sørensen D, D[ik] =
-  1-(2UV/(U+V))</p></li>
+  section 3 which are square-rooted.</p><ul><li><p>abundance-based Jaccard D, D[ik] = 1-(UV/(U+V-UV))</p></li>
+<li><p>abundance-based Sørensen D, D[ik] = 1-(2UV/(U+V))</p></li>
 <li><p>abundance-based Ochiai D, D[ik] = 1-sqrt(UV)</p></li>
 <li><p>abundance-based Simpson D, D[ik] = 1-(UV/(UV+min((U-UV),(V-UV))))</p></li>
 </ul></li>
 <li><p>Group 5 - General-purpose dissimilarities that do not have an upper
-  bound (maximum D value). They are inappropriate for beta diversity studies.</p><ul><li><p>Manhattan D, D[ik] = sum(abs(y[ij] - y[ik]))</p></li>
-<li><p>modified mean character
-  difference, D[ik] = (1/pp) sum(abs(y[ij] - y[ik]))</p></li>
+  bound (maximum D value). They are inappropriate for beta diversity studies.</p><ul><li><p>Euclidean D, D[ik] = sqrt(sum(y[ij]-y[kj])^2)</p></li>
+<li><p>Manhattan D, D[ik] = sum(abs(y[ij] - y[ik]))</p></li>
+<li><p>modified mean character difference,
+  D[ik] = (1/pp) sum(abs(y[ij] - y[ik])) (Legendre &amp; Legendre (2012)</p></li>
 </ul></li>
 </ul><p>The properties of
   all dissimilarities available in this function (except Ružička D) were
@@ -193,8 +198,8 @@ numerical simulation loop, for example.</p></dd>
   dissimilarities have a maximum value of either 1 or sqrt(2). Three
   dissimilarities (Euclidean, Manhattan, Modified mean character difference)
   do not have an upper bound and are thus inappropriate for beta diversity
-  studies. The chi-square distance has an upper bound of
-  sqrt(2*(sum(Y))).<br><br> The Euclidean, Hellinger, chord, chi-square and
+  studies. The chi-square distance has an upper bound of sqrt(2*(sum(Y))).
+  <br><br> The Euclidean, Hellinger, chord, chi-square and
   species profiles dissimilarities have the property of being Euclidean,
   meaning that they never produce negative eigenvalues in principal
   coordinate analysis. The Canberra, Whittaker, percentage difference,
@@ -233,9 +238,21 @@ numerical simulation loop, for example.</p></dd>
     </div>
     <div id="references">
     <h2>References</h2>
-    <p>Chao, A., R. L. Chazdon, R. K. Colwell and T. J. Shen. 2006.
+    <p>Chao, A., R.L. Chazdon, R.K. Colwell and T.J. Shen. 2006.
   Abundance-based similarity indices and their estimation when there are
   unseen species in samples. Biometrics 62: 361-371.</p>
+<p>Clark, P. J. 1952. An extension of the coefficient of divergence for
+  use with multiple characters. Copeia 1952: 61-64.</p>
+<p>Jaccard, P. 1901. Étude comparative de la distribution florale dans
+  dune portiones Alpes et du Jura. Bulletin de la Société vaudoise des sciences
+  naturelles 37: 547-579.</p>
+<p>Jaccard, P. 1908. Nouvelles recherches sur la distribution florale. Bulletin
+  de la Société vaudoise des sciences naturelles 44: 223-270.</p>
+<p>Kulczynski, S. 1928. Die Pflanzenassoziationen der Pieninen. Bull. Int.
+  Acad. Pol. Sci. Lett. Cl. Sci. Math. Nat. Ser. B, Suppl. II (1927): 57–203.</p>
+<p>Lance, G. N. and W. T. Williams. 1967. Mixed-data classificatory programs. I.
+  Agglomerative systems. Australian Computer Journal 1: 15-20.</p>
+<p>Lebart, L. and J. P. Fénelon. 1971. Statistique et informatique appliquées. Dunod, Paris.</p>
 <p>Legendre, P. and D. Borcard. 2018. Box-Cox-chord transformations for
   community composition data prior to beta diversity analysis. Ecography 41:
   1820-1824.</p>
@@ -244,8 +261,27 @@ numerical simulation loop, for example.</p></dd>
   Letters 16: 951-963.</p>
 <p>Legendre, P. and E. D. Gallagher, E.D. 2001. Ecologically meaningful
   transformations for ordination of species data. Oecologia 129: 271-280.</p>
-<p>Legendre, P. and Legendre, L. 2012. Numerical Ecology. 3rd English edition.
+<p>Legendre, P. and Legendre, L. 2012. Numerical Ecology, 3rd English edition.
   Elsevier Science BV, Amsterdam.</p>
+<p>Ochiai, A. 1957. Zoogeographic studies on the soleoid fishes found in Japan
+  and its neighbouring regions–II. Bulletin of the Japanese Society of Scientific
+  Fisheries 22: 526-530.</p>
+<p>Odum, E. P. 1950. Bird populations of the Highlands (North Carolina) plateau
+  in relation to plant succession and avian invasion. Ecology 31: 587-605.</p>
+<p>Orlóci, L. 1967. An agglomerative method for classification of plant communities.
+  Journal of Ecology 55: 193-206.</p>
+<p>Rao, C. R. 1995. A review of canonical coordinates and an alternative to
+  correspondence analysis using Hellinger distance. Qüestiió (Quaderns
+  d’Estadística i Investigació Operativa) 19: 23-63.</p>
+<p>Ružička, Milan. 1958. Anwendung mathematisch-statistiker Methoden in Geobotanik
+  (synthetische Bearbeitung von Aufnahmen). Biologia (Bratislava) 13: 647–661.</p>
+<p>Sørensen, T. 1948. A method of establishing groups of equal amplitude in plant
+  sociology based on similarity of species content and its application to analysis
+  of the vegetation on Danish commons. Biologiske Skrifter 5: 1-34.</p>
+<p>Whittaker, R. H. 1952. A study of summer foliage insect communities in the
+  Great Smoky Mountains. Ecological Monographs 22: 1–44.</p>
+<p>Wishart, D. (1969). CLUSTAN 1a User Manual. Computing Laboratory, University
+  of St. Andrews, St. Andrews, Fife, Scotland.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -289,7 +325,7 @@ numerical simulation loop, for example.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>

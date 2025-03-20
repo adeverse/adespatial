@@ -21,7 +21,7 @@ implementation allows one to perform a MSPA using any multivariate analysis
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-24</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-25</span>
       </span>
     </div>
 
@@ -55,7 +55,7 @@ implementation allows one to perform a MSPA using any multivariate analysis
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Multi-Scale Pattern Analysis</h1>
-    <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/v0.3-24/R/mspa.R" class="external-link"><code>R/mspa.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/master/R/mspa.R" class="external-link"><code>R/mspa.R</code></a></small>
     <div class="hidden name"><code>mspa.Rd</code></div>
     </div>
 
@@ -63,7 +63,7 @@ implementation allows one to perform a MSPA using any multivariate analysis
     <p>The multi-scale pattern analysis (MSPA, Jombart et al 2009) investigates the
 main scales of spatial variation in a multivariate dataset. This
 implementation allows one to perform a MSPA using any multivariate analysis
-(stored as a <code><a href="https://rdrr.io/pkg/ade4/man/dudi.html" class="external-link">dudi</a></code> object), and a list of spatial weights
+(stored as a <code><a href="https://adeverse.github.io/ade4/reference/dudi.html" class="external-link">dudi</a></code> object), and a list of spatial weights
 (class <code>listw</code>) or an object of class <code>orthobasisSp</code>.</p>
     </div>
 
@@ -79,7 +79,7 @@ implementation allows one to perform a MSPA using any multivariate analysis
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'mspa'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/ade4/man/scatter.html" class="external-link">scatter</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://adeverse.github.io/ade4/reference/scatter.html" class="external-link">scatter</a></span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  xax <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  yax <span class="op">=</span> <span class="fl">2</span>,</span>
@@ -101,8 +101,8 @@ implementation allows one to perform a MSPA using any multivariate analysis
 
 <dl><dt id="arg-dudi">dudi<a class="anchor" aria-label="anchor" href="#arg-dudi"></a></dt>
 <dd><p>a duality diagram (i.e. a reduced space ordination) obtained by a
-<code><a href="https://rdrr.io/pkg/ade4/man/dudi.html" class="external-link">dudi</a></code> function (for instance
-<code><a href="https://rdrr.io/pkg/ade4/man/dudi.pca.html" class="external-link">dudi.pca</a></code>).</p></dd>
+<code><a href="https://adeverse.github.io/ade4/reference/dudi.html" class="external-link">dudi</a></code> function (for instance
+<code><a href="https://adeverse.github.io/ade4/reference/dudi.pca.html" class="external-link">dudi.pca</a></code>).</p></dd>
 
 
 <dt id="arg-lwororthobasissp">lwORorthobasisSp<a class="anchor" aria-label="anchor" href="#arg-lwororthobasissp"></a></dt>
@@ -181,7 +181,7 @@ Useful only if <code>storeData</code> is <code>FALSE</code></p></dd>
     <div id="value">
     <h2>Value</h2>
     <p>An object having the classes <code>mspa</code> and
-  <code><a href="https://rdrr.io/pkg/ade4/man/dudi.html" class="external-link">dudi</a></code>: <code>mspa</code> objects are <code><a href="https://rdrr.io/pkg/ade4/man/dudi.html" class="external-link">dudi</a></code>
+  <code><a href="https://adeverse.github.io/ade4/reference/dudi.html" class="external-link">dudi</a></code>: <code>mspa</code> objects are <code><a href="https://adeverse.github.io/ade4/reference/dudi.html" class="external-link">dudi</a></code>
   objects with the following extra slots:<br> - ls: principal components of
   the MSPA. These are the coordinates of variables onto principal axes, to be
   used for plotting. Correspond to matrix <b>B</b> in Appendix A of Jombart
@@ -223,7 +223,7 @@ could facilitate the interpretation of results.</p>
 <span class="r-in"><span><span class="co">### using oribatib mites dataset ###</span></span></span>
 <span class="r-in"><span><span class="co">####################################</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://pbil.univ-lyon1.fr/ADE-4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://adeverse.github.io/ade4/" class="external-link">"ade4"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co">## load data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -246,27 +246,27 @@ could facilitate the interpretation of results.</p>
 <span class="r-in"><span><span class="co">## ENVIRONMENTAL VARIABLES ##</span></span></span>
 <span class="r-in"><span><span class="co">## Hill and Smith analysis for environmental variables</span></span></span>
 <span class="r-in"><span><span class="co">## (for a mixture of quantitative / qualitative variables)</span></span></span>
-<span class="r-in"><span><span class="va">hsEnv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/dudi.hillsmith.html" class="external-link">dudi.hillsmith</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">envir</span>,scannf<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">hsEnv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://adeverse.github.io/ade4/reference/dudi.hillsmith.html" class="external-link">dudi.hillsmith</a></span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">envir</span>,scannf<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## detrending of the analysis (residuals of regression onto xy coordinates)</span></span></span>
-<span class="r-in"><span><span class="va">hsEnv.detr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/pcaivortho.html" class="external-link">pcaivortho</a></span><span class="op">(</span><span class="va">hsEnv</span>,<span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span>,scannf<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">hsEnv.detr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://adeverse.github.io/ade4/reference/pcaivortho.html" class="external-link">pcaivortho</a></span><span class="op">(</span><span class="va">hsEnv</span>,<span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span>,scannf<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## MSPA of the detrended analysis</span></span></span>
 <span class="r-in"><span><span class="va">mspaEnv</span> <span class="op">&lt;-</span> <span class="fu">mspa</span><span class="op">(</span><span class="va">hsEnv.detr</span>,<span class="va">cn</span>,scannf<span class="op">=</span><span class="cn">FALSE</span>,nf<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/ade4/man/scatter.html" class="external-link">scatter</a></span><span class="op">(</span><span class="va">mspaEnv</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://adeverse.github.io/ade4/reference/scatter.html" class="external-link">scatter</a></span><span class="op">(</span><span class="va">mspaEnv</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## SPECIES DATA ##</span></span></span>
 <span class="r-in"><span><span class="co">## PCA of species abundances, after Hellinger transformation</span></span></span>
-<span class="r-in"><span><span class="va">pcaFau</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/dudi.pca.html" class="external-link">dudi.pca</a></span><span class="op">(</span><span class="fu">hellTrans</span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">fau</span><span class="op">)</span>,scale<span class="op">=</span><span class="cn">FALSE</span>,scannf<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pcaFau</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://adeverse.github.io/ade4/reference/dudi.pca.html" class="external-link">dudi.pca</a></span><span class="op">(</span><span class="fu">hellTrans</span><span class="op">(</span><span class="va">oribatid</span><span class="op">$</span><span class="va">fau</span><span class="op">)</span>,scale<span class="op">=</span><span class="cn">FALSE</span>,scannf<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## detrending of this PCA</span></span></span>
-<span class="r-in"><span><span class="va">pcaFau.detr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/pcaivortho.html" class="external-link">pcaivortho</a></span><span class="op">(</span><span class="va">pcaFau</span>,<span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span>,scannf<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pcaFau.detr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://adeverse.github.io/ade4/reference/pcaivortho.html" class="external-link">pcaivortho</a></span><span class="op">(</span><span class="va">pcaFau</span>,<span class="va">oribatid</span><span class="op">$</span><span class="va">xy</span>,scannf<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># MSPA of the detrended analysis</span></span></span>
 <span class="r-in"><span><span class="va">mspaFau</span> <span class="op">&lt;-</span> <span class="fu">mspa</span><span class="op">(</span><span class="va">pcaFau.detr</span>,<span class="va">cn</span>,scannf<span class="op">=</span><span class="cn">FALSE</span>,nf<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/ade4/man/scatter.html" class="external-link">scatter</a></span><span class="op">(</span><span class="va">mspaFau</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://adeverse.github.io/ade4/reference/scatter.html" class="external-link">scatter</a></span><span class="op">(</span><span class="va">mspaFau</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -274,29 +274,29 @@ could facilitate the interpretation of results.</p>
 <span class="r-in"><span><span class="co">## RDA species ~ envir</span></span></span>
 <span class="r-in"><span><span class="co">## (species abundances predicted by environment)</span></span></span>
 <span class="r-in"><span><span class="co">## note: RDA = 'PCAIV' (PCA with Instrumental Variables)</span></span></span>
-<span class="r-in"><span><span class="va">rda1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/pcaiv.html" class="external-link">pcaiv</a></span><span class="op">(</span>dudi<span class="op">=</span><span class="va">pcaFau.detr</span>, df<span class="op">=</span><span class="va">oribatid</span><span class="op">$</span><span class="va">envir</span>,scannf<span class="op">=</span><span class="cn">FALSE</span>,nf<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">rda1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://adeverse.github.io/ade4/reference/pcaiv.html" class="external-link">pcaiv</a></span><span class="op">(</span>dudi<span class="op">=</span><span class="va">pcaFau.detr</span>, df<span class="op">=</span><span class="va">oribatid</span><span class="op">$</span><span class="va">envir</span>,scannf<span class="op">=</span><span class="cn">FALSE</span>,nf<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## canonical MSPA (species predicted by environment)</span></span></span>
 <span class="r-in"><span><span class="va">mspaCan1</span> <span class="op">&lt;-</span> <span class="fu">mspa</span><span class="op">(</span>dudi<span class="op">=</span><span class="va">rda1</span>, lw<span class="op">=</span><span class="va">cn</span>, scannf<span class="op">=</span><span class="cn">FALSE</span>, nf<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/ade4/man/scatter.html" class="external-link">scatter</a></span><span class="op">(</span><span class="va">mspaCan1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://adeverse.github.io/ade4/reference/scatter.html" class="external-link">scatter</a></span><span class="op">(</span><span class="va">mspaCan1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## same analysis, using a non-parametric centring</span></span></span>
 <span class="r-in"><span><span class="va">mspaCan1NP</span> <span class="op">&lt;-</span> <span class="fu">mspa</span><span class="op">(</span>dudi<span class="op">=</span><span class="va">rda1</span>, lw<span class="op">=</span><span class="va">cn</span>, scannf<span class="op">=</span><span class="cn">FALSE</span>, nf<span class="op">=</span><span class="fl">2</span>,cent<span class="op">=</span><span class="st">"sim"</span>,nper<span class="op">=</span><span class="fl">999</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/ade4/man/scatter.html" class="external-link">scatter</a></span><span class="op">(</span><span class="va">mspaCan1NP</span><span class="op">)</span> <span class="co"># basically no change</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://adeverse.github.io/ade4/reference/scatter.html" class="external-link">scatter</a></span><span class="op">(</span><span class="va">mspaCan1NP</span><span class="op">)</span> <span class="co"># basically no change</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## PARTIAL CANONICAL MSPA ##</span></span></span>
 <span class="r-in"><span><span class="co">## partial RDA species ~ envir</span></span></span>
 <span class="r-in"><span><span class="co">## (species abundances not predicted by environment)</span></span></span>
-<span class="r-in"><span><span class="va">rda2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ade4/man/pcaivortho.html" class="external-link">pcaivortho</a></span><span class="op">(</span>dudi<span class="op">=</span><span class="va">pcaFau.detr</span>,df<span class="op">=</span><span class="va">oribatid</span><span class="op">$</span><span class="va">envir</span>,scannf<span class="op">=</span><span class="cn">FALSE</span>,nf<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">rda2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://adeverse.github.io/ade4/reference/pcaivortho.html" class="external-link">pcaivortho</a></span><span class="op">(</span>dudi<span class="op">=</span><span class="va">pcaFau.detr</span>,df<span class="op">=</span><span class="va">oribatid</span><span class="op">$</span><span class="va">envir</span>,scannf<span class="op">=</span><span class="cn">FALSE</span>,nf<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## partial canonical MSPA</span></span></span>
 <span class="r-in"><span><span class="va">mspaCan2</span> <span class="op">&lt;-</span> <span class="fu">mspa</span><span class="op">(</span>dudi<span class="op">=</span><span class="va">rda2</span>, lw<span class="op">=</span><span class="va">cn</span>, scannf<span class="op">=</span><span class="cn">FALSE</span>, nf<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/ade4/man/scatter.html" class="external-link">scatter</a></span><span class="op">(</span><span class="va">mspaCan2</span><span class="op">)</span> <span class="co"># nothing left</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://adeverse.github.io/ade4/reference/scatter.html" class="external-link">scatter</a></span><span class="op">(</span><span class="va">mspaCan2</span><span class="op">)</span> <span class="co"># nothing left</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in s.arrow(dfxy = mspaEnv$c1, xax = 1, yax = 2, plot = FALSE, storeData = TRUE,     pos = -3, plabels = list(cex = 1)):</span> non convenient selection for dfxy (can not be converted to dataframe)</span>
 <span class="r-plt img"><img src="mspa-1.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in s.arrow(dfxy = mspaEnv$c1, xax = 1, yax = 2, plot = FALSE, storeData = TRUE,     pos = -3, plabels = list(cex = 1)):</span> non convenient selection for dfxy (can not be converted to dataframe)</span>
 </code></pre></div>
     </div>
   </div>
@@ -311,7 +311,7 @@ could facilitate the interpretation of results.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>
