@@ -36,7 +36,7 @@ characteristics observed along a 1-km coral reef transect.
 \details{
 The Tiahura fish transect data was described and analyzed by
 Galzin & Legendre (1987). It consists of presence/absence data for 280 fish
-species observed at $22$ sites along a 1.02 km long coast-to-sea cross-reef
+species observed at 22 sites along a 1.02 km long coast-to-sea cross-reef
 transect located near the northwestern corner of the high volcanic island of
 Moorea (French Polynesia; WGS84: -17.4934, -149.8680). The survey sites were
 50 m long. Species presence/absence data were recorded by a diver trained in
