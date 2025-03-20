@@ -172,6 +172,7 @@
 #'   invisible(NULL)
 #' }
 #' 
+#' par(mfrow = c(1, 1))
 #' par(mar=c(15,5,2,2))
 #' plot_slice(1L,5L)
 #' ## plot_slice(2L,5L)
