@@ -13,7 +13,8 @@ Authors@R: c(
    person("Pierre", "Legendre", role = "ctb", comment = c(ORCID = "0000-0002-3838-3305")),
    person("Naima", "Madi", role = "ctb"),
    person("Hélène H", "Wagner", role = "ctb"),
-   person("Aurélie", "Siberchicot", role = c("ctb", "cre"), email = "aurelie.siberchicot@univ-lyon1.fr", comment = c(ORCID = "0000-0002-7638-8318"))
+   person("Aurélie", "Siberchicot", role = c("ctb", "cre"), email = "aurelie.siberchicot@univ-lyon1.fr", comment = c(ORCID = "0000-0002-7638-8318")),
+   person("John", "Chambers", role = "ctb", email = "jmc@r-project.org", comment = c("Original author of two functions from package SoDA"))
 	)
 Description: Tools for the multiscale spatial analysis of multivariate data.
     Several methods are based on the use of a spatial weighting matrix and its
@@ -35,6 +36,7 @@ Imports:
     utils,
     shiny,
     vegan
+Depends: R (>= 3.5.0)
 Suggests: knitr, ape, rmarkdown, betapart
 License: GPL (>= 2)
 URL: https://github.com/adeverse/adespatial, http://adeverse.github.io/adespatial/
