@@ -185,210 +185,210 @@
 #' @export dist.ldc
 
 dist.ldc <-
-    function(Y,
-        method = "hellinger",
-        binary = FALSE,
-        samp = TRUE,
-        silent = FALSE)
-    {
-        epsilon <- sqrt(.Machine$double.eps)
-        method <-
-            match.arg(
-                method,
-                c(
-                    "hellinger",
-                    "chord",
-                    "log.chord",
-                    "chisquare",
-                    "profiles",
-                    "percentdiff",
-                    "ruzicka",
-                    "divergence",
-                    "canberra",
-                    "whittaker",
-                    "wishart",
-                    "kulczynski",
-                    "jaccard",
-                    "sorensen",
-                    "ochiai",
-                    "ab.jaccard",
-                    "ab.sorensen",
-                    "ab.ochiai",
-                    "ab.simpson",
-                    "euclidean",
-                    "manhattan",
-                    "modmeanchardiff"
-                )
-            )
-        #
-        Y <- as.matrix(Y)
-        if(sum( scale(Y, scale=FALSE)^2 )==0) stop("The data matrix has no variation")
-        n <- nrow(Y)
-        
-        if ((n == 2) &
-                (dist(Y)[1] < epsilon))
-            stop("Y only contains two rows and they are identical")
-        if (any(Y < 0))
-            stop("Data contain negative values\n")
-        if (any(is.na(Y)))
-            stop("Data contain 'NA' values\n")
-        # Transform data to presence-absence before computing the binary coefficients
-        # or if the user choses binary=TRUE
-        if (any(method == c("jaccard", "sorensen", "ochiai")))
-            binary = TRUE
-        if (binary)
-            Y <- ifelse(Y > 0, 1, 0)
-        #
-        # Group 1 indices
-        switch(
-            method,
-            hellinger = {
-                YY = .Call("transform_mat", Y, "hellinger")
-                D = .Call("euclidean", YY)
-                if (!silent)
-                    cat("Info -- This coefficient is Euclidean\n")
-            },
-            chord = {
-                YY = .Call("transform_mat", Y, "chord")
-                D = .Call("euclidean", YY)
-                if (!silent)
-                    cat("Info -- This coefficient is Euclidean\n")
-            },
-            log.chord = {
-                Y = log1p(Y)
-                YY = .Call("transform_mat", Y, "chord")
-                D = .Call("euclidean", YY)
-                if (!silent)
-                    cat("Info -- This coefficient is Euclidean\n")
-            },
-            chisquare = {
-                YY = .Call("transform_mat", Y, "chisquare")
-                D = .Call("euclidean", YY)
-                if (!silent)
-                    cat("Info -- This coefficient is Euclidean\n")
-            },
-            profiles = {
-                YY = .Call("transform_mat", Y, "profiles")
-                D = .Call("euclidean", YY)
-                if (!silent)
-                    cat("Info -- This coefficient is Euclidean\n")
-                
-                # Group 2 indices
-            },
-            percentdiff = {
-                D = .Call("percentdiff", Y)
-                if (!silent)
-                    cat("Info -- For this coefficient, sqrt(D) would be Euclidean\n")
-            },
-            ruzicka = {
-                D = .Call("ruzicka", Y)
-                if (!silent)
-                    cat("Info -- For this coefficient, sqrt(D) would be Euclidean\n")
-            },
-            divergence = {
-                D = .Call("divergence", Y)
-                if (!silent)
-                    cat("Info -- This coefficient is Euclidean\n")
-            },
-            canberra = {
-                D = .Call("canberra", Y)
-                if (!silent)
-                    cat("Info -- For this coefficient, sqrt(D) would be Euclidean\n")
-            },
-            whittaker = {
-                D = .Call("whittaker", Y)
-                if (!silent)
-                    cat("Info -- For this coefficient, sqrt(D) would be Euclidean\n")
-            },
-            wishart = {
-                D = .Call("wishart", Y)
-                if (!silent)
-                    cat("Info -- For this coefficient, sqrt(D) would be Euclidean\n")
-            },
-            kulczynski = {
-                D = .Call("kulczynski", Y)
-                if (!silent)
-                    cat("Info -- This coefficient is not Euclidean\n")
-                
-                # Group 3 indices
-            },
-            jaccard = {
-                D = .Call("binary_D", Y, "jaccard")
-                if (!silent)
-                    cat("Info -- D is Euclidean because the function outputs D[jk] = sqrt(1-S[jk])\n")
-            },
-            sorensen = {
-                D = .Call("binary_D", Y, "sorensen")
-                if (!silent)
-                    cat("Info -- D is Euclidean because the function outputs D[jk] = sqrt(1-S[jk])\n")
-            },
-            ochiai = {
-                D = .Call("binary_D", Y, "ochiai")
-                if (!silent)
-                    cat("Info -- D is Euclidean because the function outputs D[jk] = sqrt(1-S[jk])\n")
-                
-                # Group 4 indices
-            },
-            ab.jaccard = {
-                D = .Call("chao_C", Y, "Jaccard", samp)
-                if (!silent) {
-                    cat("Info -- This coefficient is not Euclidean\n")
-                    if (!samp) {
-                        cat("If data are presence-absence, sqrt(D) will be Euclidean\n")
-                    }
-                }
-            },
-            ab.sorensen = {
-                D = .Call("chao_C", Y, "Sorensen", samp)
-                if (!silent) {
-                    cat("Info -- This coefficient is not Euclidean\n")
-                    if (!samp) {
-                        cat("If data are presence-absence, sqrt(D) will be Euclidean\n")
-                    }
-                }
-            },
-            ab.ochiai = {
-                D = .Call("chao_C", Y, "Ochiai", samp)
-                if (!silent) {
-                    cat("Info -- This coefficient is not Euclidean\n")
-                    if (!samp) {
-                        cat("If data are presence-absence, sqrt(D) will be Euclidean\n")
-                    }
-                }
-            },
-            ab.simpson = {
-                D = .Call("chao_C", Y, "Simpson", samp)
-                if (!silent) {
-                    cat("Info -- This coefficient is not Euclidean\n")
-                    if (!samp) {
-                        cat("If data are presence-absence, sqrt(D) will be Euclidean\n")
-                    }
-                }
-                
-                # Group 5 indices
-            },
-            euclidean = {
-                D = .Call("euclidean", Y)
-                if (!silent) {
-                    cat("Info -- This coefficient is Euclidean\n")
-                    cat("Info -- This coefficient does not have an upper bound (no fixed D.max)\n")
-                }
-            },
-            manhattan = {
-                D = .Call("manhattan", Y)
-                if (!silent) {
-                    cat("Info -- For this coefficient, sqrt(D) would be Euclidean\n")
-                    cat("Info -- This coefficient does not have an upper bound (no fixed D.max)\n")
-                }
-            },
-            modmeanchardiff = {
-                D = .Call("modmean", Y)
-                if (!silent) {
-                    cat("Info -- This coefficient is not Euclidean\n")
-                    cat("Info -- This coefficient does not have an upper bound (no fixed D.max)\n")
-                }
-            }
+  function(Y,
+           method = "hellinger",
+           binary = FALSE,
+           samp = TRUE,
+           silent = FALSE)
+  {
+    epsilon <- sqrt(.Machine$double.eps)
+    method <-
+      match.arg(
+        method,
+        c(
+          "hellinger",
+          "chord",
+          "log.chord",
+          "chisquare",
+          "profiles",
+          "percentdiff",
+          "ruzicka",
+          "divergence",
+          "canberra",
+          "whittaker",
+          "wishart",
+          "kulczynski",
+          "jaccard",
+          "sorensen",
+          "ochiai",
+          "ab.jaccard",
+          "ab.sorensen",
+          "ab.ochiai",
+          "ab.simpson",
+          "euclidean",
+          "manhattan",
+          "modmeanchardiff"
         )
-        if(!is.null(rownames(Y))) rownames(D) <- rownames(Y)
-        D <- as.dist(D)
-    }
+      )
+    #
+    Y <- as.matrix(Y)
+    if(sum( scale(Y, scale=FALSE)^2 )==0) stop("The data matrix has no variation")
+    n <- nrow(Y)
+    
+    if ((n == 2) &
+        (dist(Y)[1] < epsilon))
+      stop("Y only contains two rows and they are identical")
+    if (any(Y < 0))
+      stop("Data contain negative values\n")
+    if (any(is.na(Y)))
+      stop("Data contain 'NA' values\n")
+    # Transform data to presence-absence before computing the binary coefficients
+    # or if the user choses binary=TRUE
+    if (any(method == c("jaccard", "sorensen", "ochiai")))
+      binary = TRUE
+    if (binary)
+      Y <- ifelse(Y > 0, 1, 0)
+    #
+    # Group 1 indices
+    switch(
+      method,
+      hellinger = {
+        YY = .Call("transform_mat", Y, "hellinger")
+        D = .Call("euclidean", YY)
+        if (!silent)
+          cat("Info -- This coefficient is Euclidean\n")
+      },
+      chord = {
+        YY = .Call("transform_mat", Y, "chord")
+        D = .Call("euclidean", YY)
+        if (!silent)
+          cat("Info -- This coefficient is Euclidean\n")
+      },
+      log.chord = {
+        Y = log1p(Y)
+        YY = .Call("transform_mat", Y, "chord")
+        D = .Call("euclidean", YY)
+        if (!silent)
+          cat("Info -- This coefficient is Euclidean\n")
+      },
+      chisquare = {
+        YY = .Call("transform_mat", Y, "chisquare")
+        D = .Call("euclidean", YY)
+        if (!silent)
+          cat("Info -- This coefficient is Euclidean\n")
+      },
+      profiles = {
+        YY = .Call("transform_mat", Y, "profiles")
+        D = .Call("euclidean", YY)
+        if (!silent)
+          cat("Info -- This coefficient is Euclidean\n")
+        
+        # Group 2 indices
+      },
+      percentdiff = {
+        D = .Call("percentdiff", Y)
+        if (!silent)
+          cat("Info -- For this coefficient, sqrt(D) would be Euclidean\n")
+      },
+      ruzicka = {
+        D = .Call("ruzicka", Y)
+        if (!silent)
+          cat("Info -- For this coefficient, sqrt(D) would be Euclidean\n")
+      },
+      divergence = {
+        D = .Call("divergence", Y)
+        if (!silent)
+          cat("Info -- This coefficient is Euclidean\n")
+      },
+      canberra = {
+        D = .Call("canberra", Y)
+        if (!silent)
+          cat("Info -- For this coefficient, sqrt(D) would be Euclidean\n")
+      },
+      whittaker = {
+        D = .Call("whittaker", Y)
+        if (!silent)
+          cat("Info -- For this coefficient, sqrt(D) would be Euclidean\n")
+      },
+      wishart = {
+        D = .Call("wishart", Y)
+        if (!silent)
+          cat("Info -- For this coefficient, sqrt(D) would be Euclidean\n")
+      },
+      kulczynski = {
+        D = .Call("kulczynski", Y)
+        if (!silent)
+          cat("Info -- This coefficient is not Euclidean\n")
+        
+        # Group 3 indices
+      },
+      jaccard = {
+        D = .Call("binary_D", Y, "jaccard")
+        if (!silent)
+          cat("Info -- D is Euclidean because the function outputs D[jk] = sqrt(1-S[jk])\n")
+      },
+      sorensen = {
+        D = .Call("binary_D", Y, "sorensen")
+        if (!silent)
+          cat("Info -- D is Euclidean because the function outputs D[jk] = sqrt(1-S[jk])\n")
+      },
+      ochiai = {
+        D = .Call("binary_D", Y, "ochiai")
+        if (!silent)
+          cat("Info -- D is Euclidean because the function outputs D[jk] = sqrt(1-S[jk])\n")
+        
+        # Group 4 indices
+      },
+      ab.jaccard = {
+        D = .Call("chao_C", Y, "Jaccard", samp)
+        if (!silent) {
+          cat("Info -- This coefficient is not Euclidean\n")
+          if (!samp) {
+            cat("If data are presence-absence, sqrt(D) will be Euclidean\n")
+          }
+        }
+      },
+      ab.sorensen = {
+        D = .Call("chao_C", Y, "Sorensen", samp)
+        if (!silent) {
+          cat("Info -- This coefficient is not Euclidean\n")
+          if (!samp) {
+            cat("If data are presence-absence, sqrt(D) will be Euclidean\n")
+          }
+        }
+      },
+      ab.ochiai = {
+        D = .Call("chao_C", Y, "Ochiai", samp)
+        if (!silent) {
+          cat("Info -- This coefficient is not Euclidean\n")
+          if (!samp) {
+            cat("If data are presence-absence, sqrt(D) will be Euclidean\n")
+          }
+        }
+      },
+      ab.simpson = {
+        D = .Call("chao_C", Y, "Simpson", samp)
+        if (!silent) {
+          cat("Info -- This coefficient is not Euclidean\n")
+          if (!samp) {
+            cat("If data are presence-absence, sqrt(D) will be Euclidean\n")
+          }
+        }
+        
+        # Group 5 indices
+      },
+      euclidean = {
+        D = .Call("euclidean", Y)
+        if (!silent) {
+          cat("Info -- This coefficient is Euclidean\n")
+          cat("Info -- This coefficient does not have an upper bound (no fixed D.max)\n")
+        }
+      },
+      manhattan = {
+        D = .Call("manhattan", Y)
+        if (!silent) {
+          cat("Info -- For this coefficient, sqrt(D) would be Euclidean\n")
+          cat("Info -- This coefficient does not have an upper bound (no fixed D.max)\n")
+        }
+      },
+      modmeanchardiff = {
+        D = .Call("modmean", Y)
+        if (!silent) {
+          cat("Info -- This coefficient is not Euclidean\n")
+          cat("Info -- This coefficient does not have an upper bound (no fixed D.max)\n")
+        }
+      }
+    )
+    if(!is.null(rownames(Y))) rownames(D) <- rownames(Y)
+    D <- as.dist(D)
+  }
