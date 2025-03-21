@@ -237,7 +237,7 @@ Chao, A., R.L. Chazdon, R.K. Colwell and T.J. Shen. 2006.
   Journal of Ecology 55: 193-206.
 
   Rao, C. R. 1995. A review of canonical coordinates and an alternative to 
-  correspondence analysis using Hellinger distance. Qüestiió (Quaderns 
+  correspondence analysis using Hellinger distance. Qüestiió (Quaderns 
   d’Estadística i Investigació Operativa) 19: 23-63.
 
   Ružička, Milan. 1958. Anwendung mathematisch-statistiker Methoden in Geobotanik 
