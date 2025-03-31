@@ -49,6 +49,7 @@
 
 #include<R.h>
 #include<Rmath.h>
+#include<stdbool.h>
 #include"constr.hclust.h"
 
 /*
