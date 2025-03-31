@@ -45,8 +45,8 @@
 // #define testing      // Enables testing functions (useful during development)
 // #define show_links
 // Shows links before and after the clustering function to check link updating
-#define true -1
-#define false 0
+// #define true -1
+// #define false 0
 #define INTMOD 16    // Interval to check for user interruption request
 
 // General accessory functions
