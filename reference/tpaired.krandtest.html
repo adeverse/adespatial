@@ -19,7 +19,7 @@ at time 1 (T1) and time 2 (T2). The test is one-tailed in the direction of the s
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-27</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-28</span>
       </span>
     </div>
 
@@ -64,7 +64,7 @@ at time 1 (T1) and time 2 (T2). The test is one-tailed in the direction of the s
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tpaired.krandtest</span><span class="op">(</span><span class="va">mat1</span>, <span class="va">mat2</span>, nperm <span class="op">=</span> <span class="fl">99</span>, list.all <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tpaired.krandtest</span><span class="op">(</span><span class="va">mat1</span>, <span class="va">mat2</span>, nperm <span class="op">=</span> <span class="fl">99</span>, list.all <span class="op">=</span> <span class="cn">FALSE</span>, opt <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -81,7 +81,8 @@ at time 1 (T1) and time 2 (T2). The test is one-tailed in the direction of the s
 
 <dt id="arg-nperm">nperm<a class="anchor" aria-label="anchor" href="#arg-nperm"></a></dt>
 <dd><p>Number of permutations. Use 999, 9999, or more,
-to allow for correction of p-values for multiple tests.</p></dd>
+to allow for correction of p-values for multiple tests. In this documentation
+file, <code>nperm</code> was set to 99 only for demonstration of the function.</p></dd>
 
 
 <dt id="arg-list-all">list.all<a class="anchor" aria-label="anchor" href="#arg-list-all"></a></dt>
@@ -91,25 +92,38 @@ If <code>TRUE</code>, the output matrix <code>$t.tests</code> lists t.test resul
 species; when <code>t.stat</code> is 0, the p-values in the output table (<code>p.param</code>
 and <code>p.perm</code>) receive codes -999; <code>Sign(T1-T2)</code> receives the value 0.</p></dd>
 
+
+<dt id="arg-opt">opt<a class="anchor" aria-label="anchor" href="#arg-opt"></a></dt>
+<dd><p>Compute the difference (T1-T2) if <code>opt=1</code>, or the difference (T2-T1)
+if <code>opt=2</code> (default). <code>opt=2</code> is the default because this produces the
+easiest-to-read output for the comparison of successive surveys in time series analysis
+of community composition data. <code>opt=1</code> is also available to users with different
+needs. The only differences between the two sets of results are the signs of the
+'<code>mean(T1-T2)</code> and <code>t.stat</code> statistics. The original version of this function
+only offered opt=1. opt=2 was added in April 2025 in answer to a user's request.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
 
 <ul><li><p>A table with species in rows and 6 columns:
-"mean(T1-T2)","t.stat","p.param","p.perm","p&lt;=0.05","Sign(T1-T2)"
+"mean(T1-T2)" or "mean(T2-T1)" ,"t.stat","p.param","p.perm","p&lt;=0.05","Sign(T1-T2)"
+or "Sign(T2-T1)".
 The parametric and permutational p-values are not corrected for multiple tests.
-A star is shown in column "p&lt;=0.05" if the parametric p-value is &lt;= 0.05.</p></li>
+This correction can be applied to a column of p-values in the function's output file
+(see previous paragraph).
+A star is shown in column <code>p&lt;=0.05</code> if the parametric p-value is &lt;= 0.05.</p></li>
 <li><p>A list of names of the species tested; their t statistics were not 0.</p></li>
-<li><p>A list of names of the species not tested because their t-statistics
-were 0.</p></li>
+<li><p>A list of names of the species not tested because their t-statistics were 0.</p></li>
 </ul></div>
     <div id="details">
     <h2>Details</h2>
     <p>The species that do not vary in either data set are discarded before
 calculation of the paired t-tests begins.</p>
 <p>p-values should be corrected for multiple testing. Use function <code>p.adjust</code> of
-<code>stats</code>: p.adjust(res$t.test$p.param)  or  p.adjust(res$t.test$p.perm)
-Correction methods "holm" (default) and "hochberg" are fine for this type of analysis.</p>
+<code>stats</code>: <code>p.adjust(res$t.test$p.param)</code> or <code>p.adjust(res$t.test$p.perm)</code>.
+Correction methods <code>"holm"</code> (default) and <code>"hochberg"</code> are both fine for this
+type of analysis.</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -161,7 +175,18 @@ time-dependent multivariate responses of biological community to stress.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Paired t-tests of differences between survey.4 and survey.11 for the p species</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">tpaired.krandtest</span><span class="op">(</span><span class="va">pyrifos</span><span class="op">[</span><span class="va">survey4.order</span>,<span class="op">]</span>,<span class="va">pyrifos</span><span class="op">[</span><span class="va">survey11.order</span>,<span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">tpaired.krandtest</span><span class="op">(</span><span class="va">pyrifos</span><span class="op">[</span><span class="va">survey4.order</span>,<span class="op">]</span>,<span class="va">pyrifos</span><span class="op">[</span><span class="va">survey11.order</span>,<span class="op">]</span>, opt<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Smaller problem where only species 15 to 19 are analysed</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">mat1</span> <span class="op">=</span> <span class="va">pyrifos</span><span class="op">[</span><span class="va">survey4.order</span>,<span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">mat2</span> <span class="op">=</span> <span class="va">pyrifos</span><span class="op">[</span><span class="va">survey11.order</span>,<span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">tpaired.krandtest</span><span class="op">(</span><span class="va">mat1</span><span class="op">[</span>,<span class="fl">15</span><span class="op">:</span><span class="fl">19</span><span class="op">]</span>, <span class="va">mat2</span><span class="op">[</span>,<span class="fl">15</span><span class="op">:</span><span class="fl">19</span><span class="op">]</span>, opt<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>   <span class="co"># More permutations to obtain a more precise estimate of the p-value</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">tpaired.krandtest</span><span class="op">(</span><span class="va">mat1</span><span class="op">[</span>,<span class="fl">15</span><span class="op">:</span><span class="fl">19</span><span class="op">]</span>, <span class="va">mat2</span><span class="op">[</span>,<span class="fl">15</span><span class="op">:</span><span class="fl">19</span><span class="op">]</span>, nperm<span class="op">=</span><span class="fl">9999</span>, opt<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="co"># \dontrun{}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 62 species were eliminated because they did not vary in the combined data set</span>
@@ -169,6 +194,10 @@ time-dependent multivariate responses of biological community to stress.
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97  98  99  100  101  102  103  104  105  106  107  108  109  110  111  112  113  114  115  116  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 species not tested because t.stat = 0. See 'No_test' output list</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 species were eliminated because they did not vary in the combined data set</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 species retained:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2  3  4  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
