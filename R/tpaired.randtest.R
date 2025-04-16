@@ -1,16 +1,16 @@
 #' Permutational paired t-test
 #'
 #' This function computes a permutation test of comparison of the means of two
-#' paired vectors (related samples). For each object, permutations are
+#' paired vectors (related samples). For each object, repeated permutations are
 #' restricted to the two related observations.
 #'
 #' @param vec1,vec2 The two data vectors to be compared.
-#' @param nperm Number of permutations. Use 999, 9999, or more.
+#' @param nperm Number of permutations. Use 999, 9999, or more, in real-case applications.
 #' @param alternative c("two.sided", "less", "greater"). Default value:
 #'   "two.sided".
 #' @param silent If \code{FALSE}, calculation results are printed to the R
 #'   console. If \code{TRUE} calculation results are not printed to R console
-#'   (for simulations).
+#'   (e.g. for simulations, or for use inside another function).
 #'
 #' @return A list containing the following results: \itemize{ \item
 #'   \code{estim}: mean of the differences \item \code{t.ref}: reference value
@@ -18,11 +18,11 @@
 #'   \code{p.perm}: permutational p-value \item \code{nperm}: number of
 #'   permutations }
 #'
-#' @author - Pierre Legendre \email{pierre.legendre@@umontreal.ca} Permutation
-#'   code improved by Guillaume Blanchet.
+#' @author Pierre Legendre \email{pierre.legendre@@umontreal.ca}. Permutation
+#'   code improved by Guillaume Blanchet \email{guillaume.blanchet@@usherbrooke.ca}.
 #'
 #' @references Zar, J. H. 1999. \emph{Biostatistical analysis. 4th edition.}
-#'   Prentice Hall, New Jersey.
+#'   Prentice Hall, New Jersey.}
 #'
 #' @seealso \code{\link[stats]{t.test}}
 #'
