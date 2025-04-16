@@ -22,7 +22,7 @@
 #'   code improved by Guillaume Blanchet \email{guillaume.blanchet@@usherbrooke.ca}.
 #'
 #' @references Zar, J. H. 1999. \emph{Biostatistical analysis. 4th edition.}
-#'   Prentice Hall, New Jersey.}
+#'   Prentice Hall, New Jersey.
 #'
 #' @seealso \code{\link[stats]{t.test}}
 #'

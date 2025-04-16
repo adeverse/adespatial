@@ -15,14 +15,14 @@ tpaired.randtest(
 \arguments{
 \item{vec1, vec2}{The two data vectors to be compared.}
 
-\item{nperm}{Number of permutations. Use 999, 9999, or more.}
+\item{nperm}{Number of permutations. Use 999, 9999, or more, in real-case applications.}
 
 \item{alternative}{c("two.sided", "less", "greater"). Default value:
 "two.sided".}
 
 \item{silent}{If \code{FALSE}, calculation results are printed to the R
 console. If \code{TRUE} calculation results are not printed to R console
-(for simulations).}
+(e.g. for simulations, or for use inside another function).}
 }
 \value{
 A list containing the following results: \itemize{ \item
@@ -33,7 +33,7 @@ A list containing the following results: \itemize{ \item
 }
 \description{
 This function computes a permutation test of comparison of the means of two
-paired vectors (related samples). For each object, permutations are
+paired vectors (related samples). For each object, repeated permutations are
 restricted to the two related observations.
 }
 \examples{
@@ -60,6 +60,6 @@ Zar, J. H. 1999. \emph{Biostatistical analysis. 4th edition.}
 \code{\link[stats]{t.test}}
 }
 \author{
-- Pierre Legendre \email{pierre.legendre@umontreal.ca} Permutation
-  code improved by Guillaume Blanchet.
+Pierre Legendre \email{pierre.legendre@umontreal.ca}. Permutation
+  code improved by Guillaume Blanchet \email{guillaume.blanchet@usherbrooke.ca}.
 }

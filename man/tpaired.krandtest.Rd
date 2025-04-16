@@ -4,7 +4,7 @@
 \alias{tpaired.krandtest}
 \title{Paired t-tests of differences between T1 and T2 for each species}
 \usage{
-tpaired.krandtest(mat1, mat2, nperm = 99, list.all = FALSE)
+tpaired.krandtest(mat1, mat2, nperm = 99, list.all = FALSE, opt = 2)
 }
 \arguments{
 \item{mat1}{site-by-species data at time T1 (data.frame or matrix).}
@@ -12,23 +12,34 @@ tpaired.krandtest(mat1, mat2, nperm = 99, list.all = FALSE)
 \item{mat2}{site-by-species data at time T2 (data.frame or matrix).}
 
 \item{nperm}{Number of permutations. Use 999, 9999, or more, 
-to allow for correction of p-values for multiple tests.}
+to allow for correction of p-values for multiple tests. In this documentation 
+file, \code{nperm} was set to 99 only for demonstration of the function.}
 
 \item{list.all}{If \code{FALSE}, the output matrix \code{$t.tests} only lists t.test
 results for species with \code{t.stat} not 0;
 If \code{TRUE}, the output matrix \code{$t.tests} lists t.test results for all 
 species; when \code{t.stat} is 0, the p-values in the output table (\code{p.param} 
 and \code{p.perm}) receive codes -999; \code{Sign(T1-T2)} receives the value 0.}
+
+\item{opt}{Compute the difference (T1-T2) if \code{opt=1}, or the difference (T2-T1) 
+if \code{opt=2} (default). \code{opt=2} is the default because this produces the 
+easiest-to-read output for the comparison of successive surveys in time series analysis 
+of community composition data. \code{opt=1} is also available to users with different 
+needs. The only differences between the two sets of results are the signs of the 
+'\code{mean(T1-T2)} and \code{t.stat} statistics. The original version of this function 
+only offered opt=1. opt=2 was added in April 2025 in answer to a user's request.}
 }
 \value{
 \itemize{
 \item A table with species in rows and 6 columns: 
-"mean(T1-T2)","t.stat","p.param","p.perm","p<=0.05","Sign(T1-T2)"
+"mean(T1-T2)" or "mean(T2-T1)" ,"t.stat","p.param","p.perm","p<=0.05","Sign(T1-T2)" 
+or "Sign(T2-T1)".
 The parametric and permutational p-values are not corrected for multiple tests.
-A star is shown in column "p<=0.05" if the parametric p-value is <= 0.05.
+This correction can be applied to a column of p-values in the function's output file 
+(see previous paragraph).
+A star is shown in column \code{p<=0.05} if the parametric p-value is <= 0.05. 
 \item A list of names of the species tested; their t statistics were not 0.
-\item A list of names of the species not tested because their t-statistics 
-were 0. }
+\item A list of names of the species not tested because their t-statistics were 0. }
 }
 \description{
 This function computes paired t-tests for each species, for abundances observed 
@@ -40,8 +51,9 @@ The species that do not vary in either data set are discarded before
 calculation of the paired t-tests begins.
 
 p-values should be corrected for multiple testing. Use function \code{p.adjust} of 
-\code{stats}: p.adjust(res$t.test$p.param)  or  p.adjust(res$t.test$p.perm)
-Correction methods "holm" (default) and "hochberg" are fine for this type of analysis.
+\code{stats}: \code{p.adjust(res$t.test$p.param)} or \code{p.adjust(res$t.test$p.perm)}.
+Correction methods \code{"holm"} (default) and \code{"hochberg"} are both fine for this 
+type of analysis.
 }
 \examples{
 
@@ -74,7 +86,18 @@ survey11.order = c(122,123,125,131,121,128,124,130,127,132,126,129)
 
 ## Paired t-tests of differences between survey.4 and survey.11 for the p species
 
-res <- tpaired.krandtest(pyrifos[survey4.order,],pyrifos[survey11.order,])
+res <- tpaired.krandtest(pyrifos[survey4.order,],pyrifos[survey11.order,], opt=2)
+
+## Smaller problem where only species 15 to 19 are analysed
+
+mat1 = pyrifos[survey4.order,]
+mat2 = pyrifos[survey11.order,]
+res2 <- tpaired.krandtest(mat1[,15:19], mat2[,15:19], opt=2)
+
+\dontrun{  # More permutations to obtain a more precise estimate of the p-value
+
+res2 <- tpaired.krandtest(mat1[,15:19], mat2[,15:19], nperm=9999, opt=2)
+}
 
 }
 
