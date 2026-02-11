@@ -31,6 +31,9 @@
 #'   temporal beta indices and the permutation test of the B-C difference. Use
 #'   \code{nperm} = 999 or 9999 in real studies.
 #'
+#' @param p.adjust.method a string indicating a method for multiple adjustment, 
+#'   see \code{p.adjust.methods} for possible choices.
+#'
 #' @param BCD If \code{BCD=TRUE}, the B and C components of the
 #'   percentage difference (\code{method="\%difference"}) and Ruzicka
 #'   (\code{method"ruzicka"}) indices are computed and presented in an output
@@ -181,9 +184,9 @@
 #'   their species composition.
 #'
 #'   \item \code{p.adj} The p-values are corrected for multiple testing using
-#'   function p.adjust of \code{stats}. The adjustment is done using
-#'   \code{method="holm"}, which is the default option of the \code{p.adjust}
-#'   function.
+#'   function p.adjust of \code{stats}. The adjustment is done by default using
+#'   \code{method="holm"}. User can change the correction type via the argument
+#'   \code{pa.adjust.method}, see \code{p.adjust.methods} for possible choices.
 #'
 #'   \item \code{BCD.mat} An output table with four columns: B/den, C/den,
 #'   D=(B+C)/den, and Change. The value den is the denominator of the index,
@@ -311,8 +314,8 @@
 #' @export TBI
 #'   
 
-TBI <- function(mat1, mat2, method = "%difference", pa.tr = FALSE, nperm = 99, BCD = TRUE, replace = FALSE,
-    test.BC = TRUE, test.t.perm = FALSE, save.BC = FALSE, seed. = NULL, clock = FALSE) {
+TBI <- function(mat1, mat2, method = "%difference", pa.tr = FALSE, nperm = 99, p.adjust.method = "holm", BCD = TRUE,
+				replace = FALSE, test.BC = TRUE, test.t.perm = FALSE, save.BC = FALSE, seed. = NULL, clock = FALSE) {
 
     ### Internal functions --
     
@@ -562,7 +565,7 @@ TBI <- function(mat1, mat2, method = "%difference", pa.tr = FALSE, nperm = 99, B
         } else
             p.dist <- NA   # if nperm=0
         
-        p.adj <- p.adjust(p.dist,"holm")
+        p.adj <- p.adjust(p.dist, method = p.adjust.method)
     })
     A[3] <- sprintf("%2f",A[3])
     if (clock) cat("Computation time =", A[3]," sec",'\n')
