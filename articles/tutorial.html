@@ -6,12 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Moran's Eigenvector Maps and related methods for the spatial multiscale analysis of ecological data • adespatial</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="48x48" href="../favicon-48x48.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -85,9 +84,9 @@ the spatial multiscale analysis of ecological data</h1>
                         <h4 data-toc-skip class="author">Stéphane
 Dray</h4>
             
-            <h4 data-toc-skip class="date">2025-04-17</h4>
+            <h4 data-toc-skip class="date">2026-02-23</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/v0.3-28/vignettes/tutorial.Rmd" class="external-link"><code>vignettes/tutorial.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/master/vignettes/tutorial.Rmd" class="external-link"><code>vignettes/tutorial.Rmd</code></a></small>
       <div class="hidden name"><code>tutorial.Rmd</code></div>
 
     </div>
@@ -225,7 +224,7 @@ background to display the sampling design:</p>
 <code class="sourceCode R"><span><span class="va">mxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mxy</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.label.html" class="external-link">s.label</a></span><span class="op">(</span><span class="va">mxy</span>, ppoint.pch <span class="op">=</span> <span class="fl">15</span>, ppoint.col <span class="op">=</span> <span class="st">"darkseagreen4"</span>, Sp <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial.contour</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="384" style="display: block; margin: auto;"></p>
 <p>A more detailed description of the data set is available at <a href="http://pbil.univ-lyon1.fr/R/pdf/pps053.pdf" class="external-link uri">http://pbil.univ-lyon1.fr/R/pdf/pps053.pdf</a> (in
 French).</p>
 <p>The functionalities of the <code>adegraphics</code> package <span class="citation">(<a href="#ref-Siberchicot2017">Siberchicot et al.
@@ -242,7 +241,7 @@ Voronoi polygons contained in <code>mafragh$Spatial</code>:</p>
 <code class="sourceCode R"><span><span class="va">fpalette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html" class="external-link">colorRampPalette</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"darkseagreen2"</span>, <span class="st">"darkseagreen3"</span>, <span class="st">"palegreen4"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">sp.flo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://edzer.github.io/sp/reference/SpatialPolygons.html" class="external-link">SpatialPolygonsDataFrame</a></span><span class="op">(</span>Sr <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial</span>, data <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">flo</span>, match.ID <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.Spatial.html" class="external-link">s.Spatial</a></span><span class="op">(</span><span class="va">sp.flo</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">11</span><span class="op">)</span><span class="op">]</span>, col <span class="op">=</span> <span class="fu">fpalette</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, nclass <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="building-spatial-neighborhood">Building spatial neighborhood<a class="anchor" aria-label="anchor" href="#building-spatial-neighborhood"></a>
@@ -272,7 +271,7 @@ of the <code>adegraphics</code> package <span class="citation">(<a href="#ref-Si
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nb.maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/poly2nb.html" class="external-link">poly2nb</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.Spatial.html" class="external-link">s.Spatial</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial</span>, nb <span class="op">=</span> <span class="va">nb.maf</span>, plabel.cex <span class="op">=</span> <span class="fl">0</span>, pnb.edge.col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-7-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="regular-grid-and-transect">Regular grid and transect<a class="anchor" aria-label="anchor" href="#regular-grid-and-transect"></a>
@@ -282,7 +281,7 @@ rows and 10 columns), spatial coordinates can be easily generated:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">xygrid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.label.html" class="external-link">s.label</a></span><span class="op">(</span><span class="va">xygrid</span>, plabel.cex <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-8-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="700" style="display: block; margin: auto;"></p>
 <p>For a regular grid, spatial neighborhood can be created with the
 function <code>cell2nb</code>. Two types of neighborhood can be defined.
 The <code>queen</code> specification considered horizontal, vertical and
@@ -292,10 +291,10 @@ only horizontal and vertical edges:</p>
 <code class="sourceCode R"><span><span class="va">nb2.q</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/cell2nb.html" class="external-link">cell2nb</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">10</span>, type <span class="op">=</span> <span class="st">"queen"</span><span class="op">)</span></span>
 <span><span class="va">nb2.r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/cell2nb.html" class="external-link">cell2nb</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">10</span>, type <span class="op">=</span> <span class="st">"rook"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.label.html" class="external-link">s.label</a></span><span class="op">(</span><span class="va">xygrid</span>, nb <span class="op">=</span> <span class="va">nb2.q</span>, plabel.cex <span class="op">=</span> <span class="fl">0</span>, main <span class="op">=</span> <span class="st">"Queen neighborhood"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-9-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="700" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.label.html" class="external-link">s.label</a></span><span class="op">(</span><span class="va">xygrid</span>, nb <span class="op">=</span> <span class="va">nb2.r</span>, plabel.cex <span class="op">=</span> <span class="fl">0</span>, main <span class="op">=</span> <span class="st">"Rook neighborhood"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-9-2.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-9-2.png" class="r-plt" alt="" width="700" style="display: block; margin: auto;"></p>
 <p>The function <code>cell2nb</code> is the easiest way to deal with
 transects by considering a grid with only one row:</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
@@ -329,7 +328,7 @@ between methods:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">xyir</span> <span class="op">&lt;-</span> <span class="va">mxy</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span>, <span class="fl">20</span><span class="op">)</span>,<span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.label.html" class="external-link">s.label</a></span><span class="op">(</span><span class="va">xyir</span>, main <span class="op">=</span> <span class="st">"Irregular sampling with 20 sites"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-11-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="700" style="display: block; margin: auto;"></p>
 <p>The most intuitive way is to consider that sites are neighbors (or
 not) according to the distances between them. This definition is
 provided by the <code>dnearneigh</code> function:</p>
@@ -342,7 +341,7 @@ provided by the <code>dnearneigh</code> function:</p>
 <span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.label.html" class="external-link">s.label</a></span><span class="op">(</span><span class="va">xyir</span>, nb <span class="op">=</span> <span class="va">nbnear1</span>, pnb.edge.col <span class="op">=</span> <span class="st">"red"</span>, main <span class="op">=</span> <span class="st">"neighbors if 0&lt;d&lt;50"</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.label.html" class="external-link">s.label</a></span><span class="op">(</span><span class="va">xyir</span>, nb <span class="op">=</span> <span class="va">nbnear2</span>, pnb.edge.col <span class="op">=</span> <span class="st">"red"</span>, main <span class="op">=</span> <span class="st">"neighbors if 0&lt;d&lt;305"</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/cbindADEg.html" class="external-link">cbindADEg</a></span><span class="op">(</span><span class="va">g1</span>, <span class="va">g2</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 <p>Using a distance-based criteria could lead to unbalanced graphs. For
 instance, if the maximum distance is too low, some points have no
 neighbors:</p>
@@ -384,7 +383,7 @@ output neighborhood to symmetry.</p>
 <code class="sourceCode R"><span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.label.html" class="external-link">s.label</a></span><span class="op">(</span><span class="va">xyir</span>, nb <span class="op">=</span> <span class="va">nbknn1</span>, pnb.edge.col <span class="op">=</span> <span class="st">"red"</span>, main <span class="op">=</span> <span class="st">"Nearest neighbors (k=1)"</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.label.html" class="external-link">s.label</a></span><span class="op">(</span><span class="va">xyir</span>, nb <span class="op">=</span> <span class="va">nbknn2</span>, pnb.edge.col <span class="op">=</span> <span class="st">"red"</span>, main <span class="op">=</span> <span class="st">"Nearest neighbors (k=2)"</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/cbindADEg.html" class="external-link">cbindADEg</a></span><span class="op">(</span><span class="va">g1</span>, <span class="va">g2</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-15-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 <p>This definition of neighborhood can lead to unconnected subgraphs.
 The function <code>n.comp.nb</code> finds the number of disjoint
 connected subgraphs:</p>
@@ -409,7 +408,7 @@ graph-based procedures are also available:</p>
 <span><span class="va">g3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.label.html" class="external-link">s.label</a></span><span class="op">(</span><span class="va">xyir</span>, nb <span class="op">=</span> <span class="va">nbrel</span>, pnb.edge.col <span class="op">=</span> <span class="st">"red"</span>, main <span class="op">=</span> <span class="st">"Relative"</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/ADEgS.html" class="external-link">ADEgS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">g1</span>, <span class="va">g2</span>, <span class="va">g3</span><span class="op">)</span><span class="op">)</span>    </span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-17-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="" width="700" style="display: block; margin: auto;"></p>
 <p>The <code>adespatial</code> functions <code>chooseCN</code> and
 <code>listw.candidates</code> provides simple ways to build spatial
 neighborhoods. They are wrappers of many of the <code>spdep</code>
@@ -534,17 +533,17 @@ neighbors are obtained by the function :</p>
 obtained:</p>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2mat.html" class="external-link">listw2mat</a></span><span class="op">(</span><span class="va">listwgab</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##     [,1]  [,2]  [,3]  [,4]  [,5]  [,6]  [,7]  [,8]  [,9] [,10]</span></span>
-<span><span class="co">## 1  0.000 0.251 0.000 0.247 0.252 0.250 0.000 0.000 0.000     0</span></span>
-<span><span class="co">## 2  0.250 0.000 0.250 0.000 0.000 0.250 0.250 0.000 0.000     0</span></span>
-<span><span class="co">## 3  0.000 0.251 0.000 0.000 0.000 0.000 0.251 0.249 0.249     0</span></span>
-<span><span class="co">## 4  0.199 0.000 0.000 0.000 0.201 0.200 0.000 0.000 0.000     0</span></span>
-<span><span class="co">## 5  0.503 0.000 0.000 0.497 0.000 0.000 0.000 0.000 0.000     0</span></span>
-<span><span class="co">## 6  0.201 0.201 0.000 0.199 0.000 0.000 0.202 0.000 0.000     0</span></span>
-<span><span class="co">## 7  0.000 0.200 0.200 0.000 0.000 0.201 0.000 0.199 0.000     0</span></span>
-<span><span class="co">## 8  0.000 0.000 0.167 0.000 0.000 0.000 0.167 0.000 0.167     0</span></span>
-<span><span class="co">## 9  0.000 0.000 0.333 0.000 0.000 0.000 0.000 0.335 0.000     0</span></span>
-<span><span class="co">## 10 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000     0</span></span></code></pre>
+<pre><code><span><span class="co">##        1     2     3     4     5     6     7     8     9 10</span></span>
+<span><span class="co">## 1  0.000 0.251 0.000 0.247 0.252 0.250 0.000 0.000 0.000  0</span></span>
+<span><span class="co">## 2  0.250 0.000 0.250 0.000 0.000 0.250 0.250 0.000 0.000  0</span></span>
+<span><span class="co">## 3  0.000 0.251 0.000 0.000 0.000 0.000 0.251 0.249 0.249  0</span></span>
+<span><span class="co">## 4  0.199 0.000 0.000 0.000 0.201 0.200 0.000 0.000 0.000  0</span></span>
+<span><span class="co">## 5  0.503 0.000 0.000 0.497 0.000 0.000 0.000 0.000 0.000  0</span></span>
+<span><span class="co">## 6  0.201 0.201 0.000 0.199 0.000 0.000 0.202 0.000 0.000  0</span></span>
+<span><span class="co">## 7  0.000 0.200 0.200 0.000 0.000 0.201 0.000 0.199 0.000  0</span></span>
+<span><span class="co">## 8  0.000 0.000 0.167 0.000 0.000 0.000 0.167 0.000 0.167  0</span></span>
+<span><span class="co">## 9  0.000 0.000 0.333 0.000 0.000 0.000 0.000 0.335 0.000  0</span></span>
+<span><span class="co">## 10 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000  0</span></span></code></pre>
 <p>To facilitate the building of spatial neighborhoods (<code>nb</code>
 object) and associated spatial weighting matrices (<code>listw</code>
 object), the package <code>adespatial</code> provides several tools. An
@@ -620,7 +619,7 @@ other attributes:</p>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">mem.gab</span>, <span class="st">"values"</span><span class="op">)</span>, </span>
 <span>        main <span class="op">=</span> <span class="st">"Eigenvalues of the spatial weighting matrix"</span>, cex.main <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-28-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-28-1.png" class="r-plt" alt="" width="700" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></span></code></pre></div>
 <p>A <code>plot</code> method is provided to represent MEMs. By default,
@@ -633,7 +632,7 @@ better to map MEMs in the geographical space by documenting the argument
 <p>or using the more flexible <code>s.value</code> function:</p>
 <div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.value.html" class="external-link">s.value</a></span><span class="op">(</span><span class="va">mxy</span>, <span class="va">mem.gab</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">70</span><span class="op">)</span><span class="op">]</span>, symbol <span class="op">=</span> <span class="st">"circle"</span>, ppoint.cex <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-30-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-30-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 <p>Moran’s I can be computed and tested for each eigenvector with the
 <code>moran.randtest</code> function:</p>
 <div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
@@ -695,7 +694,7 @@ independently the spatial structure for several variables.</p>
 <div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sp.env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://edzer.github.io/sp/reference/SpatialPolygons.html" class="external-link">SpatialPolygonsDataFrame</a></span><span class="op">(</span>Sr <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial</span>, data <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, match.ID <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">maps.env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.Spatial.html" class="external-link">s.Spatial</a></span><span class="op">(</span><span class="va">sp.env</span>, col <span class="op">=</span> <span class="fu">fpalette</span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>, nclass <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-33-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-33-1.png" class="r-plt" alt="" width="80%" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">MC.env</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/moran.randtest.html">moran.randtest</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, <span class="va">listwgab</span>, nrepet <span class="op">=</span> <span class="fl">999</span><span class="op">)</span></span>
 <span><span class="va">MC.env</span></span></code></pre></div>
@@ -742,7 +741,7 @@ SWM:</p>
 <div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">env.maps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s1d.barchart.html" class="external-link">s1d.barchart</a></span><span class="op">(</span><span class="va">MC.env</span><span class="op">$</span><span class="va">obs</span>, labels <span class="op">=</span> <span class="va">MC.env</span><span class="op">$</span><span class="va">names</span>, plot <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="fl">1.1</span> <span class="op">*</span> <span class="va">mc.bounds</span>, paxes.draw <span class="op">=</span> <span class="cn">TRUE</span>, pgrid.draw <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/addline.html" class="external-link">addline</a></span><span class="op">(</span><span class="va">env.maps</span>, v <span class="op">=</span> <span class="va">mc.bounds</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, pline.col <span class="op">=</span> <span class="st">'red'</span>, pline.lty <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-35-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-35-1.png" class="r-plt" alt="" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="decomposing-morans-coefficient">Decomposing Moran’s coefficient<a class="anchor" aria-label="anchor" href="#decomposing-morans-coefficient"></a>
@@ -771,7 +770,7 @@ positive autocorrelation is detected:</p>
 <span><span class="co">## 2   I- -0.1571176 1.552759    less  0.944</span></span></code></pre>
 <div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">NP.Mg</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-36-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-36-1.png" class="r-plt" alt="" width="700" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">NP.Mg</span><span class="op">$</span><span class="va">obs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.204058</span></span></code></pre>
@@ -808,7 +807,7 @@ structures can be visualized on a map:</p>
 <span><span class="co">## 2 Axis2 0.4613738 7.119489 greater  0.001</span></span></code></pre>
 <div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.value.html" class="external-link">s.value</a></span><span class="op">(</span><span class="va">mxy</span>, <span class="va">pca.hell</span><span class="op">$</span><span class="va">li</span>, Sp <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial.contour</span>, symbol <span class="op">=</span> <span class="st">"circle"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"palegreen4"</span><span class="op">)</span>, ppoint.cex <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-38-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-38-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 <p>PCA results are highly spatially structured. Results can be
 optimized, compared to this two-step procedure, by searching directly
 for multivariate spatial structures. The <code>multispati</code>
@@ -841,7 +840,7 @@ object to compare the results of initial analysis (axis 1 (RS1) and axis
 patterns of community composition:</p>
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g.ms.maps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.value.html" class="external-link">s.value</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">xy</span>, <span class="va">ms.hell</span><span class="op">$</span><span class="va">li</span>, Sp <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial.contour</span>, symbol <span class="op">=</span> <span class="st">"circle"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"palegreen4"</span><span class="op">)</span>, ppoint.cex <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-41-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-41-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 <p>The spatial distribution of several species can be inserted to
 facilitate the interpretation of the outputs of the analysis:</p>
 <div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
@@ -852,7 +851,7 @@ facilitate the interpretation of the outputs of the analysis:</p>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
 <span><span class="va">g.ms.spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/insert.html" class="external-link">insert</a></span><span class="op">(</span><span class="va">g.abund</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, <span class="va">g.ms.spe</span>, posi <span class="op">=</span> <span class="va">p1</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, ratio <span class="op">=</span> <span class="fl">0.25</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">g.ms.spe</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-42-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-42-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div class="section level2">
@@ -877,7 +876,7 @@ located in the central part of the study area:</p>
 <div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">scalo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/scalogram.html">scalogram</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">flo</span><span class="op">[</span>,<span class="fl">11</span><span class="op">]</span>, <span class="va">mem.gab</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">scalo</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-43-1.png" width="700" style="display: block; margin: auto;">
+<p><img src="tutorial_files/figure-html/unnamed-chunk-43-1.png" class="r-plt" alt="" width="700" style="display: block; margin: auto;">
 As the number of MEMs is equal to the number of sites minus one and as
 MEMs are othogonal, the variance is fully decomposed:</p>
 <div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
@@ -890,7 +889,7 @@ argument) where spatial components are formed by groups of successive
 MEMs:</p>
 <div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/scalogram.html">scalogram</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">flo</span><span class="op">[</span>,<span class="fl">11</span><span class="op">]</span>, <span class="fu"><a href="../reference/mem.html">mem</a></span><span class="op">(</span><span class="va">listwgab</span><span class="op">)</span>, nblocks <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-45-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-45-1.png" class="r-plt" alt="" width="700" style="display: block; margin: auto;"></p>
 <p>It is possible to compute scalograms for all the species of the data
 table. These scalograms can be stored in a table and analysing this
 table with a PCA allows to identify the important scales of the data set
@@ -915,7 +914,7 @@ analysis (an object of class <code>dudi</code>) as argument:</p>
 <span><span class="va">g.mspa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/insert.html" class="external-link">insert</a></span><span class="op">(</span><span class="va">g.abund</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, <span class="va">g.mspa</span>, posi <span class="op">=</span> <span class="va">p2</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">g.mspa</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-46-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-46-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="selection-of-swm-and-mem">Selection of SWM and MEM<a class="anchor" aria-label="anchor" href="#selection-of-swm-and-mem"></a>
@@ -1089,11 +1088,11 @@ is highly significant:</p>
 <span><span class="co">## 15.485157208  0.195439797  0.000306522</span></span></code></pre>
 <div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">test.rda</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-55-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-55-1.png" class="r-plt" alt="" width="700" style="display: block; margin: auto;"></p>
 <p>Associated spatial structures can be mapped:</p>
 <div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.value.html" class="external-link">s.value</a></span><span class="op">(</span><span class="va">mxy</span>, <span class="va">rda.hell</span><span class="op">$</span><span class="va">li</span>, Sp <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial.contour</span>, symbol <span class="op">=</span> <span class="st">"circle"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"palegreen4"</span><span class="op">)</span>, ppoint.cex <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-56-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-56-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="varpart">Variation partitioning<a class="anchor" aria-label="anchor" href="#varpart"></a>
@@ -1108,11 +1107,10 @@ implemented in the function <code>varpart</code> of package
 <code>vegan</code> that is able to deal with up to four tables of
 predictors:</p>
 <div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan" class="external-link">vegan</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vegandevs.github.io/vegan/" class="external-link">vegan</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required package: permute</span></span></code></pre>
-<pre><code><span><span class="co">## Loading required package: lattice</span></span></code></pre>
-<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">vp1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/vegan/man/varpart.html" class="external-link">varpart</a></span><span class="op">(</span><span class="va">pca.hell</span><span class="op">$</span><span class="va">tab</span>, <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, <span class="va">sel.lw</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">MEM.select</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vp1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://vegandevs.github.io/vegan/reference/varpart.html" class="external-link">varpart</a></span><span class="op">(</span><span class="va">pca.hell</span><span class="op">$</span><span class="va">tab</span>, <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, <span class="va">sel.lw</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">MEM.select</span><span class="op">)</span></span>
 <span><span class="va">vp1</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Partition of variance in RDA </span></span>
@@ -1141,13 +1139,13 @@ predictors:</p>
 <span><span class="co">## [d] = Residuals                         0.64740    FALSE</span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Use function 'rda' to test significance of fractions of interest</span></span></code></pre>
-<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vp1</span>, bg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>, Xnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"environment"</span>, <span class="st">"spatial"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-57-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-57-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 <p>A simpler function <code>varipart</code> is available in
 <code>ade4</code> that is able to deal only with two tables of
 explanatory variables:</p>
-<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vp2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://adeverse.github.io/ade4/reference/varipart.html" class="external-link">varipart</a></span><span class="op">(</span><span class="va">pca.hell</span><span class="op">$</span><span class="va">tab</span>, <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span>, <span class="va">sel.lw</span><span class="op">$</span><span class="va">best</span><span class="op">$</span><span class="va">MEM.select</span><span class="op">)</span></span>
 <span><span class="va">vp2</span></span></code></pre></div>
 <pre><code><span><span class="co">## Variation Partitioning</span></span>
@@ -1191,11 +1189,11 @@ replicates that preserve the spatial structure of the original data
 2015</a>)</span>. These replicates can be used to create
 spatially-constrained null distribution. For instance, we consider the
 case of bivariate correlation between Elevation and Sodium:</p>
-<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">10</span><span class="op">]</span>, <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">11</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] -0.4033508</span></span></code></pre>
 <p>This correlation can be tested by a standard t-test:</p>
-<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">10</span><span class="op">]</span>, <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">11</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">##  Pearson's product-moment correlation</span></span>
@@ -1211,7 +1209,7 @@ case of bivariate correlation between Elevation and Sodium:</p>
 <p>However this test assumes independence between observations. This
 condition is not observed in our data as suggested by the computation of
 MC:</p>
-<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/moran.randtest.html">moran.randtest</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">10</span><span class="op">]</span>, <span class="va">lw.best</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Monte-Carlo test</span></span>
 <span><span class="co">## Call: moran.randtest(x = mafragh$env[, 10], listw = lw.best)</span></span>
@@ -1226,16 +1224,16 @@ MC:</p>
 <span><span class="co">##       4.341745200      -0.007295609       0.008096842</span></span></code></pre>
 <p>An alternative is to generate random replicates for the two variables
 with same level of spatial autocorrelation:</p>
-<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">msr1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/msr.html">msr</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">10</span><span class="op">]</span>, <span class="va">lw.best</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="../reference/moran.randtest.html">moran.randtest</a></span><span class="op">(</span><span class="va">msr1</span>, <span class="va">lw.best</span>, nrepet <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">obs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
 <span><span class="co">##  0.3680  0.3775  0.3817  0.3817  0.3862  0.3940</span></span></code></pre>
-<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">msr2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/msr.html">msr</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">11</span><span class="op">]</span>, <span class="va">lw.best</span><span class="op">)</span></span></code></pre></div>
 <p>Then, the statistic is computed on observed and simulated data to
 build a randomization test:</p>
-<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">10</span><span class="op">]</span>, <span class="va">mafragh</span><span class="op">$</span><span class="va">env</span><span class="op">[</span>,<span class="fl">11</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">msr1</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">msr1</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span>, <span class="va">msr2</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">testmsr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://adeverse.github.io/ade4/reference/randtest.html" class="external-link">as.randtest</a></span><span class="op">(</span>obs <span class="op">=</span> <span class="va">obs</span>, sim <span class="op">=</span> <span class="va">sim</span>, alter <span class="op">=</span> <span class="st">"two-sided"</span><span class="op">)</span></span>
@@ -1256,7 +1254,7 @@ implemented in <code>adespatial</code>. For instance, it can be used to
 correct estimates and significance of the environmental fraction in the
 case of a variation partitioning <span class="citation">(<a href="#ref-Clappe2018">Clappe, Dray, and Peres-Neto 2018</a>)</span>
 computed with the <code>varipart</code> function:</p>
-<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/msr.html">msr</a></span><span class="op">(</span><span class="va">vp2</span>, listwORorthobasis <span class="op">=</span> <span class="va">lw.best</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Variation Partitioning</span></span>
 <span><span class="co">## class: varipart list </span></span>
@@ -1386,7 +1384,7 @@ Ecology and Evolution</em> 6 (10): 1169–78.
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer>
