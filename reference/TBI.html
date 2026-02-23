@@ -80,6 +80,7 @@ each site. The difference between species (or abundances-per-species) gains
 <span>  method <span class="op">=</span> <span class="st">"%difference"</span>,</span>
 <span>  pa.tr <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  nperm <span class="op">=</span> <span class="fl">99</span>,</span>
+<span>  p.adjust.method <span class="op">=</span> <span class="st">"holm"</span>,</span>
 <span>  BCD <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  replace <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  test.BC <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -122,6 +123,11 @@ presence-absence, or pa) form. If <code>pa.tr=FALSE</code>, they are not.</p></d
 <dd><p>Number of permutations for the tests of significance of the
 temporal beta indices and the permutation test of the B-C difference. Use
 <code>nperm</code> = 999 or 9999 in real studies.</p></dd>
+
+
+<dt id="arg-p-adjust-method">p.adjust.method<a class="anchor" aria-label="anchor" href="#arg-p-adjust-method"></a></dt>
+<dd><p>a string indicating a method for multiple adjustment,
+see <code>p.adjust.methods</code> for possible choices.</p></dd>
 
 
 <dt id="arg-bcd">BCD<a class="anchor" aria-label="anchor" href="#arg-bcd"></a></dt>
@@ -194,9 +200,9 @@ option is useful to predict the calculation time when <em>n</em> and
   (e.g. p.TBI &lt;= 0.05) indicate exceptional objects for the difference of
   their species composition.</p></li>
 <li><p><code>p.adj</code> The p-values are corrected for multiple testing using
-  function p.adjust of <code>stats</code>. The adjustment is done using
-  <code>method="holm"</code>, which is the default option of the <code>p.adjust</code>
-  function.</p></li>
+  function p.adjust of <code>stats</code>. The adjustment is done by default using
+  <code>method="holm"</code>. User can change the correction type via the argument
+  <code>pa.adjust.method</code>, see <code>p.adjust.methods</code> for possible choices.</p></li>
 <li><p><code>BCD.mat</code> An output table with four columns: B/den, C/den,
   D=(B+C)/den, and Change. The value den is the denominator of the index,
   i.e. (2A+B+C) for the percentage difference index and (A+B+C) for the
