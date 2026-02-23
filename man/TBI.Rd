@@ -10,6 +10,7 @@ TBI(
   method = "\%difference",
   pa.tr = FALSE,
   nperm = 99,
+  p.adjust.method = "holm",
   BCD = TRUE,
   replace = FALSE,
   test.BC = TRUE,
@@ -41,6 +42,9 @@ presence-absence, or pa) form. If \code{pa.tr=FALSE}, they are not.}
 \item{nperm}{Number of permutations for the tests of significance of the
 temporal beta indices and the permutation test of the B-C difference. Use
 \code{nperm} = 999 or 9999 in real studies.}
+
+\item{p.adjust.method}{a string indicating a method for multiple adjustment, 
+see \code{p.adjust.methods} for possible choices.}
 
 \item{BCD}{If \code{BCD=TRUE}, the B and C components of the
 percentage difference (\code{method="\%difference"}) and Ruzicka
@@ -101,9 +105,9 @@ Function TBI returns a list containing the following results:
   their species composition.
 
   \item \code{p.adj} The p-values are corrected for multiple testing using
-  function p.adjust of \code{stats}. The adjustment is done using
-  \code{method="holm"}, which is the default option of the \code{p.adjust}
-  function.
+  function p.adjust of \code{stats}. The adjustment is done by default using
+  \code{method="holm"}. User can change the correction type via the argument
+  \code{pa.adjust.method}, see \code{p.adjust.methods} for possible choices.
 
   \item \code{BCD.mat} An output table with four columns: B/den, C/den,
   D=(B+C)/den, and Change. The value den is the denominator of the index,
