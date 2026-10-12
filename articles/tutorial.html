@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">adespatial</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-29</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-30</span>
       </span>
     </div>
 
@@ -84,9 +84,9 @@ the spatial multiscale analysis of ecological data</h1>
                         <h4 data-toc-skip class="author">Stéphane
 Dray</h4>
             
-            <h4 data-toc-skip class="date">2026-03-21</h4>
+            <h4 data-toc-skip class="date">2026-10-12</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/v0.3-29/vignettes/tutorial.Rmd" class="external-link"><code>vignettes/tutorial.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/adeverse/adespatial/blob/master/vignettes/tutorial.Rmd" class="external-link"><code>vignettes/tutorial.Rmd</code></a></small>
       <div class="hidden name"><code>tutorial.Rmd</code></div>
 
     </div>
@@ -113,7 +113,7 @@ while the weighting matrix allows weighting the connections, for
 instance to define that the strength of the connection between two
 samples decreases with the geographic distance.</p>
 <p>Once SWM is defined, it can be used to build Moran’s Eigenvector Maps
-(MEM, <span class="citation">Dray, Legendre, and Peres-Neto (<a href="#ref-Dray2006">2006</a>)</span>) that are orthogonal vectors
+(MEM, <span class="citation">Dray et al. (<a href="#ref-Dray2006">2006</a>)</span>) that are orthogonal vectors
 maximizing the spatial autocorrelation (measured by Moran’s
 coefficient). These spatial predictors can be used in multivariate
 statistical methods to provide spatially-explicit multiscale tools <span class="citation">(<a href="#ref-Dray2012">Dray et al. 2012</a>)</span>.
@@ -225,7 +225,7 @@ background to display the sampling design:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mxy</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/adegraphics/man/s.label.html" class="external-link">s.label</a></span><span class="op">(</span><span class="va">mxy</span>, ppoint.pch <span class="op">=</span> <span class="fl">15</span>, ppoint.col <span class="op">=</span> <span class="st">"darkseagreen4"</span>, Sp <span class="op">=</span> <span class="va">mafragh</span><span class="op">$</span><span class="va">Spatial.contour</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="384" style="display: block; margin: auto;"></p>
-<p>A more detailed description of the data set is available at <a href="http://pbil.univ-lyon1.fr/R/pdf/pps053.pdf" class="external-link uri">http://pbil.univ-lyon1.fr/R/pdf/pps053.pdf</a> (in
+<p>A more detailed description of the data set is available at <a href="https://pbil.univ-lyon1.fr/R/pdf/pps053.pdf" class="external-link uri">https://pbil.univ-lyon1.fr/R/pdf/pps053.pdf</a> (in
 French).</p>
 <p>The functionalities of the <code>adegraphics</code> package <span class="citation">(<a href="#ref-Siberchicot2017">Siberchicot et al.
 2017</a>)</span> can be used to design simple thematic maps to represent
@@ -248,12 +248,10 @@ Voronoi polygons contained in <code>mafragh$Spatial</code>:</p>
 </h2>
 <p>Spatial neighborhoods are managed in <code>spdep</code> as objects of
 class <code>nb</code>. It corresponds to the notion of connectivity
-matrices discussed in <span class="citation">Dray, Legendre, and
-Peres-Neto (<a href="#ref-Dray2006">2006</a>)</span> and can be
-represented by an unweighted graph. Various functions allow to create
-<code>nb</code> objects from geographic coordinates of sites. We present
-different alternatives according to the design of the sampling
-scheme.</p>
+matrices discussed in <span class="citation">Dray et al. (<a href="#ref-Dray2006">2006</a>)</span> and can be represented by an
+unweighted graph. Various functions allow to create <code>nb</code>
+objects from geographic coordinates of sites. We present different
+alternatives according to the design of the sampling scheme.</p>
 <div class="section level3">
 <h3 id="surface-data">Surface data<a class="anchor" aria-label="anchor" href="#surface-data"></a>
 </h3>
@@ -502,7 +500,7 @@ neighbors are obtained by the function :</p>
 <code class="sourceCode R"><span><span class="va">distgab</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 16.63971 21.34986 14.54966 16.99176</span></span></code></pre>
 <p>Then, spatial weights are defined as a function of distance
-(e.g. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>d</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mi>/</mi><mi>m</mi><mi>a</mi><mi>x</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>d</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">1-d_{ij}/max(d_{ij})</annotation></semantics></math>):</p>
+(e.g. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>d</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mi>/</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1-d_{ij}/max(d_{ij})</annotation></semantics></math>):</p>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fdist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">distgab</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">x</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">mxy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>And the spatial weighting matrix is then created:</p>
@@ -572,7 +570,7 @@ whereas principal coordinates of neighbour matrices (PCNM, <span class="citation
 framework. If we consider the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">n \times n</annotation></semantics></math>
 spatial weighting matrix
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐖</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{W} = [w_{ij}]</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐖</mi><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\mathbf{W} = [w_{ij}]</annotation></semantics></math>,
 they are the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math>
 eigenvectors obtained by the diagonalization of the doubly-centred
@@ -582,9 +580,9 @@ SWM:</p>
 </annotation></semantics></math></p>
 <p>where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝛀</mi><mo>=</mo><mrow><mi>𝐇</mi><mi>𝐖</mi><mi>𝐇</mi></mrow></mrow><annotation encoding="application/x-tex">\mathbf{\Omega} = \mathbf{HWH}</annotation></semantics></math>
-is the doubly-centred SWM and <span class="math inline">$\mathbf{H} =
-\left ( \mathbf{I}-\mathbf{11}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}/n
-\right )$</span> is the centring operator.</p>
+is the doubly-centred SWM and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐇</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐈</mi><mo>−</mo><mn>𝟏𝟏</mn><msup><mspace width="-0.119em"></mspace><mi>⊤</mi></msup><mspace width="-0.119em"></mspace><mi>/</mi><mi>n</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{H} = \left ( \mathbf{I}-\mathbf{11}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}/n \right )</annotation></semantics></math>
+is the centring operator.</p>
 <p>MEMs are orthogonal vectors with a unit norm that maximize Moran’s
 coefficient of spatial autocorrelation <span class="citation">(<a href="#ref-Griffith1996">Griffith 1996</a>; <a href="#ref-Dray2012">Dray
 et al. 2012</a>)</span> and are stored in matrix
@@ -637,9 +635,8 @@ better to map MEMs in the geographical space by documenting the argument
 <code>moran.randtest</code> function:</p>
 <div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">moranI</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/moran.randtest.html">moran.randtest</a></span><span class="op">(</span><span class="va">mem.gab</span>, <span class="va">listwgab</span>, <span class="fl">99</span><span class="op">)</span></span></code></pre></div>
-<p>As demonstrated in <span class="citation">Dray, Legendre, and
-Peres-Neto (<a href="#ref-Dray2006">2006</a>)</span>, eigenvalues and
-Moran’s I are equal (post-multiply by a constant):</p>
+<p>As demonstrated in <span class="citation">Dray et al. (<a href="#ref-Dray2006">2006</a>)</span>, eigenvalues and Moran’s I are
+equal (post-multiply by a constant):</p>
 <div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">mem.gab</span>, <span class="st">"values"</span><span class="op">)</span> <span class="op">/</span> <span class="va">moranI</span><span class="op">$</span><span class="va">obs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## MEM1.statistic MEM2.statistic MEM3.statistic MEM4.statistic MEM5.statistic </span></span>
@@ -664,27 +661,27 @@ illustrate the different methods.</p>
 of a quantitative variable using the Moran’s coefficient. If we consider
 the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n \times 1</annotation></semantics></math>
-vector <span class="math inline">$\mathbf{x} = \left ( {x_1 \cdots x_n }
-\right )\hspace{-0.05cm}^{\top}\hspace{-0.05cm}$</span> containing
-measurements of a quantitative variable for
+vector
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐱</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mn>1</mn></msub><mi>⋯</mi><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><msup><mspace width="-0.119em"></mspace><mi>⊤</mi></msup><mspace width="-0.119em"></mspace></mrow><annotation encoding="application/x-tex">\mathbf{x} = \left ( {x_1 \cdots x_n } \right )\hspace{-0.05cm}^{\top}\hspace{-0.05cm}</annotation></semantics></math>
+containing measurements of a quantitative variable for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
 sites and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐖</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{W} = [w_{ij}]</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐖</mi><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\mathbf{W} = [w_{ij}]</annotation></semantics></math>
 the SWM. The usual formulation for Moran’s coefficient (MC) of spatial
 autocorrelation is:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>C</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mrow><mi>n</mi><msub><mo>∑</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></msub><mrow><msub><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>j</mi></msub><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mrow><mrow><msub><mo>∑</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></msub><msub><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></mfrac><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> where </mtext><mspace width="0.333em"></mspace></mrow><msub><mo>∑</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> with </mtext><mspace width="0.333em"></mspace></mrow><mi>i</mi><mo>≠</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>n</mi><msub><mo>∑</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></msub><mrow><msub><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>j</mi></msub><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo stretchy="false" form="postfix">)</mo></mrow></mrow><mrow><msub><mo>∑</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></msub><msub><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow></mrow></mfrac><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> where </mtext><mspace width="0.333em"></mspace></mrow><msub><mo>∑</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> with </mtext><mspace width="0.333em"></mspace></mrow><mi>i</mi><mo>≠</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">
 MC(\mathbf{x}) = \frac{n\sum\nolimits_{\left( 2 \right)} {w_{ij} (x_i -\bar 
 {x})(x_j -\bar {x})} }{\sum\nolimits_{\left( 2 \right)} {w_{ij} } 
 \sum\nolimits_{i = 1}^n {(x_i -\bar {x})^2} }\mbox{ where 
 }\sum\nolimits_{\left( 2 \right)} =\sum\limits_{i = 1}^n {\sum\limits_{j = 1}^n 
 } \mbox{ with }i\ne j
 </annotation></semantics></math></p>
-<p>MC can be rewritten using matrix notation: <span class="math display">$$
-MC(\mathbf{x}) =
-\frac{n}{\mathbf{1}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}\mathbf{W1}}\frac{\mathbf{z}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}{\mathbf{Wz}}}{\mathbf{z}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}\mathbf{z}}
-$$</span> where <span class="math inline">$\mathbf{z} = \left (
-\mathbf{I}-\mathbf{1}\mathbf{1}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}/n
-\right )\mathbf{x}$</span> is the vector of centred values (i.e.,
+<p>MC can be rewritten using matrix notation:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mi>n</mi><mrow><mn>𝟏</mn><msup><mspace width="-0.119em"></mspace><mi>⊤</mi></msup><mspace width="-0.119em"></mspace><mrow><mi>𝐖</mi><mn>𝟏</mn></mrow></mrow></mfrac><mfrac><mrow><mi>𝐳</mi><msup><mspace width="-0.119em"></mspace><mi>⊤</mi></msup><mspace width="-0.119em"></mspace><mrow><mi>𝐖</mi><mi>𝐳</mi></mrow></mrow><mrow><mi>𝐳</mi><msup><mspace width="-0.119em"></mspace><mi>⊤</mi></msup><mspace width="-0.119em"></mspace><mi>𝐳</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+MC(\mathbf{x}) = \frac{n}{\mathbf{1}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}\mathbf{W1}}\frac{\mathbf{z}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}{\mathbf{Wz}}}{\mathbf{z}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}\mathbf{z}}
+</annotation></semantics></math> where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐳</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐈</mi><mo>−</mo><mn>𝟏</mn><mn>𝟏</mn><msup><mspace width="-0.119em"></mspace><mi>⊤</mi></msup><mspace width="-0.119em"></mspace><mi>/</mi><mi>n</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>𝐱</mi></mrow><annotation encoding="application/x-tex">\mathbf{z} = \left ( \mathbf{I}-\mathbf{1}\mathbf{1}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}/n \right )\mathbf{x}</annotation></semantics></math>
+is the vector of centred values (i.e.,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>i</mi></msub><mo>=</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">z_i = x_i-\bar{x}</annotation></semantics></math>).</p>
 <p>The function <code>moran.mc</code> of the <code>spdep</code> package
 allows to compute and test, by permutation, the significance of the
@@ -718,10 +715,10 @@ independently the spatial structure for several variables.</p>
 <span><span class="co">## 9     Retention 0.2217547  3.609803 greater  0.003</span></span>
 <span><span class="co">## 10        Na+/l 0.3075238  4.791118 greater  0.001</span></span>
 <span><span class="co">## 11    Elevation 0.6136770  9.047577 greater  0.001</span></span></code></pre>
-<p>For a given SWM, the upper and lower bounds of MC are equal to <span class="math inline">$\lambda_{max}
-(n/\mathbf{1}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}\mathbf{W1})$</span>
-and <span class="math inline">$\lambda_{min}
-(n/\mathbf{1}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}\mathbf{W1})$</span>
+<p>For a given SWM, the upper and lower bounds of MC are equal to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>λ</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>/</mi><mn>𝟏</mn><msup><mspace width="-0.119em"></mspace><mi>⊤</mi></msup><mspace width="-0.119em"></mspace><mrow><mi>𝐖</mi><mn>𝟏</mn></mrow><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\lambda_{max} (n/\mathbf{1}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}\mathbf{W1})</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>λ</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>/</mi><mn>𝟏</mn><msup><mspace width="-0.119em"></mspace><mi>⊤</mi></msup><mspace width="-0.119em"></mspace><mrow><mi>𝐖</mi><mn>𝟏</mn></mrow><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\lambda_{min} (n/\mathbf{1}\hspace{-0.05cm}^{\top}\hspace{-0.05cm}\mathbf{W1})</annotation></semantics></math>
 where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><annotation encoding="application/x-tex">\lambda_{max}</annotation></semantics></math>
 and
@@ -811,9 +808,9 @@ structures can be visualized on a map:</p>
 <p>PCA results are highly spatially structured. Results can be
 optimized, compared to this two-step procedure, by searching directly
 for multivariate spatial structures. The <code>multispati</code>
-function implements a method <span class="citation">(<a href="#ref-Dray2008">Dray, Saïd, and Débias 2008</a>)</span> that search
-for axes maximizing the product of variance (multivariate aspect) by MC
-(spatial aspect):</p>
+function implements a method <span class="citation">(<a href="#ref-Dray2008">Dray et al. 2008</a>)</span> that search for axes
+maximizing the product of variance (multivariate aspect) by MC (spatial
+aspect):</p>
 <div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ms.hell</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multispati.html">multispati</a></span><span class="op">(</span><span class="va">pca.hell</span>, listw <span class="op">=</span> <span class="va">listwgab</span>, scannf <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
 <p>The <code>summary</code> method can be applied on the resulting
@@ -894,10 +891,11 @@ MEMs:</p>
 table. These scalograms can be stored in a table and analysing this
 table with a PCA allows to identify the important scales of the data set
 and the similarities between species based on their spatial
-distributions <span class="citation">(<a href="#ref-Jombart2009">Jombart, Dray, and Dufour 2009</a>)</span>. This
-analysis named Multiscale Patterns Analysis (MSPA) is available in the
-<code>mspa</code> function that takes the results of a multivariate
-analysis (an object of class <code>dudi</code>) as argument:</p>
+distributions <span class="citation">(<a href="#ref-Jombart2009">Jombart
+et al. 2009</a>)</span>. This analysis named Multiscale Patterns
+Analysis (MSPA) is available in the <code>mspa</code> function that
+takes the results of a multivariate analysis (an object of class
+<code>dudi</code>) as argument:</p>
 <div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mspa.hell</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mspa.html">mspa</a></span><span class="op">(</span><span class="va">pca.hell</span>, <span class="va">listwgab</span>, scannf <span class="op">=</span> <span class="cn">FALSE</span>, nf <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
@@ -1098,8 +1096,8 @@ is highly significant:</p>
 <h3 id="varpart">Variation partitioning<a class="anchor" aria-label="anchor" href="#varpart"></a>
 </h3>
 <p>Spatial structures identified by Redundancy Analysis in the <a href="#rda">previous section</a> can be due to niche filtering or other
-processes (e.g., neutral dynamics). Variation partitioning <span class="citation">(<a href="#ref-Borcard1992">Borcard, Legendre, and
-Drapeau 1992</a>)</span> based on adjusted
+processes (e.g., neutral dynamics). Variation partitioning <span class="citation">(<a href="#ref-Borcard1992">Borcard et al.
+1992</a>)</span> based on adjusted
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math><span class="citation">(<a href="#ref-Peres-Neto2006a">Peres-Neto et al.
 2006</a>)</span> can be used to identify the part of spatial structures
 that can be explained or not by environmental predictors. This method is
@@ -1252,8 +1250,8 @@ build a randomization test:</p>
 <p>The function <code>msr</code> is generic and several methods are
 implemented in <code>adespatial</code>. For instance, it can be used to
 correct estimates and significance of the environmental fraction in the
-case of a variation partitioning <span class="citation">(<a href="#ref-Clappe2018">Clappe, Dray, and Peres-Neto 2018</a>)</span>
-computed with the <code>varipart</code> function:</p>
+case of a variation partitioning <span class="citation">(<a href="#ref-Clappe2018">Clappe et al. 2018</a>)</span> computed with the
+<code>varipart</code> function:</p>
 <div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/msr.html">msr</a></span><span class="op">(</span><span class="va">vp2</span>, listwORorthobasis <span class="op">=</span> <span class="va">lw.best</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Variation Partitioning</span></span>
@@ -1284,7 +1282,7 @@ computed with the <code>varipart</code> function:</p>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-Bauman2018" class="csl-entry">
 Bauman, D, T Drouet, S Dray, and J Vleminckx. 2018. <span>“<span class="nocase">Disentangling good from bad practices in the selection of
 spatial or phylogenetic eigenvectors</span>.”</span> <em>Ecography</em>
@@ -1326,8 +1324,7 @@ coordinate analysis of neighbor matrices (PCNM)</span>.”</span>
 <em>Ecological Modelling</em> 196: 483–93.
 </div>
 <div id="ref-Dray2012" class="csl-entry">
-Dray, S, R Pélissier, P Couteron, M J Fortin, P Legendre, P R
-Peres-Neto, E Bellier, et al. 2012. <span>“<span class="nocase">Community ecology in the age of multivariate multiscale
+Dray, S, R Pélissier, P Couteron, et al. 2012. <span>“<span class="nocase">Community ecology in the age of multivariate multiscale
 spatial analysis</span>.”</span> <em>Ecological Monographs</em> 82 (3):
 257–75.
 </div>
@@ -1384,7 +1381,7 @@ Ecology and Evolution</em> 6 (10): 1169–78.
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer>
