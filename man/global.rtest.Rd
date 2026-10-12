@@ -6,6 +6,8 @@
 \title{Global and local tests}
 \usage{
 global.rtest(X, listw, k = 1, nperm = 499)
+
+local.rtest(X, listw, k = 1, nperm = 499)
 }
 \arguments{
 \item{X}{a data matrix, with variables in columns}

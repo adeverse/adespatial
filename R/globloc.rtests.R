@@ -37,7 +37,7 @@
 #' 
 #' 
 #' @importFrom ade4 as.randtest
-#' @export global.rtest local.rtest
+#' @export
 
 global.rtest <- function(X, listw, k = 1, nperm = 499){
     if (!inherits(listw, "listw")) stop("object of class 'listw' expected")
@@ -69,6 +69,8 @@ global.rtest <- function(X, listw, k = 1, nperm = 499){
     return(res)
 } #end global.rtest
 
+#' @rdname global.rtest 
+#' @export
 local.rtest <- function(X, listw, k = 1, nperm = 499){
     if (!inherits(listw, "listw")) stop("object of class 'listw' expected")
     if (listw$style != "W") stop("object of class 'listw' with style 'W' expected")
