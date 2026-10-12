@@ -161,6 +161,7 @@
 #' @importFrom utils head
 #' 
 #' @evalNamespace "S3method(plot,constr.hclust)" ## Waiting for a better way...
+#' @exportS3Method
 plot.constr.hclust <- function(x, k, xlim, ylim, xlab, ylab, bg, col, lty, lwd,
                                col.links, links=FALSE, points=TRUE, pch=21L,
                                hybrids=c("change","single","none"), lty.hyb=1L,

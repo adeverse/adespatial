@@ -106,11 +106,6 @@ meaningful solution in many applications is to compute a Moran's I correlogram
 (for univariate data) or a Mantel correlogram (for multivariate data), and
 provide the distance where the correlation becomes 0 as the value for max.d.
 }
-\section{Functions}{
-\itemize{
-\item \code{aem.weight.time()}: 
-
-}}
 \examples{
 
 ### Time serie example

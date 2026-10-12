@@ -1,4 +1,4 @@
-#' @describeIn aem.weight.edges 
+#' @rdname aem.weight.edges 
 #' @export
 
 aem.weight.time <- function(dates, distmat=NULL,alpha=2, beta=NULL, max.d=NULL, unit.angle="degrees", rot.angle=0, rm.same.y=TRUE, plot.connexions=TRUE){
