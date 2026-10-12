@@ -4,17 +4,17 @@
   "identifier": "adespatial",
   "description": "Tools for the multiscale spatial analysis of multivariate data. Several methods are based on the use of a spatial weighting matrix and its eigenvector decomposition (Moran's Eigenvectors Maps, MEM). Several approaches are described in the review Dray et al (2012) <doi:10.1890/11-1183.1>.",
   "name": "adespatial: Multivariate Multiscale Spatial Analysis",
-  "relatedLink": ["http://adeverse.github.io/adespatial/", "https://CRAN.R-project.org/package=adespatial"],
+  "relatedLink": "http://adeverse.github.io/adespatial/",
   "codeRepository": "https://github.com/adeverse/adespatial",
   "issueTracker": "https://github.com/adeverse/adespatial/issues",
   "license": "https://spdx.org/licenses/GPL-2.0",
-  "version": "0.3.25",
+  "version": "0.3.30",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.3 (2025-02-28)",
+  "runtimePlatform": "R version 4.6.1 (2026-06-24)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -109,18 +109,6 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
-      "identifier": "knitr",
-      "name": "knitr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=knitr"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "ape",
       "name": "ape",
       "provider": {
@@ -130,6 +118,30 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=ape"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "betapart",
+      "name": "betapart",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=betapart"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "knitr",
+      "name": "knitr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
     },
     {
       "@type": "SoftwareApplication",
@@ -145,15 +157,15 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "betapart",
-      "name": "betapart",
+      "identifier": "testthat",
+      "name": "testthat",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=betapart"
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
     }
   ],
   "softwareRequirements": {
@@ -283,6 +295,7 @@
       "@type": "SoftwareApplication",
       "identifier": "vegan",
       "name": "vegan",
+      "version": ">= 2.6-4",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -299,7 +312,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "2135.1KB",
+  "fileSize": "2156.543KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -362,7 +375,7 @@
       ],
       "name": "{adespatial}: Multivariate Multiscale Spatial Analysis",
       "url": "https://CRAN.R-project.org/package=adespatial",
-      "description": "R package version 0.3-25"
+      "description": "R package version 0.3-30"
     },
     {
       "@type": "ScholarlyArticle",
@@ -395,8 +408,5 @@
         }
       }
     }
-  ],
-  "readme": "https://github.com/adeverse/adespatial/blob/master/README.md",
-  "contIntegration": "https://github.com/adeverse/adespatial/actions/workflows/R-CMD-check.yaml",
-  "developmentStatus": "https://www.repostatus.org/#active"
+  ]
 }
