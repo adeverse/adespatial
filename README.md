@@ -1,6 +1,6 @@
 # adespatial <img src='man/figures/logo.svg' align="right" height="139" />
 
-[![CRAN_Release_Badge](https://www.r-pkg.org/badges/version-ago/adespatial)](http://cran.r-project.org/package=adespatial)
+[![CRAN_Release_Badge](https://www.r-pkg.org/badges/version-ago/adespatial)](https://cran.r-project.org/package=adespatial)
 [![CRAN Downloads](https://cranlogs.r-pkg.org/badges/adespatial)](https://cran.r-project.org/package=adespatial)
 [![R-CMD-check](https://github.com/adeverse/adespatial/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/adeverse/adespatial/actions/workflows/R-CMD-check.yaml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -24,7 +24,7 @@ Installing the development version of `adespatial`
 - Install the release version of `remotes` from CRAN with `install.packages("remotes")`.
 
 - Make sure you have a working development environment.
-    * **Windows**: Install [Rtools](http://cran.r-project.org/bin/windows/Rtools/).
+    * **Windows**: Install [Rtools](https://cran.r-project.org/bin/windows/Rtools/).
     * **Mac**: Install Xcode from the Mac App Store.
     * **Linux**: Install a compiler and various development libraries (details vary across different flavors of Linux).
     
