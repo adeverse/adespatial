@@ -67,7 +67,7 @@ rownames(mxy) <- NULL
 s.label(mxy, ppoint.pch = 15, ppoint.col = "darkseagreen4", Sp = mafragh$Spatial.contour)
 ```
 
-A more detailed description of the data set is available at http://pbil.univ-lyon1.fr/R/pdf/pps053.pdf (in French). 
+A more detailed description of the data set is available at https://pbil.univ-lyon1.fr/R/pdf/pps053.pdf (in French). 
 
 The functionalities of the `adegraphics` package [@Siberchicot2017] can be used to design simple thematic maps to represent data. For instance, it is possible to represent the spatial distribution of two species using the `s.Spatial` function applied on Voronoi polygons contained in `mafragh$Spatial`: 
 
