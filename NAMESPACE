@@ -77,105 +77,124 @@ importClassesFrom(sp,SpatialPointsDataFrame)
 importClassesFrom(sp,SpatialPolygons)
 importClassesFrom(sp,SpatialPolygonsDataFrame)
 importFrom(MASS,ginv)
-importFrom(ade4,as.dudi)
-importFrom(ade4,as.krandtest)
-importFrom(ade4,as.randtest)
-importFrom(ade4,bicenter.wt)
-importFrom(ade4,combine.4thcorner)
-importFrom(ade4,dist.quant)
-importFrom(ade4,dudi.pco)
-importFrom(ade4,is.euclid)
-importFrom(ade4,mstree)
-importFrom(ade4,neig2mat)
-importFrom(ade4,neig2nb)
-importFrom(ade4,pcoscaled)
-importFrom(ade4,scalewt)
-importFrom(ade4,scatter)
-importFrom(adegraphics,layout2position)
-importFrom(adegraphics,plotEig)
-importFrom(adegraphics,s.Spatial)
-importFrom(adegraphics,s.arrow)
-importFrom(adegraphics,s.corcircle)
-importFrom(adegraphics,s.label)
-importFrom(adegraphics,s.match)
-importFrom(adegraphics,s1d.barchart)
-importFrom(adegraphics,sortparamADEgS)
+importFrom(ade4,
+  as.dudi,
+  as.krandtest,
+  as.randtest,
+  bicenter.wt,
+  combine.4thcorner,
+  dist.quant,
+  dudi.pco,
+  is.euclid,
+  mstree,
+  neig2mat,
+  neig2nb,
+  pcoscaled,
+  scalewt,
+  scatter
+)
+importFrom(adegraphics,
+  layout2position,
+  plotEig,
+  s.Spatial,
+  s.arrow,
+  s.corcircle,
+  s.label,
+  s.match,
+  s1d.barchart,
+  sortparamADEgS
+)
 importFrom(adephylo,me.phylo)
-importFrom(grDevices,dev.cur)
-importFrom(grDevices,dev.flush)
-importFrom(grDevices,dev.hold)
-importFrom(grDevices,rainbow)
-importFrom(grDevices,xyTable)
-importFrom(graphics,abline)
-importFrom(graphics,barplot)
-importFrom(graphics,lines)
-importFrom(graphics,par)
-importFrom(graphics,plot)
-importFrom(graphics,points)
-importFrom(graphics,segments)
-importFrom(graphics,text)
+importFrom(grDevices,
+  dev.cur,
+  dev.flush,
+  dev.hold,
+  rainbow,
+  xyTable
+)
+importFrom(graphics,
+  abline,
+  barplot,
+  lines,
+  par,
+  plot,
+  points,
+  segments,
+  text
+)
 importFrom(lattice,xyplot)
-importFrom(methods,hasArg)
-importFrom(methods,new)
+importFrom(methods,
+  hasArg,
+  new
+)
 importFrom(shiny,runApp)
-importFrom(sp,SpatialGridDataFrame)
-importFrom(sp,SpatialLinesDataFrame)
-importFrom(sp,SpatialPoints)
-importFrom(sp,SpatialPointsDataFrame)
-importFrom(sp,SpatialPolygonsDataFrame)
-importFrom(spdep,Szero)
-importFrom(spdep,card)
-importFrom(spdep,cell2nb)
-importFrom(spdep,dnearneigh)
-importFrom(spdep,gabrielneigh)
-importFrom(spdep,graph2nb)
-importFrom(spdep,knearneigh)
-importFrom(spdep,knn2nb)
-importFrom(spdep,lag.listw)
-importFrom(spdep,listw2mat)
-importFrom(spdep,listw2sn)
-importFrom(spdep,mat2listw)
-importFrom(spdep,moran)
-importFrom(spdep,moran.mc)
-importFrom(spdep,nb2listw)
-importFrom(spdep,nbdists)
-importFrom(spdep,relativeneigh)
-importFrom(spdep,tri2nb)
-importFrom(stats,as.dist)
-importFrom(stats,as.formula)
-importFrom(stats,chisq.test)
-importFrom(stats,cor)
-importFrom(stats,cutree)
-importFrom(stats,dist)
-importFrom(stats,hclust)
-importFrom(stats,lm)
-importFrom(stats,lm.wfit)
-importFrom(stats,model.frame)
-importFrom(stats,model.matrix)
-importFrom(stats,na.omit)
-importFrom(stats,optim)
-importFrom(stats,p.adjust)
-importFrom(stats,pf)
-importFrom(stats,pnorm)
-importFrom(stats,poly)
-importFrom(stats,pt)
-importFrom(stats,qchisq)
-importFrom(stats,rbinom)
-importFrom(stats,residuals)
-importFrom(stats,runif)
-importFrom(stats,sd)
-importFrom(stats,t.test)
-importFrom(stats,var)
-importFrom(stats,weighted.mean)
-importFrom(utils,edit)
-importFrom(utils,head)
-importFrom(utils,modifyList)
-importFrom(utils,tail)
-importFrom(vegan,RsquareAdj)
-importFrom(vegan,anova.cca)
-importFrom(vegan,decostand)
-importFrom(vegan,rda)
-importFrom(vegan,varpart)
+importFrom(sp,
+  SpatialGridDataFrame,
+  SpatialLinesDataFrame,
+  SpatialPoints,
+  SpatialPointsDataFrame,
+  SpatialPolygonsDataFrame
+)
+importFrom(spdep,
+  Szero,
+  card,
+  cell2nb,
+  dnearneigh,
+  gabrielneigh,
+  graph2nb,
+  knearneigh,
+  knn2nb,
+  lag.listw,
+  listw2mat,
+  listw2sn,
+  mat2listw,
+  moran,
+  moran.mc,
+  nb2listw,
+  nbdists,
+  relativeneigh,
+  tri2nb
+)
+importFrom(stats,
+  as.dist,
+  as.formula,
+  chisq.test,
+  cor,
+  cutree,
+  dist,
+  hclust,
+  lm,
+  lm.wfit,
+  model.frame,
+  model.matrix,
+  na.omit,
+  optim,
+  p.adjust,
+  pf,
+  pnorm,
+  poly,
+  pt,
+  qchisq,
+  rbinom,
+  residuals,
+  runif,
+  sd,
+  t.test,
+  var,
+  weighted.mean
+)
+importFrom(utils,
+  edit,
+  head,
+  modifyList,
+  tail
+)
+importFrom(vegan,
+  RsquareAdj,
+  anova.cca,
+  decostand,
+  rda
+)
 importMethodsFrom(adegraphics,insert)
 importMethodsFrom(adegraphics,superpose)
 importMethodsFrom(sp,coordinates)

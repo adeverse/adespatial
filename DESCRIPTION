@@ -37,11 +37,16 @@ Imports:
     shiny,
     vegan
 Depends: R (>= 3.5.0)
-Suggests: knitr, ape, rmarkdown, betapart
+Suggests: 
+  ape, 
+  betapart,
+  knitr, 
+  rmarkdown, 
+  testthat
 License: GPL (>= 2)
 URL: https://github.com/adeverse/adespatial, http://adeverse.github.io/adespatial/
 BugReports: https://github.com/adeverse/adespatial/issues
 Encoding: UTF-8
 NeedsCompilation: yes
-RoxygenNote: 7.3.2
 VignetteBuilder: knitr
+Config/roxygen2/version: 8.1.0
